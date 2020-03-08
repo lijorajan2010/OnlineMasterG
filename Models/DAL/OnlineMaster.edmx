@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OnlinemasterjiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="LanguageId" />
+          </Key>
+          <Property Name="LanguageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="LanguageName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DefaultLanguageCode" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditOn" Type="datetime" />
+          <Property Name="UserTypeCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="LogoDataFileId" Type="int" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserTypes">
+          <Key>
+            <PropertyRef Name="UserTypeCode" />
+          </Key>
+          <Property Name="UserTypeCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="UserTypeName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__User__UserTypeCo__403A8C7D">
+          <End Role="UserTypes" Type="Self.UserTypes" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTypes">
+              <PropertyRef Name="UserTypeCode" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserTypeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OnlinemasterjiModelStoreContainer">
+          <EntitySet Name="Language" EntityType="Self.Language" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTypes" EntityType="Self.UserTypes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__User__UserTypeCo__403A8C7D" Association="Self.FK__User__UserTypeCo__403A8C7D">
+            <End Role="UserTypes" EntitySet="UserTypes" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OnlinemasterjiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="OnlinemasterjiEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Languages" EntityType="OnlinemasterjiModel.Language" />
+          <EntitySet Name="Users" EntityType="OnlinemasterjiModel.User" />
+          <EntitySet Name="UserTypes" EntityType="OnlinemasterjiModel.UserType" />
+          <AssociationSet Name="FK__User__UserTypeCo__403A8C7D" Association="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D">
+            <End Role="UserType" EntitySet="UserTypes" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="LanguageId" />
+          </Key>
+          <Property Name="LanguageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="LanguageName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DefaultLanguageCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <Property Name="UserTypeCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserType" Relationship="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D" FromRole="User" ToRole="UserType" />
+          <Property Name="LogoDataFileId" Type="Int32" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="UserTypeCode" />
+          </Key>
+          <Property Name="UserTypeCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UserTypeName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D" FromRole="UserType" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__User__UserTypeCo__403A8C7D">
+          <End Type="OnlinemasterjiModel.UserType" Role="UserType" Multiplicity="1" />
+          <End Type="OnlinemasterjiModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserType">
+              <PropertyRef Name="UserTypeCode" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserTypeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OnlinemasterjiModelStoreContainer" CdmEntityContainer="OnlinemasterjiEntities" >
+          <EntitySetMapping Name="Languages">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.Language">
+              <MappingFragment StoreEntitySet="Language">
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LogoDataFileId" ColumnName="LogoDataFileId" />
+                <ScalarProperty Name="UserTypeCode" ColumnName="UserTypeCode" />
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="DefaultLanguageCode" ColumnName="DefaultLanguageCode" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTypes">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.UserType">
+              <MappingFragment StoreEntitySet="UserTypes">
+                <ScalarProperty Name="UserTypeName" ColumnName="UserTypeName" />
+                <ScalarProperty Name="UserTypeCode" ColumnName="UserTypeCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

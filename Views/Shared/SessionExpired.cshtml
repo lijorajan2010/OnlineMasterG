@@ -1,0 +1,9 @@
+﻿@model BRB.WebSite.Models.Shared.SessionExpiredModel
+@{
+	Layout = null;
+}
+Session Expired... redirecting to login page.
+
+<script type="text/javascript">
+	window.location.href = "@Model.LoginPage";
+</script>

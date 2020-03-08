@@ -1,0 +1,13 @@
+﻿@model OnlineMasterG.Models.Shared.ValidationSuccessModel
+
+
+@if (!string.IsNullOrEmpty(Model.Title))
+{
+
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <i class="fa fa-times"></i>
+        </button>
+        <p>@Html.Raw(Model.Title)</p>
+    </div>
+}

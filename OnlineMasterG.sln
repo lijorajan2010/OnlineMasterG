@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineMasterG", "OnlineMasterG.csproj", "{F80ED6AE-5CD4-4A6B-A650-033333D8B361}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migrations", "..\Migrations\Migrations.csproj", "{A966FC7A-3546-4509-90F1-A7D5FB46A625}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F80ED6AE-5CD4-4A6B-A650-033333D8B361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F80ED6AE-5CD4-4A6B-A650-033333D8B361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F80ED6AE-5CD4-4A6B-A650-033333D8B361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F80ED6AE-5CD4-4A6B-A650-033333D8B361}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A966FC7A-3546-4509-90F1-A7D5FB46A625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A966FC7A-3546-4509-90F1-A7D5FB46A625}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A966FC7A-3546-4509-90F1-A7D5FB46A625}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A966FC7A-3546-4509-90F1-A7D5FB46A625}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F616F6C-C06F-4351-B66D-E813C39A989D}
+	EndGlobalSection
+EndGlobal

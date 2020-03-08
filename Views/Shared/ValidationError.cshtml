@@ -1,0 +1,13 @@
+﻿@model OnlineMasterG.Models.Shared.ValidationErrorModel
+
+<div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <i class="fa fa-times"></i>
+    </button>
+    <ul>
+        @foreach (var error in Model.Errors)
+        {
+            <li>@Html.Raw(@error)</li>
+        }
+    </ul>
+</div>
