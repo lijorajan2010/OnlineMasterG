@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<OnlineMasterG.Models.DAL.Course>
+
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -9,6 +10,7 @@
 <table id="tblCourses" class="dataTables_wrapper dt-bootstrap4 no-footer">
     <thead>
         <tr>
+            <th style="width:30px;">Sl No.</th>
             <th>Course Name</th>
             <th style="width:50px;">Sequence</th>
             <th style="width:50px;">Edit</th>
@@ -16,74 +18,24 @@
         </tr>
     </thead>
     <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model.Select((x,y)=>new { Data= x,Index=y}))
+            {
         <tr>
-            <td>Ram</td>
-            <td>21</td>
-            <td><button class="btn btn-info"><i class="fa fa-pencil-alt"></i></button></td>
-            <td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
+            <td>@(item.Index+1)</td>
+            <td>@item.Data.CourseName</td>
+            <td>@item.Data.Sequence</td>
+            <td><button class="btn btn-info" onclick='editCourse(@Html.Raw(Json.Encode(new { id=item.Data.CourseId,courseName = item.Data.CourseName,sequence = item.Data.Sequence, isActive = item.Data.Isactive,languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt" ></i></button></td>
+            <td><button class="btn btn-danger"  onclick='deleteCourse(@Html.Raw(Json.Encode(new { id=item.Data.CourseId,courseName = item.Data.CourseName})))'><i class="fa fa-trash" ></i></button></td>
         </tr>
-        <tr>
-            <td>Mohan</td>
-            <td>32</td>
-            <td><button class="btn btn-info"><i class="fa fa-pencil-alt"></i></button></td>
-            <td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
-        </tr>
-        <tr>
-            <td>Rani</td>
-            <td>42</td>
-            <td><button class="btn btn-info"><i class="fa fa-pencil-alt"></i></button></td>
-            <td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
-        </tr>
-        <tr>
-            <td>Johan</td>
-            <td>23</td>
-            <td><button class="btn btn-info"><i class="fa fa-pencil-alt"></i></button></td>
-            <td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
-        </tr>
-        <tr>
-            <td>Shajia</td>
-            <td>39</td>
-            <td><button class="btn btn-info"><i class="fa fa-pencil-alt"></i></button></td>
-            <td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
-        </tr>
-        <tr>
-            <td>Jack</td>
-            <td>19</td>
-            <td><button class="btn btn-info"><i class="fa fa-pencil-alt"></i></button></td>
-            <td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
-        </tr>
-        <tr>
-            <td>Hina</td>
-            <td>30</td>
-            <td><button class="btn btn-info"><i class="fa fa-pencil-alt"></i></button></td>
-            <td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
-        </tr>
-        <tr>
-            <td>Gauhar</td>
-            <td>36</td>
-            <td><button class="btn btn-info"><i class="fa fa-pencil-alt"></i></button></td>
-            <td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
-        </tr>
-        <tr>
-            <td>Jacky</td>
-            <td>55</td>
-            <td><button class="btn btn-info"><i class="fa fa-pencil-alt"></i></button></td>
-            <td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
-        </tr>
-        <tr>
-            <td>Pintu</td>
-            <td>36</td>
-            <td><button class="btn btn-info"><i class="fa fa-pencil-alt"></i></button></td>
-            <td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
-        </tr>
-        <tr>
-            <td>Sumit</td>
-            <td>33</td>
-            <td><button class="btn btn-info"><i class="fa fa-pencil-alt"></i></button></td>
-            <td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
-        </tr>
+
+            }
+
+        }
 
     </tbody>
 </table>
+<script>
 
-
+</script>

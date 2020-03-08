@@ -1,4 +1,7 @@
 ﻿using OnlineMasterG.Base;
+using OnlineMasterG.CommonServices;
+using OnlineMasterG.DomainLogic;
+using OnlineMasterG.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,18 +20,32 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult CourseList()
         {
-            return PartialView();
+            var model = CourseService.CourseList(true);
+            return PartialView(model);
         }
 
         [HttpPost]
-        public JsonResult SaveCourse()
+        public JsonResult SaveCourse(CourseVM model)
         {
+
             // Validate & Save
             var sr = new ServiceResponse();
+            sr = CourseLogics.ValidateCourse(model);
+            if (!sr.Status)
+                return GetJsonValidation(sr);
+            sr = CourseLogics.SaveCourse(model,HttpContext.User.Identity.Name);
             if (!sr.Status)
                 return GetJsonValidation(sr);
 
-            return GetJsonValidation(sr, "Airport has been successfully saved.");
+            return GetJsonValidation(sr, "Course has been successfully saved.");
         }
+        [HttpPost]
+        public JsonResult DeleteCourse(int coursetId)
+        {
+            var sr = CourseService.DeleteCourse(coursetId);
+
+            return GetJsonValidation(sr, "Course has been successfully deleted.");
+        }
+
     }
 }

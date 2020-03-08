@@ -28,5 +28,6 @@ namespace OnlineMasterG.Models.DAL
         public virtual DbSet<Language> Languages { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
+        public virtual DbSet<Course> Courses { get; set; }
     }
 }
