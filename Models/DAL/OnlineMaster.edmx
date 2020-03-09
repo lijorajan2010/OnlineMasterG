@@ -5,6 +5,21 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="OnlinemasterjiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Sequence" Type="int" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditOn" Type="datetime" />
+          <Property Name="CourseId" Type="int" />
+        </EntityType>
         <EntityType Name="Course">
           <Key>
             <PropertyRef Name="CourseId" />
@@ -12,7 +27,7 @@
           <Property Name="CourseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CourseName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Sequence" Type="int" />
-          <Property Name="LanguageCode" Type="varchar" MaxLength="10" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Isactive" Type="bit" Nullable="false" />
           <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CreateOn" Type="datetime" Nullable="false" />
@@ -27,6 +42,58 @@
           <Property Name="LanguageCode" Type="varchar" MaxLength="10" />
           <Property Name="LanguageName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Isactive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MockTest">
+          <Key>
+            <PropertyRef Name="TestId" />
+          </Key>
+          <Property Name="TestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditOn" Type="datetime" />
+          <Property Name="CourseId" Type="int" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="SectionId" Type="int" />
+          <Property Name="TimeInMinutes" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="SectionId" />
+          </Key>
+          <Property Name="SectionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SectionName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditOn" Type="datetime" />
+          <Property Name="CourseId" Type="int" />
+          <Property Name="CategoryId" Type="int" />
+        </EntityType>
+        <EntityType Name="Subjects">
+          <Key>
+            <PropertyRef Name="SubjectId" />
+          </Key>
+          <Property Name="SubjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditOn" Type="datetime" />
+          <Property Name="CourseId" Type="int" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="SectionId" Type="int" />
+          <Property Name="TestId" Type="int" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -52,6 +119,126 @@
           <Property Name="UserTypeCode" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="UserTypeName" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <Association Name="FK__Category__Course__5DCAEF64">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTest__Catego__6754599E">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="MockTest" Type="Self.MockTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="MockTest">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTest__Course__66603565">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="MockTest" Type="Self.MockTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="MockTest">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTest__Sectio__68487DD7">
+          <End Role="Section" Type="Self.Section" Multiplicity="0..1" />
+          <End Role="MockTest" Type="Self.MockTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectionId" />
+            </Principal>
+            <Dependent Role="MockTest">
+              <PropertyRef Name="SectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Section__Categor__628FA481">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Section" Type="Self.Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Section">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Section__CourseI__619B8048">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="Section" Type="Self.Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Section">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subjects__Catego__6D0D32F4">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Subjects">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subjects__Course__6C190EBB">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Subjects">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subjects__Sectio__6E01572D">
+          <End Role="Section" Type="Self.Section" Multiplicity="0..1" />
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectionId" />
+            </Principal>
+            <Dependent Role="Subjects">
+              <PropertyRef Name="SectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subjects__TestId__6EF57B66">
+          <End Role="MockTest" Type="Self.MockTest" Multiplicity="0..1" />
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MockTest">
+              <PropertyRef Name="TestId" />
+            </Principal>
+            <Dependent Role="Subjects">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__User__UserTypeCo__403A8C7D">
           <End Role="UserTypes" Type="Self.UserTypes" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -65,10 +252,54 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="OnlinemasterjiModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Language" EntityType="Self.Language" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MockTest" EntityType="Self.MockTest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserTypes" EntityType="Self.UserTypes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Category__Course__5DCAEF64" Association="Self.FK__Category__Course__5DCAEF64">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Category" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTest__Catego__6754599E" Association="Self.FK__MockTest__Catego__6754599E">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="MockTest" EntitySet="MockTest" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTest__Course__66603565" Association="Self.FK__MockTest__Course__66603565">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="MockTest" EntitySet="MockTest" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTest__Sectio__68487DD7" Association="Self.FK__MockTest__Sectio__68487DD7">
+            <End Role="Section" EntitySet="Section" />
+            <End Role="MockTest" EntitySet="MockTest" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Section__Categor__628FA481" Association="Self.FK__Section__Categor__628FA481">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Section" EntitySet="Section" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Section__CourseI__619B8048" Association="Self.FK__Section__CourseI__619B8048">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Section" EntitySet="Section" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subjects__Catego__6D0D32F4" Association="Self.FK__Subjects__Catego__6D0D32F4">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Subjects" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subjects__Course__6C190EBB" Association="Self.FK__Subjects__Course__6C190EBB">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Subjects" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subjects__Sectio__6E01572D" Association="Self.FK__Subjects__Sectio__6E01572D">
+            <End Role="Section" EntitySet="Section" />
+            <End Role="Subjects" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subjects__TestId__6EF57B66" Association="Self.FK__Subjects__TestId__6EF57B66">
+            <End Role="MockTest" EntitySet="MockTest" />
+            <End Role="Subjects" EntitySet="Subjects" />
+          </AssociationSet>
           <AssociationSet Name="FK__User__UserTypeCo__403A8C7D" Association="Self.FK__User__UserTypeCo__403A8C7D">
             <End Role="UserTypes" EntitySet="UserTypes" />
             <End Role="User" EntitySet="User" />
@@ -79,15 +310,96 @@
     <edmx:ConceptualModels>
       <Schema Namespace="OnlinemasterjiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="OnlinemasterjiEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Categories" EntityType="OnlinemasterjiModel.Category" />
+          <EntitySet Name="Courses" EntityType="OnlinemasterjiModel.Course" />
           <EntitySet Name="Languages" EntityType="OnlinemasterjiModel.Language" />
+          <EntitySet Name="Sections" EntityType="OnlinemasterjiModel.Section" />
           <EntitySet Name="Users" EntityType="OnlinemasterjiModel.User" />
           <EntitySet Name="UserTypes" EntityType="OnlinemasterjiModel.UserType" />
+          <AssociationSet Name="FK__Category__Course__5DCAEF64" Association="OnlinemasterjiModel.FK__Category__Course__5DCAEF64">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Section__Categor__628FA481" Association="OnlinemasterjiModel.FK__Section__Categor__628FA481">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Section" EntitySet="Sections" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Section__CourseI__619B8048" Association="OnlinemasterjiModel.FK__Section__CourseI__619B8048">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Section" EntitySet="Sections" />
+          </AssociationSet>
           <AssociationSet Name="FK__User__UserTypeCo__403A8C7D" Association="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D">
             <End Role="UserType" EntitySet="UserTypes" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <EntitySet Name="Courses" EntityType="OnlinemasterjiModel.Course" />
+          <EntitySet Name="MockTests" EntityType="OnlinemasterjiModel.MockTest" />
+          <AssociationSet Name="FK__MockTest__Catego__6754599E" Association="OnlinemasterjiModel.FK__MockTest__Catego__6754599E">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="MockTest" EntitySet="MockTests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTest__Course__66603565" Association="OnlinemasterjiModel.FK__MockTest__Course__66603565">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="MockTest" EntitySet="MockTests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTest__Sectio__68487DD7" Association="OnlinemasterjiModel.FK__MockTest__Sectio__68487DD7">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="MockTest" EntitySet="MockTests" />
+          </AssociationSet>
+          <EntitySet Name="Subjects" EntityType="OnlinemasterjiModel.Subject" />
+          <AssociationSet Name="FK__Subjects__Catego__6D0D32F4" Association="OnlinemasterjiModel.FK__Subjects__Catego__6D0D32F4">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Subject" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subjects__Course__6C190EBB" Association="OnlinemasterjiModel.FK__Subjects__Course__6C190EBB">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Subject" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subjects__TestId__6EF57B66" Association="OnlinemasterjiModel.FK__Subjects__TestId__6EF57B66">
+            <End Role="MockTest" EntitySet="MockTests" />
+            <End Role="Subject" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subjects__Sectio__6E01572D" Association="OnlinemasterjiModel.FK__Subjects__Sectio__6E01572D">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="Subject" EntitySet="Subjects" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <Property Name="CourseId" Type="Int32" />
+          <NavigationProperty Name="Course" Relationship="OnlinemasterjiModel.FK__Category__Course__5DCAEF64" FromRole="Category" ToRole="Course" />
+          <NavigationProperty Name="Sections" Relationship="OnlinemasterjiModel.FK__Section__Categor__628FA481" FromRole="Category" ToRole="Section" />
+          <NavigationProperty Name="MockTests" Relationship="OnlinemasterjiModel.FK__MockTest__Catego__6754599E" FromRole="Category" ToRole="MockTest" />
+          <NavigationProperty Name="Subjects" Relationship="OnlinemasterjiModel.FK__Subjects__Catego__6D0D32F4" FromRole="Category" ToRole="Subject" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Categories" Relationship="OnlinemasterjiModel.FK__Category__Course__5DCAEF64" FromRole="Course" ToRole="Category" />
+          <NavigationProperty Name="Sections" Relationship="OnlinemasterjiModel.FK__Section__CourseI__619B8048" FromRole="Course" ToRole="Section" />
+          <NavigationProperty Name="MockTests" Relationship="OnlinemasterjiModel.FK__MockTest__Course__66603565" FromRole="Course" ToRole="MockTest" />
+          <NavigationProperty Name="Subjects" Relationship="OnlinemasterjiModel.FK__Subjects__Course__6C190EBB" FromRole="Course" ToRole="Subject" />
+        </EntityType>
         <EntityType Name="Language">
           <Key>
             <PropertyRef Name="LanguageId" />
@@ -96,6 +408,26 @@
           <Property Name="LanguageCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="LanguageName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Isactive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="SectionId" />
+          </Key>
+          <Property Name="SectionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SectionName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <Property Name="CourseId" Type="Int32" />
+          <Property Name="CategoryId" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="OnlinemasterjiModel.FK__Section__Categor__628FA481" FromRole="Section" ToRole="Category" />
+          <NavigationProperty Name="Course" Relationship="OnlinemasterjiModel.FK__Section__CourseI__619B8048" FromRole="Section" ToRole="Course" />
+          <NavigationProperty Name="MockTests" Relationship="OnlinemasterjiModel.FK__MockTest__Sectio__68487DD7" FromRole="Section" ToRole="MockTest" />
+          <NavigationProperty Name="Subjects" Relationship="OnlinemasterjiModel.FK__Subjects__Sectio__6E01572D" FromRole="Section" ToRole="Subject" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -110,10 +442,10 @@
           <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="EditOn" Type="DateTime" Precision="3" />
           <Property Name="UserTypeCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UserType" Relationship="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D" FromRole="User" ToRole="UserType" />
           <Property Name="LogoDataFileId" Type="Int32" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserType" Relationship="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D" FromRole="User" ToRole="UserType" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
@@ -123,6 +455,42 @@
           <Property Name="UserTypeName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Users" Relationship="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D" FromRole="UserType" ToRole="User" />
         </EntityType>
+        <Association Name="FK__Category__Course__5DCAEF64">
+          <End Type="OnlinemasterjiModel.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.Category" Role="Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Section__Categor__628FA481">
+          <End Type="OnlinemasterjiModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.Section" Role="Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Section">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Section__CourseI__619B8048">
+          <End Type="OnlinemasterjiModel.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.Section" Role="Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Section">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__User__UserTypeCo__403A8C7D">
           <End Type="OnlinemasterjiModel.UserType" Role="UserType" Multiplicity="1" />
           <End Type="OnlinemasterjiModel.User" Role="User" Multiplicity="*" />
@@ -135,26 +503,171 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Course">
+        <EntityType Name="MockTest">
           <Key>
-            <PropertyRef Name="CourseId" />
+            <PropertyRef Name="TestId" />
           </Key>
-          <Property Name="CourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CourseName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Sequence" Type="Int32" />
-          <Property Name="LanguageCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Isactive" Type="Boolean" Nullable="false" />
           <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <Property Name="CourseId" Type="Int32" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="SectionId" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="OnlinemasterjiModel.FK__MockTest__Catego__6754599E" FromRole="MockTest" ToRole="Category" />
+          <NavigationProperty Name="Course" Relationship="OnlinemasterjiModel.FK__MockTest__Course__66603565" FromRole="MockTest" ToRole="Course" />
+          <NavigationProperty Name="Section" Relationship="OnlinemasterjiModel.FK__MockTest__Sectio__68487DD7" FromRole="MockTest" ToRole="Section" />
+          <Property Name="TimeInMinutes" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Subjects" Relationship="OnlinemasterjiModel.FK__Subjects__TestId__6EF57B66" FromRole="MockTest" ToRole="Subject" />
         </EntityType>
-      </Schema>
+        <Association Name="FK__MockTest__Catego__6754599E">
+          <End Type="OnlinemasterjiModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.MockTest" Role="MockTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="MockTest">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTest__Course__66603565">
+          <End Type="OnlinemasterjiModel.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.MockTest" Role="MockTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="MockTest">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTest__Sectio__68487DD7">
+          <End Type="OnlinemasterjiModel.Section" Role="Section" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.MockTest" Role="MockTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectionId" />
+            </Principal>
+            <Dependent Role="MockTest">
+              <PropertyRef Name="SectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="SubjectId" />
+          </Key>
+          <Property Name="SubjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <Property Name="CourseId" Type="Int32" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="SectionId" Type="Int32" />
+          <Property Name="TestId" Type="Int32" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="OnlinemasterjiModel.FK__Subjects__Catego__6D0D32F4" FromRole="Subject" ToRole="Category" />
+          <NavigationProperty Name="Course" Relationship="OnlinemasterjiModel.FK__Subjects__Course__6C190EBB" FromRole="Subject" ToRole="Course" />
+          <NavigationProperty Name="MockTest" Relationship="OnlinemasterjiModel.FK__Subjects__TestId__6EF57B66" FromRole="Subject" ToRole="MockTest" />
+          <NavigationProperty Name="Section" Relationship="OnlinemasterjiModel.FK__Subjects__Sectio__6E01572D" FromRole="Subject" ToRole="Section" />
+        </EntityType>
+        <Association Name="FK__Subjects__Catego__6D0D32F4">
+          <End Type="OnlinemasterjiModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.Subject" Role="Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Subject">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subjects__Course__6C190EBB">
+          <End Type="OnlinemasterjiModel.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.Subject" Role="Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Subject">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subjects__TestId__6EF57B66">
+          <End Type="OnlinemasterjiModel.MockTest" Role="MockTest" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.Subject" Role="Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MockTest">
+              <PropertyRef Name="TestId" />
+            </Principal>
+            <Dependent Role="Subject">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subjects__Sectio__6E01572D">
+          <End Type="OnlinemasterjiModel.Section" Role="Section" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.Subject" Role="Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectionId" />
+            </Principal>
+            <Dependent Role="Subject">
+              <PropertyRef Name="SectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="OnlinemasterjiModelStoreContainer" CdmEntityContainer="OnlinemasterjiEntities" >
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Languages">
             <EntityTypeMapping TypeName="OnlinemasterjiModel.Language">
               <MappingFragment StoreEntitySet="Language">
@@ -162,6 +675,23 @@
                 <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
                 <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
                 <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sections">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.Section">
+              <MappingFragment StoreEntitySet="Section">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+                <ScalarProperty Name="SectionId" ColumnName="SectionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -191,18 +721,41 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Courses">
-            <EntityTypeMapping TypeName="OnlinemasterjiModel.Course">
-              <MappingFragment StoreEntitySet="Course">
+          <EntitySetMapping Name="MockTests">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.MockTest">
+              <MappingFragment StoreEntitySet="MockTest">
+                <ScalarProperty Name="TimeInMinutes" ColumnName="TimeInMinutes" />
+                <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
                 <ScalarProperty Name="EditOn" ColumnName="EditOn" />
                 <ScalarProperty Name="EditBy" ColumnName="EditBy" />
                 <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
                 <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
                 <ScalarProperty Name="Isactive" ColumnName="Isactive" />
                 <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TestName" ColumnName="TestName" />
+                <ScalarProperty Name="TestId" ColumnName="TestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subjects">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.Subject">
+              <MappingFragment StoreEntitySet="Subjects">
                 <ScalarProperty Name="Sequence" ColumnName="Sequence" />
-                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="TestId" ColumnName="TestId" />
+                <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

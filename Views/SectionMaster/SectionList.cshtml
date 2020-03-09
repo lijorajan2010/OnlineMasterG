@@ -1,0 +1,43 @@
+﻿@model List<OnlineMasterG.Models.ViewModels.SectionVM>
+
+
+
+<table id="tblSectionList" class="dataTables_wrapper dt-bootstrap4 no-footer">
+    <thead>
+        <tr>
+            <th>Sl No.</th>
+            <th>Course Name</th>
+            <th>Category Name</th>
+            <th>Section Name</th>
+            <th>Description</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model.Select((x, y) => new { Data = x, Index = y }))
+            {
+                <tr>
+                    <td>@(item.Index + 1)</td>
+                    <td>@(item.Data.CourseName)</td>
+                    <td>@item.Data.CategoryName</td>
+                    <td>@item.Data.SectionName</td>
+                    <td>@item.Data.Description</td>
+                    <td><button class="btn btn-info" onclick='editSection(@Html.Raw(Json.Encode(new { id=item.Data.SectionId,courseId= item.Data.CourseId,categoryId= item.Data.CategoryId,sectionName = item.Data.SectionName,description = item.Data.Description, languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt"></i></button></td>
+                    <td><button class="btn btn-danger" onclick='deleteSection(@Html.Raw(Json.Encode(new { id=item.Data.SectionId,sectionName = item.Data.SectionName})))'><i class="fa fa-trash"></i></button></td>
+                </tr>
+
+            }
+
+        }
+
+    </tbody>
+</table>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#tblSectionList").DataTable();
+    });
+</script>

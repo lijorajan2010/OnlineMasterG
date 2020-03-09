@@ -47,16 +47,16 @@ namespace OnlineMasterG.CommonServices
             }
             return sr;
         }
-        public static Course Fetch(int courseId)
+        public static Course Fetch(int? courseId)
         {
           return  DB.Courses
-                   .Where(m => m.CourseId == courseId)
+                   .Where(m => m.CourseId == (courseId.HasValue ? courseId.Value :0))
                    .FirstOrDefault();
         }
-        public static List<Course> CourseList(bool isActive)
+        public static List<Course> CourseList(string Lang,bool IsActive)
         {
             return DB.Courses
-                  .Where(m => m.Isactive == isActive)
+                  .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
                   .ToList();
         }
         public static ServiceResponse DeleteCourse(int courseId)

@@ -4,12 +4,26 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4b9592519b3842eda76c8032082c4a86" Name="Diagram1" >
-        <EntityTypeShape EntityType="OnlinemasterjiModel.Language" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="OnlinemasterjiModel.User" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="OnlinemasterjiModel.UserType" Width="1.5" PointX="0.75" PointY="3.375" />
+      <Diagram DiagramId="4b9592519b3842eda76c8032082c4a86" Name="Diagram1" ZoomLevel="88" >
+        <EntityTypeShape EntityType="OnlinemasterjiModel.Category" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.Course" Width="1.5" PointX="0.75" PointY="1.25" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.Language" Width="1.5" PointX="5.75" PointY="5.75" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.Section" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.User" Width="1.5" PointX="3" PointY="6" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.UserType" Width="1.5" PointX="0.75" PointY="7" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__Category__Course__5DCAEF64" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__Section__Categor__628FA481" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__Section__CourseI__619B8048" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D" />
-        <EntityTypeShape EntityType="OnlinemasterjiModel.Course" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.MockTest" Width="1.5" PointX="7.5" PointY="0.875" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__MockTest__Catego__6754599E" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__MockTest__Course__66603565" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__MockTest__Sectio__68487DD7" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.Subject" Width="1.5" PointX="9.75" PointY="0.875" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__Subjects__Catego__6D0D32F4" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__Subjects__Course__6C190EBB" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__Subjects__TestId__6EF57B66" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__Subjects__Sectio__6E01572D" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

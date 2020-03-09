@@ -1,0 +1,47 @@
+﻿@model List<OnlineMasterG.Models.ViewModels.SubjectVM>
+
+
+
+<table id="tblTestList" class="dataTables_wrapper dt-bootstrap4 no-footer">
+    <thead>
+        <tr>
+            <th>Sl No.</th>
+            <th>Course Name</th>
+            <th>Category Name</th>
+            <th>Section Name</th>
+            <th>Test Name</th>
+            <th>Subject Name</th>
+            <th>Sequence</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model.Select((x, y) => new { Data = x, Index = y }))
+            {
+                <tr>
+                    <td>@(item.Index + 1)</td>
+                    <td>@(item.Data.CourseName)</td>
+                    <td>@item.Data.CategoryName</td>
+                    <td>@item.Data.SectionName</td>
+                    <td>@item.Data.TestName</td>
+                    <td>@item.Data.SubjectName</td>
+                    <td>@item.Data.Sequence</td>
+                    <td><button class="btn btn-info" onclick='editSubject(@Html.Raw(Json.Encode(new { id=item.Data.SubjectId,courseId= item.Data.CourseId,categoryId= item.Data.CategoryId,sectionId = item.Data.SectionId, testId = item.Data.TestId,subjectName = item.Data.SubjectName, languagecode = item.Data.LanguageCode,sequence =item.Data.Sequence })));'><i class="fa fa-pencil-alt"></i></button></td>
+                    <td><button class="btn btn-danger" onclick='deleteSubject(@Html.Raw(Json.Encode(new { id=item.Data.SubjectId,subjectName = item.Data.SubjectName})))'><i class="fa fa-trash"></i></button></td>
+                </tr>
+
+            }
+
+        }
+
+    </tbody>
+</table>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#tblTestList").DataTable();
+    });
+</script>

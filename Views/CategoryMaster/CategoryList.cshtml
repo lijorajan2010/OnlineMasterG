@@ -1,0 +1,41 @@
+﻿@model List<OnlineMasterG.Models.ViewModels.CategoryVM>
+
+
+
+<table id="tblCategoryList" class="dataTables_wrapper dt-bootstrap4 no-footer">
+    <thead>
+        <tr>
+            <th>Sl No.</th>
+            <th>Course Name</th>
+            <th>Category Name</th>
+            <th>Sequence</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model.Select((x, y) => new { Data = x, Index = y }))
+            {
+                <tr>
+                    <td>@(item.Index + 1)</td>
+                    <td>@(item.Data.CourseName)</td>
+                    <td>@item.Data.CategoryName</td>
+                    <td>@item.Data.Sequence</td>
+                    <td><button class="btn btn-info" onclick='editCourse(@Html.Raw(Json.Encode(new { id=item.Data.CategoryId,courseId= item.Data.CourseId,categoryName = item.Data.CategoryName,sequence = item.Data.Sequence, isActive = item.Data.IsActive,languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt"></i></button></td>
+                    <td><button class="btn btn-danger" onclick='deleteCourse(@Html.Raw(Json.Encode(new { id=item.Data.CategoryId,categoryName = item.Data.CategoryName})))'><i class="fa fa-trash"></i></button></td>
+                </tr>
+
+            }
+
+        }
+
+    </tbody>
+</table>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#tblCategoryList").DataTable();
+    });
+</script>

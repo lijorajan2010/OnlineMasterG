@@ -156,6 +156,10 @@
     <Compile Include="CommonFramework\PasswordUtilities.cs" />
     <Compile Include="CommonFramework\CustomEncrypt.cs" />
     <Compile Include="CommonFramework\AuthUser.cs" />
+    <Compile Include="CommonServices\SubjectService.cs" />
+    <Compile Include="CommonServices\TestService .cs" />
+    <Compile Include="CommonServices\SectionService.cs" />
+    <Compile Include="CommonServices\CategoryService.cs" />
     <Compile Include="CommonServices\CourseService.cs" />
     <Compile Include="CommonServices\LanguageService.cs" />
     <Compile Include="CommonServices\SecurityService.cs" />
@@ -169,14 +173,24 @@
     <Compile Include="Controllers\SubjectMasterController.cs" />
     <Compile Include="Controllers\TestMasterController.cs" />
     <Compile Include="Controllers\UploadMasterController.cs" />
+    <Compile Include="DomainLogic\SubjectLogics.cs" />
+    <Compile Include="DomainLogic\TestLogics.cs" />
+    <Compile Include="DomainLogic\SectionLogics.cs" />
+    <Compile Include="DomainLogic\CategoryLogics.cs" />
     <Compile Include="DomainLogic\CourseLogics.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\Category.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\Course.cs">
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\Language.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\MockTest.cs">
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\OnlineMaster.Context.cs">
@@ -194,6 +208,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OnlineMaster.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DAL\Section.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\Subject.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DAL\User.cs">
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
@@ -204,6 +224,10 @@
     <Compile Include="Models\Shared\UnauthorizedModel.cs" />
     <Compile Include="Models\Shared\ValidationErrorModel.cs" />
     <Compile Include="Models\Shared\ValidationSuccessModel.cs" />
+    <Compile Include="Models\ViewModels\SubjectVM.cs" />
+    <Compile Include="Models\ViewModels\TestVM.cs" />
+    <Compile Include="Models\ViewModels\SectionVM.cs" />
+    <Compile Include="Models\ViewModels\CategoryVM.cs" />
     <Compile Include="Models\ViewModels\CourseVM.cs" />
     <Compile Include="Models\ViewModels\LoginVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -574,6 +598,10 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CustomScript\SubjectMaster.js" />
+    <Content Include="Scripts\CustomScript\TestMaster.js" />
+    <Content Include="Scripts\CustomScript\SectionMaster.js" />
+    <Content Include="Scripts\CustomScript\CategoryMaster.js" />
     <Content Include="Scripts\CustomScript\CourseMaster.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
@@ -728,16 +756,20 @@
     <Content Include="Views\Shared\ValidationSuccess.cshtml" />
     <Content Include="Views\Shared\ProgressBar.cshtml" />
     <Content Include="Views\Shared\Unauthorized.cshtml" />
+    <Content Include="Views\CategoryMaster\Index.cshtml" />
+    <Content Include="Views\CategoryMaster\CategoryList.cshtml" />
+    <Content Include="Views\SectionMaster\Index.cshtml" />
+    <Content Include="Views\SectionMaster\SectionList.cshtml" />
+    <Content Include="Views\TestMaster\Index.cshtml" />
+    <Content Include="Views\TestMaster\TestList.cshtml" />
+    <Content Include="Views\SubjectMaster\Index.cshtml" />
+    <Content Include="Views\SubjectMaster\SubjectList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\CategoryMaster\" />
     <Folder Include="Views\Login\" />
     <Folder Include="Views\QuestionMaster\" />
-    <Folder Include="Views\SectionMaster\" />
-    <Folder Include="Views\SubjectMaster\" />
-    <Folder Include="Views\TestMaster\" />
     <Folder Include="Views\UploadMaster\" />
   </ItemGroup>
   <ItemGroup>

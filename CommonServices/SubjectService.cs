@@ -1,0 +1,86 @@
+﻿using OnlineMasterG.Base;
+using OnlineMasterG.Models.DAL;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Web;
+
+namespace OnlineMasterG.CommonServices
+{
+    public static class SubjectService
+    {
+        private static OnlinemasterjiEntities DB = new OnlinemasterjiEntities();
+        public static ServiceResponse SaveSubject(Subject subject, string auditlogin)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            if (subject.SubjectId == 0)
+            {
+                DB.Subjects.Add(subject);
+                DB.SaveChanges();
+            }
+            else
+            {
+                var dbSubject = Fetch(subject.SubjectId);
+                if (dbSubject == null)
+                {
+                    sr.AddError($"Subject Name {subject.SubjectName} is not found.");
+                    return sr;
+                }
+                else
+                {
+                    dbSubject.SubjectId = subject.SubjectId;
+                    dbSubject.SubjectName = subject.SubjectName;
+                    dbSubject.CourseId = subject.CourseId;
+                    dbSubject.Category = subject.Category;
+                    dbSubject.SectionId = subject.SectionId;
+                    dbSubject.TestId = subject.TestId;
+                    dbSubject.LanguageCode = subject.LanguageCode;
+                    dbSubject.Sequence = subject.Sequence;
+                    dbSubject.Isactive = true;
+                    dbSubject.EditBy = auditlogin;
+                    dbSubject.EditOn = DateTime.Now;
+                    // Save in DB
+                    DB.SaveChanges();
+
+                    // Return
+                    sr.ReturnId = dbSubject.SubjectId;
+                    sr.ReturnName = dbSubject.SubjectName;
+
+                    return sr;
+                }
+            }
+            return sr;
+        }
+        public static Subject Fetch(int? subjectId)
+        {
+          return  DB.Subjects
+                   .Where(m => m.SubjectId == (subjectId.HasValue ? subjectId.Value:0))
+                   .FirstOrDefault();
+        }
+        public static List<Subject> SubjectList(string Lang,bool IsActive)
+        {
+            return DB.Subjects
+                  .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
+                  .ToList();
+        }
+        public static ServiceResponse DeleteSubject(int SubjectId)
+        {
+            var sr = new ServiceResponse();
+
+            try
+            {
+                var Subject = Fetch(SubjectId);
+
+                DB.Entry(Subject).State = EntityState.Deleted;
+                DB.SaveChanges();
+            }
+            catch (Exception exception)
+            {
+                sr.AddError(exception.Message);
+            }
+
+            return sr;
+        }
+    }
+}

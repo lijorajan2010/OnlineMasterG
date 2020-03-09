@@ -25,9 +25,13 @@ namespace OnlineMasterG.Models.DAL
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
+        public virtual DbSet<Section> Sections { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
-        public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<MockTest> MockTests { get; set; }
+        public virtual DbSet<Subject> Subjects { get; set; }
     }
 }

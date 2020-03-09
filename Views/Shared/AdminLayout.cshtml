@@ -2504,10 +2504,10 @@
             </div>
 
             <div hidden>
-                @using (Html.BeginForm("Download", "DataFile", FormMethod.Post, new { id = "frmDataFileDownload" }))
+                @*@using (Html.BeginForm("Download", "DataFile", FormMethod.Post, new { id = "frmDataFileDownload" }))
                 {
                     <input type="hidden" id="hdnDownloadDataFileId" name="DataFileKey" />
-                }
+                }*@
             </div>
 
 
@@ -3430,33 +3430,39 @@
                             </li>
                             <li class="app-sidebar__heading">Mock Test</li>
                             <li>
-                                <a class="mm-active" href="course_master.html">
+                                <a href="~/CourseMaster/Index">
                                     <i class="metismenu-icon"></i>
                                     Course Master
                                 </a>
                             </li>
                             <li>
-                                <a href="category_master.html">
+                                <a href="~/CategoryMaster/Index">
                                     <i class="metismenu-icon"></i>
                                     Category Master
                                 </a>
                             </li>
 
                             <li>
-                                <a href="section_master.html">
+                                <a href="~/SectionMaster/Index">
                                     <i class="metismenu-icon"></i>
                                     Section Master
                                 </a>
                             </li>
+
                             <li>
-                                <a href="add_test.html">
+                                <a href="~/TestMaster/Index">
                                     <i class="metismenu-icon"></i>
                                     Add Test
                                 </a>
                             </li>
-
                             <li>
-                                <a href="upload_test.html">
+                                <a href="~/SubjectMaster/Index">
+                                    <i class="metismenu-icon"></i>
+                                    Subject Master
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/UploadMaster/Index">
                                     <i class="metismenu-icon"></i>
                                     Upload Test
                                 </a>

@@ -1,8 +1,8 @@
 ﻿$(document).ready(function () {
 
-    $("#txtCourseName").focus();
+    $("#txtCategoryName").focus();
     attachEvents();
-    setupCourseList();
+    setupCategoryList();
  
     $("input").bind("keydown", function (event) {
         // track enter key
@@ -20,7 +20,7 @@
 function attachEvents() {
 
     $("#btnSave").click(function () {
-        saveCourse();
+        saveCategory();
         return false;
     });
 
@@ -30,16 +30,16 @@ function attachEvents() {
     });
 }
 
-
-function setupCourseList() {
-    $.getDataTableList(URL.COURSELIST, $("#tblCourseList")); 
+function setupCategoryList() {
+    $.getDataTableList(URL.CATEGORYLIST, $("#dvCategoryList")); 
 }
 
 
 function clearFields() {
-    $("#txtCourseName").val("");
+    $("#txtCategoryName").val("");
     $("#txtSequence").val("");
-    $("#hdfcourseId").val("");
+    $("#CourelistId").val("");
+    $("#hdfCategoryId").val("");
     $('#chkIsActive').attr('checked', false);
     if ($("#chkIsActive").prop('checked')) {
         $('#chkIsActive').click();
@@ -48,29 +48,30 @@ function clearFields() {
 }
 
 
-function saveCourse() {
+function saveCategory() {
     var model = {
-        CourseId: $("#hdfcourseId").val(),
-        CourseName: $("#txtCourseName").val(),
+        CourseId: $("#CourelistId").val(),
+        CategoryId: $("#hdfCategoryId").val(),
+        CategoryName: $("#txtCategoryName").val(),
         Sequence: $("#txtSequence").val(),
         LanguageCode: $("#LanguageCode").val(),
         IsActive: $("#chkIsActive").prop('checked')
     };
 
     $.postForm(
-        $("#frmCourseMaster"),
+        $("#frmCategoryMaster"),
         model,
         function (data) {
             clearFields();
-            setupCourseList();
+            setupCategoryList();
         });
 }
 
 
 function editCourse(obj) {
-    debugger
-    $("#hdfcourseId").val(obj.id);
-    $("#txtCourseName").val(obj.courseName);
+    $("#hdfCategoryId").val(obj.id);
+    $("#CourelistId").val(obj.courseId);
+    $("#txtCategoryName").val(obj.categoryName);
     $("#txtSequence").val(obj.sequence);
     $("#LanguageCode").val(obj.languagecode);
     if (obj.isActive == true) {
@@ -80,22 +81,21 @@ function editCourse(obj) {
 
 
 function deleteCourse(obj) {
-    debugger
 
-    var courseName = obj.courseName;
-    var coursetId = obj.id;
+    var categoryName = obj.categoryName;
+    var categoryId = obj.id;
 
     $.confirmDelete(
-        "Course",
-        courseName,
-        coursetId,
-        function (coursetId) {
+        "Category",
+        categoryName,
+        categoryId,
+        function () {
             $.postData(
-                URL.DELETECOURSE,
-                { coursetId: coursetId },
+                URL.DELETECATEGORY,
+                { CategoryId: categoryId },
                 function () {
                     clearFields();
-                    setupCourseList();
+                    setupCategoryList();
                 });
         });
 }

@@ -12,19 +12,18 @@ namespace OnlineMasterG.Models.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Course
+    public partial class Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Course()
+        public Category()
         {
-            this.Categories = new HashSet<Category>();
             this.Sections = new HashSet<Section>();
             this.MockTests = new HashSet<MockTest>();
             this.Subjects = new HashSet<Subject>();
         }
     
-        public int CourseId { get; set; }
-        public string CourseName { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
         public Nullable<int> Sequence { get; set; }
         public string LanguageCode { get; set; }
         public bool Isactive { get; set; }
@@ -32,9 +31,9 @@ namespace OnlineMasterG.Models.DAL
         public System.DateTime CreateOn { get; set; }
         public string EditBy { get; set; }
         public Nullable<System.DateTime> EditOn { get; set; }
+        public Nullable<int> CourseId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Category> Categories { get; set; }
+        public virtual Course Course { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Section> Sections { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

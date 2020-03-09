@@ -1,0 +1,131 @@
+﻿@using OnlineMasterG.CommonFramework
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+<script>
+    var URL = {
+        SUBJECTLIST: '@Url.Action("SubjectList", "SubjectMaster")',
+        DELETESSUBJECT: '@Url.Action("DeleteSubject", "SubjectMaster")',
+    };
+</script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/CustomScript/SubjectMaster.js?v=" + AppInfo.Version)"></script>
+
+
+
+<div class="app-main__inner">
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-car icon-gradient bg-mean-fruit">
+                    </i>
+                </div>
+                <div>
+                    Subject Master
+                    <!--  <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
+    </div> -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="tabs-animation">
+        <div class="mb-3 card">
+            <div class="card-header-tab card-header">
+                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                    <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
+                    Add Subject
+                </div>
+                <!-- <div class="btn-actions-pane-right text-capitalize">
+                    <button class="btn-wide btn-outline-2x mr-md-2 btn btn-outline-focus btn-sm">View All</button>
+                </div> -->
+            </div>
+            <div class="no-gutters row">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("SaveSubject", "SubjectMaster", FormMethod.Post, new { id = "frmSubjectMaster", autocomplete = "off" }))
+                    {
+                        <div class="card-body table-responsive">
+                            <table style="width: 100%;" id="example12" class="table table-hover table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="width:100px;">Select Course</th>
+                                        <th style="width:100px;">Select Category</th>
+                                        <th style="width:100px;">Select Section</th>
+                                        <th style="width:150px;">Select Test</th>
+                                        <th style="width:150px;">Subject Name</th>
+                                        <th style="width:30px;">Sequence</th>
+                                        @*<th>Is Active</th>*@
+                                        <th style="width:150px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            @Html.DropDownList("CourseName", (SelectList)ViewBag.CourseList, "Select Course", new { @style = "width: 100px;", @id = "CourelistId", @class = "form-control", @required = "required" })
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("CategoryName", (SelectList)ViewBag.CategoryList, "Select Category", new { @style = "width: 100px;", @id = "CategorylistId", @class = "form-control", @required = "required" })
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("SectionName", (SelectList)ViewBag.SectionList, "Select Section", new { @style = "width: 100px;", @id = "SectionlistId", @class = "form-control", @required = "required" })
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("TestName", (SelectList)ViewBag.TestList, "Select Test", new { @style = "width: 100px;", @id = "TestlistId", @class = "form-control", @required = "required" })
+                                        </td>
+                                        <td>
+                                            <input type="hidden" id="hdfSubjectId" />
+                                            <input type="text" required id="txtSubjectName" name="SubjectName" class="form-control" value="">
+
+                                        </td>
+                                       
+                                        <td>
+                                            <input type="number" required id="txtSequence" name="Sequence" class="form-control" value="">
+
+                                        </td>
+                                        @*<td>
+            <label class="checkbox">
+                <input type="checkbox" id="chkIsActive" style="text-align:center" />
+                <span class="default"></span>
+            </label>
+        </td>*@
+                                        <td>
+                                            <button class="btn btn-info" type="button" id="btnSave">Save </button>
+                                            <button class="btn btn-alternate" id="btnClear" type="button">Clear </button>
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card mb-3">
+
+            <hr />
+            <div id="divValidationMsg">
+            </div>
+
+
+            <div class="card-body table-responsive">
+                <div id="dvSubjectList"></div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
