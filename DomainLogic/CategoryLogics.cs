@@ -52,7 +52,7 @@ namespace OnlineMasterG.DomainLogic
                     {
                         CategoryId = item.CategoryId,
                         CategoryName = item.CategoryName,
-                        CourseName = CourseService.Fetch(item.CourseId).CourseName,
+                        CourseName = CourseService.Fetch(item.CourseId)?.CourseName,
                         CourseId = item.CourseId,
                         IsActive = item.Isactive,
                         Sequence=item.Sequence,

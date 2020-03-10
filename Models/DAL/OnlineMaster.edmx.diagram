@@ -5,25 +5,43 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="4b9592519b3842eda76c8032082c4a86" Name="Diagram1" ZoomLevel="88" >
-        <EntityTypeShape EntityType="OnlinemasterjiModel.Category" Width="1.5" PointX="3" PointY="1.125" />
-        <EntityTypeShape EntityType="OnlinemasterjiModel.Course" Width="1.5" PointX="0.75" PointY="1.25" />
-        <EntityTypeShape EntityType="OnlinemasterjiModel.Language" Width="1.5" PointX="5.75" PointY="5.75" />
-        <EntityTypeShape EntityType="OnlinemasterjiModel.Section" Width="1.5" PointX="5.25" PointY="1" />
-        <EntityTypeShape EntityType="OnlinemasterjiModel.User" Width="1.5" PointX="3" PointY="6" />
-        <EntityTypeShape EntityType="OnlinemasterjiModel.UserType" Width="1.5" PointX="0.75" PointY="7" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.Category" Width="1.5" PointX="3" PointY="7" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.Course" Width="1.5" PointX="0.75" PointY="7.125" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.DataContent" Width="1.5" PointX="5.25" PointY="3.125" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.DataFile" Width="1.5" PointX="7.5" PointY="2.5" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.Language" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.MockTest" Width="1.5" PointX="7.5" PointY="6.75" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.QuestionAnswerChoice" Width="1.5" PointX="17.25" PointY="6.625" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.QuestionMaster" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.QuestionPoint" Width="1.5" PointX="17.25" PointY="9.375" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.QuestionsMockTest" Width="1.5" PointX="15" PointY="7" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.QuestionUpload" Width="1.5" PointX="9.75" PointY="6.625" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.Section" Width="1.5" PointX="5.25" PointY="6.875" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.Subject" Width="1.5" PointX="12.75" PointY="6.75" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.User" Width="1.5" PointX="12" PointY="1" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.UserType" Width="1.5" PointX="9.75" PointY="2" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__Category__Course__5DCAEF64" />
-        <AssociationConnector Association="OnlinemasterjiModel.FK__Section__Categor__628FA481" />
-        <AssociationConnector Association="OnlinemasterjiModel.FK__Section__CourseI__619B8048" />
-        <AssociationConnector Association="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D" />
-        <EntityTypeShape EntityType="OnlinemasterjiModel.MockTest" Width="1.5" PointX="7.5" PointY="0.875" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__MockTest__Catego__6754599E" />
-        <AssociationConnector Association="OnlinemasterjiModel.FK__MockTest__Course__66603565" />
-        <AssociationConnector Association="OnlinemasterjiModel.FK__MockTest__Sectio__68487DD7" />
-        <EntityTypeShape EntityType="OnlinemasterjiModel.Subject" Width="1.5" PointX="9.75" PointY="0.875" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__QuestionU__Categ__45BE5BA9" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__Section__Categor__628FA481" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__Subjects__Catego__6D0D32F4" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__MockTest__Course__66603565" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__QuestionU__Cours__44CA3770" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__Section__CourseI__619B8048" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__Subjects__Course__6C190EBB" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__DataFile__DataCo__1AD3FDA4" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__Questions__Quest__43D61337" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__QuestionU__DataF__498EEC8D" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__MockTest__Sectio__68487DD7" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__QuestionU__TestI__47A6A41B" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__Subjects__TestId__6EF57B66" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__QuestionA__Quest__4F47C5E3" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__QuestionP__Quest__5224328E" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__Questions__Quest__42E1EEFE" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__QuestionU__Secti__46B27FE2" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__QuestionU__Subje__489AC854" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__Subjects__Sectio__6E01572D" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

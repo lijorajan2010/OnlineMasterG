@@ -8,11 +8,11 @@
 
 <script>
     var URL = {
-        SUBJECTLIST: '@Url.Action("SubjectList", "SubjectMaster")',
-        DELETESSUBJECT: '@Url.Action("DeleteSubject", "SubjectMaster")',
+        QUESTIONUPLOADLIST: '@Url.Action("QuestionUploadList", "QuestionUpload")',
+        DELETESQUESTIONUPLOAD: '@Url.Action("DeleteQuestionUpload", "QuestionUpload")',
     };
 </script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/CustomScript/SubjectMaster.js?v=" + AppInfo.Version)"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/CustomScript/QuestionUpload.js?v=" + AppInfo.Version)"></script>
 
 
 
@@ -25,7 +25,7 @@
                     </i>
                 </div>
                 <div>
-                    Subject Master
+                    Question Upload
                     <!--  <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
     </div> -->
                 </div>
@@ -39,7 +39,7 @@
             <div class="card-header-tab card-header">
                 <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
                     <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
-                    Add Subject
+                    Add Question
                 </div>
                 <!-- <div class="btn-actions-pane-right text-capitalize">
                     <button class="btn-wide btn-outline-2x mr-md-2 btn btn-outline-focus btn-sm">View All</button>
@@ -47,11 +47,11 @@
             </div>
             <div class="no-gutters row">
                 <div class="col-md-12">
-                    @using (Html.BeginForm("SaveSubject", "SubjectMaster", FormMethod.Post, new { id = "frmSubjectMaster", autocomplete = "off" }))
+                    @using (Html.BeginForm("SaveQuestionUpload", "QuestionUpload", FormMethod.Post, new { id = "frmQuestionUpload", autocomplete = "off",  @enctype = "multipart/form-data"}))
                     {
                         <div class="card-body table-responsive">
                             <table style="width: 100%;" id="example12" class="table table-hover table-striped table-bordered">
-                            
+
                                 <tbody>
                                     <tr>
                                         <th> Select Course</th>
@@ -61,34 +61,31 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            @Html.DropDownList("CourseName", (SelectList)ViewBag.CourseList, "Select Course", new { @id = "CourelistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("CourseId", (SelectList)ViewBag.CourseList, "Select Course", new { @id = "CourelistId", @class = "form-control", @required = "required" })
                                         </td>
                                         <td>
-                                            @Html.DropDownList("CategoryName", (SelectList)ViewBag.CategoryList, "Select Category", new { @id = "CategorylistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("CategoryId", (SelectList)ViewBag.CategoryList, "Select Category", new { @id = "CategorylistId", @class = "form-control", @required = "required" })
                                         </td>
                                         <td>
-                                            @Html.DropDownList("SectionName", (SelectList)ViewBag.SectionList, "Select Section", new { @id = "SectionlistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("SectionId", (SelectList)ViewBag.SectionList, "Select Section", new { @id = "SectionlistId", @class = "form-control", @required = "required" })
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th> Select Test</th>
-                                        <th>Subject Name</th>
-                                        <th>Sequence</th>
+                                        <th>Select Test</th>
+                                        <th>Select Subject</th>
+                                        <th>Excel Upload</th>
                                     </tr>
                                     <tr>
 
                                         <td>
-                                            @Html.DropDownList("TestName", (SelectList)ViewBag.TestList, "Select Test", new { @id = "TestlistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("TestId", (SelectList)ViewBag.TestList, "Select Test", new { @id = "TestlistId", @class = "form-control", @required = "required" })
                                         </td>
                                         <td>
-                                            <input type="hidden" id="hdfSubjectId" />
-                                            <input type="text" required id="txtSubjectName" name="SubjectName" class="form-control" value="">
-
+                                            @Html.DropDownList("SubjectId", (SelectList)ViewBag.SubjectList, "Select Test", new { @id = "SubjectlistId", @class = "form-control", @required = "required" })
+                                       <input type="hidden" id="hdfQuestionUploadId" name="QuestionUploadId" />
                                         </td>
-
                                         <td>
-                                            <input type="number" required id="txtSequence" name="Sequence" class="form-control" value="">
-
+                                            <input type="file" id="uploadExcel" class="btn-shine btn btn-focus" name="postedFile" accept=".xls, .xlsx" required>
                                         </td>
                                     </tr>
                                     <tr>
@@ -100,9 +97,6 @@
                                             <button class="btn btn-alternate" id="btnClear" type="button">Clear </button>
                                         </td>
                                     </tr>
-
-
-
                                 </tbody>
 
 
@@ -122,7 +116,7 @@
 
 
             <div class="card-body table-responsive">
-                <div id="dvSubjectList"></div>
+                <div id="dvQuestionUploadList"></div>
 
 
             </div>
@@ -130,6 +124,3 @@
 
     </div>
 </div>
-
-
-

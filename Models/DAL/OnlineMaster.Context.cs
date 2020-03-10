@@ -27,11 +27,18 @@ namespace OnlineMasterG.Models.DAL
     
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<DataContent> DataContents { get; set; }
+        public virtual DbSet<DataFile> DataFiles { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
+        public virtual DbSet<MockTest> MockTests { get; set; }
+        public virtual DbSet<QuestionAnswerChoice> QuestionAnswerChoices { get; set; }
+        public virtual DbSet<QuestionMaster> QuestionMasters { get; set; }
+        public virtual DbSet<QuestionPoint> QuestionPoints { get; set; }
+        public virtual DbSet<QuestionsMockTest> QuestionsMockTests { get; set; }
+        public virtual DbSet<QuestionUpload> QuestionUploads { get; set; }
         public virtual DbSet<Section> Sections { get; set; }
+        public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
-        public virtual DbSet<MockTest> MockTests { get; set; }
-        public virtual DbSet<Subject> Subjects { get; set; }
     }
 }

@@ -191,8 +191,46 @@ $(document).ready(function () {
         //    //data: JSON.stringify(postData),
         //    contentType: 'application/json; charset=utf-8',
         //    success: function (data) {
-               
+
         //    }
         //});
+    };
+
+
+
+    // Submit Form function
+    $.submitForm = function (form, validationSuccess, validationError, callback) {
+
+        // Perform client side alidations
+        if (!form.valid()) {
+            $('.required.error:first').focus();
+            return;
+        }
+
+        $.blockUI();
+
+        $(form).ajaxForm(function (data) {
+            // Redirect?
+            if (data.Redirect != "" && data.Redirect != null)
+                window.location.replace(data.Redirect);
+
+            $.unblockUI();
+
+            // If validation message exist, display HTML
+            if ($("#divValidationMsg") != null)
+                $("#divValidationMsg").html(data.ValidationHTML);
+
+            if (data.Status) {
+                if (validationSuccess != null)
+                    validationSuccess(data);
+            } else {
+                if (validationError != null)
+                    validationError(data);
+            }
+
+            if (callback != null)
+                callback(data);
+
+        });
     };
 });

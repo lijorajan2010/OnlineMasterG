@@ -58,9 +58,9 @@ namespace OnlineMasterG.DomainLogic
                         CourseId = item.CourseId,
                         CategoryId = item.CategoryId,
                         TestName = item.TestName,
-                        SectionName = SectionService.Fetch(item.SectionId).SectionName,
-                        CourseName = CourseService.Fetch(item.CourseId).CourseName,
-                        CategoryName = CategoryService.Fetch(item.CategoryId).CategoryName,
+                        SectionName = SectionService.Fetch(item.SectionId)?.SectionName,
+                        CourseName = CourseService.Fetch(item.CourseId)?.CourseName,
+                        CategoryName = CategoryService.Fetch(item.CategoryId)?.CategoryName,
                         Description=item.Description,
                         TimeInMinutes=item.TimeInMinutes,
                         LanguageCode =item.LanguageCode

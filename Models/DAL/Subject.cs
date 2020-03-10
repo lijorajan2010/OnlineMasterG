@@ -14,6 +14,12 @@ namespace OnlineMasterG.Models.DAL
     
     public partial class Subject
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Subject()
+        {
+            this.QuestionUploads = new HashSet<QuestionUpload>();
+        }
+    
         public int SubjectId { get; set; }
         public string SubjectName { get; set; }
         public string LanguageCode { get; set; }
@@ -31,6 +37,8 @@ namespace OnlineMasterG.Models.DAL
         public virtual Category Category { get; set; }
         public virtual Course Course { get; set; }
         public virtual MockTest MockTest { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<QuestionUpload> QuestionUploads { get; set; }
         public virtual Section Section { get; set; }
     }
 }

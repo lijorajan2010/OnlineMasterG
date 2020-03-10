@@ -1,0 +1,47 @@
+﻿@model List<OnlineMasterG.Models.ViewModels.QuestionUploadVM>
+
+<table id="tblQuestionUploadList" class="dataTables_wrapper dt-bootstrap4 no-footer">
+    <thead>
+        <tr>
+            <th>Sl No.</th>
+            <th>Course Name</th>
+            <th>Category Name</th>
+            <th>Section Name</th>
+            <th>Test Name</th>
+            <th>Subject Name</th>
+            <th>View Questions</th>
+            <th>Question Status</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model.Select((x, y) => new { Data = x, Index = y }))
+            {
+                <tr>
+                    <td>@(item.Index + 1)</td>
+                    <td>@(item.Data.CourseName)</td>
+                    <td>@item.Data.CategoryName</td>
+                    <td>@item.Data.SectionName</td>
+                    <td>@item.Data.TestName</td>
+                    <td>@item.Data.SubjectName</td>
+                    <td>@item.Data.QuestionUploadId</td>
+                    <td>@item.Data.QuestionStatus</td>
+                    <td><button class="btn btn-info" onclick='editQuestionUpload(@Html.Raw(Json.Encode(new { id=item.Data.QuestionUploadId,courseId= item.Data.CourseId,categoryId= item.Data.CategoryId,sectionId = item.Data.SectionId, testId = item.Data.TestId,subjectId = item.Data.SubjectId, languagecode = item.Data.LanguageCode,questionStatus =item.Data.QuestionStatus })));'><i class="fa fa-pencil-alt"></i></button></td>
+                    <td><button class="btn btn-danger" onclick='deleteQuestionUpload(@Html.Raw(Json.Encode(new { id=item.Data.QuestionUploadId})))'><i class="fa fa-trash"></i></button></td>
+                </tr>
+
+            }
+
+        }
+
+    </tbody>
+</table>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#tblQuestionUploadList").DataTable();
+    });
+</script>
