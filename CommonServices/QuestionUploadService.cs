@@ -72,5 +72,44 @@ namespace OnlineMasterG.CommonServices
 
             return sr;
         }
+        public static ServiceResponse ApproveQuestionUpload(int questionUploadId)
+        {
+            var sr = new ServiceResponse();
+
+            try
+            {
+                var QuestionUpload = Fetch(questionUploadId);
+
+                QuestionUpload.QuestionStatus = "VAL";
+                QuestionUpload.Isactive = true;
+                DB.SaveChanges();
+            }
+            catch (Exception exception)
+            {
+                sr.AddError(exception.Message);
+            }
+
+            return sr;
+        }
+        public static ServiceResponse DenyQuestionUpload(int questionUploadId)
+        {
+            var sr = new ServiceResponse();
+
+            try
+            {
+                var QuestionUpload = Fetch(questionUploadId);
+
+                QuestionUpload.QuestionStatus = "PEN";
+                QuestionUpload.Isactive = true;
+                DB.SaveChanges();
+            }
+            catch (Exception exception)
+            {
+                sr.AddError(exception.Message);
+            }
+
+            return sr;
+        }
+        
     }
 }

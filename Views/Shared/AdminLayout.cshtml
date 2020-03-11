@@ -2390,25 +2390,33 @@
 
             </div>
 
-            <!-- Confirm dialog -->
-            <div id="divConfirmDialog" class="modal">
+         
+
+            <div class="modal" id="divConfirmDialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <button id="btnClosedDialog" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Confirmation</h4>
-                        </div>
-                        <div class="modal-body" id="lblMessage">
 
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Confirmation</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body" id="lblMessage">
+                           
+                        </div>
+
+                        <!-- Modal footer -->
                         <div class="modal-footer">
-                            <button id="btnConfirmYES" class="btn btn-primary">Yes</button>
-                            <button id="btnConfirmNO" class="btn btn-default" data-dismiss="modal">No</button>
+                            <button id="btnConfirmYES" class="btn btn-danger">Yes</button>
+                            <button id="btnConfirmNO" class="btn btn-secondary" data-dismiss="modal">No</button>
                         </div>
+
                     </div>
                 </div>
-
             </div>
+
 
 
             <!-- Delete dialog -->

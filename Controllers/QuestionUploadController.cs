@@ -47,12 +47,91 @@ namespace OnlineMasterG.Controllers
 
             return GetJsonValidation(sr, "Question Upload has been successfully saved.");
         }
-        //[HttpPost]
-        //public JsonResult DeleteQuestionUpload(int TestId)
-        //{
-        //    var sr = QuestionUploadService.DeleteQuestionUpload(TestId);
+        [HttpPost]
+        public JsonResult DeleteQuestionUpload(int QuestionUploadId)
+        {
+            var sr = QuestionUploadService.DeleteQuestionUpload(QuestionUploadId);
 
-        //    return GetJsonValidation(sr, "Test has been successfully deleted.");
-        //}
+            return GetJsonValidation(sr, "Question Upload has been successfully deleted.");
+        }
+        [HttpPost]
+        public JsonResult ApproveQuestionUpload(int QuestionUploadId)
+        {
+            var sr = QuestionUploadService.ApproveQuestionUpload(QuestionUploadId);
+
+            return GetJsonValidation(sr, "Question Upload has been successfully approved.");
+        }
+        [HttpPost]
+        public JsonResult DenyQuestionUpload(int QuestionUploadId)
+        {
+            var sr = QuestionUploadService.DenyQuestionUpload(QuestionUploadId);
+
+            return GetJsonValidation(sr, "Question Upload has been successfully denied.");
+        }
+
+        public ActionResult EditQuestions(int id)
+        {
+            QuestionReviewVM questionReviewVM = new QuestionReviewVM();
+            var QuestionUpload = QuestionUploadService.Fetch(id);
+            if (QuestionUpload!=null)
+            {
+                questionReviewVM.CourseName = QuestionUpload.Course?.CourseName;
+                questionReviewVM.CategoryName = QuestionUpload.Category?.CategoryName;
+                questionReviewVM.SectionName = QuestionUpload.Section?.SectionName;
+                questionReviewVM.TestName = QuestionUpload.MockTest?.TestName;
+                questionReviewVM.SubjectName = QuestionUpload.Subject?.SubjectName;
+
+                if (QuestionUpload.QuestionsMockTests !=null && QuestionUpload.QuestionsMockTests.Count()>0)
+                {
+                    foreach (var item in questionReviewVM.QuestionsMockTests)
+                    {
+                        List<QuestionAnswerChoiceVM> questionAnswerChoiceVMs = new List<QuestionAnswerChoiceVM>();
+
+                        foreach (var qc in item.QuestionAnswerChoices)
+                        {
+                            questionAnswerChoiceVMs.Add(new QuestionAnswerChoiceVM()
+                            {
+                                QuestionAnswerChoiceId = qc.QuestionAnswerChoiceId,
+                                QuestionAnswer = qc.QuestionAnswer,
+                                QuestionsMockTestId = qc.QuestionsMockTestId,
+                                IsCorrect = qc.IsCorrect
+                            });
+                        }
+
+                        List<QuestionPointVM> questionPointVMs = new List<QuestionPointVM>();
+
+                        foreach (var qp in item.QuestionPoints)
+                        {
+                            questionPointVMs.Add(new QuestionPointVM()
+                            {
+                                QPoint = qp.QPoint,
+                                QuestionPointId = qp.QuestionPointId,
+                                QuestionsMockTestId = qp.QuestionsMockTestId
+
+                            });
+                        }
+
+                        questionReviewVM.QuestionsMockTests.Add(new QuestionsMockTestVM
+                        {
+                            QuestionsMockTestId = item.QuestionsMockTestId,
+                            Question = item.Question,
+                            QuestionNumber = item.QuestionNumber,
+                            Description = item.Description,
+                            QuestionSet = item.QuestionSet,
+                            QuestionImageFileId = item.QuestionImageFileId,
+                            QuestionAnswerChoices = questionAnswerChoiceVMs,
+                            QuestionPoints = questionPointVMs,
+                            Solution = item.Solution,
+                            QuestionUploadId = item.QuestionUploadId
+                        });
+                    }
+                }
+
+            }
+
+            return View(questionReviewVM);
+        }
+
+
     }
 }

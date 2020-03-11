@@ -9,9 +9,10 @@
             <th>Section Name</th>
             <th>Test Name</th>
             <th>Subject Name</th>
-            <th>View Questions</th>
+         
             <th>Question Status</th>
-            <th>Edit</th>
+            <th>Review / Edit Questions</th>
+            <th>Approve</th>
             <th>Delete</th>
         </tr>
     </thead>
@@ -27,9 +28,32 @@
                     <td>@item.Data.SectionName</td>
                     <td>@item.Data.TestName</td>
                     <td>@item.Data.SubjectName</td>
-                    <td>@item.Data.QuestionUploadId</td>
+                 
                     <td>@item.Data.QuestionStatus</td>
-                    <td><button class="btn btn-info" onclick='editQuestionUpload(@Html.Raw(Json.Encode(new { id=item.Data.QuestionUploadId,courseId= item.Data.CourseId,categoryId= item.Data.CategoryId,sectionId = item.Data.SectionId, testId = item.Data.TestId,subjectId = item.Data.SubjectId, languagecode = item.Data.LanguageCode,questionStatus =item.Data.QuestionStatus })));'><i class="fa fa-pencil-alt"></i></button></td>
+                    <td>
+                        @if (item.Data.QuestionStatus == "VAL")
+                        {
+                            <button class="btn btn-info" disabled onclick='editQuestionUpload(@Html.Raw(Json.Encode(new { id=item.Data.QuestionUploadId,courseId= item.Data.CourseId,categoryId= item.Data.CategoryId,sectionId = item.Data.SectionId, testId = item.Data.TestId,subjectId = item.Data.SubjectId, languagecode = item.Data.LanguageCode,questionStatus =item.Data.QuestionStatus })));'><i class="fa fa-ban"></i></button>
+
+                        }
+                        else
+                        {
+                            @Html.ActionLink("  Edit","EditQuestions","QuestionUpload",new { id=item.Data.QuestionUploadId},new { @class="fa fa-pencil-alt", @target="blank" })
+                            @*<button class="btn btn-info"  onclick='editQuestionUpload(@Html.Raw(Json.Encode(new { id=item.Data.QuestionUploadId,courseId= item.Data.CourseId,categoryId= item.Data.CategoryId,sectionId = item.Data.SectionId, testId = item.Data.TestId,subjectId = item.Data.SubjectId, languagecode = item.Data.LanguageCode,questionStatus =item.Data.QuestionStatus })));'><i class="fa fa-pencil-alt"></i></button>*@
+
+                        }
+
+                    </td>
+                    <td>
+                        @if (item.Data.QuestionStatus == "VAL")
+                        {
+                            <button class="btn btn-primary" onclick='fnDenyApproval(@Html.Raw(Json.Encode(new { id=item.Data.QuestionUploadId})))'>Deny</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-primary" onclick='fnApproval(@Html.Raw(Json.Encode(new { id=item.Data.QuestionUploadId})))'>Approve</button>
+                        }
+                    </td>
                     <td><button class="btn btn-danger" onclick='deleteQuestionUpload(@Html.Raw(Json.Encode(new { id=item.Data.QuestionUploadId})))'><i class="fa fa-trash"></i></button></td>
                 </tr>
 

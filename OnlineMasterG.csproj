@@ -271,6 +271,7 @@
     <Compile Include="Models\Shared\ValidationErrorModel.cs" />
     <Compile Include="Models\Shared\ValidationSuccessModel.cs" />
     <Compile Include="Models\ViewModels\ExcelQuestions.cs" />
+    <Compile Include="Models\ViewModels\QuestionReviewVM.cs" />
     <Compile Include="Models\ViewModels\QuestionUploadVM.cs" />
     <Compile Include="Models\ViewModels\SubjectVM.cs" />
     <Compile Include="Models\ViewModels\TestVM.cs" />
@@ -817,12 +818,12 @@
     <Content Include="Views\SubjectMaster\SubjectList.cshtml" />
     <Content Include="Views\QuestionUpload\Index.cshtml" />
     <Content Include="Views\QuestionUpload\QuestionUploadList.cshtml" />
+    <Content Include="Views\QuestionUpload\EditQuestions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Login\" />
-    <Folder Include="Views\QuestionMaster\" />
     <Folder Include="Views\UploadMaster\" />
   </ItemGroup>
   <ItemGroup>

@@ -22,6 +22,7 @@ namespace OnlineMasterG.Models.ViewModels
         public string QuestionSet { get; set; }
         public string CorrectAnswer { get; set; }
         public string Description { get; set; }
+        public string Solution { get; set; }
      
     }
 }

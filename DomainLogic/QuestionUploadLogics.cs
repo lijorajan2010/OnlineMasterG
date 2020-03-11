@@ -134,6 +134,9 @@ namespace OnlineMasterG.DomainLogic
             if (!questionTab.Columns.Contains("Description"))
                 sr.AddError("Column [Description] is missing.");
 
+            if (!questionTab.Columns.Contains("Solution"))
+                sr.AddError("Column [Solution] is missing.");
+
             //bool anyQuestionsetEmpty = questionTab.Columns.
 
             //if (anyQuestionsetEmpty)
@@ -204,6 +207,7 @@ namespace OnlineMasterG.DomainLogic
                         string AnswerOption4 = item.Data.AnswerOption4;
                         string AnswerOption5 = item.Data.AnswerOption5;
                         string CorrectAnswer = item.Data.CorrectAnswer;
+                        string Solution = item.Data.Solution;
                         bool IscorrectAnswer1 = CorrectAnswer == "AnswerOption1" ? true : false;
                         bool IscorrectAnswer2 = CorrectAnswer == "AnswerOption2" ? true : false;
                         bool IscorrectAnswer3 = CorrectAnswer == "AnswerOption3" ? true : false;
@@ -242,6 +246,7 @@ namespace OnlineMasterG.DomainLogic
                             QuestionNumber = QuestionNumber,
                             Description = Description,
                             QuestionSet = QSet,
+                            Solution = Solution,
                             QuestionAnswerChoices = questionAnswerChoices,
                             QuestionPoints = questionPoints
                         });
@@ -288,7 +293,7 @@ namespace OnlineMasterG.DomainLogic
         public static List<QuestionUploadVM> QuestionUploadList(string Lang, bool IsActive)
         {
             List<QuestionUploadVM> model = new List<QuestionUploadVM>();
-            var uploads = QuestionUploadService.QuestionUploadList(Lang, IsActive);
+            var uploads = QuestionUploadService.QuestionUploadList(Lang, IsActive).Where(m => !m.QuestionStatus.Contains("DEL")).ToList();
             if (uploads != null && uploads.Count() > 0)
             {
                 foreach (var item in uploads)

@@ -94,3 +94,36 @@ function deleteQuestionUpload(obj) {
                 });
         });
 }
+
+function fnApproval(obj) {
+    var questionUploadId = obj.id;
+    $.confirm("Do you want to approve these questions ? After approval, which will be available for the test",
+        function () {
+            $.postData(
+                URL.APPROVEQUESTIONUPLOAD,
+                { QuestionUploadId: questionUploadId },
+                function () {
+                    clearFields();
+                    setupQuestionUploadList();
+                });
+
+        },
+        function () { }
+    );
+}
+function fnDenyApproval(obj) {
+    var questionUploadId = obj.id;
+    $.confirm("Do you want to deny these questions ? After denial, which will not be available for the test",
+        function () {
+            $.postData(
+                URL.DENYQUESTIONUPLOAD,
+                { QuestionUploadId: questionUploadId },
+                function () {
+                    clearFields();
+                    setupQuestionUploadList();
+                });
+
+        },
+        function () { }
+    );
+}
