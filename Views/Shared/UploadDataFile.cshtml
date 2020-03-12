@@ -1,0 +1,127 @@
+﻿<!-- Upload data file dialog -->
+<style>
+	.progress {
+		position: relative;
+		width: 100%;
+		border: 1px solid #ddd;
+		padding: 1px;
+		border-radius: 3px;
+	}
+
+	.bar {
+		background-color: #B4F5B4;
+		width: 0%;
+		height: 20px;
+		border-radius: 3px;
+	}
+
+	.percent {
+		position: absolute;
+		display: inline-block;
+		top: 3px;
+		left: 48%;
+	}
+</style>
+
+<div id="divUploadDataFileDialog" class="modal hide fade">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Upload File</h3>
+	</div>
+	<div class="modal-body">
+		Please browse and pick your file, and then click "Upload File":<br />
+		<br />
+
+		@using (Html.BeginForm("Upload", "DataFile", FormMethod.Post, new { id = "frmUploadDataFile", enctype = "multipart/form-data" }))
+		{
+			<input type="file" name="postedFile" id="postedFile"><br />
+			<br />
+			<span id="lblUploading" style="font-size: smaller; display: none">Uploading. Please wait...</span>
+			<div class="progress">
+				<div class="bar"></div>
+				<div class="percent">0%</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div style="text-align: center">
+					<input id="btnUploadFile" type="submit" value="Upload File" class="btn btn-primary">
+				</div>
+			</div>
+		 }
+		<br />
+	</div>
+	<div class="modal-footer">
+		<button id="btnUploadDataFileCancel" class="btn">Cancel</button>
+	</div>
+</div>
+
+<script src="~/Scripts/Libraries/jquery.form.js"></script>
+
+<script type="text/javascript">
+	// Upload Data File
+	$.uploadFile = function (onSuccess)
+	{
+		// Reset & show
+		$("#lblUploading").hide();
+		$("#status").empty();
+		$(".bar").width(0)
+		$(".percent").html("");
+		$("#btnUploadFile").disabled();
+		$("#postedFile").enabled();
+		$("#postedFile").val("");
+		$("#divUploadDataFileDialog").modal("show");
+
+		// Cancel button
+		$("#btnUploadDataFileCancel").click(function ()
+		{
+			$("#divUploadDataFileDialog").modal("hide");
+			return false;
+		});
+
+		// Detect file selected
+		$("#postedFile").change(function ()
+		{
+			if ($(this).val() != "")
+				$("#btnUploadFile").enabled();
+			else
+				$("#btnUploadFile").disabled();
+		});
+
+		// Prepare form
+		$("#frmUploadDataFile").ajaxForm({
+			dataType: "json",
+			beforeSend: function ()
+			{
+				var percentVal = "0%";
+
+				$("#lblUploading").show();
+				$("#status").empty();
+				$(".bar").width(percentVal)
+				$(".percent").html(percentVal);
+				$("#btnUploadFile").disabled();
+				$("#postedFile").disabled();
+			},
+			uploadProgress: function (event, position, total, percentComplete)
+			{
+				var percentVal = percentComplete + "%";
+
+				$("#status").html(percentVal);
+				$(".bar").width(percentVal)
+				$(".percent").html(percentVal);
+			},
+			complete: function (xhr)
+			{
+				var percentVal = "100%";
+
+				$("#lblUploading").hide();
+				$(".bar").width(percentVal)
+				$(".percent").html(percentVal);
+
+				$("#divUploadDataFileDialog").modal("hide");
+
+				if (onSuccess != null)
+					onSuccess(JSON.parse(xhr.responseText));
+			}
+		});
+	};
+</script>

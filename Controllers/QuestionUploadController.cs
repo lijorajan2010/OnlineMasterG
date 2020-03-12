@@ -4,6 +4,7 @@ using OnlineMasterG.DomainLogic;
 using OnlineMasterG.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -33,8 +34,8 @@ namespace OnlineMasterG.Controllers
         [HttpPost]
         public ActionResult SaveQuestionUpload(QuestionUploadVM model)
         {
-            System.IO.Stream fs = model.postedFile.InputStream;
-            System.IO.BinaryReader br = new System.IO.BinaryReader(fs);
+            Stream fs = model.postedFile.InputStream;
+            BinaryReader br = new BinaryReader(fs);
             byte [] bytes = br.ReadBytes((Int32)fs.Length);
             // Validate & Save
             var sr = new ServiceResponse();

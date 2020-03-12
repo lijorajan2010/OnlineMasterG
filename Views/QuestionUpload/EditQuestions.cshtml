@@ -1,102 +1,324 @@
 ﻿@using OnlineMasterG.CommonFramework
 @model OnlineMasterG.Models.ViewModels.QuestionReviewVM
-    @{
-        ViewBag.Title = "EditQuestions";
-        Layout = "~/Views/Shared/AdminLayout.cshtml";
-    }
+@{
+    ViewBag.Title = "EditQuestions";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
 
 
-    <script>
+<script>
     var URL = {
-        QUESTIONUPLOADLIST: '@Url.Action("QuestionUploadList", "QuestionUpload")',
-        DELETESQUESTIONUPLOAD: '@Url.Action("DeleteQuestionUpload", "QuestionUpload")',
-        APPROVEQUESTIONUPLOAD: '@Url.Action("ApproveQuestionUpload", "QuestionUpload")',
-        DENYQUESTIONUPLOAD: '@Url.Action("DenyQuestionUpload", "QuestionUpload")',
+        UPLOADDATAFILE: '@Url.Action("UploadDataFile", "DataFile")',
     };
-    </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/CustomScript/QuestionUpload.js?v=" + AppInfo.Version)"></script>
+</script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/CustomScript/QuestionUpload.js?v=" + AppInfo.Version)"></script>
 
-    <div class="app-main__inner">
-        <div class="app-page-title">
-            <div class="page-title-wrapper">
-                <div class="page-title-heading">
-                    <div class="page-title-icon">
-                        <i class="pe-7s-car icon-gradient bg-mean-fruit">
-                        </i>
-                    </div>
-                    <div>
-                        Review / Edit Question
-                    </div>
+<div class="app-main__inner">
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-car icon-gradient bg-mean-fruit">
+                    </i>
                 </div>
-            </div>
-        </div>
-
-        <div class="tabs-animation">
-            <div class="mb-3 card">
-                <div class="card-header-tab card-header">
-                    <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
-                        <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
-                        Review / Edit Question
-                    </div>
-                </div>
-                <div class="no-gutters row">
-                    <div class="col-md-12">
-                        @using (Html.BeginForm("SaveQuestionUpload", "QuestionUpload", FormMethod.Post, new { id = "frmQuestionUpload", autocomplete = "off", @enctype = "multipart/form-data" }))
-                        {
-                            <div class="card-body table-responsive">
-                                <table style="width: 100%;" id="example12" class="table table-hover table-striped table-bordered">
-
-                                    <tbody>
-                                        <tr>
-                                            <th> Course :</th>
-                                            <th> Category:</th>
-                                            <th> Section :</th>
-
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                @Model.CourseName
-                                            </td>
-                                            <td>
-                                                @Model.CategoryName
-                                            </td>
-                                            <td>
-                                                @Model.SectionName
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Test :</th>
-                                            <th colspan="2">Subject :</th>
-                                          
-                                        </tr>
-                                        <tr>
-
-                                            <td>
-                                                @Model.TestName
-                                            </td>
-                                            <td colspan="2">
-                                                @Model.SubjectName
-                                            </td>
-                                           
-                                        </tr>
-                                        <tr>
-                                            <th colspan="3"> Action</th>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3">
-                                                <button class="btn btn-info" type="button" id="btnSave">Save </button>
-                                                <button class="btn btn-alternate" id="btnClear" type="button">Clear </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-
-
-                                </table>
-                            </div>
-                        }
-                    </div>
+                <div>
+                    Review / Edit Question
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="tabs-animation">
+        <div class="mb-3 card">
+            <div class="card-header-tab card-header">
+                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                    <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
+                    Review / Edit Question
+                </div>
+            </div>
+            <div class="no-gutters row">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("SaveReviewedQuestions", "QuestionUpload", FormMethod.Post, new { id = "frmReviewedQuestions", autocomplete = "off", @enctype = "multipart/form-data" }))
+                    {
+                        <div class="card-body table-responsive">
+                            <table style="width: 100%;" id="example12" class="table table-hover table-striped table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th> Course :</th>
+                                        <th> Category:</th>
+                                        <th> Section :</th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Model.CourseName
+                                        </td>
+                                        <td>
+                                            @Model.CategoryName
+                                        </td>
+                                        <td>
+                                            @Model.SectionName
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Test :</th>
+                                        <th colspan="2">Subject :</th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Model.TestName
+                                        </td>
+                                        <td colspan="2">
+                                            @Model.SubjectName
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table style="width:100%">
+                                <tbody>
+                                    @*Grouping Question set Loop*@
+                                    <tr>
+                                        <td>
+                                            Description
+                                            @*Description for the first question*@
+                                        </td>
+                                        <td>
+                                            <table>
+                                                @*Questions Loop for set*@
+                                                <tr>
+                                                    <td>
+                                                        <table id="Questions">
+                                                            <tr>
+                                                                <td>Question</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>QOption1</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>QOption2</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>QOption3</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>QOption4</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>QOption5</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>QOption5</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>QOption5</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Space</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <a class="details" href="javascript:;">Upload Image</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Space</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>AnswOption1</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>AnswOption2</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>AnswOption3</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>AnswOption4</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>AnswOption5</td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Upload data file dialog -->
+<style>
+    .progress {
+        position: relative;
+        width: 100%;
+        border: 1px solid #ddd;
+        padding: 1px;
+        border-radius: 3px;
+    }
+
+    .bar {
+        background-color: #B4F5B4;
+        width: 0%;
+        height: 20px;
+        border-radius: 3px;
+    }
+
+    .percent {
+        position: absolute;
+        display: inline-block;
+        top: 3px;
+        left: 48%;
+    }
+</style>
+
+
+
+<div class="modal" id="divUploadDataFileDialog" style="z-index:3000">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h3>Upload File</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Please browse and pick your file, and then click "Upload File":<br />
+                <br />
+                @using (Ajax.BeginForm("Upload", "DataFile",new { }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess" }, new { id = "frmUploadDataFile", enctype = "multipart/form-data" }))
+                {
+
+                    <input type="file" name="postedFile" id="postedFile"><br />
+                    <br />
+                    <span id="lblUploading" style="font-size: smaller; display: none">Uploading. Please wait...</span>
+                    <div class="progress">
+                        <div class="bar"></div>
+                        <div class="percent">0%</div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div style="text-align: center">
+                            <input id="btnUploadFile" type="submit" value="Upload File" class="btn btn-primary">
+                        </div>
+                    </div>
+                }
+                <br />
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button id="btnUploadDataFileCancel" class="btn">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/Scripts/Libraries/jquery.form.js"></script>
+
+<script type="text/javascript">
+
+
+    //$.submitForm(
+    //    $("#frmUploadDataFile"),
+    //    function (data) {
+    //        $("#divUploadDataFileDialog").modal("hide");
+    //    });
+
+    //$("#frmUploadDataFile").submit();
+
+
+    //// Upload Data File
+    //$.uploadFile = function (onSuccess) {
+    //    // Reset & show
+    //    $("#lblUploading").hide();
+    //    $("#status").empty();
+    //    $(".bar").width(0)
+    //    $(".percent").html("");
+    //    $("#btnUploadFile").disabled();
+    //    $("#postedFile").enabled();
+    //    $("#postedFile").val("");
+    //    $("#divUploadDataFileDialog").modal("show");
+
+    //    // Cancel button
+    //    $("#btnUploadDataFileCancel").click(function () {
+    //        $("#divUploadDataFileDialog").modal("hide");
+    //        return false;
+    //    });
+
+    //    // Detect file selected
+    //    $("#postedFile").change(function () {
+    //        if ($(this).val() != "")
+    //            $("#btnUploadFile").enabled();
+    //        else
+    //            $("#btnUploadFile").disabled();
+    //    });
+
+    //    // Prepare form
+    //    $("#frmUploadDataFile").ajaxForm({
+    //        dataType: "json",
+    //        beforeSend: function () {
+    //            var percentVal = "0%";
+
+    //            $("#lblUploading").show();
+    //            $("#status").empty();
+    //            $(".bar").width(percentVal)
+    //            $(".percent").html(percentVal);
+    //            $("#btnUploadFile").disabled();
+    //            $("#postedFile").disabled();
+    //        },
+    //        uploadProgress: function (event, position, total, percentComplete) {
+    //            var percentVal = percentComplete + "%";
+
+    //            $("#status").html(percentVal);
+    //            $(".bar").width(percentVal)
+    //            $(".percent").html(percentVal);
+    //        },
+    //        complete: function (xhr) {
+    //            debugger
+    //            var percentVal = "100%";
+
+    //            $("#lblUploading").hide();
+    //            $(".bar").width(percentVal)
+    //            $(".percent").html(percentVal);
+
+    //            $("#divUploadDataFileDialog").modal("hide");
+
+    //            if (onSuccess != null)
+    //                onSuccess(JSON.parse(xhr.responseText));
+    //        }
+    //    });
+    //};
+</script>
+
+
+<script type="text/javascript">
+
+    $("#Questions .details").click(function () {
+        //  debugger
+        $("#divUploadDataFileDialog").appendTo("body").modal("show");
+        //$("#divUploadDataFileDialog").modal("show");
+    })
+    function OnSuccess(data) {
+        if (data != null) {
+            $("#divUploadDataFileDialog").modal("hide");
+            alert("DatafileId "+data.DataFileId)
+        } else {
+            // If validation message exist, display HTML
+            if ($("#divValidationMsg") != null)
+                $("#divValidationMsg").html(data.ValidationHTML);
+        }
+
+    }
+</script>

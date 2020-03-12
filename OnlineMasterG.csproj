@@ -176,9 +176,12 @@
     <Compile Include="Code\SerializablePrincipal.cs" />
     <Compile Include="CommonFramework\AppInfo.cs" />
     <Compile Include="CommonFramework\DataTableToList.cs" />
+    <Compile Include="CommonFramework\ExtensionMethods.cs" />
+    <Compile Include="CommonFramework\HttpHelper.cs" />
     <Compile Include="CommonFramework\PasswordUtilities.cs" />
     <Compile Include="CommonFramework\CustomEncrypt.cs" />
     <Compile Include="CommonFramework\AuthUser.cs" />
+    <Compile Include="CommonFramework\TypeValidator.cs" />
     <Compile Include="CommonServices\DataFileService.cs" />
     <Compile Include="CommonServices\QuestionUploadService.cs" />
     <Compile Include="CommonServices\SubjectService.cs" />
@@ -191,6 +194,7 @@
     <Compile Include="CommonServices\UserService.cs" />
     <Compile Include="Controllers\CategoryMasterController.cs" />
     <Compile Include="Controllers\CourseMasterController.cs" />
+    <Compile Include="Controllers\DataFileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\SectionMasterController.cs" />
@@ -819,10 +823,12 @@
     <Content Include="Views\QuestionUpload\Index.cshtml" />
     <Content Include="Views\QuestionUpload\QuestionUploadList.cshtml" />
     <Content Include="Views\QuestionUpload\EditQuestions.cshtml" />
+    <Content Include="Views\Shared\UploadDataFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\DataFile\" />
     <Folder Include="Views\Login\" />
     <Folder Include="Views\UploadMaster\" />
   </ItemGroup>

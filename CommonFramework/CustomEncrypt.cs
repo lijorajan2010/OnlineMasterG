@@ -21,7 +21,24 @@ namespace OnlineMasterG.CommonFramework
         #endregion
 
         #region Static Methods
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <returns></returns>
+        public static string SafeUrlEncrypt(string plainText)
+        {
+            return HttpHelper.SafeUrlEncode(Encrypt(plainText));
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <returns></returns>
+        public static string SafeUrlDecrypt(string plainText)
+        {
+            return Decrypt(HttpHelper.SafeUrlDecode(plainText));
+        }
         /// <summary>
         /// Encrypts specified plaintext using Rijndael symmetric key algorithm
         /// and returns a base64-encoded result.
