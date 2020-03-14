@@ -23,7 +23,11 @@ namespace OnlineMasterG.Models.ViewModels
         public string TestName { get; set; }
         public int SubjectId { get; set; }
         public string SubjectName { get; set; }
-        public virtual ICollection<QuestionsMockTestVM> QuestionsMockTests { get; set; }
+        public virtual List<QuestionsMockTestVM> QuestionsMockTests { get; set; }
+        public QuestionReviewVM()
+        {
+            QuestionsMockTests = new List<QuestionsMockTestVM>();
+        }
     }
 
     public class QuestionsMockTestVM
@@ -46,6 +50,8 @@ namespace OnlineMasterG.Models.ViewModels
         public int QuestionNumber { get; set; }
         public string QuestionSet { get; set; }
         public string Solution { get; set; }
+        public string CorrectAnswer { get; set; }
+        public List<string> OptionList { get; set; }
         public virtual ICollection<QuestionAnswerChoiceVM> QuestionAnswerChoices { get; set; }
         public virtual ICollection<QuestionPointVM> QuestionPoints { get; set; }
     }
@@ -53,6 +59,7 @@ namespace OnlineMasterG.Models.ViewModels
     {
         public int QuestionAnswerChoiceId { get; set; }
         public string QuestionAnswer { get; set; }
+        public string ChoiceId { get; set; }
         public bool IsCorrect { get; set; }
         public Nullable<int> QuestionsMockTestId { get; set; }
 

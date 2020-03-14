@@ -18,6 +18,7 @@ namespace OnlineMasterG.Models.DAL
         public string QuestionAnswer { get; set; }
         public bool IsCorrect { get; set; }
         public Nullable<int> QuestionsMockTestId { get; set; }
+        public int ChoiceId { get; set; }
     
         public virtual QuestionsMockTest QuestionsMockTest { get; set; }
     }

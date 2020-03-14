@@ -47,6 +47,12 @@ namespace OnlineMasterG.CommonServices
                    .Where(m => m.QuestionUploadId == (questionUploadId.HasValue ? questionUploadId.Value:0))
                    .FirstOrDefault();
         }
+        public static QuestionsMockTest FetchQuestionsMock(int? QuestionsMockTestId)
+        {
+            return DB.QuestionsMockTests
+                     .Where(m => m.QuestionsMockTestId == (QuestionsMockTestId.HasValue ? QuestionsMockTestId.Value : 0))
+                     .FirstOrDefault();
+        }
         public static List<QuestionUpload> QuestionUploadList(string Lang,bool IsActive)
         {
             return DB.QuestionUploads
@@ -110,6 +116,30 @@ namespace OnlineMasterG.CommonServices
 
             return sr;
         }
-        
+
+        internal static ServiceResponse EditSaveQuestionReview(QuestionsMockTest existingMockTest, List<QuestionAnswerChoice> newquestionAnswerChoices, List<QuestionPoint> newquestionPoint)
+        {
+            var sr = new ServiceResponse();
+            try
+            {
+                // First remove and Add new Questions and Answers the update existing
+
+                DB.QuestionPoints.RemoveRange(existingMockTest.QuestionPoints);
+                DB.QuestionAnswerChoices.RemoveRange(existingMockTest.QuestionAnswerChoices);
+                DB.SaveChanges();
+
+                DB.QuestionPoints.AddRange(newquestionPoint);
+                DB.QuestionAnswerChoices.AddRange(newquestionAnswerChoices);
+
+                DB.SaveChanges();
+
+                sr.ReturnId = existingMockTest.QuestionsMockTestId;
+            }
+            catch (Exception exception)
+            {
+                sr.AddError(exception.Message);
+            }
+            return sr;
+        }
     }
 }

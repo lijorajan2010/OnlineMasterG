@@ -88,6 +88,7 @@
           <Property Name="QuestionAnswer" Type="varchar(max)" Nullable="false" />
           <Property Name="IsCorrect" Type="bit" Nullable="false" />
           <Property Name="QuestionsMockTestId" Type="int" />
+          <Property Name="ChoiceId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="QuestionMaster">
           <Key>
@@ -799,6 +800,7 @@
           <Property Name="IsCorrect" Type="Boolean" Nullable="false" />
           <Property Name="QuestionsMockTestId" Type="Int32" />
           <NavigationProperty Name="QuestionsMockTest" Relationship="OnlinemasterjiModel.FK__QuestionA__Quest__4F47C5E3" FromRole="QuestionAnswerChoice" ToRole="QuestionsMockTest" />
+          <Property Name="ChoiceId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="QuestionMaster">
           <Key>
@@ -1307,6 +1309,7 @@
           <EntitySetMapping Name="QuestionAnswerChoices">
             <EntityTypeMapping TypeName="OnlinemasterjiModel.QuestionAnswerChoice">
               <MappingFragment StoreEntitySet="QuestionAnswerChoices">
+                <ScalarProperty Name="ChoiceId" ColumnName="ChoiceId" />
                 <ScalarProperty Name="QuestionsMockTestId" ColumnName="QuestionsMockTestId" />
                 <ScalarProperty Name="IsCorrect" ColumnName="IsCorrect" />
                 <ScalarProperty Name="QuestionAnswer" ColumnName="QuestionAnswer" />

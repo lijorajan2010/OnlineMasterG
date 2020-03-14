@@ -56,7 +56,7 @@ namespace OnlineMasterG.DomainLogic
 
             return sr;
         }
-        public static ServiceResponse SaveQuestionUpload(QuestionUploadVM model,byte[] bytes, string auditlogin)
+        public static ServiceResponse SaveQuestionUpload(QuestionUploadVM model, byte[] bytes, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();
 
@@ -190,7 +190,7 @@ namespace OnlineMasterG.DomainLogic
 
                     string Description = string.Empty;
 
-                    foreach (var item in qset.Properties.Select((x,y)=>new { Data =x,Index=y}))
+                    foreach (var item in qset.Properties.Select((x, y) => new { Data = x, Index = y }))
                     {
 
 
@@ -229,11 +229,11 @@ namespace OnlineMasterG.DomainLogic
                         questionPoints.Add(new QuestionPoint() { QPoint = QuestionOption4 });
                         questionPoints.Add(new QuestionPoint() { QPoint = QuestionOption5 });
                         // AnserChices
-                        questionAnswerChoices.Add(new QuestionAnswerChoice() { QuestionAnswer = AnswerOption1, IsCorrect = IscorrectAnswer1 });
-                        questionAnswerChoices.Add(new QuestionAnswerChoice() { QuestionAnswer = AnswerOption2, IsCorrect = IscorrectAnswer2 });
-                        questionAnswerChoices.Add(new QuestionAnswerChoice() { QuestionAnswer = AnswerOption3, IsCorrect = IscorrectAnswer3 });
-                        questionAnswerChoices.Add(new QuestionAnswerChoice() { QuestionAnswer = AnswerOption4, IsCorrect = IscorrectAnswer4 });
-                        questionAnswerChoices.Add(new QuestionAnswerChoice() { QuestionAnswer = AnswerOption5, IsCorrect = IscorrectAnswer5 });
+                        questionAnswerChoices.Add(new QuestionAnswerChoice() { QuestionAnswer = AnswerOption1, ChoiceId = 1, IsCorrect = IscorrectAnswer1 });
+                        questionAnswerChoices.Add(new QuestionAnswerChoice() { QuestionAnswer = AnswerOption2, ChoiceId = 2, IsCorrect = IscorrectAnswer2 });
+                        questionAnswerChoices.Add(new QuestionAnswerChoice() { QuestionAnswer = AnswerOption3, ChoiceId = 3, IsCorrect = IscorrectAnswer3 });
+                        questionAnswerChoices.Add(new QuestionAnswerChoice() { QuestionAnswer = AnswerOption4, ChoiceId = 4, IsCorrect = IscorrectAnswer4 });
+                        questionAnswerChoices.Add(new QuestionAnswerChoice() { QuestionAnswer = AnswerOption5, ChoiceId = 5, IsCorrect = IscorrectAnswer5 });
 
                         questionsMockTest.Add(new QuestionsMockTest()
                         {
@@ -320,7 +320,93 @@ namespace OnlineMasterG.DomainLogic
             }
             return model;
         }
+        public static ServiceResponse SaveEditQuestions(QuestionReviewEdit model, string auditlogin)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            // Data we get in Grouped Questionsets
+            // First convert those into single list. but Description need to save in corresponding questions.
+            if (model != null)
+            {
+                string Description = string.Empty;
+                int QuestionUploadId = 0;
+                if (model.EditQuestionSet != null && model.EditQuestionSet.Count() > 0)
+                {
+                    List<QuestionsMockTestReview> SingleList = new List<QuestionsMockTestReview>();
+                    foreach (var Qset in model.EditQuestionSet)
+                    {
+                        Description = Qset.Description;
+                        QuestionUploadId = Qset.QuestionUploadId;
+                        SingleList.AddRange(Qset.EditQuestions);
+                    }
+                    // Now we have single list of questions now prepare DB Model.
 
+                    if (SingleList != null && SingleList.Count > 0)
+                    {
+                        foreach (var item in SingleList)
+                        {
+                            int CorrectAnswer = Convert.ToInt32(item.CorrectAnswer);
+                            // Save data based on Question
+                            var ExistingMockTest = QuestionUploadService.FetchQuestionsMock(item.QuestionsMockTestId);
+                            if (ExistingMockTest != null)
+                            {
+                                ExistingMockTest.Question = item.Question;
+                                ExistingMockTest.QuestionImageFileId = item.QuestionImageFileId;
+                                ExistingMockTest.Solution = item.Solution;
+                                ExistingMockTest.Description = Description;
+
+                                // New List
+                                List<QuestionAnswerChoice> NewquestionAnswerChoices = new List<QuestionAnswerChoice>();
+                                List<QuestionPoint> NewquestionPoint = new List<QuestionPoint>();
+
+                                if (item.EditQuestionPoints!=null && item.EditQuestionPoints.Count()>0)
+                                {
+                                    foreach (var qItem in item.EditQuestionPoints)
+                                    {
+                                        if (!string.IsNullOrEmpty(qItem.QPoint))
+                                        {
+                                            NewquestionPoint.Add(new QuestionPoint()
+                                            {
+                                                QPoint = qItem.QPoint,
+                                                QuestionsMockTestId = item.QuestionsMockTestId,
+                                            });
+                                        }
+                                       
+                                    }
+                                }
+                                if (item.EditAnswerChoice != null && item.EditAnswerChoice.Count() > 0)
+                                {
+                                    foreach (var qItem in item.EditAnswerChoice)
+                                    {
+                                        int ChoiceId = Convert.ToInt32(qItem.ChoiceId);
+                                        bool isCorrect = (ChoiceId == CorrectAnswer) ? true : false;
+
+                                        if (!string.IsNullOrEmpty(qItem.QuestionAnswer))
+                                        {
+                                            NewquestionAnswerChoices.Add(new QuestionAnswerChoice()
+                                            {
+                                                QuestionAnswer = qItem.QuestionAnswer,
+                                                IsCorrect = isCorrect,
+                                                QuestionsMockTestId = item.QuestionsMockTestId,
+                                                ChoiceId = ChoiceId
+                                            });
+                                        }
+
+                                    }
+                                }
+
+                                QuestionUploadService.EditSaveQuestionReview(ExistingMockTest, NewquestionAnswerChoices, NewquestionPoint);
+                            }
+
+
+                        }
+
+                    }
+
+                }
+            }
+
+            return sr;
+        }
 
         #endregion
     }

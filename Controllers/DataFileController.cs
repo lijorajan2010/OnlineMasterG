@@ -56,7 +56,8 @@ namespace OnlineMasterG.Controllers
                 {
                     DataFileId = dataFile.DataFileId,
                     FileName = dataFile.FileName,
-                    Extension = dataFile.Extension
+                    Extension = dataFile.Extension,
+                    Status=true
                 };
 
                 return GetJsonResult(response);
@@ -66,7 +67,50 @@ namespace OnlineMasterG.Controllers
                 return GetJsonResult(null);
             }
         }
-         [HttpPost]
+
+        [HttpPost]
+        public JsonResult UploadImage(HttpPostedFileBase postedFile)
+        {
+            // Verify that the user selected a file
+            if (postedFile != null && postedFile.ContentLength > 0)
+            {
+                // extract only the fielname
+                DataContent dataContent = new DataContent();
+                DataFile dataFile = new DataFile();
+
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    postedFile.InputStream.CopyTo(ms);
+                    dataContent.RawData = ms.GetBuffer();
+                }
+
+                dataFile.FileName = Path.GetFileName(postedFile.FileName);
+                dataFile.Extension = Path.GetExtension(postedFile.FileName);
+                dataFile.SourceCode = "QUESTIMG";
+                dataFile.DataContent = dataContent;
+                dataFile.CreateBy = HttpContext.User.Identity.Name;
+                dataFile.CreateDate = DateTime.Now;
+
+                // Add file
+                DataFileService.AddDataFile(dataFile);
+
+                var response = new
+                {
+                    DataFileId = dataFile.DataFileId,
+                    FileName = dataFile.FileName,
+                    Extension = dataFile.Extension,
+                    Status = true,
+                    Preview = "" + Url.Action("View", "DataFile", new { p = CustomEncrypt.SafeUrlEncrypt(dataFile.DataFileId.ToString()) })+""
+                };
+
+                return GetJsonResult(response);
+            }
+            else
+            {
+                return GetJsonResult(null);
+            }
+        }
+        [HttpPost]
         public JsonResult UploadLogo(IEnumerable<HttpPostedFileBase> postedFiles)
         {
             var response = new FileInputResponseModel();

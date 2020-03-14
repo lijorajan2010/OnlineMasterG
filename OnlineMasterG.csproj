@@ -275,6 +275,7 @@
     <Compile Include="Models\Shared\ValidationErrorModel.cs" />
     <Compile Include="Models\Shared\ValidationSuccessModel.cs" />
     <Compile Include="Models\ViewModels\ExcelQuestions.cs" />
+    <Compile Include="Models\ViewModels\QuestionReviewEdit.cs" />
     <Compile Include="Models\ViewModels\QuestionReviewVM.cs" />
     <Compile Include="Models\ViewModels\QuestionUploadVM.cs" />
     <Compile Include="Models\ViewModels\SubjectVM.cs" />

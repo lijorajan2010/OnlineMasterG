@@ -11,7 +11,7 @@
             <th>Subject Name</th>
          
             <th>Question Status</th>
-            <th>Review / Edit Questions</th>
+            <th>Review / Finalize Questions</th>
             <th>Approve</th>
             <th>Delete</th>
         </tr>
@@ -38,7 +38,7 @@
                         }
                         else
                         {
-                            @Html.ActionLink("  Edit","EditQuestions","QuestionUpload",new { id=item.Data.QuestionUploadId},new { @class="fa fa-pencil-alt", @target="blank" })
+                            @Html.ActionLink("  Review / Finalize","EditQuestions","QuestionUpload",new { id=item.Data.QuestionUploadId},new { @class="fa fa-pencil-alt", @target="blank" })
                             @*<button class="btn btn-info"  onclick='editQuestionUpload(@Html.Raw(Json.Encode(new { id=item.Data.QuestionUploadId,courseId= item.Data.CourseId,categoryId= item.Data.CategoryId,sectionId = item.Data.SectionId, testId = item.Data.TestId,subjectId = item.Data.SubjectId, languagecode = item.Data.LanguageCode,questionStatus =item.Data.QuestionStatus })));'><i class="fa fa-pencil-alt"></i></button>*@
 
                         }

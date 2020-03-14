@@ -84,7 +84,7 @@ namespace OnlineMasterG.Controllers
 
                 if (QuestionUpload.QuestionsMockTests !=null && QuestionUpload.QuestionsMockTests.Count()>0)
                 {
-                    foreach (var item in questionReviewVM.QuestionsMockTests)
+                    foreach (var item in QuestionUpload.QuestionsMockTests)
                     {
                         List<QuestionAnswerChoiceVM> questionAnswerChoiceVMs = new List<QuestionAnswerChoiceVM>();
 
@@ -95,7 +95,8 @@ namespace OnlineMasterG.Controllers
                                 QuestionAnswerChoiceId = qc.QuestionAnswerChoiceId,
                                 QuestionAnswer = qc.QuestionAnswer,
                                 QuestionsMockTestId = qc.QuestionsMockTestId,
-                                IsCorrect = qc.IsCorrect
+                                IsCorrect = qc.IsCorrect,
+                                ChoiceId = qc.ChoiceId.ToString()
                             });
                         }
 
@@ -111,7 +112,13 @@ namespace OnlineMasterG.Controllers
 
                             });
                         }
-
+                        var CorrectAnswer = questionAnswerChoiceVMs.Where(m => m.IsCorrect == true).FirstOrDefault();
+                        var OptionList = questionAnswerChoiceVMs.Select(m => m.ChoiceId).ToList();
+                        string CorrectAnswerId = null;
+                        if (CorrectAnswer!=null)
+                        {
+                            CorrectAnswerId = CorrectAnswer.ChoiceId;
+                        }
                         questionReviewVM.QuestionsMockTests.Add(new QuestionsMockTestVM
                         {
                             QuestionsMockTestId = item.QuestionsMockTestId,
@@ -123,14 +130,24 @@ namespace OnlineMasterG.Controllers
                             QuestionAnswerChoices = questionAnswerChoiceVMs,
                             QuestionPoints = questionPointVMs,
                             Solution = item.Solution,
-                            QuestionUploadId = item.QuestionUploadId
-                        });
+                            QuestionUploadId = item.QuestionUploadId,
+                            CorrectAnswer = !string.IsNullOrEmpty(CorrectAnswerId) ? CorrectAnswerId : "1",
+                            OptionList = OptionList
+                        }); 
                     }
                 }
 
             }
 
             return View(questionReviewVM);
+        }
+
+        [HttpPost]
+        public ActionResult SaveReviewedQuestions(QuestionReviewEdit model)
+        {
+            var sr = QuestionUploadLogics.SaveEditQuestions(model,HttpContext.User.Identity.Name);
+
+            return GetJsonValidation(sr, "Questions has been edited successfully.");
         }
 
 

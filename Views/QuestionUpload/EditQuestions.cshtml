@@ -8,13 +8,17 @@
 
 <script>
     var URL = {
-        UPLOADDATAFILE: '@Url.Action("UploadDataFile", "DataFile")',
+        UPLOADDATAFILE: '@Url.Action("UploadImage", "DataFile")',
     };
 </script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/CustomScript/QuestionUpload.js?v=" + AppInfo.Version)"></script>
-
+<script src="~/Scripts/Libraries/jquery.form.js"></script>
 <div class="app-main__inner">
     <div class="app-page-title">
+        <div class="text-right">
+            <i class="fas fa-arrow-alt-circle-left"></i>  @Html.ActionLink("Back to Question Upload", "Index", "QuestionUpload", new { @class = "glyphicon glyphicon-log-out", @id = "bkbtn" })
+
+        </div>
         <div class="page-title-wrapper">
             <div class="page-title-heading">
                 <div class="page-title-icon">
@@ -24,8 +28,11 @@
                 <div>
                     Review / Edit Question
                 </div>
+
             </div>
+
         </div>
+
     </div>
 
     <div class="tabs-animation">
@@ -34,119 +41,265 @@
                 <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
                     <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
                     Review / Edit Question
+
                 </div>
             </div>
+            <div id="divValidationMsg">
+            </div>
+
             <div class="no-gutters row">
                 <div class="col-md-12">
                     @using (Html.BeginForm("SaveReviewedQuestions", "QuestionUpload", FormMethod.Post, new { id = "frmReviewedQuestions", autocomplete = "off", @enctype = "multipart/form-data" }))
                     {
-                        <div class="card-body table-responsive">
-                            <table style="width: 100%;" id="example12" class="table table-hover table-striped table-bordered">
-                                <tbody>
-                                    <tr>
-                                        <th> Course :</th>
-                                        <th> Category:</th>
-                                        <th> Section :</th>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            @Model.CourseName
-                                        </td>
-                                        <td>
-                                            @Model.CategoryName
-                                        </td>
-                                        <td>
-                                            @Model.SectionName
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Test :</th>
-                                        <th colspan="2">Subject :</th>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            @Model.TestName
-                                        </td>
-                                        <td colspan="2">
-                                            @Model.SubjectName
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table style="width:100%">
-                                <tbody>
-                                    @*Grouping Question set Loop*@
-                                    <tr>
-                                        <td>
-                                            Description
-                                            @*Description for the first question*@
-                                        </td>
-                                        <td>
-                                            <table>
-                                                @*Questions Loop for set*@
-                                                <tr>
-                                                    <td>
-                                                        <table id="Questions">
-                                                            <tr>
-                                                                <td>Question</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>QOption1</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>QOption2</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>QOption3</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>QOption4</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>QOption5</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>QOption5</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>QOption5</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Space</td>
-                                                            </tr>
+                        if (Model != null)
+                        {
+                            <div class="card-body table-responsive">
+                                <table id="example12" class="table table-hover table-striped table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th> Course :</th>
+                                            <th> Category:</th>
+                                            <th> Section :</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @Model.CourseName
+                                            </td>
+                                            <td>
+                                                @Model.CategoryName
+                                            </td>
+                                            <td>
+                                                @Model.SectionName
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Test :</th>
+                                            <th colspan="2">Subject :</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @Model.TestName
+                                            </td>
+                                            <td colspan="2">
+                                                @Model.SubjectName
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table>
+
+                                    @{
+
+                                        var QuestionSetOrdeyByQNumber = Model.QuestionsMockTests.OrderBy(m => m.QuestionNumber).ToList();
+                                        var QuestionSetGroup = from m in QuestionSetOrdeyByQNumber
+                                                               group m by m.QuestionSet into QSetGroup
+                                                               select new { Key = QSetGroup.Key, QsetG = QSetGroup };
+
+                                    }
+                                    @if (QuestionSetGroup != null && QuestionSetGroup.Count() > 0)
+                                    {
+                                        int QuestionSetNumber = 1;
+                                        foreach (var qset in QuestionSetGroup.Select((x, y) => new { Data = x, Index = y }))
+                                        {
+                                            string FirstDescription = string.Empty;
+                                            int? QuestionUploadId;
+                                            FirstDescription = qset.Data.QsetG.FirstOrDefault().Description;
+                                            QuestionUploadId = qset.Data.QsetG.FirstOrDefault().QuestionUploadId;
+                                            @*Grouping Question set Loop*@
+                                            <tr style="width:100%;background:  #f6f7f5; border-bottom:1pt solid grey ;">
+                                                <td colspan="2"><h4>QUESTION SET @QuestionSetNumber</h4>  </td>
+                                                @{
+                                                    QuestionSetNumber = QuestionSetNumber + 1;
+                                                }
+                                            </tr>
+                                            <tr style="width:100%;background: #f6f7f9; border-bottom:1pt solid grey ;">
+                                                <td>
+                                                    <input type="hidden" name="EditQuestionSet[@qset.Index].QuestionUploadId" value='@QuestionUploadId'>
+                                                    <textarea rows="130" cols="50" name="EditQuestionSet[@qset.Index].Description" form="frmReviewedQuestions" class="form-control">@FirstDescription</textarea>
+                                                    @*Description for the first question*@
+                                                </td>
+                                                <td>
+                                                    <table>
+                                                        @foreach (var itemQset in qset.Data.QsetG.Select((x, y) => new { Data = x, Index = y }))
+                                                        {
+                                                            @*Questions Loop for set*@
                                                             <tr>
                                                                 <td>
-                                                                    <a class="details" href="javascript:;">Upload Image</a>
+                                                                    <table id="Questions">
+                                                                        <tr>
+                                                                            <td><strong> Question Number @itemQset.Data.QuestionNumber</strong> </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                Question &nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                <input type="hidden" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].QuestionsMockTestId" value='@itemQset.Data.QuestionsMockTestId'>
+                                                                                <input type="hidden" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].QuestionUploadId" value='@itemQset.Data.QuestionUploadId'>
+                                                                                <input type="hidden" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].QuestionNumber" value='@itemQset.Data.QuestionNumber'>
+                                                                                <input type="hidden" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].QuestionSet" value='@itemQset.Data.QuestionSet'>
+                                                                                <input type="text" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].Question" value='@itemQset.Data.Question' class="form-control" style="width:570px;">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <table id="QPoints">
+                                                                                    @foreach (var Qch in itemQset.Data.QuestionPoints.Select((x, y) => new { Data = x, Index = y }))
+                                                                                    {
+                                                                                        <tr>
+
+                                                                                            <td>
+                                                                                                Question Point @(Qch.Index + 1) &nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                                <input type="hidden" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].EditQuestionPoints[@Qch.Index].QuestionPointId" value='@Qch.Data.QuestionPointId'>
+                                                                                                <input type="text" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].EditQuestionPoints[@Qch.Index].QPoint" value='@Qch.Data.QPoint' class="form-control" style="width:570px;">
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    }
+                                                                                </table>
+                                                                            </td>
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                            <td>@*Space*@</td>
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                            <td>
+                                                                                <label>
+                                                                                    Upload Image
+                                                                                </label>
+                                                                                <a class="details" href="javascript:;">click to upload image</a>
+                                                                                @{
+                                                                                    var Imghdf = "Imghdf" + itemQset.Index;
+                                                                                    var imgpreview = "imgpreview" + itemQset.Index;
+                                                                                }
+                                                                                <input type="hidden" id="@Imghdf" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].QuestionImageFileId" value='@itemQset.Data.QuestionImageFileId'>
+                                                                                @if (itemQset.Data.QuestionImageFileId != null)
+                                                                                {
+                                                                                    <img id="@imgpreview" class="imgpreview" style='height: 150px;max-width: 400px;' src='@Url.Action("View", "DataFile" , new {p=CustomEncrypt.Encrypt(itemQset.Data.QuestionImageFileId.Value.ToString())})' />
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <img id="@imgpreview" class="imgpreview" style='height: 150px;max-width: 400px;' src='' />
+                                                                                }
+
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <table id="AnsChoices">
+                                                                                    @foreach (var Qch in itemQset.Data.QuestionAnswerChoices.Select((x, y) => new { Data = x, Index = y }))
+                                                                                    {
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                Answer Choice @(Qch.Index + 1) &nbsp;&nbsp;&nbsp;&nbsp;
+
+                                                                                                <input type="hidden" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].EditAnswerChoice[@Qch.Index].QuestionAnswerChoiceId" value='@Qch.Data.QuestionAnswerChoiceId'>
+                                                                                                <input type="hidden" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].EditAnswerChoice[@Qch.Index].ChoiceId" value='@Qch.Data.ChoiceId'>
+                                                                                                <input type="text" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].EditAnswerChoice[@Qch.Index].QuestionAnswer" value='@Qch.Data.QuestionAnswer' class="form-control" style="width:570px;">
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    }
+                                                                                </table>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                Correct Answer <br />
+                                                                                @if (itemQset.Data.OptionList.Contains("1"))
+                                                                                {
+                                                                                    if (itemQset.Data.CorrectAnswer == "1")
+                                                                                    {
+                                                                                        <input type="radio" id="opt1" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].CorrectAnswer" checked value="1">
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <input type="radio" id="opt1" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].CorrectAnswer" value="1">
+                                                                                    }
+                                                                                    <label for="opt1">Option 1</label><br>
+                                                                                }
+                                                                                @if (itemQset.Data.OptionList.Contains("2"))
+                                                                                {
+                                                                                    if (itemQset.Data.CorrectAnswer == "2")
+                                                                                    {
+                                                                                        <input type="radio" id="opt2" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].CorrectAnswer" checked value="2">
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <input type="radio" id="opt2" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].CorrectAnswer" value="2">
+                                                                                    }
+                                                                                    <label for="opt2">Option 2</label><br>
+                                                                                }
+                                                                                @if(itemQset.Data.OptionList.Contains("3"))
+                                                                                {
+                                                                                    if (itemQset.Data.CorrectAnswer == "3")
+                                                                                    {
+                                                                                        <input type="radio" id="opt3" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].CorrectAnswer" checked value="3">
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <input type="radio" id="opt3" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].CorrectAnswer" value="3">
+                                                                                    }
+                                                                                    <label for="opt3">Option 3</label><br>
+                                                                                }
+                                                                                @if (itemQset.Data.OptionList.Contains("4"))
+                                                                                {
+
+                                                                                    if (itemQset.Data.CorrectAnswer == "4")
+                                                                                    {
+                                                                                    <input type="radio" id="opt4" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].CorrectAnswer" checked value="4">
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                    <input type="radio" id="opt4" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].CorrectAnswer" value="4">
+                                                                                    }
+                                                                                <label for="opt4">Option 4</label><br>
+                                                                                }
+                                                                                @if (itemQset.Data.OptionList.Contains("5"))
+                                                                                {
+
+                                                                                    if (itemQset.Data.CorrectAnswer == "5")
+                                                                                    {
+                                                                                    <input type="radio" id="opt5" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].CorrectAnswer" checked value="5">
+
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                    <input type="radio" id="opt5" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].CorrectAnswer" value="5">
+                                                                                    }
+                                                                                <label for="opt5">Option 5</label>
+                                                                                }
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                Solution  &nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                <input type="text" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].Solution" value='@itemQset.Data.Solution' class="form-control" style="width:570px;">
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>Space</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>AnswOption1</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>AnswOption2</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>AnswOption3</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>AnswOption4</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>AnswOption5</td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            </table>
+                                                        }
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+
+                                </table>
+                                <table style="width:100%">
+                                    <tr>
+                                        <td class="text-right">
+                                            <br />
+                                            <input id="btnSubmitQuestionsFinal" type="button" value="Submit Verified Questions" class="btn btn-info">
                                         </td>
                                     </tr>
-                                </tbody>
+                                </table>
+                            </div>
+                        }
 
-                            </table>
-                        </div>
                     }
                 </div>
             </div>
@@ -180,6 +333,7 @@
 
 
 
+
 <div class="modal" id="divUploadDataFileDialog" style="z-index:3000">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -192,23 +346,27 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                Please browse and pick your file, and then click "Upload File":<br />
+                Please browse and pick you image, and then click "Upload File". File format accepted are png/jpeg<br />
                 <br />
-                @using (Ajax.BeginForm("Upload", "DataFile",new { }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess" }, new { id = "frmUploadDataFile", enctype = "multipart/form-data" }))
+                @using (Ajax.BeginForm("UploadImage", "DataFile", new { }, new AjaxOptions { HttpMethod = "POST" }, new { id = "frmUploadDataFile", enctype = "multipart/form-data" }))
                 {
 
-                    <input type="file" name="postedFile" id="postedFile"><br />
-                    <br />
-                    <span id="lblUploading" style="font-size: smaller; display: none">Uploading. Please wait...</span>
-                    <div class="progress">
-                        <div class="bar"></div>
-                        <div class="percent">0%</div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div style="text-align: center">
-                            <input id="btnUploadFile" type="submit" value="Upload File" class="btn btn-primary">
-                        </div>
+                    <table style="width:100%">
+                        <tr style="width:100%">
+                            <td>
+                                <input type="file" name="postedFile" id="postedFile" required accept="image/png, image/jpeg"><br />
+                            </td>
+                            <td>
+
+                                <input id="btnUploadFile" type="button" value="Upload File" class="btn btn-info">
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="loading" style="display:none">
+                        <button class="btn btn-primary" type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Uploading file... Please wait...
+                        </button>
                     </div>
                 }
                 <br />
@@ -216,7 +374,7 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button id="btnUploadDataFileCancel" class="btn">Cancel</button>
+                <button id="btnUploadDataFileCancel" data-dismiss="modal" class="btn btn-dark">Cancel</button>
             </div>
 
         </div>
@@ -225,100 +383,62 @@
 
 
 
-<script src="~/Scripts/Libraries/jquery.form.js"></script>
 
 <script type="text/javascript">
-
-
-    //$.submitForm(
-    //    $("#frmUploadDataFile"),
-    //    function (data) {
-    //        $("#divUploadDataFileDialog").modal("hide");
-    //    });
-
-    //$("#frmUploadDataFile").submit();
-
-
-    //// Upload Data File
-    //$.uploadFile = function (onSuccess) {
-    //    // Reset & show
-    //    $("#lblUploading").hide();
-    //    $("#status").empty();
-    //    $(".bar").width(0)
-    //    $(".percent").html("");
-    //    $("#btnUploadFile").disabled();
-    //    $("#postedFile").enabled();
-    //    $("#postedFile").val("");
-    //    $("#divUploadDataFileDialog").modal("show");
-
-    //    // Cancel button
-    //    $("#btnUploadDataFileCancel").click(function () {
-    //        $("#divUploadDataFileDialog").modal("hide");
-    //        return false;
-    //    });
-
-    //    // Detect file selected
-    //    $("#postedFile").change(function () {
-    //        if ($(this).val() != "")
-    //            $("#btnUploadFile").enabled();
-    //        else
-    //            $("#btnUploadFile").disabled();
-    //    });
-
-    //    // Prepare form
-    //    $("#frmUploadDataFile").ajaxForm({
-    //        dataType: "json",
-    //        beforeSend: function () {
-    //            var percentVal = "0%";
-
-    //            $("#lblUploading").show();
-    //            $("#status").empty();
-    //            $(".bar").width(percentVal)
-    //            $(".percent").html(percentVal);
-    //            $("#btnUploadFile").disabled();
-    //            $("#postedFile").disabled();
-    //        },
-    //        uploadProgress: function (event, position, total, percentComplete) {
-    //            var percentVal = percentComplete + "%";
-
-    //            $("#status").html(percentVal);
-    //            $(".bar").width(percentVal)
-    //            $(".percent").html(percentVal);
-    //        },
-    //        complete: function (xhr) {
-    //            debugger
-    //            var percentVal = "100%";
-
-    //            $("#lblUploading").hide();
-    //            $(".bar").width(percentVal)
-    //            $(".percent").html(percentVal);
-
-    //            $("#divUploadDataFileDialog").modal("hide");
-
-    //            if (onSuccess != null)
-    //                onSuccess(JSON.parse(xhr.responseText));
-    //        }
-    //    });
-    //};
-</script>
-
-
-<script type="text/javascript">
-
+    var ImgUploadQuestionFieldId = null;
+    var ImgPreviewDiv = null;
     $("#Questions .details").click(function () {
-        //  debugger
+        ImgUploadQuestionFieldId = $(this).parent().find('input:hidden').attr('id');
+        ImgPreviewDiv = $(this).parent().find('input:hidden').next().attr('id');
         $("#divUploadDataFileDialog").appendTo("body").modal("show");
-        //$("#divUploadDataFileDialog").modal("show");
     })
-    function OnSuccess(data) {
-        if (data != null) {
-            $("#divUploadDataFileDialog").modal("hide");
-            alert("DatafileId "+data.DataFileId)
-        } else {
-            // If validation message exist, display HTML
-            if ($("#divValidationMsg") != null)
-                $("#divValidationMsg").html(data.ValidationHTML);
-        }
 
-    }
+
+    $("#btnUploadFile").click(function () {
+
+        $.submitForm(
+            $("#frmUploadDataFile"),
+            function (data) {
+                $("#" + ImgUploadQuestionFieldId).val(data.DataFileId);
+                $("#" + ImgPreviewDiv).attr("src", data.Preview);
+                $("#divUploadDataFileDialog").appendTo("body").modal("hide");
+
+                // reset everything
+                $("#loading").hide();
+                $("#btnUploadFile").removeAttr('disabled');
+                $("#postedFile").val('');
+
+                ImgUploadQuestionFieldId = null;
+                ImgPreviewDiv = null;
+            }
+            , function () { }
+            , function () {
+            }
+            , $("#loading")
+            , $("#btnUploadFile")
+        );
+
+        $("#frmUploadDataFile").submit();
+
+    });
+
+    $("#btnSubmitQuestionsFinal").click(function () {
+        $.confirm("Do you want to submit these questions? Blank/Null values/options will be removed from the list. Once verified and submitted, go to Question upload page and approve these questions. Then only it will be available for the test. Do you want to continue?", function () {
+            $.submitForm(
+                $("#frmReviewedQuestions"),
+                function (data) {
+                    $('html, body').animate({
+                        scrollTop: $('#bkbtn').offset().top - 100
+                    });
+                });
+            $("#frmReviewedQuestions").submit();
+        },
+        )
+
+
+
+
+
+    });
+
 </script>

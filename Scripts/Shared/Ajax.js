@@ -71,6 +71,9 @@ $(document).ready(function () {
 
         // Perform client side alidations
         if (!form.valid()) {
+            $('html, body').animate({
+                scrollTop: $('.required.error:first').offset().top - 100
+            });
             $('.required.error:first').focus();
             return;
         }
@@ -199,13 +202,23 @@ $(document).ready(function () {
 
 
     // Submit Form function
-    $.submitForm = function (form, validationSuccess, validationError, callback) {
+    $.submitForm = function (form, validationSuccess, validationError, callback, loadingElament,UploadbtnId) {
 
         // Perform client side alidations
         if (!form.valid()) {
+            $('html, body').animate({
+                scrollTop: $('.required.error:first').offset().top - 100
+            });
             $('.required.error:first').focus();
             return;
         }
+        if (UploadbtnId != null) {
+            $(UploadbtnId).attr('disabled', true);
+        }
+        if (loadingElament != null) {
+            $(loadingElament).show();
+        }
+        
 
         $.blockUI();
 

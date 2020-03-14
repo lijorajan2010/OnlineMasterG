@@ -58,7 +58,7 @@ function saveQuestionUpload() {
         $("#frmQuestionUpload"),
         function (data) {
             clearFields();
-            setupSubjectList();
+            setupQuestionUploadList();
         });
 
     $("#frmQuestionUpload").submit();
