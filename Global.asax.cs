@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using OnlineMasterG.App_Start;
 using OnlineMasterG.Code;
 using OnlineMasterG.CommonFramework;
 using System;
@@ -22,7 +23,8 @@ namespace OnlineMasterG
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-        }
+			AuthConfig.RegisterAuth();
+		}
 		protected void Application_AuthenticateRequest(object sender, EventArgs e)
 		{
 			var authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];

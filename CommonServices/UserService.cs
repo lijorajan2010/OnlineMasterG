@@ -1,4 +1,5 @@
-﻿using OnlineMasterG.Models.DAL;
+﻿using OnlineMasterG.Base;
+using OnlineMasterG.Models.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,14 @@ namespace OnlineMasterG.CommonServices
                  .AsNoTracking()
                 .FirstOrDefault(x => x.Login.Equals(login, StringComparison.OrdinalIgnoreCase));
         }
+        public static List<User> FetchUserList(string login)
+        {
+            return DB
+                .Users
+                 .AsNoTracking()
+                .Where(x => x.Login.Equals(login, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
         public static int? GetUserCompanyLogoDataFileId(string login, int? businessUnitId = null)
         {
             // Use login
@@ -37,6 +46,22 @@ namespace OnlineMasterG.CommonServices
                     return user.LogoDataFileId;
             }
             return null;
+        }
+
+        public static ServiceResponse SaveUser(User user)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            try
+            {
+                DB.Users.Add(user);
+                DB.SaveChanges();
+                sr.ReturnCode = user.Login;
+            }
+            catch (Exception ex)
+            {
+                sr.AddError(ex.Message);
+            }
+            return sr;
         }
 
     }
