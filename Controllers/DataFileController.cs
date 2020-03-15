@@ -1,4 +1,5 @@
 ﻿using OnlineMasterG.Base;
+using OnlineMasterG.Code;
 using OnlineMasterG.CommonFramework;
 using OnlineMasterG.CommonServices;
 using OnlineMasterG.Models.DAL;
@@ -12,7 +13,7 @@ using System.Web.Mvc;
 
 namespace OnlineMasterG.Controllers
 {
-
+    [ActionAuthorization()]
     public class FileInputResponseModel
     {
         public string error { get; set; }

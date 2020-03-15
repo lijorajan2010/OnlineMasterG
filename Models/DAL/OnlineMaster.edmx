@@ -211,6 +211,7 @@
           <Property Name="LogoDataFileId" Type="int" />
           <Property Name="FirstName" Type="varchar" MaxLength="50" />
           <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="ResetPasswordCode" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="UserTypes">
           <Key>
@@ -946,6 +947,7 @@
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="UserType" Relationship="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D" FromRole="User" ToRole="UserType" />
+          <Property Name="ResetPasswordCode" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
@@ -1431,6 +1433,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="OnlinemasterjiModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LogoDataFileId" ColumnName="LogoDataFileId" />

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OnlineMasterG.CommonServices;
+using OnlineMasterG.Models.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -23,6 +25,15 @@ namespace OnlineMasterG.CommonFramework
 
                 return langCookie == null ? "en-US" : langCookie.Value;
             }
+        }
+     
+        public static List<string> GetCourses
+        {
+            get{ 
+                var CourseName = CourseService.CourseList("en-US", true).OrderBy(m => m.Sequence).Take(5).ToList();
+                return CourseName.Select(m => m.CourseName).ToList();
+            }
+        
         }
 
     }

@@ -26,6 +26,7 @@ namespace OnlineMasterG.Models.DAL
         public Nullable<int> LogoDataFileId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string ResetPasswordCode { get; set; }
     
         public virtual UserType UserType { get; set; }
     }

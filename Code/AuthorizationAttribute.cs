@@ -11,7 +11,7 @@ namespace OnlineMasterG.Code
     {
         public string action { get; set; }
 
-        public ActionAuthorizationAttribute(string action)
+        public ActionAuthorizationAttribute()
         {
             this.action = action;
         }
