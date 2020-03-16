@@ -12,19 +12,17 @@ namespace OnlineMasterG.Models.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class ColleageCourse
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
+        public ColleageCourse()
         {
-            this.MockTests = new HashSet<MockTest>();
-            this.QuestionUploads = new HashSet<QuestionUpload>();
-            this.Subjects = new HashSet<Subject>();
-            this.Sections = new HashSet<Section>();
+            this.CollegeSubjects = new HashSet<CollegeSubject>();
+            this.CollegePapers = new HashSet<CollegePaper>();
         }
     
-        public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
+        public int CourseId { get; set; }
+        public string CourseName { get; set; }
         public Nullable<int> Sequence { get; set; }
         public string LanguageCode { get; set; }
         public bool Isactive { get; set; }
@@ -32,16 +30,10 @@ namespace OnlineMasterG.Models.DAL
         public System.DateTime CreateOn { get; set; }
         public string EditBy { get; set; }
         public Nullable<System.DateTime> EditOn { get; set; }
-        public Nullable<int> CourseId { get; set; }
     
-        public virtual Course Course { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MockTest> MockTests { get; set; }
+        public virtual ICollection<CollegeSubject> CollegeSubjects { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QuestionUpload> QuestionUploads { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Subject> Subjects { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Section> Sections { get; set; }
+        public virtual ICollection<CollegePaper> CollegePapers { get; set; }
     }
 }

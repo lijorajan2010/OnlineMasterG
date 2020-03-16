@@ -36,9 +36,12 @@ namespace OnlineMasterG.Models.DAL
         public virtual DbSet<QuestionPoint> QuestionPoints { get; set; }
         public virtual DbSet<QuestionsMockTest> QuestionsMockTests { get; set; }
         public virtual DbSet<QuestionUpload> QuestionUploads { get; set; }
-        public virtual DbSet<Section> Sections { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
+        public virtual DbSet<ColleageCourse> ColleageCourses { get; set; }
+        public virtual DbSet<CollegeSubject> CollegeSubjects { get; set; }
+        public virtual DbSet<CollegePaper> CollegePapers { get; set; }
+        public virtual DbSet<Section> Sections { get; set; }
     }
 }

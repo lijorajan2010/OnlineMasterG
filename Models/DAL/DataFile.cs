@@ -19,6 +19,7 @@ namespace OnlineMasterG.Models.DAL
         {
             this.QuestionsMockTests = new HashSet<QuestionsMockTest>();
             this.QuestionUploads = new HashSet<QuestionUpload>();
+            this.CollegePapers = new HashSet<CollegePaper>();
         }
     
         public int DataFileId { get; set; }
@@ -34,5 +35,7 @@ namespace OnlineMasterG.Models.DAL
         public virtual ICollection<QuestionsMockTest> QuestionsMockTests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuestionUpload> QuestionUploads { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CollegePaper> CollegePapers { get; set; }
     }
 }

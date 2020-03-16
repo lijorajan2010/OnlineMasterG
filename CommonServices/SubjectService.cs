@@ -52,15 +52,65 @@ namespace OnlineMasterG.CommonServices
             }
             return sr;
         }
+        public static ServiceResponse SaveCollegeSubject(CollegeSubject subject, string auditlogin)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            if (subject.SubjectId == 0)
+            {
+                DB.CollegeSubjects.Add(subject);
+                DB.SaveChanges();
+            }
+            else
+            {
+                var dbSubject = FetchCollegeSubject(subject.SubjectId);
+                if (dbSubject == null)
+                {
+                    sr.AddError($"Subject Name {subject.SubjectName} is not found.");
+                    return sr;
+                }
+                else
+                {
+                    dbSubject.SubjectId = subject.SubjectId;
+                    dbSubject.SubjectName = subject.SubjectName;
+                    dbSubject.CourseId = subject.CourseId;
+                    dbSubject.LanguageCode = subject.LanguageCode;
+                    dbSubject.Sequence = subject.Sequence;
+                    dbSubject.Isactive = true;
+                    dbSubject.EditBy = auditlogin;
+                    dbSubject.EditOn = DateTime.Now;
+                    // Save in DB
+                    DB.SaveChanges();
+
+                    // Return
+                    sr.ReturnId = dbSubject.SubjectId;
+                    sr.ReturnName = dbSubject.SubjectName;
+
+                    return sr;
+                }
+            }
+            return sr;
+        }
         public static Subject Fetch(int? subjectId)
         {
           return  DB.Subjects
                    .Where(m => m.SubjectId == (subjectId.HasValue ? subjectId.Value:0))
                    .FirstOrDefault();
         }
+        public static CollegeSubject FetchCollegeSubject(int? subjectId)
+        {
+            return DB.CollegeSubjects
+                     .Where(m => m.SubjectId == (subjectId.HasValue ? subjectId.Value : 0))
+                     .FirstOrDefault();
+        }
         public static List<Subject> SubjectList(string Lang,bool IsActive)
         {
             return DB.Subjects
+                  .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
+                  .ToList();
+        }
+        public static List<CollegeSubject> CollegeSubjectList(string Lang, bool IsActive)
+        {
+            return DB.CollegeSubjects
                   .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
                   .ToList();
         }
@@ -71,6 +121,24 @@ namespace OnlineMasterG.CommonServices
             try
             {
                 var Subject = Fetch(SubjectId);
+
+                DB.Entry(Subject).State = EntityState.Deleted;
+                DB.SaveChanges();
+            }
+            catch (Exception exception)
+            {
+                sr.AddError(exception.Message);
+            }
+
+            return sr;
+        }
+        public static ServiceResponse DeleteCollegeSubject(int SubjectId)
+        {
+            var sr = new ServiceResponse();
+
+            try
+            {
+                var Subject = FetchCollegeSubject(SubjectId);
 
                 DB.Entry(Subject).State = EntityState.Deleted;
                 DB.SaveChanges();

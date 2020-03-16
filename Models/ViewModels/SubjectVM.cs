@@ -20,6 +20,7 @@ namespace OnlineMasterG.Models.ViewModels
         public string Description { get; set; }
         public string LanguageCode { get; set; }
         public int Sequence { get; set; }
+        public int? SequenceSub { get; set; }
         public bool IsActive { get; set; }
     }
 }

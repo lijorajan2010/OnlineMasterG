@@ -39,7 +39,7 @@ namespace OnlineMasterG.Models.DAL
         public virtual MockTest MockTest { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuestionsMockTest> QuestionsMockTests { get; set; }
-        public virtual Section Section { get; set; }
         public virtual Subject Subject { get; set; }
+        public virtual Section Section { get; set; }
     }
 }

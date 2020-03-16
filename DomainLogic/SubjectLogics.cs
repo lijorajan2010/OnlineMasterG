@@ -43,6 +43,24 @@ namespace OnlineMasterG.DomainLogic
 
             return sr;
         }
+        public static ServiceResponse SaveCollegeSubject(SubjectVM model, string auditlogin)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            CollegeSubject subject = new CollegeSubject()
+            {
+                SubjectId = model.SubjectId,
+                SubjectName = model.SubjectName,
+                CourseId = model.CourseId,
+                LanguageCode = model.LanguageCode,
+                Sequence = model.SequenceSub,
+                CreateBy = auditlogin,
+                CreateOn = DateTime.Now,
+                Isactive = true
+            };
+            sr = SubjectService.SaveCollegeSubject(subject, auditlogin);
+
+            return sr;
+        }
         public static List<SubjectVM> SubjectList(string Lang, bool IsActive)
         {
             List<SubjectVM> model = new List<SubjectVM>();
@@ -71,7 +89,30 @@ namespace OnlineMasterG.DomainLogic
             }
             return model;
         }
+        public static List<SubjectVM> CollegeSubjectList(string Lang, bool IsActive)
+        {
+            List<SubjectVM> model = new List<SubjectVM>();
+            var subjects = SubjectService.CollegeSubjectList(Lang, IsActive);
+            if (subjects != null && subjects.Count() > 0)
+            {
+                foreach (var item in subjects)
+                {
+                    model.Add(new SubjectVM()
+                    {
+                        SubjectId = item.SubjectId, 
+                        CourseId = item.CourseId,
+                        SubjectName = item.SubjectName,
+                        CourseName = CourseService.FetchCollegeCourse(item.CourseId)?.CourseName,
+                        SequenceSub = item.Sequence,
+                        LanguageCode = item.LanguageCode,
+                        IsActive = item.Isactive
 
+                    });
+                }
+            }
+            return model;
+        }
+       
 
         #endregion
     }

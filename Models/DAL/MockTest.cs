@@ -37,10 +37,10 @@ namespace OnlineMasterG.Models.DAL
     
         public virtual Category Category { get; set; }
         public virtual Course Course { get; set; }
-        public virtual Section Section { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuestionUpload> QuestionUploads { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Subject> Subjects { get; set; }
+        public virtual Section Section { get; set; }
     }
 }

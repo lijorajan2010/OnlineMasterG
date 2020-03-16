@@ -39,6 +39,23 @@ namespace OnlineMasterG.DomainLogic
 
             return sr;
         }
+        public static ServiceResponse SaveCollegeCourse(CourseVM model, string auditlogin)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            ColleageCourse course = new ColleageCourse()
+            {
+                CourseId = model.CourseId,
+                CourseName = model.CourseName,
+                Sequence = model.Sequence,
+                LanguageCode = model.LanguageCode,
+                Isactive = model.IsActive,
+                CreateBy = auditlogin,
+                CreateOn = DateTime.Now
+            };
+            sr = CourseService.SaveCollegeCourse(course, auditlogin);
+
+            return sr;
+        }
 
         #endregion
     }

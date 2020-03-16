@@ -235,6 +235,7 @@
     <Compile Include="CommonFramework\TypeValidator.cs" />
     <Compile Include="CommonServices\DataFileService.cs" />
     <Compile Include="CommonServices\QuestionUploadService.cs" />
+    <Compile Include="CommonServices\PaperService.cs" />
     <Compile Include="CommonServices\SubjectService.cs" />
     <Compile Include="CommonServices\TestService .cs" />
     <Compile Include="CommonServices\SectionService.cs" />
@@ -244,6 +245,9 @@
     <Compile Include="CommonServices\SecurityService.cs" />
     <Compile Include="CommonServices\UserService.cs" />
     <Compile Include="Controllers\CategoryMasterController.cs" />
+    <Compile Include="Controllers\CollegeCourseController.cs" />
+    <Compile Include="Controllers\CollegeSubjectController.cs" />
+    <Compile Include="Controllers\CollegeUploadPaperController.cs" />
     <Compile Include="Controllers\CourseMasterController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DataFileController.cs" />
@@ -253,6 +257,7 @@
     <Compile Include="Controllers\SubjectMasterController.cs" />
     <Compile Include="Controllers\TestMasterController.cs" />
     <Compile Include="Controllers\QuestionUploadController.cs" />
+    <Compile Include="DomainLogic\PaperLogics.cs" />
     <Compile Include="DomainLogic\SubjectLogics.cs" />
     <Compile Include="DomainLogic\QuestionUploadLogics.cs" />
     <Compile Include="DomainLogic\TestLogics.cs" />
@@ -263,6 +268,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\Category.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\ColleageCourse.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\CollegePaper.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\CollegeSubject.cs">
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\Course.cs">
@@ -327,10 +341,12 @@
     <Compile Include="Models\Shared\UnauthorizedModel.cs" />
     <Compile Include="Models\Shared\ValidationErrorModel.cs" />
     <Compile Include="Models\Shared\ValidationSuccessModel.cs" />
+    <Compile Include="Models\ViewModels\DataFileVM.cs" />
     <Compile Include="Models\ViewModels\ExcelQuestions.cs" />
     <Compile Include="Models\ViewModels\QuestionReviewEdit.cs" />
     <Compile Include="Models\ViewModels\QuestionReviewVM.cs" />
     <Compile Include="Models\ViewModels\QuestionUploadVM.cs" />
+    <Compile Include="Models\ViewModels\PaperVM.cs" />
     <Compile Include="Models\ViewModels\SubjectVM.cs" />
     <Compile Include="Models\ViewModels\TestVM.cs" />
     <Compile Include="Models\ViewModels\SectionVM.cs" />
@@ -1391,7 +1407,10 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CustomScript\CollegeSubject.js" />
+    <Content Include="Scripts\CustomScript\CollegeCourseMaster.js" />
     <Content Include="Scripts\CustomScript\QuestionUpload.js" />
+    <Content Include="Scripts\CustomScript\CollegeUpload.js" />
     <Content Include="Scripts\CustomScript\SubjectMaster.js" />
     <Content Include="Scripts\CustomScript\TestMaster.js" />
     <Content Include="Scripts\CustomScript\SectionMaster.js" />
@@ -1636,6 +1655,12 @@
     <Content Include="Views\Login\ForgotPassword.cshtml" />
     <Content Include="Views\Login\ResetPassword.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\CollegeCourse\Index.cshtml" />
+    <Content Include="Views\CollegeCourse\CollegeCourseList.cshtml" />
+    <Content Include="Views\CollegeSubject\Index.cshtml" />
+    <Content Include="Views\CollegeSubject\CollegeSubjectList.cshtml" />
+    <Content Include="Views\CollegeUploadPaper\Index.cshtml" />
+    <Content Include="Views\CollegeUploadPaper\CollegeUploadPaperList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
