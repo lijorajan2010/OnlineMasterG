@@ -9,6 +9,10 @@ namespace OnlineMasterG.Models.ViewModels
     {
         public int? CategoryId { get; set; }
         public int? CourseId { get; set; }
+        public int? ClassId { get; set; }
+        public int? SubjectId { get; set; }
+        public string ClassName { get; set; }
+        public string SubjectName { get; set; }
         public int SectionId { get; set; }
         public string CategoryName { get; set; }
         public string CourseName { get; set; }

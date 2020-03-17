@@ -48,15 +48,64 @@ namespace OnlineMasterG.CommonServices
             }
             return sr;
         }
+        public static ServiceResponse SaveSchoolSection(SchoolSection section, string auditlogin)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            if (section.SectionId == 0)
+            {
+                DB.SchoolSections.Add(section);
+                DB.SaveChanges();
+            }
+            else
+            {
+                var dbSection = FetchSchoolSection(section.SectionId);
+                if (dbSection == null)
+                {
+                    sr.AddError($"Section Name {section.SectionName} is not found.");
+                    return sr;
+                }
+                else
+                {
+                    dbSection.SectionName = section.SectionName;
+                    dbSection.ClassId = section.ClassId;
+                    dbSection.SubjectId = section.SubjectId;
+                    dbSection.LanguageCode = section.LanguageCode;
+                    dbSection.Description = section.Description;
+                    dbSection.EditBy = auditlogin;
+                    dbSection.EditOn = DateTime.Now;
+                    // Save in DB
+                    DB.SaveChanges();
+
+                    // Return
+                    sr.ReturnId = dbSection.SectionId;
+                    sr.ReturnName = dbSection.SectionName;
+
+                    return sr;
+                }
+            }
+            return sr;
+        }
         public static Section Fetch(int? sectionId)
         {
           return  DB.Sections
                    .Where(m => m.SectionId == (sectionId.HasValue ? sectionId.Value:0))
                    .FirstOrDefault();
         }
+        public static SchoolSection FetchSchoolSection(int? sectionId)
+        {
+            return DB.SchoolSections
+                     .Where(m => m.SectionId == (sectionId.HasValue ? sectionId.Value : 0))
+                     .FirstOrDefault();
+        }
         public static List<Section> SectionList(string Lang,bool IsActive)
         {
             return DB.Sections
+                  .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
+                  .ToList();
+        }
+        public static List<SchoolSection> SchoolSectionList(string Lang, bool IsActive)
+        {
+            return DB.SchoolSections
                   .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
                   .ToList();
         }
@@ -67,6 +116,24 @@ namespace OnlineMasterG.CommonServices
             try
             {
                 var Section = Fetch(SectionId);
+
+                DB.Entry(Section).State = EntityState.Deleted;
+                DB.SaveChanges();
+            }
+            catch (Exception exception)
+            {
+                sr.AddError(exception.Message);
+            }
+
+            return sr;
+        }
+        public static ServiceResponse DeleteSchoolSection(int SectionId)
+        {
+            var sr = new ServiceResponse();
+
+            try
+            {
+                var Section = FetchSchoolSection(SectionId);
 
                 DB.Entry(Section).State = EntityState.Deleted;
                 DB.SaveChanges();

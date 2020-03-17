@@ -19,8 +19,8 @@ namespace OnlineMasterG.Models.DAL
         {
             this.MockTests = new HashSet<MockTest>();
             this.QuestionUploads = new HashSet<QuestionUpload>();
-            this.Subjects = new HashSet<Subject>();
             this.Sections = new HashSet<Section>();
+            this.Subjects = new HashSet<Subject>();
         }
     
         public int CategoryId { get; set; }
@@ -40,8 +40,8 @@ namespace OnlineMasterG.Models.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuestionUpload> QuestionUploads { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Subject> Subjects { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Section> Sections { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Subject> Subjects { get; set; }
     }
 }

@@ -1,0 +1,42 @@
+﻿
+@model List<OnlineMasterG.Models.ViewModels.SubjectVM>
+
+
+
+<table id="tblSubjectList" class="dataTables_wrapper dt-bootstrap4 no-footer">
+    <thead>
+        <tr>
+            <th>Sl No.</th>
+            <th>Class Name</th>
+            <th>Subject Name</th>
+            <th>Sequence</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model.Select((x, y) => new { Data = x, Index = y }))
+            {
+                <tr>
+                    <td>@(item.Index + 1)</td>
+                    <td>@(item.Data.ClassName)</td>
+                    <td>@item.Data.SubjectName</td>
+                    <td>@item.Data.SequenceSub</td>
+                    <td><button class="btn btn-info" onclick='editSubject(@Html.Raw(Json.Encode(new { id=item.Data.SubjectId,classId= item.Data.ClassId,subjectName = item.Data.SubjectName,sequence = item.Data.SequenceSub, isActive = item.Data.IsActive,languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt"></i></button></td>
+                    <td><button class="btn btn-danger" onclick='deleteSubject(@Html.Raw(Json.Encode(new { id=item.Data.SubjectId,subjectName = item.Data.SubjectName})))'><i class="fa fa-trash"></i></button></td>
+                </tr>
+
+            }
+
+        }
+
+    </tbody>
+</table>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#tblSubjectList").DataTable();
+    });
+</script>

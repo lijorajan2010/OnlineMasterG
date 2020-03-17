@@ -61,6 +61,24 @@ namespace OnlineMasterG.DomainLogic
 
             return sr;
         }
+        public static ServiceResponse SaveSchoolSubject(SubjectVM model, string auditlogin)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            SchoolSubject subject = new SchoolSubject()
+            {
+                SubjectId = model.SubjectId,
+                SubjectName = model.SubjectName,
+                ClassId = model.ClassId,
+                LanguageCode = model.LanguageCode,
+                Sequence = model.SequenceSub,
+                CreateBy = auditlogin,
+                CreateOn = DateTime.Now,
+                Isactive = true
+            };
+            sr = SubjectService.SaveSchoolSubject(subject, auditlogin);
+
+            return sr;
+        }
         public static List<SubjectVM> SubjectList(string Lang, bool IsActive)
         {
             List<SubjectVM> model = new List<SubjectVM>();
@@ -112,7 +130,29 @@ namespace OnlineMasterG.DomainLogic
             }
             return model;
         }
-       
+        public static List<SubjectVM> SchoolSubjectList(string Lang, bool IsActive)
+        {
+            List<SubjectVM> model = new List<SubjectVM>();
+            var subjects = SubjectService.SchoolSubjectList(Lang, IsActive);
+            if (subjects != null && subjects.Count() > 0)
+            {
+                foreach (var item in subjects)
+                {
+                    model.Add(new SubjectVM()
+                    {
+                        SubjectId = item.SubjectId, 
+                        ClassId = item.ClassId,
+                        SubjectName = item.SubjectName,
+                        ClassName = ClassService.Fetch(item.ClassId)?.ClassName,
+                        SequenceSub = item.Sequence,
+                        LanguageCode = item.LanguageCode,
+                        IsActive = item.Isactive
+
+                    });
+                }
+            }
+            return model;
+        }
 
         #endregion
     }

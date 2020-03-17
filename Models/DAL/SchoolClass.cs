@@ -12,32 +12,30 @@ namespace OnlineMasterG.Models.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class DataFile
+    public partial class SchoolClass
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DataFile()
+        public SchoolClass()
         {
-            this.CollegePapers = new HashSet<CollegePaper>();
-            this.QuestionsMockTests = new HashSet<QuestionsMockTest>();
-            this.QuestionUploads = new HashSet<QuestionUpload>();
+            this.SchoolSections = new HashSet<SchoolSection>();
+            this.SchoolSubjects = new HashSet<SchoolSubject>();
             this.SchoolPapers = new HashSet<SchoolPaper>();
         }
     
-        public int DataFileId { get; set; }
-        public string FileName { get; set; }
-        public string Extension { get; set; }
-        public string SourceCode { get; set; }
-        public int DataContentId { get; set; }
+        public int ClassId { get; set; }
+        public string ClassName { get; set; }
+        public Nullable<int> Sequence { get; set; }
+        public string LanguageCode { get; set; }
+        public bool Isactive { get; set; }
         public string CreateBy { get; set; }
-        public System.DateTime CreateDate { get; set; }
+        public System.DateTime CreateOn { get; set; }
+        public string EditBy { get; set; }
+        public Nullable<System.DateTime> EditOn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CollegePaper> CollegePapers { get; set; }
-        public virtual DataContent DataContent { get; set; }
+        public virtual ICollection<SchoolSection> SchoolSections { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QuestionsMockTest> QuestionsMockTests { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QuestionUpload> QuestionUploads { get; set; }
+        public virtual ICollection<SchoolSubject> SchoolSubjects { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SchoolPaper> SchoolPapers { get; set; }
     }

@@ -207,6 +207,69 @@
           <Property Name="SubjectId" Type="int" />
           <Property Name="DataFileId" Type="int" />
         </EntityType>
+        <EntityType Name="SchoolClass">
+          <Key>
+            <PropertyRef Name="ClassId" />
+          </Key>
+          <Property Name="ClassId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Sequence" Type="int" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SchoolPaper">
+          <Key>
+            <PropertyRef Name="PaperId" />
+          </Key>
+          <Property Name="PaperId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaperName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditOn" Type="datetime" />
+          <Property Name="ClassId" Type="int" />
+          <Property Name="SubjectId" Type="int" />
+          <Property Name="SectionId" Type="int" />
+          <Property Name="DataFileId" Type="int" />
+        </EntityType>
+        <EntityType Name="SchoolSection">
+          <Key>
+            <PropertyRef Name="SectionId" />
+          </Key>
+          <Property Name="SectionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SectionName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditOn" Type="datetime" />
+          <Property Name="ClassId" Type="int" />
+          <Property Name="SubjectId" Type="int" />
+        </EntityType>
+        <EntityType Name="SchoolSubjects">
+          <Key>
+            <PropertyRef Name="SubjectId" />
+          </Key>
+          <Property Name="SubjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Sequence" Type="int" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditOn" Type="datetime" />
+          <Property Name="ClassId" Type="int" />
+        </EntityType>
         <EntityType Name="Section">
           <Key>
             <PropertyRef Name="SectionId" />
@@ -494,6 +557,90 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__SchoolPap__Class__70A8B9AE">
+          <End Role="SchoolClass" Type="Self.SchoolClass" Multiplicity="0..1" />
+          <End Role="SchoolPaper" Type="Self.SchoolPaper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolClass">
+              <PropertyRef Name="ClassId" />
+            </Principal>
+            <Dependent Role="SchoolPaper">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SchoolPap__DataF__73852659">
+          <End Role="DataFile" Type="Self.DataFile" Multiplicity="0..1" />
+          <End Role="SchoolPaper" Type="Self.SchoolPaper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataFile">
+              <PropertyRef Name="DataFileId" />
+            </Principal>
+            <Dependent Role="SchoolPaper">
+              <PropertyRef Name="DataFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SchoolPap__Secti__72910220">
+          <End Role="SchoolSection" Type="Self.SchoolSection" Multiplicity="0..1" />
+          <End Role="SchoolPaper" Type="Self.SchoolPaper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolSection">
+              <PropertyRef Name="SectionId" />
+            </Principal>
+            <Dependent Role="SchoolPaper">
+              <PropertyRef Name="SectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SchoolPap__Subje__719CDDE7">
+          <End Role="SchoolSubjects" Type="Self.SchoolSubjects" Multiplicity="0..1" />
+          <End Role="SchoolPaper" Type="Self.SchoolPaper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolSubjects">
+              <PropertyRef Name="SubjectId" />
+            </Principal>
+            <Dependent Role="SchoolPaper">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SchoolSec__Class__6BE40491">
+          <End Role="SchoolClass" Type="Self.SchoolClass" Multiplicity="0..1" />
+          <End Role="SchoolSection" Type="Self.SchoolSection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolClass">
+              <PropertyRef Name="ClassId" />
+            </Principal>
+            <Dependent Role="SchoolSection">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SchoolSec__Subje__6CD828CA">
+          <End Role="SchoolSubjects" Type="Self.SchoolSubjects" Multiplicity="0..1" />
+          <End Role="SchoolSection" Type="Self.SchoolSection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolSubjects">
+              <PropertyRef Name="SubjectId" />
+            </Principal>
+            <Dependent Role="SchoolSection">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SchoolSub__Class__662B2B3B">
+          <End Role="SchoolClass" Type="Self.SchoolClass" Multiplicity="0..1" />
+          <End Role="SchoolSubjects" Type="Self.SchoolSubjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolClass">
+              <PropertyRef Name="ClassId" />
+            </Principal>
+            <Dependent Role="SchoolSubjects">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Section__Categor__628FA481">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Section" Type="Self.Section" Multiplicity="*" />
@@ -593,6 +740,10 @@
           <EntitySet Name="QuestionPoints" EntityType="Self.QuestionPoints" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuestionsMockTest" EntityType="Self.QuestionsMockTest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuestionUpload" EntityType="Self.QuestionUpload" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SchoolClass" EntityType="Self.SchoolClass" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SchoolPaper" EntityType="Self.SchoolPaper" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SchoolSection" EntityType="Self.SchoolSection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SchoolSubjects" EntityType="Self.SchoolSubjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -673,6 +824,34 @@
             <End Role="MockTest" EntitySet="MockTest" />
             <End Role="QuestionUpload" EntitySet="QuestionUpload" />
           </AssociationSet>
+          <AssociationSet Name="FK__SchoolPap__Class__70A8B9AE" Association="Self.FK__SchoolPap__Class__70A8B9AE">
+            <End Role="SchoolClass" EntitySet="SchoolClass" />
+            <End Role="SchoolPaper" EntitySet="SchoolPaper" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SchoolPap__DataF__73852659" Association="Self.FK__SchoolPap__DataF__73852659">
+            <End Role="DataFile" EntitySet="DataFile" />
+            <End Role="SchoolPaper" EntitySet="SchoolPaper" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SchoolPap__Secti__72910220" Association="Self.FK__SchoolPap__Secti__72910220">
+            <End Role="SchoolSection" EntitySet="SchoolSection" />
+            <End Role="SchoolPaper" EntitySet="SchoolPaper" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SchoolPap__Subje__719CDDE7" Association="Self.FK__SchoolPap__Subje__719CDDE7">
+            <End Role="SchoolSubjects" EntitySet="SchoolSubjects" />
+            <End Role="SchoolPaper" EntitySet="SchoolPaper" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SchoolSec__Class__6BE40491" Association="Self.FK__SchoolSec__Class__6BE40491">
+            <End Role="SchoolClass" EntitySet="SchoolClass" />
+            <End Role="SchoolSection" EntitySet="SchoolSection" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SchoolSec__Subje__6CD828CA" Association="Self.FK__SchoolSec__Subje__6CD828CA">
+            <End Role="SchoolSubjects" EntitySet="SchoolSubjects" />
+            <End Role="SchoolSection" EntitySet="SchoolSection" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SchoolSub__Class__662B2B3B" Association="Self.FK__SchoolSub__Class__662B2B3B">
+            <End Role="SchoolClass" EntitySet="SchoolClass" />
+            <End Role="SchoolSubjects" EntitySet="SchoolSubjects" />
+          </AssociationSet>
           <AssociationSet Name="FK__Section__Categor__628FA481" Association="Self.FK__Section__Categor__628FA481">
             <End Role="Category" EntitySet="Category" />
             <End Role="Section" EntitySet="Section" />
@@ -708,6 +887,9 @@
       <Schema Namespace="OnlinemasterjiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="OnlinemasterjiEntities" annotation:LazyLoadingEnabled="true" >
           <EntitySet Name="Categories" EntityType="OnlinemasterjiModel.Category" />
+          <EntitySet Name="ColleageCourses" EntityType="OnlinemasterjiModel.ColleageCourse" />
+          <EntitySet Name="CollegePapers" EntityType="OnlinemasterjiModel.CollegePaper" />
+          <EntitySet Name="CollegeSubjects" EntityType="OnlinemasterjiModel.CollegeSubject" />
           <EntitySet Name="Courses" EntityType="OnlinemasterjiModel.Course" />
           <EntitySet Name="DataContents" EntityType="OnlinemasterjiModel.DataContent" />
           <EntitySet Name="DataFiles" EntityType="OnlinemasterjiModel.DataFile" />
@@ -718,6 +900,10 @@
           <EntitySet Name="QuestionPoints" EntityType="OnlinemasterjiModel.QuestionPoint" />
           <EntitySet Name="QuestionsMockTests" EntityType="OnlinemasterjiModel.QuestionsMockTest" />
           <EntitySet Name="QuestionUploads" EntityType="OnlinemasterjiModel.QuestionUpload" />
+          <EntitySet Name="SchoolClasses" EntityType="OnlinemasterjiModel.SchoolClass" />
+          <EntitySet Name="SchoolSections" EntityType="OnlinemasterjiModel.SchoolSection" />
+          <EntitySet Name="SchoolSubjects" EntityType="OnlinemasterjiModel.SchoolSubject" />
+          <EntitySet Name="Sections" EntityType="OnlinemasterjiModel.Section" />
           <EntitySet Name="Subjects" EntityType="OnlinemasterjiModel.Subject" />
           <EntitySet Name="Users" EntityType="OnlinemasterjiModel.User" />
           <EntitySet Name="UserTypes" EntityType="OnlinemasterjiModel.UserType" />
@@ -733,9 +919,29 @@
             <End Role="Category" EntitySet="Categories" />
             <End Role="QuestionUpload" EntitySet="QuestionUploads" />
           </AssociationSet>
+          <AssociationSet Name="FK__Section__Categor__628FA481" Association="OnlinemasterjiModel.FK__Section__Categor__628FA481">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Section" EntitySet="Sections" />
+          </AssociationSet>
           <AssociationSet Name="FK__Subjects__Catego__6D0D32F4" Association="OnlinemasterjiModel.FK__Subjects__Catego__6D0D32F4">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Subject" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CollegePa__Cours__5CA1C101" Association="OnlinemasterjiModel.FK__CollegePa__Cours__5CA1C101">
+            <End Role="ColleageCourse" EntitySet="ColleageCourses" />
+            <End Role="CollegePaper" EntitySet="CollegePapers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CollegeSu__Cours__58D1301D" Association="OnlinemasterjiModel.FK__CollegeSu__Cours__58D1301D">
+            <End Role="ColleageCourse" EntitySet="ColleageCourses" />
+            <End Role="CollegeSubject" EntitySet="CollegeSubjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CollegePa__DataF__5F7E2DAC" Association="OnlinemasterjiModel.FK__CollegePa__DataF__5F7E2DAC">
+            <End Role="DataFile" EntitySet="DataFiles" />
+            <End Role="CollegePaper" EntitySet="CollegePapers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CollegePa__Subje__5E8A0973" Association="OnlinemasterjiModel.FK__CollegePa__Subje__5E8A0973">
+            <End Role="CollegeSubject" EntitySet="CollegeSubjects" />
+            <End Role="CollegePaper" EntitySet="CollegePapers" />
           </AssociationSet>
           <AssociationSet Name="FK__MockTest__Course__66603565" Association="OnlinemasterjiModel.FK__MockTest__Course__66603565">
             <End Role="Course" EntitySet="Courses" />
@@ -744,6 +950,10 @@
           <AssociationSet Name="FK__QuestionU__Cours__44CA3770" Association="OnlinemasterjiModel.FK__QuestionU__Cours__44CA3770">
             <End Role="Course" EntitySet="Courses" />
             <End Role="QuestionUpload" EntitySet="QuestionUploads" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Section__CourseI__619B8048" Association="OnlinemasterjiModel.FK__Section__CourseI__619B8048">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Section" EntitySet="Sections" />
           </AssociationSet>
           <AssociationSet Name="FK__Subjects__Course__6C190EBB" Association="OnlinemasterjiModel.FK__Subjects__Course__6C190EBB">
             <End Role="Course" EntitySet="Courses" />
@@ -760,6 +970,10 @@
           <AssociationSet Name="FK__QuestionU__DataF__498EEC8D" Association="OnlinemasterjiModel.FK__QuestionU__DataF__498EEC8D">
             <End Role="DataFile" EntitySet="DataFiles" />
             <End Role="QuestionUpload" EntitySet="QuestionUploads" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTest__Sectio__68487DD7" Association="OnlinemasterjiModel.FK__MockTest__Sectio__68487DD7">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="MockTest" EntitySet="MockTests" />
           </AssociationSet>
           <AssociationSet Name="FK__QuestionU__TestI__47A6A41B" Association="OnlinemasterjiModel.FK__QuestionU__TestI__47A6A41B">
             <End Role="MockTest" EntitySet="MockTests" />
@@ -781,53 +995,50 @@
             <End Role="QuestionUpload" EntitySet="QuestionUploads" />
             <End Role="QuestionsMockTest" EntitySet="QuestionsMockTests" />
           </AssociationSet>
+          <AssociationSet Name="FK__QuestionU__Secti__46B27FE2" Association="OnlinemasterjiModel.FK__QuestionU__Secti__46B27FE2">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="QuestionUpload" EntitySet="QuestionUploads" />
+          </AssociationSet>
           <AssociationSet Name="FK__QuestionU__Subje__489AC854" Association="OnlinemasterjiModel.FK__QuestionU__Subje__489AC854">
             <End Role="Subject" EntitySet="Subjects" />
             <End Role="QuestionUpload" EntitySet="QuestionUploads" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SchoolSec__Class__6BE40491" Association="OnlinemasterjiModel.FK__SchoolSec__Class__6BE40491">
+            <End Role="SchoolClass" EntitySet="SchoolClasses" />
+            <End Role="SchoolSection" EntitySet="SchoolSections" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SchoolSub__Class__662B2B3B" Association="OnlinemasterjiModel.FK__SchoolSub__Class__662B2B3B">
+            <End Role="SchoolClass" EntitySet="SchoolClasses" />
+            <End Role="SchoolSubject" EntitySet="SchoolSubjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SchoolSec__Subje__6CD828CA" Association="OnlinemasterjiModel.FK__SchoolSec__Subje__6CD828CA">
+            <End Role="SchoolSubject" EntitySet="SchoolSubjects" />
+            <End Role="SchoolSection" EntitySet="SchoolSections" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subjects__Sectio__6E01572D" Association="OnlinemasterjiModel.FK__Subjects__Sectio__6E01572D">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="Subject" EntitySet="Subjects" />
           </AssociationSet>
           <AssociationSet Name="FK__User__UserTypeCo__403A8C7D" Association="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D">
             <End Role="UserType" EntitySet="UserTypes" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <EntitySet Name="ColleageCourses" EntityType="OnlinemasterjiModel.ColleageCourse" />
-          <EntitySet Name="CollegeSubjects" EntityType="OnlinemasterjiModel.CollegeSubject" />
-          <AssociationSet Name="FK__CollegeSu__Cours__58D1301D" Association="OnlinemasterjiModel.FK__CollegeSu__Cours__58D1301D">
-            <End Role="ColleageCourse" EntitySet="ColleageCourses" />
-            <End Role="CollegeSubject" EntitySet="CollegeSubjects" />
-          </AssociationSet>
-          <EntitySet Name="CollegePapers" EntityType="OnlinemasterjiModel.CollegePaper" />
-          <AssociationSet Name="FK__CollegePa__Cours__5CA1C101" Association="OnlinemasterjiModel.FK__CollegePa__Cours__5CA1C101">
-            <End Role="ColleageCourse" EntitySet="ColleageCourses" />
-            <End Role="CollegePaper" EntitySet="CollegePapers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CollegePa__Subje__5E8A0973" Association="OnlinemasterjiModel.FK__CollegePa__Subje__5E8A0973">
-            <End Role="CollegeSubject" EntitySet="CollegeSubjects" />
-            <End Role="CollegePaper" EntitySet="CollegePapers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CollegePa__DataF__5F7E2DAC" Association="OnlinemasterjiModel.FK__CollegePa__DataF__5F7E2DAC">
+          <EntitySet Name="SchoolPapers" EntityType="OnlinemasterjiModel.SchoolPaper" />
+          <AssociationSet Name="FK__SchoolPap__DataF__73852659" Association="OnlinemasterjiModel.FK__SchoolPap__DataF__73852659">
             <End Role="DataFile" EntitySet="DataFiles" />
-            <End Role="CollegePaper" EntitySet="CollegePapers" />
+            <End Role="SchoolPaper" EntitySet="SchoolPapers" />
           </AssociationSet>
-          <EntitySet Name="Sections" EntityType="OnlinemasterjiModel.Section" />
-          <AssociationSet Name="FK__Section__Categor__628FA481" Association="OnlinemasterjiModel.FK__Section__Categor__628FA481">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Section" EntitySet="Sections" />
+          <AssociationSet Name="FK__SchoolPap__Class__70A8B9AE" Association="OnlinemasterjiModel.FK__SchoolPap__Class__70A8B9AE">
+            <End Role="SchoolClass" EntitySet="SchoolClasses" />
+            <End Role="SchoolPaper" EntitySet="SchoolPapers" />
           </AssociationSet>
-          <AssociationSet Name="FK__Section__CourseI__619B8048" Association="OnlinemasterjiModel.FK__Section__CourseI__619B8048">
-            <End Role="Course" EntitySet="Courses" />
-            <End Role="Section" EntitySet="Sections" />
+          <AssociationSet Name="FK__SchoolPap__Secti__72910220" Association="OnlinemasterjiModel.FK__SchoolPap__Secti__72910220">
+            <End Role="SchoolSection" EntitySet="SchoolSections" />
+            <End Role="SchoolPaper" EntitySet="SchoolPapers" />
           </AssociationSet>
-          <AssociationSet Name="FK__MockTest__Sectio__68487DD7" Association="OnlinemasterjiModel.FK__MockTest__Sectio__68487DD7">
-            <End Role="Section" EntitySet="Sections" />
-            <End Role="MockTest" EntitySet="MockTests" />
-          </AssociationSet>
-          <AssociationSet Name="FK__QuestionU__Secti__46B27FE2" Association="OnlinemasterjiModel.FK__QuestionU__Secti__46B27FE2">
-            <End Role="Section" EntitySet="Sections" />
-            <End Role="QuestionUpload" EntitySet="QuestionUploads" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Subjects__Sectio__6E01572D" Association="OnlinemasterjiModel.FK__Subjects__Sectio__6E01572D">
-            <End Role="Section" EntitySet="Sections" />
-            <End Role="Subject" EntitySet="Subjects" />
+          <AssociationSet Name="FK__SchoolPap__Subje__719CDDE7" Association="OnlinemasterjiModel.FK__SchoolPap__Subje__719CDDE7">
+            <End Role="SchoolSubject" EntitySet="SchoolSubjects" />
+            <End Role="SchoolPaper" EntitySet="SchoolPapers" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Category">
@@ -847,8 +1058,61 @@
           <NavigationProperty Name="Course" Relationship="OnlinemasterjiModel.FK__Category__Course__5DCAEF64" FromRole="Category" ToRole="Course" />
           <NavigationProperty Name="MockTests" Relationship="OnlinemasterjiModel.FK__MockTest__Catego__6754599E" FromRole="Category" ToRole="MockTest" />
           <NavigationProperty Name="QuestionUploads" Relationship="OnlinemasterjiModel.FK__QuestionU__Categ__45BE5BA9" FromRole="Category" ToRole="QuestionUpload" />
-          <NavigationProperty Name="Subjects" Relationship="OnlinemasterjiModel.FK__Subjects__Catego__6D0D32F4" FromRole="Category" ToRole="Subject" />
           <NavigationProperty Name="Sections" Relationship="OnlinemasterjiModel.FK__Section__Categor__628FA481" FromRole="Category" ToRole="Section" />
+          <NavigationProperty Name="Subjects" Relationship="OnlinemasterjiModel.FK__Subjects__Catego__6D0D32F4" FromRole="Category" ToRole="Subject" />
+        </EntityType>
+        <EntityType Name="ColleageCourse">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CollegePapers" Relationship="OnlinemasterjiModel.FK__CollegePa__Cours__5CA1C101" FromRole="ColleageCourse" ToRole="CollegePaper" />
+          <NavigationProperty Name="CollegeSubjects" Relationship="OnlinemasterjiModel.FK__CollegeSu__Cours__58D1301D" FromRole="ColleageCourse" ToRole="CollegeSubject" />
+        </EntityType>
+        <EntityType Name="CollegePaper">
+          <Key>
+            <PropertyRef Name="PaperId" />
+          </Key>
+          <Property Name="PaperId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaperName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <Property Name="CourseId" Type="Int32" />
+          <Property Name="SubjectId" Type="Int32" />
+          <Property Name="DataFileId" Type="Int32" />
+          <NavigationProperty Name="ColleageCourse" Relationship="OnlinemasterjiModel.FK__CollegePa__Cours__5CA1C101" FromRole="CollegePaper" ToRole="ColleageCourse" />
+          <NavigationProperty Name="DataFile" Relationship="OnlinemasterjiModel.FK__CollegePa__DataF__5F7E2DAC" FromRole="CollegePaper" ToRole="DataFile" />
+          <NavigationProperty Name="CollegeSubject" Relationship="OnlinemasterjiModel.FK__CollegePa__Subje__5E8A0973" FromRole="CollegePaper" ToRole="CollegeSubject" />
+        </EntityType>
+        <EntityType Name="CollegeSubject">
+          <Key>
+            <PropertyRef Name="SubjectId" />
+          </Key>
+          <Property Name="SubjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <Property Name="CourseId" Type="Int32" />
+          <NavigationProperty Name="ColleageCourse" Relationship="OnlinemasterjiModel.FK__CollegeSu__Cours__58D1301D" FromRole="CollegeSubject" ToRole="ColleageCourse" />
+          <NavigationProperty Name="CollegePapers" Relationship="OnlinemasterjiModel.FK__CollegePa__Subje__5E8A0973" FromRole="CollegeSubject" ToRole="CollegePaper" />
         </EntityType>
         <EntityType Name="Course">
           <Key>
@@ -866,8 +1130,8 @@
           <NavigationProperty Name="Categories" Relationship="OnlinemasterjiModel.FK__Category__Course__5DCAEF64" FromRole="Course" ToRole="Category" />
           <NavigationProperty Name="MockTests" Relationship="OnlinemasterjiModel.FK__MockTest__Course__66603565" FromRole="Course" ToRole="MockTest" />
           <NavigationProperty Name="QuestionUploads" Relationship="OnlinemasterjiModel.FK__QuestionU__Cours__44CA3770" FromRole="Course" ToRole="QuestionUpload" />
-          <NavigationProperty Name="Subjects" Relationship="OnlinemasterjiModel.FK__Subjects__Course__6C190EBB" FromRole="Course" ToRole="Subject" />
           <NavigationProperty Name="Sections" Relationship="OnlinemasterjiModel.FK__Section__CourseI__619B8048" FromRole="Course" ToRole="Section" />
+          <NavigationProperty Name="Subjects" Relationship="OnlinemasterjiModel.FK__Subjects__Course__6C190EBB" FromRole="Course" ToRole="Subject" />
         </EntityType>
         <EntityType Name="DataContent">
           <Key>
@@ -888,10 +1152,11 @@
           <Property Name="DataContentId" Type="Int32" Nullable="false" />
           <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CollegePapers" Relationship="OnlinemasterjiModel.FK__CollegePa__DataF__5F7E2DAC" FromRole="DataFile" ToRole="CollegePaper" />
           <NavigationProperty Name="DataContent" Relationship="OnlinemasterjiModel.FK__DataFile__DataCo__1AD3FDA4" FromRole="DataFile" ToRole="DataContent" />
           <NavigationProperty Name="QuestionsMockTests" Relationship="OnlinemasterjiModel.FK__Questions__Quest__43D61337" FromRole="DataFile" ToRole="QuestionsMockTest" />
           <NavigationProperty Name="QuestionUploads" Relationship="OnlinemasterjiModel.FK__QuestionU__DataF__498EEC8D" FromRole="DataFile" ToRole="QuestionUpload" />
-          <NavigationProperty Name="CollegePapers" Relationship="OnlinemasterjiModel.FK__CollegePa__DataF__5F7E2DAC" FromRole="DataFile" ToRole="CollegePaper" />
+          <NavigationProperty Name="SchoolPapers" Relationship="OnlinemasterjiModel.FK__SchoolPap__DataF__73852659" FromRole="DataFile" ToRole="SchoolPaper" />
         </EntityType>
         <EntityType Name="Language">
           <Key>
@@ -921,9 +1186,9 @@
           <Property Name="TimeInMinutes" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Category" Relationship="OnlinemasterjiModel.FK__MockTest__Catego__6754599E" FromRole="MockTest" ToRole="Category" />
           <NavigationProperty Name="Course" Relationship="OnlinemasterjiModel.FK__MockTest__Course__66603565" FromRole="MockTest" ToRole="Course" />
+          <NavigationProperty Name="Section" Relationship="OnlinemasterjiModel.FK__MockTest__Sectio__68487DD7" FromRole="MockTest" ToRole="Section" />
           <NavigationProperty Name="QuestionUploads" Relationship="OnlinemasterjiModel.FK__QuestionU__TestI__47A6A41B" FromRole="MockTest" ToRole="QuestionUpload" />
           <NavigationProperty Name="Subjects" Relationship="OnlinemasterjiModel.FK__Subjects__TestId__6EF57B66" FromRole="MockTest" ToRole="Subject" />
-          <NavigationProperty Name="Section" Relationship="OnlinemasterjiModel.FK__MockTest__Sectio__68487DD7" FromRole="MockTest" ToRole="Section" />
         </EntityType>
         <EntityType Name="QuestionAnswerChoice">
           <Key>
@@ -933,8 +1198,8 @@
           <Property Name="QuestionAnswer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IsCorrect" Type="Boolean" Nullable="false" />
           <Property Name="QuestionsMockTestId" Type="Int32" />
-          <NavigationProperty Name="QuestionsMockTest" Relationship="OnlinemasterjiModel.FK__QuestionA__Quest__4F47C5E3" FromRole="QuestionAnswerChoice" ToRole="QuestionsMockTest" />
           <Property Name="ChoiceId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="QuestionsMockTest" Relationship="OnlinemasterjiModel.FK__QuestionA__Quest__4F47C5E3" FromRole="QuestionAnswerChoice" ToRole="QuestionsMockTest" />
         </EntityType>
         <EntityType Name="QuestionMaster">
           <Key>
@@ -989,11 +1254,11 @@
           <Property Name="QuestionImageFileId" Type="Int32" />
           <Property Name="QuestionNumber" Type="Int32" Nullable="false" />
           <Property Name="QuestionSet" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Solution" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DataFile" Relationship="OnlinemasterjiModel.FK__Questions__Quest__43D61337" FromRole="QuestionsMockTest" ToRole="DataFile" />
           <NavigationProperty Name="QuestionAnswerChoices" Relationship="OnlinemasterjiModel.FK__QuestionA__Quest__4F47C5E3" FromRole="QuestionsMockTest" ToRole="QuestionAnswerChoice" />
           <NavigationProperty Name="QuestionPoints" Relationship="OnlinemasterjiModel.FK__QuestionP__Quest__5224328E" FromRole="QuestionsMockTest" ToRole="QuestionPoint" />
           <NavigationProperty Name="QuestionUpload" Relationship="OnlinemasterjiModel.FK__Questions__Quest__42E1EEFE" FromRole="QuestionsMockTest" ToRole="QuestionUpload" />
-          <Property Name="Solution" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="QuestionUpload">
           <Key>
@@ -1016,8 +1281,83 @@
           <NavigationProperty Name="DataFile" Relationship="OnlinemasterjiModel.FK__QuestionU__DataF__498EEC8D" FromRole="QuestionUpload" ToRole="DataFile" />
           <NavigationProperty Name="MockTest" Relationship="OnlinemasterjiModel.FK__QuestionU__TestI__47A6A41B" FromRole="QuestionUpload" ToRole="MockTest" />
           <NavigationProperty Name="QuestionsMockTests" Relationship="OnlinemasterjiModel.FK__Questions__Quest__42E1EEFE" FromRole="QuestionUpload" ToRole="QuestionsMockTest" />
-          <NavigationProperty Name="Subject" Relationship="OnlinemasterjiModel.FK__QuestionU__Subje__489AC854" FromRole="QuestionUpload" ToRole="Subject" />
           <NavigationProperty Name="Section" Relationship="OnlinemasterjiModel.FK__QuestionU__Secti__46B27FE2" FromRole="QuestionUpload" ToRole="Section" />
+          <NavigationProperty Name="Subject" Relationship="OnlinemasterjiModel.FK__QuestionU__Subje__489AC854" FromRole="QuestionUpload" ToRole="Subject" />
+        </EntityType>
+        <EntityType Name="SchoolClass">
+          <Key>
+            <PropertyRef Name="ClassId" />
+          </Key>
+          <Property Name="ClassId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SchoolSections" Relationship="OnlinemasterjiModel.FK__SchoolSec__Class__6BE40491" FromRole="SchoolClass" ToRole="SchoolSection" />
+          <NavigationProperty Name="SchoolSubjects" Relationship="OnlinemasterjiModel.FK__SchoolSub__Class__662B2B3B" FromRole="SchoolClass" ToRole="SchoolSubject" />
+          <NavigationProperty Name="SchoolPapers" Relationship="OnlinemasterjiModel.FK__SchoolPap__Class__70A8B9AE" FromRole="SchoolClass" ToRole="SchoolPaper" />
+        </EntityType>
+        <EntityType Name="SchoolSection">
+          <Key>
+            <PropertyRef Name="SectionId" />
+          </Key>
+          <Property Name="SectionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SectionName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <Property Name="ClassId" Type="Int32" />
+          <Property Name="SubjectId" Type="Int32" />
+          <NavigationProperty Name="SchoolClass" Relationship="OnlinemasterjiModel.FK__SchoolSec__Class__6BE40491" FromRole="SchoolSection" ToRole="SchoolClass" />
+          <NavigationProperty Name="SchoolSubject" Relationship="OnlinemasterjiModel.FK__SchoolSec__Subje__6CD828CA" FromRole="SchoolSection" ToRole="SchoolSubject" />
+          <NavigationProperty Name="SchoolPapers" Relationship="OnlinemasterjiModel.FK__SchoolPap__Secti__72910220" FromRole="SchoolSection" ToRole="SchoolPaper" />
+        </EntityType>
+        <EntityType Name="SchoolSubject">
+          <Key>
+            <PropertyRef Name="SubjectId" />
+          </Key>
+          <Property Name="SubjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <Property Name="ClassId" Type="Int32" />
+          <NavigationProperty Name="SchoolClass" Relationship="OnlinemasterjiModel.FK__SchoolSub__Class__662B2B3B" FromRole="SchoolSubject" ToRole="SchoolClass" />
+          <NavigationProperty Name="SchoolSections" Relationship="OnlinemasterjiModel.FK__SchoolSec__Subje__6CD828CA" FromRole="SchoolSubject" ToRole="SchoolSection" />
+          <NavigationProperty Name="SchoolPapers" Relationship="OnlinemasterjiModel.FK__SchoolPap__Subje__719CDDE7" FromRole="SchoolSubject" ToRole="SchoolPaper" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="SectionId" />
+          </Key>
+          <Property Name="SectionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SectionName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <Property Name="CourseId" Type="Int32" />
+          <Property Name="CategoryId" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="OnlinemasterjiModel.FK__Section__Categor__628FA481" FromRole="Section" ToRole="Category" />
+          <NavigationProperty Name="Course" Relationship="OnlinemasterjiModel.FK__Section__CourseI__619B8048" FromRole="Section" ToRole="Course" />
+          <NavigationProperty Name="MockTests" Relationship="OnlinemasterjiModel.FK__MockTest__Sectio__68487DD7" FromRole="Section" ToRole="MockTest" />
+          <NavigationProperty Name="QuestionUploads" Relationship="OnlinemasterjiModel.FK__QuestionU__Secti__46B27FE2" FromRole="Section" ToRole="QuestionUpload" />
+          <NavigationProperty Name="Subjects" Relationship="OnlinemasterjiModel.FK__Subjects__Sectio__6E01572D" FromRole="Section" ToRole="Subject" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
@@ -1058,8 +1398,8 @@
           <Property Name="LogoDataFileId" Type="Int32" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="UserType" Relationship="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D" FromRole="User" ToRole="UserType" />
           <Property Name="ResetPasswordCode" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserType" Relationship="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D" FromRole="User" ToRole="UserType" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
@@ -1105,6 +1445,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Section__Categor__628FA481">
+          <End Type="OnlinemasterjiModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.Section" Role="Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Section">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Subjects__Catego__6D0D32F4">
           <End Type="OnlinemasterjiModel.Category" Role="Category" Multiplicity="0..1" />
           <End Type="OnlinemasterjiModel.Subject" Role="Subject" Multiplicity="*" />
@@ -1114,6 +1466,54 @@
             </Principal>
             <Dependent Role="Subject">
               <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CollegePa__Cours__5CA1C101">
+          <End Type="OnlinemasterjiModel.ColleageCourse" Role="ColleageCourse" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.CollegePaper" Role="CollegePaper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ColleageCourse">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="CollegePaper">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CollegeSu__Cours__58D1301D">
+          <End Type="OnlinemasterjiModel.ColleageCourse" Role="ColleageCourse" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.CollegeSubject" Role="CollegeSubject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ColleageCourse">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="CollegeSubject">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CollegePa__DataF__5F7E2DAC">
+          <End Type="OnlinemasterjiModel.DataFile" Role="DataFile" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.CollegePaper" Role="CollegePaper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataFile">
+              <PropertyRef Name="DataFileId" />
+            </Principal>
+            <Dependent Role="CollegePaper">
+              <PropertyRef Name="DataFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CollegePa__Subje__5E8A0973">
+          <End Type="OnlinemasterjiModel.CollegeSubject" Role="CollegeSubject" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.CollegePaper" Role="CollegePaper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CollegeSubject">
+              <PropertyRef Name="SubjectId" />
+            </Principal>
+            <Dependent Role="CollegePaper">
+              <PropertyRef Name="SubjectId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1137,6 +1537,18 @@
               <PropertyRef Name="CourseId" />
             </Principal>
             <Dependent Role="QuestionUpload">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Section__CourseI__619B8048">
+          <End Type="OnlinemasterjiModel.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.Section" Role="Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Section">
               <PropertyRef Name="CourseId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1186,6 +1598,18 @@
             </Principal>
             <Dependent Role="QuestionUpload">
               <PropertyRef Name="DataFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTest__Sectio__68487DD7">
+          <End Type="OnlinemasterjiModel.Section" Role="Section" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.MockTest" Role="MockTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectionId" />
+            </Principal>
+            <Dependent Role="MockTest">
+              <PropertyRef Name="SectionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1249,6 +1673,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__QuestionU__Secti__46B27FE2">
+          <End Type="OnlinemasterjiModel.Section" Role="Section" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.QuestionUpload" Role="QuestionUpload" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectionId" />
+            </Principal>
+            <Dependent Role="QuestionUpload">
+              <PropertyRef Name="SectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__QuestionU__Subje__489AC854">
           <End Type="OnlinemasterjiModel.Subject" Role="Subject" Multiplicity="0..1" />
           <End Type="OnlinemasterjiModel.QuestionUpload" Role="QuestionUpload" Multiplicity="*" />
@@ -1258,6 +1694,54 @@
             </Principal>
             <Dependent Role="QuestionUpload">
               <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SchoolSec__Class__6BE40491">
+          <End Type="OnlinemasterjiModel.SchoolClass" Role="SchoolClass" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.SchoolSection" Role="SchoolSection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolClass">
+              <PropertyRef Name="ClassId" />
+            </Principal>
+            <Dependent Role="SchoolSection">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SchoolSub__Class__662B2B3B">
+          <End Type="OnlinemasterjiModel.SchoolClass" Role="SchoolClass" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.SchoolSubject" Role="SchoolSubject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolClass">
+              <PropertyRef Name="ClassId" />
+            </Principal>
+            <Dependent Role="SchoolSubject">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SchoolSec__Subje__6CD828CA">
+          <End Type="OnlinemasterjiModel.SchoolSubject" Role="SchoolSubject" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.SchoolSection" Role="SchoolSection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolSubject">
+              <PropertyRef Name="SubjectId" />
+            </Principal>
+            <Dependent Role="SchoolSection">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subjects__Sectio__6E01572D">
+          <End Type="OnlinemasterjiModel.Section" Role="Section" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.Subject" Role="Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectionId" />
+            </Principal>
+            <Dependent Role="Subject">
+              <PropertyRef Name="SectionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1273,52 +1757,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ColleageCourse">
-          <Key>
-            <PropertyRef Name="CourseId" />
-          </Key>
-          <Property Name="CourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CourseName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Sequence" Type="Int32" />
-          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Isactive" Type="Boolean" Nullable="false" />
-          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EditOn" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="CollegeSubjects" Relationship="OnlinemasterjiModel.FK__CollegeSu__Cours__58D1301D" FromRole="ColleageCourse" ToRole="CollegeSubject" />
-          <NavigationProperty Name="CollegePapers" Relationship="OnlinemasterjiModel.FK__CollegePa__Cours__5CA1C101" FromRole="ColleageCourse" ToRole="CollegePaper" />
-        </EntityType>
-        <EntityType Name="CollegeSubject">
-          <Key>
-            <PropertyRef Name="SubjectId" />
-          </Key>
-          <Property Name="SubjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SubjectName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Sequence" Type="Int32" />
-          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Isactive" Type="Boolean" Nullable="false" />
-          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EditOn" Type="DateTime" Precision="3" />
-          <Property Name="CourseId" Type="Int32" />
-          <NavigationProperty Name="ColleageCourse" Relationship="OnlinemasterjiModel.FK__CollegeSu__Cours__58D1301D" FromRole="CollegeSubject" ToRole="ColleageCourse" />
-          <NavigationProperty Name="CollegePapers" Relationship="OnlinemasterjiModel.FK__CollegePa__Subje__5E8A0973" FromRole="CollegeSubject" ToRole="CollegePaper" />
-        </EntityType>
-        <Association Name="FK__CollegeSu__Cours__58D1301D">
-          <End Type="OnlinemasterjiModel.ColleageCourse" Role="ColleageCourse" Multiplicity="0..1" />
-          <End Type="OnlinemasterjiModel.CollegeSubject" Role="CollegeSubject" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ColleageCourse">
-              <PropertyRef Name="CourseId" />
-            </Principal>
-            <Dependent Role="CollegeSubject">
-              <PropertyRef Name="CourseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="CollegePaper">
+        <EntityType Name="SchoolPaper">
           <Key>
             <PropertyRef Name="PaperId" />
           </Key>
@@ -1331,127 +1770,60 @@
           <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="EditOn" Type="DateTime" Precision="3" />
-          <Property Name="CourseId" Type="Int32" />
-          <NavigationProperty Name="ColleageCourse" Relationship="OnlinemasterjiModel.FK__CollegePa__Cours__5CA1C101" FromRole="CollegePaper" ToRole="ColleageCourse" />
+          <Property Name="ClassId" Type="Int32" />
           <Property Name="SubjectId" Type="Int32" />
-          <NavigationProperty Name="CollegeSubject" Relationship="OnlinemasterjiModel.FK__CollegePa__Subje__5E8A0973" FromRole="CollegePaper" ToRole="CollegeSubject" />
+          <Property Name="SectionId" Type="Int32" />
           <Property Name="DataFileId" Type="Int32" />
-          <NavigationProperty Name="DataFile" Relationship="OnlinemasterjiModel.FK__CollegePa__DataF__5F7E2DAC" FromRole="CollegePaper" ToRole="DataFile" />
+          <NavigationProperty Name="DataFile" Relationship="OnlinemasterjiModel.FK__SchoolPap__DataF__73852659" FromRole="SchoolPaper" ToRole="DataFile" />
+          <NavigationProperty Name="SchoolClass" Relationship="OnlinemasterjiModel.FK__SchoolPap__Class__70A8B9AE" FromRole="SchoolPaper" ToRole="SchoolClass" />
+          <NavigationProperty Name="SchoolSection" Relationship="OnlinemasterjiModel.FK__SchoolPap__Secti__72910220" FromRole="SchoolPaper" ToRole="SchoolSection" />
+          <NavigationProperty Name="SchoolSubject" Relationship="OnlinemasterjiModel.FK__SchoolPap__Subje__719CDDE7" FromRole="SchoolPaper" ToRole="SchoolSubject" />
         </EntityType>
-        <Association Name="FK__CollegePa__Cours__5CA1C101">
-          <End Type="OnlinemasterjiModel.ColleageCourse" Role="ColleageCourse" Multiplicity="0..1" />
-          <End Type="OnlinemasterjiModel.CollegePaper" Role="CollegePaper" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ColleageCourse">
-              <PropertyRef Name="CourseId" />
-            </Principal>
-            <Dependent Role="CollegePaper">
-              <PropertyRef Name="CourseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__CollegePa__Subje__5E8A0973">
-          <End Type="OnlinemasterjiModel.CollegeSubject" Role="CollegeSubject" Multiplicity="0..1" />
-          <End Type="OnlinemasterjiModel.CollegePaper" Role="CollegePaper" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CollegeSubject">
-              <PropertyRef Name="SubjectId" />
-            </Principal>
-            <Dependent Role="CollegePaper">
-              <PropertyRef Name="SubjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__CollegePa__DataF__5F7E2DAC">
+        <Association Name="FK__SchoolPap__DataF__73852659">
           <End Type="OnlinemasterjiModel.DataFile" Role="DataFile" Multiplicity="0..1" />
-          <End Type="OnlinemasterjiModel.CollegePaper" Role="CollegePaper" Multiplicity="*" />
+          <End Type="OnlinemasterjiModel.SchoolPaper" Role="SchoolPaper" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DataFile">
               <PropertyRef Name="DataFileId" />
             </Principal>
-            <Dependent Role="CollegePaper">
+            <Dependent Role="SchoolPaper">
               <PropertyRef Name="DataFileId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Section">
-          <Key>
-            <PropertyRef Name="SectionId" />
-          </Key>
-          <Property Name="SectionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SectionName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Isactive" Type="Boolean" Nullable="false" />
-          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EditOn" Type="DateTime" Precision="3" />
-          <Property Name="CourseId" Type="Int32" />
-          <Property Name="CategoryId" Type="Int32" />
-          <NavigationProperty Name="Category" Relationship="OnlinemasterjiModel.FK__Section__Categor__628FA481" FromRole="Section" ToRole="Category" />
-          <NavigationProperty Name="Course" Relationship="OnlinemasterjiModel.FK__Section__CourseI__619B8048" FromRole="Section" ToRole="Course" />
-          <NavigationProperty Name="MockTests" Relationship="OnlinemasterjiModel.FK__MockTest__Sectio__68487DD7" FromRole="Section" ToRole="MockTest" />
-          <NavigationProperty Name="QuestionUploads" Relationship="OnlinemasterjiModel.FK__QuestionU__Secti__46B27FE2" FromRole="Section" ToRole="QuestionUpload" />
-          <NavigationProperty Name="Subjects" Relationship="OnlinemasterjiModel.FK__Subjects__Sectio__6E01572D" FromRole="Section" ToRole="Subject" />
-        </EntityType>
-        <Association Name="FK__Section__Categor__628FA481">
-          <End Type="OnlinemasterjiModel.Category" Role="Category" Multiplicity="0..1" />
-          <End Type="OnlinemasterjiModel.Section" Role="Section" Multiplicity="*" />
+        <Association Name="FK__SchoolPap__Class__70A8B9AE">
+          <End Type="OnlinemasterjiModel.SchoolClass" Role="SchoolClass" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.SchoolPaper" Role="SchoolPaper" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="CategoryId" />
+            <Principal Role="SchoolClass">
+              <PropertyRef Name="ClassId" />
             </Principal>
-            <Dependent Role="Section">
-              <PropertyRef Name="CategoryId" />
+            <Dependent Role="SchoolPaper">
+              <PropertyRef Name="ClassId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Section__CourseI__619B8048">
-          <End Type="OnlinemasterjiModel.Course" Role="Course" Multiplicity="0..1" />
-          <End Type="OnlinemasterjiModel.Section" Role="Section" Multiplicity="*" />
+        <Association Name="FK__SchoolPap__Secti__72910220">
+          <End Type="OnlinemasterjiModel.SchoolSection" Role="SchoolSection" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.SchoolPaper" Role="SchoolPaper" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Course">
-              <PropertyRef Name="CourseId" />
-            </Principal>
-            <Dependent Role="Section">
-              <PropertyRef Name="CourseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__MockTest__Sectio__68487DD7">
-          <End Type="OnlinemasterjiModel.Section" Role="Section" Multiplicity="0..1" />
-          <End Type="OnlinemasterjiModel.MockTest" Role="MockTest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Section">
+            <Principal Role="SchoolSection">
               <PropertyRef Name="SectionId" />
             </Principal>
-            <Dependent Role="MockTest">
+            <Dependent Role="SchoolPaper">
               <PropertyRef Name="SectionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__QuestionU__Secti__46B27FE2">
-          <End Type="OnlinemasterjiModel.Section" Role="Section" Multiplicity="0..1" />
-          <End Type="OnlinemasterjiModel.QuestionUpload" Role="QuestionUpload" Multiplicity="*" />
+        <Association Name="FK__SchoolPap__Subje__719CDDE7">
+          <End Type="OnlinemasterjiModel.SchoolSubject" Role="SchoolSubject" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.SchoolPaper" Role="SchoolPaper" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Section">
-              <PropertyRef Name="SectionId" />
+            <Principal Role="SchoolSubject">
+              <PropertyRef Name="SubjectId" />
             </Principal>
-            <Dependent Role="QuestionUpload">
-              <PropertyRef Name="SectionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Subjects__Sectio__6E01572D">
-          <End Type="OnlinemasterjiModel.Section" Role="Section" Multiplicity="0..1" />
-          <End Type="OnlinemasterjiModel.Subject" Role="Subject" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Section">
-              <PropertyRef Name="SectionId" />
-            </Principal>
-            <Dependent Role="Subject">
-              <PropertyRef Name="SectionId" />
+            <Dependent Role="SchoolPaper">
+              <PropertyRef Name="SubjectId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1474,6 +1846,55 @@
                 <ScalarProperty Name="Sequence" ColumnName="Sequence" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ColleageCourses">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.ColleageCourse">
+              <MappingFragment StoreEntitySet="ColleageCourse">
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CollegePapers">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.CollegePaper">
+              <MappingFragment StoreEntitySet="CollegePaper">
+                <ScalarProperty Name="DataFileId" ColumnName="DataFileId" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PaperName" ColumnName="PaperName" />
+                <ScalarProperty Name="PaperId" ColumnName="PaperId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CollegeSubjects">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.CollegeSubject">
+              <MappingFragment StoreEntitySet="CollegeSubjects">
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1628,6 +2049,71 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SchoolClasses">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.SchoolClass">
+              <MappingFragment StoreEntitySet="SchoolClass">
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SchoolSections">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.SchoolSection">
+              <MappingFragment StoreEntitySet="SchoolSection">
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+                <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SchoolSubjects">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.SchoolSubject">
+              <MappingFragment StoreEntitySet="SchoolSubjects">
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sections">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.Section">
+              <MappingFragment StoreEntitySet="Section">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+                <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Subjects">
             <EntityTypeMapping TypeName="OnlinemasterjiModel.Subject">
               <MappingFragment StoreEntitySet="Subjects">
@@ -1674,43 +2160,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ColleageCourses">
-            <EntityTypeMapping TypeName="OnlinemasterjiModel.ColleageCourse">
-              <MappingFragment StoreEntitySet="ColleageCourse">
-                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
-                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
-                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
-                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
-                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
-                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
-                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
-                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
-                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CollegeSubjects">
-            <EntityTypeMapping TypeName="OnlinemasterjiModel.CollegeSubject">
-              <MappingFragment StoreEntitySet="CollegeSubjects">
-                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
-                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
-                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
-                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
-                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
-                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
-                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
-                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
-                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CollegePapers">
-            <EntityTypeMapping TypeName="OnlinemasterjiModel.CollegePaper">
-              <MappingFragment StoreEntitySet="CollegePaper">
+          <EntitySetMapping Name="SchoolPapers">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.SchoolPaper">
+              <MappingFragment StoreEntitySet="SchoolPaper">
                 <ScalarProperty Name="DataFileId" ColumnName="DataFileId" />
+                <ScalarProperty Name="SectionId" ColumnName="SectionId" />
                 <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
-                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
                 <ScalarProperty Name="EditOn" ColumnName="EditOn" />
                 <ScalarProperty Name="EditBy" ColumnName="EditBy" />
                 <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
@@ -1720,23 +2176,6 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="PaperName" ColumnName="PaperName" />
                 <ScalarProperty Name="PaperId" ColumnName="PaperId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sections">
-            <EntityTypeMapping TypeName="OnlinemasterjiModel.Section">
-              <MappingFragment StoreEntitySet="Section">
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
-                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
-                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
-                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
-                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
-                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="SectionName" ColumnName="SectionName" />
-                <ScalarProperty Name="SectionId" ColumnName="SectionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

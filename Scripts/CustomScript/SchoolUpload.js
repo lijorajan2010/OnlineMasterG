@@ -2,7 +2,7 @@
 
     $("#txtPaperName").focus();
     attachEvents();
-    setupCollegeQuestionUploadList();
+    setupSchoolQuestionUploadList();
  
     $("input").bind("keydown", function (event) {
         // track enter key
@@ -31,17 +31,18 @@ function attachEvents() {
 }
 
 
-function setupCollegeQuestionUploadList() {
-    $.getDataTableList(URL.COLLEGEUPLOADPAPERLIST, $("#dvUploadPaperList")); 
+function setupSchoolQuestionUploadList() {
+    $.getDataTableList(URL.SCHOOLUPLOADPAPERLIST, $("#dvUploadPaperList")); 
 }
 
 
 function clearFields() {
     $("#txtPaperName").val("");
     $("#txtPaperDescription").val("");
-    $("#CourelistId").val("");
+    $("#ClasslistId").val("");
     $("#SubjectlistId").val("");
-    $("#hdfCollegePaperId").val("");
+    $("#SectionlistId").val("");
+    $("#hdfSchoolPaperId").val("");
     $("#hdfDataFileId").val("");
     $("#filename").text("");
     //$('#chkIsActive').attr('checked', false);
@@ -54,9 +55,10 @@ function clearFields() {
 
 function saveQuestionUpload() {
     var model = {
-        PaperId: $("#hdfCollegePaperId").val(),
-        CourseId: $("#CourelistId").val(),
+        PaperId: $("#hdfSchoolPaperId").val(),
+        ClassId: $("#ClasslistId").val(),
         SubjectId: $("#SubjectlistId").val(),
+        SectionId: $("#SectionlistId").val(),
         PaperName: $("#txtPaperName").val(),
         Description: $("#txtPaperDescription").val(),
         LanguageCode: $("#LanguageCode").val(),
@@ -66,19 +68,20 @@ function saveQuestionUpload() {
     };
 
     $.postForm(
-        $("#frmCollegeUploadPaper"),
+        $("#frmSchoolUploadPaper"),
         model,
         function (data) {
             clearFields();
-            setupCollegeQuestionUploadList();
+            setupSchoolQuestionUploadList();
         });
 }
 
 
 function editPaper(obj) {
-    $("#hdfCollegePaperId").val(obj.id);
-    $("#CourelistId").val(obj.courseId);
+    $("#hdfSchoolPaperId").val(obj.id);
+    $("#ClasslistId").val(obj.classId);
     $("#SubjectlistId").val(obj.subjectId);
+    $("#SectionlistId").val(obj.sectionId);
     $("#txtPaperName").val(obj.paperName);
     $("#txtPaperDescription").val(obj.description);
     $("#LanguageCode").val(obj.languagecode);
@@ -101,11 +104,11 @@ function deletePaper(obj) {
         paperId,
         function () {
             $.postData(
-                URL.DELETECOLLEGEUPLOADPAPER,
+                URL.DELETESCHOOLPAPER,
                 { paperId: paperId },
                 function () {
                     clearFields();
-                    setupCollegeQuestionUploadList();
+                    setupSchoolQuestionUploadList();
                 });
         });
 }

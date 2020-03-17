@@ -1,8 +1,8 @@
 ﻿$(document).ready(function () {
 
-    $("#txtPaperName").focus();
+    $("#txtSectionName").focus();
     attachEvents();
-    setupCollegeQuestionUploadList();
+    setupSectionList();
  
     $("input").bind("keydown", function (event) {
         // track enter key
@@ -20,7 +20,7 @@
 function attachEvents() {
 
     $("#btnSave").click(function () {
-        saveQuestionUpload();
+        saveSection();
         return false;
     });
 
@@ -31,19 +31,17 @@ function attachEvents() {
 }
 
 
-function setupCollegeQuestionUploadList() {
-    $.getDataTableList(URL.COLLEGEUPLOADPAPERLIST, $("#dvUploadPaperList")); 
+function setupSectionList() {
+    $.getDataTableList(URL.SECTIONLIST, $("#dvSectionList")); 
 }
 
 
 function clearFields() {
-    $("#txtPaperName").val("");
-    $("#txtPaperDescription").val("");
-    $("#CourelistId").val("");
+    $("#txtSectionName").val("");
+    $("#txtSectionDescription").val("");
+    $("#ClasslistId").val("");
     $("#SubjectlistId").val("");
-    $("#hdfCollegePaperId").val("");
-    $("#hdfDataFileId").val("");
-    $("#filename").text("");
+    $("#hdfSectionId").val("");
     //$('#chkIsActive').attr('checked', false);
     //if ($("#chkIsActive").prop('checked')) {
     //    $('#chkIsActive').click();
@@ -52,60 +50,56 @@ function clearFields() {
 }
 
 
-function saveQuestionUpload() {
+function saveSection() {
     var model = {
-        PaperId: $("#hdfCollegePaperId").val(),
-        CourseId: $("#CourelistId").val(),
+        SectionId: $("#hdfSectionId").val(),
+        ClassId: $("#ClasslistId").val(),
         SubjectId: $("#SubjectlistId").val(),
-        PaperName: $("#txtPaperName").val(),
-        Description: $("#txtPaperDescription").val(),
+        SectionName: $("#txtSectionName").val(),
+        Description: $("#txtSectionDescription").val(),
         LanguageCode: $("#LanguageCode").val(),
-        DataFileId: $("#hdfDataFileId").val(),
-
         //IsActive: $("#chkIsActive").prop('checked')
     };
 
     $.postForm(
-        $("#frmCollegeUploadPaper"),
+        $("#frmSchoolSection"),
         model,
         function (data) {
             clearFields();
-            setupCollegeQuestionUploadList();
+            setupSectionList();
         });
 }
 
 
-function editPaper(obj) {
-    $("#hdfCollegePaperId").val(obj.id);
-    $("#CourelistId").val(obj.courseId);
+function editSection(obj) {
+    $("#hdfSectionId").val(obj.id);
+    $("#ClasslistId").val(obj.classId);
     $("#SubjectlistId").val(obj.subjectId);
-    $("#txtPaperName").val(obj.paperName);
-    $("#txtPaperDescription").val(obj.description);
+    $("#txtSectionName").val(obj.sectionName);
+    $("#txtSectionDescription").val(obj.description);
     $("#LanguageCode").val(obj.languagecode);
-    $("#hdfDataFileId").val(obj.dataFileId);
-    $("#filename").text(obj.dataFileName);
     //if (obj.isActive == true) {
     //    $('#chkIsActive').click();
     //}
 }
 
 
-function deletePaper(obj) {
+function deleteSection(obj) {
 
-    var paperName = obj.paperName;
-    var paperId = obj.id;
+    var sectionName = obj.sectionName;
+    var sectionId = obj.id;
 
     $.confirmDelete(
         "Section",
-        paperName,
-        paperId,
+        sectionName,
+        sectionId,
         function () {
             $.postData(
-                URL.DELETECOLLEGEUPLOADPAPER,
-                { paperId: paperId },
+                URL.DELETESECTION,
+                { SectionId: sectionId },
                 function () {
                     clearFields();
-                    setupCollegeQuestionUploadList();
+                    setupSectionList();
                 });
         });
 }

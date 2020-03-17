@@ -12,7 +12,7 @@ namespace OnlineMasterG.Models.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class CollegePaper
+    public partial class SchoolPaper
     {
         public int PaperId { get; set; }
         public string PaperName { get; set; }
@@ -23,12 +23,14 @@ namespace OnlineMasterG.Models.DAL
         public System.DateTime CreateOn { get; set; }
         public string EditBy { get; set; }
         public Nullable<System.DateTime> EditOn { get; set; }
-        public Nullable<int> CourseId { get; set; }
+        public Nullable<int> ClassId { get; set; }
         public Nullable<int> SubjectId { get; set; }
+        public Nullable<int> SectionId { get; set; }
         public Nullable<int> DataFileId { get; set; }
     
-        public virtual ColleageCourse ColleageCourse { get; set; }
         public virtual DataFile DataFile { get; set; }
-        public virtual CollegeSubject CollegeSubject { get; set; }
+        public virtual SchoolClass SchoolClass { get; set; }
+        public virtual SchoolSection SchoolSection { get; set; }
+        public virtual SchoolSubject SchoolSubject { get; set; }
     }
 }

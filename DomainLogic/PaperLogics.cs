@@ -19,6 +19,8 @@ namespace OnlineMasterG.DomainLogic
 
             if (String.IsNullOrEmpty(model.PaperName))
                 sr.AddError("The [Paper Name] field cannot be empty.");
+            if (model.DataFileId== null || model.DataFileId == 0)
+                sr.AddError("Please upload pdf file");
 
             return sr;
         }
@@ -40,6 +42,27 @@ namespace OnlineMasterG.DomainLogic
                 Isactive = true
             };
             sr = PaperService.SaveCollegePaper(collegepaper, auditlogin);
+
+            return sr;
+        }
+        public static ServiceResponse SaveSchoolPaper(PaperVM model, string auditlogin)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            SchoolPaper collegepaper = new SchoolPaper()
+            {
+                PaperId = model.PaperId,
+                ClassId = model.ClassId,
+                SubjectId = model.SubjectId,
+                SectionId = model.SectionId,
+                PaperName = model.PaperName,
+                Description = model.Description,
+                LanguageCode = model.LanguageCode,
+                DataFileId = model.DataFileId,
+                CreateBy = auditlogin,
+                CreateOn = DateTime.Now,
+                Isactive = true
+            };
+            sr = PaperService.SaveSchoolPaper(collegepaper, auditlogin);
 
             return sr;
         }
@@ -68,6 +91,44 @@ namespace OnlineMasterG.DomainLogic
                         PaperName = item.PaperName,
                         CourseName = CourseService.FetchCollegeCourse(item.CourseId)?.CourseName,
                         SubjectName = SubjectService.FetchCollegeSubject(item.SubjectId)?.SubjectName,
+                        Description = item.Description,
+                        LanguageCode = item.LanguageCode,
+                        DataFileId = item.DataFileId,
+                        DataFile = datafile
+
+                    });
+                }
+            }
+            return model;
+        }
+
+        public static List<PaperVM> SchoolPaperList(string Lang, bool IsActive)
+        {
+            List<PaperVM> model = new List<PaperVM>();
+            var schoolPaper = PaperService.SchoolPaperList(Lang, IsActive);
+            if (schoolPaper != null && schoolPaper.Count() > 0)
+            {
+                foreach (var item in schoolPaper)
+                {
+
+                    DataFileVM datafile = new DataFileVM();
+                    if (item.DataFile != null)
+                    {
+                        datafile.DataFileId = item.DataFile.DataFileId;
+                        datafile.FileName = item.DataFile.FileName;
+                        datafile.Extension = item.DataFile.Extension;
+                    }
+
+                    model.Add(new PaperVM()
+                    {
+                        PaperId = item.PaperId,
+                        ClassId = item.ClassId,
+                        SubjectId = item.SubjectId,
+                        SectionId = item.SectionId,
+                        PaperName = item.PaperName,
+                        ClassName = ClassService.Fetch(item.ClassId)?.ClassName,
+                        SubjectName = SubjectService.FetchSchoolSubject(item.SubjectId)?.SubjectName,
+                        SectionName = SectionService.FetchSchoolSection(item.SectionId)?.SectionName,
                         Description = item.Description,
                         LanguageCode = item.LanguageCode,
                         DataFileId = item.DataFileId,

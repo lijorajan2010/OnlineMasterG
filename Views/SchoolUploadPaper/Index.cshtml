@@ -1,0 +1,211 @@
+﻿@using OnlineMasterG.CommonFramework
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<script>
+    var URL = {
+        SCHOOLUPLOADPAPERLIST: '@Url.Action("SchoolUploadPaperList", "SchoolUploadPaper")',
+        DELETESCHOOLPAPER: '@Url.Action("DeleteSchoolPaper", "SchoolUploadPaper")',
+    };
+</script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/CustomScript/SchoolUpload.js?v=" + AppInfo.Version)"></script>
+
+
+
+<div class="app-main__inner">
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-car icon-gradient bg-mean-fruit">
+                    </i>
+                </div>
+                <div>
+                    Upload Paper
+                    <!--  <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
+                    </div> -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="tabs-animation">
+        <div class="mb-3 card">
+            <div class="card-header-tab card-header">
+                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                    <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
+                    Add Section
+                </div>
+                <!-- <div class="btn-actions-pane-right text-capitalize">
+                    <button class="btn-wide btn-outline-2x mr-md-2 btn btn-outline-focus btn-sm">View All</button>
+                </div> -->
+            </div>
+            <div class="no-gutters row">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("SaveSchoolUploadPaper", "SchoolUploadPaper", FormMethod.Post, new { id = "frmSchoolUploadPaper", autocomplete = "off" }))
+                    {
+                        <div class="card-body table-responsive">
+                            <table style="width: 100%;" id="example12" class="table table-hover table-striped table-bordered">
+
+                                <tbody>
+                                    <tr>
+                                        <th> Select Class</th>
+                                        <th> Select Subject</th>
+                                        <th> Select Section</th>
+                                        <th> Paper Name</th>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DropDownList("ClassName", (SelectList)ViewBag.ClassList, "Select Class", new { @id = "ClasslistId", @class = "form-control", @required = "required" })
+
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("Subjectame", (SelectList)ViewBag.SubjectList, "Select Subject", new { @id = "SubjectlistId", @class = "form-control", @required = "required" })
+
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("SectionName", (SelectList)ViewBag.SectionList, "Select Section", new { @id = "SectionlistId", @class = "form-control", @required = "required" })
+
+                                        </td>
+                                        <td>
+                                            <input type="hidden" id="hdfSchoolPaperId" />
+                                            <input type="hidden" id="hdfDataFileId" />
+                                            <input type="text" required id="txtPaperName" name="PaperName" class="form-control" value="">
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2"> Description</th>
+                                        <th> Upload Paper</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    <tr>
+
+                                        <td colspan="2">
+                                            <input type="text" required id="txtPaperDescription" name="Description" class="form-control" value="">
+                                        </td>
+                                        <td>
+                                            <a class="details"  href="javascript:;">click to upload paper</a>
+                                            <label id="filename" ></label>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-info" type="button" id="btnSave">Save </button>
+                                            <button class="btn btn-alternate" id="btnClear" type="button">Clear </button>
+                                        </td>
+
+                                    </tr>
+
+
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card mb-3">
+
+            <hr />
+            <div id="divValidationMsg">
+            </div>
+
+
+            <div class="card-body table-responsive">
+                <div id="dvUploadPaperList"></div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal" id="divUploadDataFileDialog" style="z-index:3000">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h3>Upload File</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Please browse and pick you image, and then click "Upload File". File format accepted are png/jpeg<br />
+                <br />
+                @using (Ajax.BeginForm("Upload", "DataFile", new { }, new AjaxOptions { HttpMethod = "POST" }, new { id = "frmUploadDataFile", enctype = "multipart/form-data" }))
+                {
+
+                    <table style="width:100%">
+                        <tr style="width:100%">
+                            <td>
+                                <input type="file" name="postedFile" id="postedFile" required accept="application/pdf"><br />
+                            </td>
+                            <td>
+
+                                <input id="btnUploadFile" type="button" value="Upload File" class="btn btn-info">
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="loading" style="display:none">
+                        <button class="btn btn-primary" type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Uploading file... Please wait...
+                        </button>
+                    </div>
+                }
+                <br />
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button id="btnUploadDataFileCancel" data-dismiss="modal" class="btn btn-dark">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+    $(".details").click(function () {
+        $("#divUploadDataFileDialog").appendTo("body").modal("show");
+    });
+
+
+    $("#btnUploadFile").click(function () {
+
+        $.submitForm(
+            $("#frmUploadDataFile"),
+            function (data) {
+                $("#hdfDataFileId").val(data.DataFileId);
+                $("#filename").text(data.FileName);
+                $("#divUploadDataFileDialog").appendTo("body").modal("hide");
+
+                // reset everything
+                $("#loading").hide();
+                $("#btnUploadFile").removeAttr('disabled');
+                $("#postedFile").val('');
+
+            }
+            , function () { }
+            , function () {
+            }
+            , $("#loading")
+            , $("#btnUploadFile")
+        );
+
+        $("#frmUploadDataFile").submit();
+
+    });
+</script>

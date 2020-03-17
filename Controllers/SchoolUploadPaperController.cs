@@ -10,26 +10,26 @@ using System.Web.Mvc;
 
 namespace OnlineMasterG.Controllers
 {
-    public class CollegeUploadPaperController : BaseController
+    public class SchoolUploadPaperController : BaseController
     {
-        // GET: CollegeUploadPaper
+        // GET: SchoolUploadQuestion
         public ActionResult Index()
         {
-            ViewBag.CourseList = new SelectList(CourseService.CollegeCourseList("en-US", true), "CourseId", "CourseName");
-            ViewBag.SubjectList = new SelectList(SubjectService.CollegeSubjectList("en-US", true), "SubjectId", "SubjectName");
-
+            ViewBag.ClassList = new SelectList(ClassService.SchoolClassList("en-US", true), "ClassId", "ClassName");
+            ViewBag.SubjectList = new SelectList(SubjectService.SchoolSubjectList("en-US", true), "SubjectId", "SubjectName");
+            ViewBag.SectionList = new SelectList(SectionService.SchoolSectionList("en-US", true), "SectionId", "SectionName");
             return View();
         }
         [HttpGet]
-        public PartialViewResult CollegeUploadPaperList()
+        public PartialViewResult SchoolUploadPaperList()
         {
-            var model = PaperLogics.CollegePaperList("en-US", true);
+            var model = PaperLogics.SchoolPaperList("en-US", true);
 
             return PartialView(model);
         }
 
         [HttpPost]
-        public JsonResult SaveCollegeUploadPaper(PaperVM model)
+        public JsonResult SaveSchoolUploadPaper(PaperVM model)
         {
 
             // Validate & Save
@@ -37,16 +37,16 @@ namespace OnlineMasterG.Controllers
             sr = PaperLogics.ValidatePaper(model);
             if (!sr.Status)
                 return GetJsonValidation(sr);
-            sr = PaperLogics.SaveCollegePaper(model, HttpContext.User.Identity.Name);
+            sr = PaperLogics.SaveSchoolPaper(model, HttpContext.User.Identity.Name);
             if (!sr.Status)
                 return GetJsonValidation(sr);
 
             return GetJsonValidation(sr, "Paper has been successfully saved.");
         }
         [HttpPost]
-        public JsonResult DeleteCollegeUploadPaper(int PaperId)
+        public JsonResult DeleteSchoolPaper(int PaperId)
         {
-            var sr =PaperService.DeleteCollegePaper(PaperId);
+            var sr = PaperService.DeleteSchoolPaper(PaperId);
 
             return GetJsonValidation(sr, "Paper has been successfully deleted.");
         }

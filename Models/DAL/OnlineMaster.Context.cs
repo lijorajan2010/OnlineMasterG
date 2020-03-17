@@ -26,6 +26,9 @@ namespace OnlineMasterG.Models.DAL
         }
     
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<ColleageCourse> ColleageCourses { get; set; }
+        public virtual DbSet<CollegePaper> CollegePapers { get; set; }
+        public virtual DbSet<CollegeSubject> CollegeSubjects { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<DataContent> DataContents { get; set; }
         public virtual DbSet<DataFile> DataFiles { get; set; }
@@ -36,12 +39,13 @@ namespace OnlineMasterG.Models.DAL
         public virtual DbSet<QuestionPoint> QuestionPoints { get; set; }
         public virtual DbSet<QuestionsMockTest> QuestionsMockTests { get; set; }
         public virtual DbSet<QuestionUpload> QuestionUploads { get; set; }
+        public virtual DbSet<SchoolClass> SchoolClasses { get; set; }
+        public virtual DbSet<SchoolSection> SchoolSections { get; set; }
+        public virtual DbSet<SchoolSubject> SchoolSubjects { get; set; }
+        public virtual DbSet<Section> Sections { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
-        public virtual DbSet<ColleageCourse> ColleageCourses { get; set; }
-        public virtual DbSet<CollegeSubject> CollegeSubjects { get; set; }
-        public virtual DbSet<CollegePaper> CollegePapers { get; set; }
-        public virtual DbSet<Section> Sections { get; set; }
+        public virtual DbSet<SchoolPaper> SchoolPapers { get; set; }
     }
 }
