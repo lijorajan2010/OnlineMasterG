@@ -47,5 +47,7 @@ namespace OnlineMasterG.Models.DAL
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
         public virtual DbSet<SchoolPaper> SchoolPapers { get; set; }
+        public virtual DbSet<ExamSection> ExamSections { get; set; }
+        public virtual DbSet<ExamSectionLink> ExamSectionLinks { get; set; }
     }
 }

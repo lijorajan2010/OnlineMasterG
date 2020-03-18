@@ -235,6 +235,7 @@
     <Compile Include="CommonFramework\TypeValidator.cs" />
     <Compile Include="CommonServices\ClassService .cs" />
     <Compile Include="CommonServices\DataFileService.cs" />
+    <Compile Include="CommonServices\ExamUpdateService.cs" />
     <Compile Include="CommonServices\QuestionUploadService.cs" />
     <Compile Include="CommonServices\PaperService.cs" />
     <Compile Include="CommonServices\SubjectService.cs" />
@@ -252,6 +253,8 @@
     <Compile Include="Controllers\CourseMasterController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DataFileController.cs" />
+    <Compile Include="Controllers\ExamUpdateLinksController.cs" />
+    <Compile Include="Controllers\ExamUpdateSectionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\SchoolClassController.cs" />
@@ -263,6 +266,7 @@
     <Compile Include="Controllers\TestMasterController.cs" />
     <Compile Include="Controllers\QuestionUploadController.cs" />
     <Compile Include="DomainLogic\ClassLogics.cs" />
+    <Compile Include="DomainLogic\ExamUpdateLogics.cs" />
     <Compile Include="DomainLogic\PaperLogics.cs" />
     <Compile Include="DomainLogic\SubjectLogics.cs" />
     <Compile Include="DomainLogic\QuestionUploadLogics.cs" />
@@ -292,6 +296,12 @@
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\DataFile.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\ExamSection.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\ExamSectionLink.cs">
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\Language.cs">
@@ -359,6 +369,7 @@
     <Compile Include="Models\Shared\UnauthorizedModel.cs" />
     <Compile Include="Models\Shared\ValidationErrorModel.cs" />
     <Compile Include="Models\Shared\ValidationSuccessModel.cs" />
+    <Compile Include="Models\ViewModels\ExamUpdateSectionVM.cs" />
     <Compile Include="Models\ViewModels\ClassVM.cs" />
     <Compile Include="Models\ViewModels\DataFileVM.cs" />
     <Compile Include="Models\ViewModels\ExcelQuestions.cs" />
@@ -1426,6 +1437,8 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CustomScript\ExamLinks.js" />
+    <Content Include="Scripts\CustomScript\ExamUpdateSection.js" />
     <Content Include="Scripts\CustomScript\SchoolUpload.js" />
     <Content Include="Scripts\CustomScript\SchoolSubject.js" />
     <Content Include="Scripts\CustomScript\CollegeSubject.js" />
@@ -1692,6 +1705,10 @@
     <Content Include="Views\SchoolSection\SectionList.cshtml" />
     <Content Include="Views\SchoolUploadPaper\Index.cshtml" />
     <Content Include="Views\SchoolUploadPaper\SchoolUploadPaperList.cshtml" />
+    <Content Include="Views\ExamUpdateSection\Index.cshtml" />
+    <Content Include="Views\ExamUpdateSection\ExamSectionList.cshtml" />
+    <Content Include="Views\ExamUpdateLinks\Index.cshtml" />
+    <Content Include="Views\ExamUpdateLinks\ExamLinkList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

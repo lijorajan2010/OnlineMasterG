@@ -60,6 +60,9 @@
         <AssociationConnector Association="OnlinemasterjiModel.FK__SchoolPap__Class__70A8B9AE" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__SchoolPap__Secti__72910220" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__SchoolPap__Subje__719CDDE7" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.ExamSection" Width="1.5" PointX="5.375" PointY="12.75" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.ExamSectionLink" Width="1.5" PointX="7.625" PointY="16.625" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__ExamSecti__Secti__7A3223E8" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

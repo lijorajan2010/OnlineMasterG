@@ -99,6 +99,35 @@
           <Property Name="CreateBy" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="ExamSection">
+          <Key>
+            <PropertyRef Name="SectionId" />
+          </Key>
+          <Property Name="SectionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SectionName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Sequence" Type="int" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ExamSectionLink">
+          <Key>
+            <PropertyRef Name="LinkId" />
+          </Key>
+          <Property Name="LinkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LinkName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Sequence" Type="int" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditOn" Type="datetime" />
+          <Property Name="SectionId" Type="int" />
+        </EntityType>
         <EntityType Name="Language">
           <Key>
             <PropertyRef Name="LanguageId" />
@@ -398,6 +427,18 @@
             </Principal>
             <Dependent Role="DataFile">
               <PropertyRef Name="DataContentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExamSecti__Secti__7A3223E8">
+          <End Role="ExamSection" Type="Self.ExamSection" Multiplicity="0..1" />
+          <End Role="ExamSectionLink" Type="Self.ExamSectionLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExamSection">
+              <PropertyRef Name="SectionId" />
+            </Principal>
+            <Dependent Role="ExamSectionLink">
+              <PropertyRef Name="SectionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -733,6 +774,8 @@
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DataContent" EntityType="Self.DataContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DataFile" EntityType="Self.DataFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExamSection" EntityType="Self.ExamSection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExamSectionLink" EntityType="Self.ExamSectionLink" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Language" EntityType="Self.Language" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MockTest" EntityType="Self.MockTest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuestionAnswerChoices" EntityType="Self.QuestionAnswerChoices" Schema="dbo" store:Type="Tables" />
@@ -771,6 +814,10 @@
           <AssociationSet Name="FK__DataFile__DataCo__1AD3FDA4" Association="Self.FK__DataFile__DataCo__1AD3FDA4">
             <End Role="DataContent" EntitySet="DataContent" />
             <End Role="DataFile" EntitySet="DataFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExamSecti__Secti__7A3223E8" Association="Self.FK__ExamSecti__Secti__7A3223E8">
+            <End Role="ExamSection" EntitySet="ExamSection" />
+            <End Role="ExamSectionLink" EntitySet="ExamSectionLink" />
           </AssociationSet>
           <AssociationSet Name="FK__MockTest__Catego__6754599E" Association="Self.FK__MockTest__Catego__6754599E">
             <End Role="Category" EntitySet="Category" />
@@ -1039,6 +1086,12 @@
           <AssociationSet Name="FK__SchoolPap__Subje__719CDDE7" Association="OnlinemasterjiModel.FK__SchoolPap__Subje__719CDDE7">
             <End Role="SchoolSubject" EntitySet="SchoolSubjects" />
             <End Role="SchoolPaper" EntitySet="SchoolPapers" />
+          </AssociationSet>
+          <EntitySet Name="ExamSections" EntityType="OnlinemasterjiModel.ExamSection" />
+          <EntitySet Name="ExamSectionLinks" EntityType="OnlinemasterjiModel.ExamSectionLink" />
+          <AssociationSet Name="FK__ExamSecti__Secti__7A3223E8" Association="OnlinemasterjiModel.FK__ExamSecti__Secti__7A3223E8">
+            <End Role="ExamSection" EntitySet="ExamSections" />
+            <End Role="ExamSectionLink" EntitySet="ExamSectionLinks" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Category">
@@ -1827,6 +1880,49 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ExamSection">
+          <Key>
+            <PropertyRef Name="SectionId" />
+          </Key>
+          <Property Name="SectionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SectionName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ExamSectionLinks" Relationship="OnlinemasterjiModel.FK__ExamSecti__Secti__7A3223E8" FromRole="ExamSection" ToRole="ExamSectionLink" />
+        </EntityType>
+        <EntityType Name="ExamSectionLink">
+          <Key>
+            <PropertyRef Name="LinkId" />
+          </Key>
+          <Property Name="LinkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LinkName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <Property Name="SectionId" Type="Int32" />
+          <NavigationProperty Name="ExamSection" Relationship="OnlinemasterjiModel.FK__ExamSecti__Secti__7A3223E8" FromRole="ExamSectionLink" ToRole="ExamSection" />
+        </EntityType>
+        <Association Name="FK__ExamSecti__Secti__7A3223E8">
+          <End Type="OnlinemasterjiModel.ExamSection" Role="ExamSection" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.ExamSectionLink" Role="ExamSectionLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExamSection">
+              <PropertyRef Name="SectionId" />
+            </Principal>
+            <Dependent Role="ExamSectionLink">
+              <PropertyRef Name="SectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2176,6 +2272,37 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="PaperName" ColumnName="PaperName" />
                 <ScalarProperty Name="PaperId" ColumnName="PaperId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExamSections">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.ExamSection">
+              <MappingFragment StoreEntitySet="ExamSection">
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+                <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExamSectionLinks">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.ExamSectionLink">
+              <MappingFragment StoreEntitySet="ExamSectionLink">
+                <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="LinkName" ColumnName="LinkName" />
+                <ScalarProperty Name="LinkId" ColumnName="LinkId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
