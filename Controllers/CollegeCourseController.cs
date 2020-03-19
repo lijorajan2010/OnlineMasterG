@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace OnlineMasterG.Controllers
 {
+    [ActionAuthorization()]
     public class CollegeCourseController : BaseController
     {
         // GET: CollegeCourse

@@ -1,0 +1,385 @@
+﻿@using OnlineMasterG.CommonFramework
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/PublicLayout.cshtml";
+}
+<section class="breadcrumb_area test_detail">
+    <img class="breadcrumb_shap" src="img/breadcrumb/banner_bg.png" alt="">
+    <div class="container">
+        <!--
+                        <div class="breadcrumb_content text-center">
+                            <h1 class="f_p f_700 f_size_50 w_color l_height50 mb_20">Staf Selection Commission</h1>
+                            <p class="f_400 w_color f_size_16 l_height26">Here you can prepare for your exam, below are all the mock tests available!!</p>
+                        </div>
+        -->
+    </div>
+</section>
+<section class="service_area sec_pad s_service_section breadcrumb_area typography_breacrumb">
+    <img class="breadcrumb_shap" alt="" src="img/breadcrumb/banner_bg.png">
+    <div class="container custom_container test_details">
+        <div class="row m_0">
+            <div class="col-lg-3 col-md-3 m_p0">
+
+                <ul class="nav nav-tabs software_service_tab" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link"><h5>Classes</h5></a>
+                    </li>
+                    @if (AppInfo.GetClasses != null)
+                    {
+                        foreach (var item in AppInfo.GetClasses.Select((x, y) => new { Data = x, Index = y }))
+                        {
+                            if (item.Index == 0)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#">@item.Data</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">@item.Data</a>
+                                </li>
+                            }
+
+                        }
+                    }
+
+
+
+                </ul>
+            </div>
+            <div class="col-md-9">
+                <div class="sec_title">
+                    @if (AppInfo.GetSchoolSubjects != null)
+                    {
+                        foreach (var item in AppInfo.GetSchoolSubjects.Select((x, y) => new { Data = x, Index = y }))
+                        {
+                            if (item.Index == 0)
+                            {
+                                <a class="btn_hover agency_banner_btn" href="#">@item.Data</a>
+                            }
+                            else
+                            {
+                                <a class="btn_get btn_hover" href="#">@item.Data</a>
+                            }
+                        }
+                        var firstItem = AppInfo.GetSchoolSubjects.FirstOrDefault();
+                        <h4 class="f_p f_700 t_color2 mt_20">@firstItem</h4>
+                    }
+
+                </div>
+
+
+                <ul class="nav nav-tabs develor_tab mb_15" id="myTab2" role="tablist">
+
+                    @if (AppInfo.GetSchoolSections != null)
+                    {
+                        foreach (var item in AppInfo.GetSchoolSections.Select((x, y) => new { Data = x, Index = y }))
+                        {
+                            string hrefTab = string.Empty;
+                            string idTab = string.Empty;
+                            if (item.Index == 0)
+                            {
+                                hrefTab = "#href_ruby" + item.Index;
+                                idTab = "Id_ruby-tab" + item.Index;
+                                <li class="nav-item">
+                                    <a class="nav-link active show" data-tab="tab_@item.Index" id="@idTab" data-toggle="tab" href="@hrefTab" role="tab" aria-controls="ruby" aria-selected="true">@item.Data.SectionName</a>
+                                </li>
+                            }
+                            else
+                            {
+                                hrefTab = "#href_ruby" + item.Index;
+                                idTab = "Id_ruby-tab" + item.Index;
+                                <li class="nav-item">
+                                    <a class="nav-link" data-tab="tab_@item.Index" id="@idTab" data-toggle="tab" href="@hrefTab" role="tab" aria-controls="ruby" aria-selected="false">@item.Data.SectionName</a>
+                                </li>
+                            }
+                        }
+                    }
+                </ul>
+                <div class="tab-content developer_tab_content">
+
+                    @if (AppInfo.GetSchoolSections != null)
+                    {
+                        string Tabclass = string.Empty;
+                        string hrefTabId = string.Empty;
+                        foreach (var sec in AppInfo.GetSchoolSections.Select((x, y) => new { Data = x, Index = y }))
+                        {
+                            if (sec.Index == 0)
+                            {
+                                Tabclass = "active show";
+                            }
+                            hrefTabId = "href_ruby" + sec.Index;
+                            if (AppInfo.GetSchoolPapers != null)
+                            {
+                                <div class="tab-pane fade @Tabclass" id="@hrefTabId" role="tabpanel" aria-labelledby="ruby-tab">
+                                    <div class="accordion">
+                                        <div class="service_info">
+                                            <div class="service_item  mb-0">
+                                                @foreach (var pap in AppInfo.GetSchoolPapers.Where(m => m.SectionId.HasValue ? m.SectionId.Value == sec.Data.SectionId : true).ToList().Select((x, y) => new { Data = x, Index = y }))
+                                                {
+                                                    <div class="mb_10">
+                                                        <div class="row m-0 border_b">
+                                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">@pap.Data.PaperName</h4>
+                                                            </div>
+                                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">@pap.Data.Description</h4>
+                                                            </div>
+                                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                                @Html.ActionLink(" View ", "View", "DataFile", new { p = CustomEncrypt.Encrypt(pap.Data.DataFileId.Value.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                    @*<div class="tab-pane fade" id="curl" role="tabpanel" aria-labelledby="curl-tab">
+                        <div class="accordion">
+                            <div class="service_info">
+                                <div class="service_item  mb-0">
+
+                                    <div class="mb_10">
+                                        <div class="row m-0 border_b">
+
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Paper -1</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Full Length 20</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <a href="#" class="btn_hover agency_banner_btn">View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mb_10">
+                                        <div class="row m-0 border_b">
+
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Paper - 2</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Full Length 20</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <a href="#" class="btn_hover agency_banner_btn">View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="">
+                                        <div class="row m-0">
+
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Paper - 3</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Full Length 20</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <a href="#" class="btn_hover agency_banner_btn">View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="resize" role="tabpanel" aria-labelledby="resize-tab">
+
+                        <div class="accordion">
+                            <div class="service_info">
+                                <div class="service_item  mb-0">
+
+                                    <div class="mb_10">
+                                        <div class="row m-0 border_b">
+
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Chapter -1</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Full Length 20</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <a href="#" class="btn_hover agency_banner_btn">View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mb_10">
+                                        <div class="row m-0 border_b">
+
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Chapter - 2</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Full Length 20</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <a href="#" class="btn_hover agency_banner_btn">View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="">
+                                        <div class="row m-0">
+
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Chapter - 3</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Full Length 20</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <a href="#" class="btn_hover agency_banner_btn">View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="doctl" role="tabpanel" aria-labelledby="doctl-tab">
+                        <div class="accordion">
+                            <div class="service_info">
+                                <div class="service_item  mb-0">
+
+                                    <div class="mb_10">
+                                        <div class="row m-0 border_b">
+
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Chapter -1</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Full Length 20</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <a href="#" class="btn_hover agency_banner_btn">View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mb_10">
+                                        <div class="row m-0 border_b">
+
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Chapter - 2</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Full Length 20</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <a href="#" class="btn_hover agency_banner_btn">View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="">
+                                        <div class="row m-0">
+
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Chapter - 3</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Full Length 20</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <a href="#" class="btn_hover agency_banner_btn">View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="mcq" role="tabpanel" aria-labelledby="mcq-tab">
+                        <div class="accordion">
+                            <div class="service_info">
+                                <div class="service_item  mb-0">
+
+                                    <div class="mb_10">
+                                        <div class="row m-0 border_b">
+
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Chapter -1</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Full Length 20</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <a href="#" class="btn_hover agency_banner_btn">View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mb_10">
+                                        <div class="row m-0 border_b">
+
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Chapter - 2</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Full Length 20</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <a href="#" class="btn_hover agency_banner_btn">View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="">
+                                        <div class="row m-0">
+
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Chapter - 3</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Full Length 20</h4>
+                                            </div>
+                                            <div class="col-md-4 col-md-4 col-xs-4">
+                                                <a href="#" class="btn_hover agency_banner_btn">View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>*@
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</section>
+

@@ -35,6 +35,43 @@ namespace OnlineMasterG.CommonFramework
             }
         
         }
+        public static List<string> GetClasses
+        {
+            get
+            {
+                var ClassNames = ClassService.SchoolClassList("en-US", true).OrderBy(m => m.Sequence).ToList();
+                return ClassNames.Select(m => m.ClassName).ToList();
+            }
+
+        }
+        public static List<string> GetSchoolSubjects
+        {
+            get
+            {
+                var SubjectNames = SubjectService.SchoolSubjectList("en-US", true).OrderBy(m => m.Sequence).ToList();
+                return SubjectNames.Select(m => m.SubjectName).ToList();
+            }
+
+        }
+        public static List<SchoolSection> GetSchoolSections
+        {
+            get
+            {
+               return SectionService.SchoolSectionList("en-US", true).ToList();
+               
+            }
+
+        }
+        public static List<SchoolPaper> GetSchoolPapers
+        {
+            get
+            {
+                return PaperService.SchoolPaperList("en-US", true).ToList();
+                
+            }
+            set { }
+
+        }
 
     }
 }

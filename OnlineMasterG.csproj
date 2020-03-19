@@ -258,6 +258,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\SchoolClassController.cs" />
+    <Compile Include="Controllers\SchoolsController.cs" />
     <Compile Include="Controllers\SchoolSectionController.cs" />
     <Compile Include="Controllers\SchoolSubjectController.cs" />
     <Compile Include="Controllers\SchoolUploadPaperController.cs" />
@@ -1709,6 +1710,7 @@
     <Content Include="Views\ExamUpdateSection\ExamSectionList.cshtml" />
     <Content Include="Views\ExamUpdateLinks\Index.cshtml" />
     <Content Include="Views\ExamUpdateLinks\ExamLinkList.cshtml" />
+    <Content Include="Views\Schools\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
