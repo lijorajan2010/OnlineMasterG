@@ -28,6 +28,43 @@ function attachEvents() {
         clearFields();
         return false;
     });
+
+    $("#CourelistId").change(function () {
+        $('#CategorylistId').empty();
+        $('#CategorylistId').append($('<option/>', { Value: "", text: "Please Select" }));
+        $.ajax({
+            url: URL.BINDCATEGORY,
+            datatype: 'json',
+            data: { courseId: $(this).val() ? $(this).val() : 0 },
+            method: 'Post',
+            success: function (data) {
+               
+                $('#CategorylistId').prop("disabled", false);
+                $(data).each(function (index, item) {
+                    $('#CategorylistId').append($('<option/>', { Value: item.CategoryId, text: item.CategoryName }));
+                });
+            }
+        });
+    });
+
+    $("#CategorylistId").change(function () {
+        $('#SectionlistId').empty();
+        $('#SectionlistId').append($('<option/>', { Value: "", text: "Please Select" }));
+        $.ajax({
+            url: URL.BINDSECTIONS,
+            datatype: 'json',
+            data: { categoryId: $(this).val() ? $(this).val() : 0 },
+            method: 'Post',
+            success: function (data) {
+               
+                $('#SectionlistId').prop("disabled", false);
+                $(data).each(function (index, item) {
+                    $('#SectionlistId').append($('<option/>', { Value: item.SectionId, text: item.SectionName }));
+                });
+            }
+        });
+    });
+
 }
 
 

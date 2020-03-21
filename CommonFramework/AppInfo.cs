@@ -35,12 +35,30 @@ namespace OnlineMasterG.CommonFramework
             }
         
         }
+        public static List<Course> GetCourseList
+        {
+            get
+            {
+                return CourseService.CourseList("en-US", true).OrderBy(m => m.Sequence).ToList();
+               
+            }
+
+        }
         public static List<SchoolClass> GetClasses
         {
             get
             {
-                return ClassService.SchoolClassList("en-US", true).OrderBy(m => m.Sequence).ToList();
+                return ClassService.SchoolClassList("en-US", true).OrderBy(m => m.Sequence).Distinct().ToList();
             
+            }
+
+        }
+        public static List<Category> GetCategories
+        {
+            get
+            {
+                return CategoryService.CategoryList("en-US", true).OrderBy(m => m.Sequence).Distinct().ToList();
+
             }
 
         }
@@ -48,7 +66,7 @@ namespace OnlineMasterG.CommonFramework
         {
             get
             {
-                return SubjectService.SchoolSubjectList("en-US", true).OrderBy(m => m.Sequence).ToList();
+                return SubjectService.SchoolSubjectList("en-US", true).OrderBy(m => m.Sequence).Distinct().ToList();
             }
 
         }
@@ -56,8 +74,26 @@ namespace OnlineMasterG.CommonFramework
         {
             get
             {
-               return SectionService.SchoolSectionList("en-US", true).ToList();
+               return SectionService.SchoolSectionList("en-US", true).Distinct().ToList();
                
+            }
+
+        }
+        public static List<Section> GetSections
+        {
+            get
+            {
+                return SectionService.SectionList("en-US", true).Distinct().ToList();
+
+            }
+
+        }
+        public static List<CollegePaper> GetCollegePapers
+        {
+            get
+            {
+                return PaperService.CollegePaperList("en-US", true).Distinct().ToList();
+
             }
 
         }
@@ -65,8 +101,38 @@ namespace OnlineMasterG.CommonFramework
         {
             get
             {
-                return PaperService.SchoolPaperList("en-US", true).ToList();
+                return PaperService.SchoolPaperList("en-US", true).Distinct().ToList();
                 
+            }
+            set { }
+
+        }
+        public static List<MockTest> GetMockTests
+        {
+            get
+            {
+                return TestService.TestList("en-US", true).Distinct().ToList();
+
+            }
+            set { }
+
+        }
+        public static List<ColleageCourse> GetColleageCourses
+        {
+            get
+            {
+                return CourseService.CollegeCourseList("en-US", true).OrderBy(m => m.Sequence).Distinct().ToList();
+
+            }
+            set { }
+
+        }
+        public static List<CollegeSubject> GetCollegeSubjects
+        {
+            get
+            {
+                return SubjectService.CollegeSubjectList("en-US", true).OrderBy(m => m.Sequence).Distinct().ToList();
+
             }
             set { }
 

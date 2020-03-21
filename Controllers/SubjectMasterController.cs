@@ -53,5 +53,26 @@ namespace OnlineMasterG.Controllers
 
             return GetJsonValidation(sr, "Subject has been successfully deleted.");
         }
+        [HttpPost]
+        public JsonResult BindCategory(int courseId)
+        {
+            var Categories = CategoryService.CategoryList("en-US", true).Where(m => m.CourseId == courseId).Select(m => new { CategoryId = m.CategoryId, CategoryName = m.CategoryName }).ToList();
+
+            return GetJsonResult(Categories);
+        }
+        [HttpPost]
+        public JsonResult BindSections(int categoryId)
+        {
+            var Sections = SectionService.SectionList("en-US", true).Where(m => m.CategoryId == categoryId).Select(m => new { SectionId = m.SectionId, SectionName = m.SectionName }).ToList();
+
+            return GetJsonResult(Sections);
+        }
+        [HttpPost]
+        public JsonResult BindTests(int sectionId)
+        {
+            var Tests = TestService.TestList("en-US", true).Where(m => m.SectionId == sectionId).Select(m => new { TestId = m.TestId, TestName = m.TestName }).ToList();
+
+            return GetJsonResult(Tests);
+        }
     }
 }

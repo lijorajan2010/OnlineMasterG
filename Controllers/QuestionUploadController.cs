@@ -19,10 +19,10 @@ namespace OnlineMasterG.Controllers
         public ActionResult Index()
         {
             ViewBag.CourseList = new SelectList(CourseService.CourseList("en-US", true), "CourseId", "CourseName");
-            ViewBag.CategoryList = new SelectList(CategoryService.CategoryList("en-US", true), "CategoryId", "CategoryName");
-            ViewBag.SectionList = new SelectList(SectionService.SectionList("en-US", true), "SectionId", "SectionName");
-            ViewBag.TestList = new SelectList(TestService.TestList("en-US", true), "TestId", "TestName");
-            ViewBag.SubjectList = new SelectList(SubjectService.SubjectList("en-US", true), "SubjectId", "SubjectName");
+            //ViewBag.CategoryList = new SelectList(CategoryService.CategoryList("en-US", true), "CategoryId", "CategoryName");
+            //ViewBag.SectionList = new SelectList(SectionService.SectionList("en-US", true), "SectionId", "SectionName");
+            //ViewBag.TestList = new SelectList(TestService.TestList("en-US", true), "TestId", "TestName");
+            //ViewBag.SubjectList = new SelectList(SubjectService.SubjectList("en-US", true), "SubjectId", "SubjectName");
             return View();
         }
         [HttpGet]
@@ -152,6 +152,33 @@ namespace OnlineMasterG.Controllers
             return GetJsonValidation(sr, "Questions has been edited successfully.");
         }
 
+        [HttpPost]
+        public JsonResult BindCategory(int courseId)
+        {
+            var Categories = CategoryService.CategoryList("en-US", true).Where(m => m.CourseId == courseId).Select(m => new { CategoryId = m.CategoryId, CategoryName = m.CategoryName }).ToList();
 
+            return GetJsonResult(Categories);
+        }
+        [HttpPost]
+        public JsonResult BindSections(int categoryId)
+        {
+            var Sections = SectionService.SectionList("en-US", true).Where(m => m.CategoryId == categoryId).Select(m => new { SectionId = m.SectionId, SectionName = m.SectionName }).ToList();
+
+            return GetJsonResult(Sections);
+        }
+        [HttpPost]
+        public JsonResult BindTests(int sectionId)
+        {
+            var Tests = TestService.TestList("en-US", true).Where(m => m.SectionId == sectionId).Select(m => new { TestId = m.TestId, TestName = m.TestName }).ToList();
+
+            return GetJsonResult(Tests);
+        }
+        [HttpPost]
+        public JsonResult BindSubjects(int testId)
+        {
+            var Subjects = SubjectService.SubjectList("en-US", true).Where(m => m.TestId == testId).Select(m => new { SubjectId = m.SubjectId, SubjectName = m.SubjectName }).ToList();
+
+            return GetJsonResult(Subjects);
+        }
     }
 }

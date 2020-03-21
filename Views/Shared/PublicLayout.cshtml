@@ -152,7 +152,7 @@
                                     {
                                         foreach (var item in AppInfo.GetCourses)
                                         {
-                                            <li class="nav-item"><a href="#" class="nav-link">@item</a></li>
+                                            <li class="nav-item"><a href="@Url.Action("Index","MockTests")" class="nav-link">@item</a></li>
                                         }
 
                                     }
@@ -200,7 +200,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item"><a href="@Url.Action("Index","Schools")" class="nav-link">School</a></li>
-                                    <li class="nav-item"><a href="college.html" class="nav-link">College</a></li>
+                                    <li class="nav-item"><a href="@Url.Action("Index","Colleges")" class="nav-link">College</a></li>
                                 </ul>
                             </li>
                             <li class="hidden-lg hidden-md">

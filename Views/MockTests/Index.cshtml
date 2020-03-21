@@ -23,18 +23,18 @@
 
                 <ul class="nav nav-tabs software_service_tab" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link"><h5>Classes</h5></a>
+                        <a class="nav-link"><h5>Mock Tests</h5></a>
                     </li>
-                    @if (AppInfo.GetClasses != null)
+                    @if (AppInfo.GetCourseList != null)
                     {
-                        foreach (var item in AppInfo.GetClasses.Select((x, y) => new { Data = x, Index = y }))
+                        foreach (var item in AppInfo.GetCourseList.Select((x, y) => new { Data = x, Index = y }))
                         {
                             if (item.Index == 0)
                             {
                                 var btnId = "btn" + item.Index;
                                 var dvId = "dvId" + item.Index;
                                 <li class="nav-item tab">
-                                    <button id="@btnId" class="tablinks nav-link active lstbtns" onclick="openClass(event, '@dvId')">@item.Data.ClassName</button>
+                                    <button id="@btnId" class="tablinks nav-link active lstbtns" onclick="openClass(event, '@dvId')">@item.Data.CourseName</button>
                                     @*<a class="nav-link active tab" href="#">@item.Data</a>*@
                                 </li>
                             }
@@ -43,7 +43,7 @@
                                 var btnId = "btn" + item.Index;
                                 var dvId = "dvId" + item.Index;
                                 <li class="nav-item tab">
-                                    <button id="@btnId" class="tablinks nav-link lstbtns" onclick="openClass(event, '@dvId')">@item.Data.ClassName</button>
+                                    <button id="@btnId" class="tablinks nav-link lstbtns" onclick="openClass(event, '@dvId')">@item.Data.CourseName</button>
                                     @*<a class="nav-link tab" href="#">@item.Data</a>*@
                                 </li>
                             }
@@ -60,58 +60,58 @@
             </div>
 
 
-            @if (AppInfo.GetClasses != null)
+            @if (AppInfo.GetCourseList != null)
             {
-                foreach (var cls in AppInfo.GetClasses.Select((x, y) => new { Data = x, Index = y }))
+                foreach (var crs in AppInfo.GetCourseList.Select((x, y) => new { Data = x, Index = y }))
                 {
-                    var dvId = "dvId" + cls.Index;
+                    var dvId = "dvId" + crs.Index;
                     var firstItem = string.Empty;
                     <div class="col-md-9 tabcontent" id="@dvId">
                         <div class="sec_title">
-                            @if (AppInfo.GetSchoolSubjects != null)
+                            @if (AppInfo.GetCategories != null)
                             {
 
-                                foreach (var item in AppInfo.GetSchoolSubjects.Where(m => m.ClassId == cls.Data.ClassId).ToList().Select((x, y) => new { Data = x, Index = y }))
+                                foreach (var item in AppInfo.GetCategories.Where(m => m.CourseId == crs.Data.CourseId).ToList().Select((x, y) => new { Data = x, Index = y }))
                                 {
-                                    var subjectbtn = dvId + "SubjectBtn" + item.Index;
-                                    var subjectDivId = dvId + "SubjectDivId" + item.Index;
+                                    var categorybtn = dvId + "CategoryBtn" + item.Index;
+                                    var categoryDivId = dvId + "CategoryDivId" + item.Index;
                                     if (item.Index == 0)
                                     {
-                                        firstItem = item.Data.SubjectName;
-                                        <button id="@subjectbtn" class="tablinksSubject agency_banner_btn" onclick="openSubject(event, '@subjectDivId')">@item.Data.SubjectName</button>
+                                        firstItem = item.Data.CategoryName;
+                                        <button id="@categorybtn" class="tablinksCategory agency_banner_btn" onclick="openSubject(event, '@categoryDivId')">@item.Data.CategoryName</button>
                                     }
                                     else
                                     {
-                                        <button id="@subjectbtn" class="tablinksSubject btn_get" onclick="openSubject(event, '@subjectDivId')">@item.Data.SubjectName</button>
+                                        <button id="@categorybtn" class="tablinksCategory btn_get" onclick="openSubject(event, '@categoryDivId')">@item.Data.CategoryName</button>
 
                                     }
 
                                 }
 
-                                <h4 id="selectedSubjectName" style="margin-top:20px;" class="f_p f_700 t_color2 mt_20">@firstItem</h4>
+                                <h4 id="selectedCategoryName" style="margin-top:20px;" class="f_p f_700 t_color2 mt_20">@firstItem</h4>
                             }
 
                         </div>
 
-                        @if (AppInfo.GetSchoolSubjects != null)
+                        @if (AppInfo.GetCategories != null)
                         {
-                            foreach (var main in AppInfo.GetSchoolSubjects.Where(m => m.ClassId == cls.Data.ClassId).ToList().Select((x, y) => new { Data = x, Index = y }))
+                            foreach (var main in AppInfo.GetCategories.Where(m => m.CourseId == crs.Data.CourseId).ToList().Select((x, y) => new { Data = x, Index = y }))
                             {
-                                var subjectDivIdOndiv = dvId + "SubjectDivId" + main.Index;
-                                <div class="tabcontentSubjects" id="@subjectDivIdOndiv">
+                                var categoryDivIdOndiv = dvId + "CategoryDivId" + main.Index;
+                                <div class="tabcontentCategory" id="@categoryDivIdOndiv">
                                     <ul class="nav nav-tabs develor_tab mb_15" id="myTab2" role="tablist">
-                                        @foreach (var sub in AppInfo.GetSchoolSubjects.Where(m => m.ClassId == cls.Data.ClassId && main.Data.SubjectId == m.SubjectId).ToList().Select((x, y) => new { Data = x, Index = y }))
+                                        @foreach (var cat in AppInfo.GetCategories.Where(m => m.CourseId == crs.Data.CourseId && main.Data.CategoryId == m.CategoryId).ToList().Select((x, y) => new { Data = x, Index = y }))
                                         {
-                                            if (AppInfo.GetSchoolSections != null)
+                                            if (AppInfo.GetSections != null)
                                             {
-                                                foreach (var item in AppInfo.GetSchoolSections.Where(m => m.ClassId == cls.Data.ClassId && sub.Data.SubjectId == m.SubjectId).ToList().Select((x, y) => new { Data = x, Index = y }))
+                                                foreach (var item in AppInfo.GetSections.Where(m => m.CourseId == crs.Data.CourseId && cat.Data.CategoryId == m.CategoryId).ToList().Select((x, y) => new { Data = x, Index = y }))
                                                 {
                                                     string hrefTab = string.Empty;
                                                     string idTab = string.Empty;
                                                     if (item.Index == 0)
                                                     {
-                                                        hrefTab = subjectDivIdOndiv + "href_ruby" + item.Index;
-                                                        idTab = subjectDivIdOndiv + "Id_ruby_tab" + item.Index;
+                                                        hrefTab = categoryDivIdOndiv + "href_ruby" + item.Index;
+                                                        idTab = categoryDivIdOndiv + "Id_ruby_tab" + item.Index;
                                                         <li class="nav-item">
                                                             <button id="@idTab" class="tablinksSections nav-link active" onclick="openSection(event, '@hrefTab')">@item.Data.SectionName</button>
                                                             @*<a class="nav-link active show" data-tab="tab_@item.Index" id="@idTab" data-toggle="tab" href="@hrefTab" role="tab" aria-controls="ruby" aria-selected="true">@item.Data.SectionName</a>*@
@@ -119,8 +119,8 @@
                                                     }
                                                     else
                                                     {
-                                                        hrefTab = subjectDivIdOndiv + "href_ruby" + item.Index;
-                                                        idTab = subjectDivIdOndiv + "Id_ruby_tab" + item.Index;
+                                                        hrefTab = categoryDivIdOndiv + "href_ruby" + item.Index;
+                                                        idTab = categoryDivIdOndiv + "Id_ruby_tab" + item.Index;
                                                         <li class="nav-item">
 
                                                             <button id="@idTab" class="tablinksSections nav-link" onclick="openSection(event, '@hrefTab')">@item.Data.SectionName</button>
@@ -137,12 +137,12 @@
 
                                     <div class="tab-content developer_tab_content">
 
-                                        @if (AppInfo.GetSchoolSections != null)
+                                        @if (AppInfo.GetSections != null)
                                         {
 
                                             string hrefTabId = string.Empty;
                                             string hrefTabclass = string.Empty;
-                                            foreach (var sec in AppInfo.GetSchoolSections.Where(m => m.ClassId == cls.Data.ClassId && main.Data.SubjectId == m.SubjectId).ToList().Select((x, y) => new { Data = x, Index = y }))
+                                            foreach (var sec in AppInfo.GetSections.Where(m => m.CourseId == crs.Data.CourseId && main.Data.CategoryId == m.CategoryId).ToList().Select((x, y) => new { Data = x, Index = y }))
                                             {
                                                 if (sec.Index == 0)
                                                 {
@@ -153,26 +153,26 @@
                                                     hrefTabclass = "";
                                                 }
 
-                                                hrefTabId = subjectDivIdOndiv + "href_ruby" + sec.Index;
+                                                hrefTabId = categoryDivIdOndiv + "href_ruby" + sec.Index;
 
-                                                if (AppInfo.GetSchoolPapers != null)
+                                                if (AppInfo.GetMockTests != null)
                                                 {
                                                     <div class="tab-pane Section @hrefTabclass" id="@hrefTabId">
                                                         <div class="accordion">
                                                             <div class="service_info">
                                                                 <div class="service_item  mb-0">
-                                                                    @foreach (var pap in AppInfo.GetSchoolPapers.Where(m => m.ClassId == cls.Data.ClassId && main.Data.SubjectId == m.SubjectId && m.SectionId == sec.Data.SectionId).ToList().Select((x, y) => new { Data = x, Index = y }))
+                                                                    @foreach (var pap in AppInfo.GetMockTests.Where(m => m.CourseId == crs.Data.CourseId && main.Data.CategoryId == m.CategoryId && m.SectionId == sec.Data.SectionId).ToList().Select((x, y) => new { Data = x, Index = y }))
                                                                     {
                                                                         <div class="mb_10">
                                                                             <div class="row m-0 border_b">
                                                                                 <div class="col-md-4 col-md-4 col-xs-4">
-                                                                                    <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">@pap.Data.PaperName</h4>
+                                                                                    <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">@pap.Data.TestName</h4>
                                                                                 </div>
                                                                                 <div class="col-md-4 col-md-4 col-xs-4">
                                                                                     <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">@pap.Data.Description</h4>
                                                                                 </div>
                                                                                 <div class="col-md-4 col-md-4 col-xs-4">
-                                                                                    @Html.ActionLink(" View ", "View", "DataFile", new { p = CustomEncrypt.Encrypt(pap.Data.DataFileId.Value.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
+                                                                                    @Html.ActionLink(" Start ", "", "", new { }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -253,7 +253,7 @@
         border-top: none;
     }
 
-    .tabcontentSubjects {
+    .tabcontentCategory {
         display: none;
         padding: 6px 12px;
         /*border: 1px solid #ccc;*/
@@ -314,11 +314,11 @@
     function openSubject(evt, subDivId) {
         debugger
         var i, tabcontent, tablinks, closesthdfval;
-        tabcontent = document.getElementsByClassName("tabcontentSubjects");
+        tabcontent = document.getElementsByClassName("tabcontentCategory");
         for (i = 0; i < tabcontent.length; i++) {
             tabcontent[i].style.display = "none";
         }
-        tablinks = document.getElementsByClassName("tablinksSubject");
+        tablinks = document.getElementsByClassName("tablinksCategory");
         for (i = 0; i < tablinks.length; i++) {
             tablinks[i].className = tablinks[i].className.replace(" agency_banner_btn", " btn_get");
         }
@@ -328,7 +328,7 @@
         evt.target.className.replace(" btn_get", " agency_banner_btn");
 
         closesthdfval = $(evt.target).text();
-        $("#selectedSubjectName").text(closesthdfval);
+        $("#selectedCategoryName").text(closesthdfval);
 
 
         // claring section

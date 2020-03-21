@@ -33,7 +33,7 @@ namespace OnlineMasterG.CommonServices
                     dbSection.CourseId = section.CourseId;
                     dbSection.Category = section.Category;
                     dbSection.LanguageCode = section.LanguageCode;
-                    dbSection.Description = section.Description; 
+                    dbSection.Description = section.Description;
                     dbSection.EditBy = auditlogin;
                     dbSection.EditOn = DateTime.Now;
                     // Save in DB
@@ -87,9 +87,9 @@ namespace OnlineMasterG.CommonServices
         }
         public static Section Fetch(int? sectionId)
         {
-          return  DB.Sections
-                   .Where(m => m.SectionId == (sectionId.HasValue ? sectionId.Value:0))
-                   .FirstOrDefault();
+            return DB.Sections
+                     .Where(m => m.SectionId == (sectionId.HasValue ? sectionId.Value : 0))
+                     .FirstOrDefault();
         }
         public static SchoolSection FetchSchoolSection(int? sectionId)
         {
@@ -97,7 +97,7 @@ namespace OnlineMasterG.CommonServices
                      .Where(m => m.SectionId == (sectionId.HasValue ? sectionId.Value : 0))
                      .FirstOrDefault();
         }
-        public static List<Section> SectionList(string Lang,bool IsActive)
+        public static List<Section> SectionList(string Lang, bool IsActive)
         {
             return DB.Sections
                   .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
@@ -115,10 +115,20 @@ namespace OnlineMasterG.CommonServices
 
             try
             {
-                var Section = Fetch(SectionId);
+                if (!TestService.TestList("en-US", true).Any(m => m.SectionId == SectionId))
+                {
+                    var Section = Fetch(SectionId);
 
-                DB.Entry(Section).State = EntityState.Deleted;
-                DB.SaveChanges();
+                    DB.Entry(Section).State = EntityState.Deleted;
+                    DB.SaveChanges();
+                }
+                else
+                {
+                    var TestUsed = TestService.TestList("en-US", true).Where(m => m.SectionId == SectionId).Select(m => m.TestName).ToList();
+                    sr.AddError($"You can't delete this section as it is being used by tests such as { string.Join(",", TestUsed)}  If you want to delete, please delete these tests first.");
+
+                }
+
             }
             catch (Exception exception)
             {

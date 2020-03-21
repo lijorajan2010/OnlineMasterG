@@ -9,6 +9,8 @@
     var URL = {
         TESTLIST: '@Url.Action("TestList", "TestMaster")',
         DELETESTEST: '@Url.Action("DeleteTest", "TestMaster")',
+        BINDCATEGORY: '@Url.Action("BindCategory", "TestMaster")',
+        BINDSECTIONS: '@Url.Action("BindSections", "TestMaster")',
     };
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/CustomScript/TestMaster.js?v=" + AppInfo.Version)"></script>
@@ -61,13 +63,13 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                @Html.DropDownList("CourseName", (SelectList)ViewBag.CourseList, "Select Course", new {  @id = "CourelistId", @class = "form-control", @required = "required" })
+                                                @Html.DropDownList("CourseName", (SelectList)ViewBag.CourseList, "Please Select", new {  @id = "CourelistId", @class = "form-control", @required = "required" })
                                             </td>
                                             <td>
-                                                @Html.DropDownList("CategoryName", (SelectList)ViewBag.CategoryList, "Select Category", new {  @id = "CategorylistId", @class = "form-control", @required = "required" })
+                                                @Html.DropDownList("CategoryName", new SelectList(Enumerable.Empty<SelectListItem>()), "Please Select", new {  @id = "CategorylistId", @class = "form-control", @required = "required" })
                                             </td>
                                             <td>
-                                                @Html.DropDownList("SectionName", (SelectList)ViewBag.SectionList, "Select Section", new { @id = "SectionlistId", @class = "form-control", @required = "required" })
+                                                @Html.DropDownList("SectionName", new SelectList(Enumerable.Empty<SelectListItem>()), "Please Select", new { @id = "SectionlistId", @class = "form-control", @required = "required" })
                                             </td>
                                         </tr>
                                         <tr>

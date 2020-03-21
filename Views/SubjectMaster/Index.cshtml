@@ -10,6 +10,9 @@
     var URL = {
         SUBJECTLIST: '@Url.Action("SubjectList", "SubjectMaster")',
         DELETESSUBJECT: '@Url.Action("DeleteSubject", "SubjectMaster")',
+        BINDCATEGORY: '@Url.Action("BindCategory", "SubjectMaster")',
+        BINDSECTIONS: '@Url.Action("BindSections", "SubjectMaster")',
+        BINDTESTS: '@Url.Action("BindTests", "SubjectMaster")',
     };
 </script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/CustomScript/SubjectMaster.js?v=" + AppInfo.Version)"></script>
@@ -27,7 +30,7 @@
                 <div>
                     Subject Master
                     <!--  <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
-    </div> -->
+                    </div> -->
                 </div>
             </div>
 
@@ -51,7 +54,7 @@
                     {
                         <div class="card-body table-responsive">
                             <table style="width: 100%;" id="example12" class="table table-hover table-striped table-bordered">
-                            
+
                                 <tbody>
                                     <tr>
                                         <th> Select Course</th>
@@ -61,13 +64,13 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            @Html.DropDownList("CourseName", (SelectList)ViewBag.CourseList, "Select Course", new { @id = "CourelistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("CourseName", (SelectList)ViewBag.CourseList, "Please Select", new { @id = "CourelistId", @class = "form-control", @required = "required" })
                                         </td>
                                         <td>
-                                            @Html.DropDownList("CategoryName", (SelectList)ViewBag.CategoryList, "Select Category", new { @id = "CategorylistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("CategoryName", new SelectList(Enumerable.Empty<SelectListItem>()),"Please Select", new { @id = "CategorylistId", @class = "form-control", @required = "required" })
                                         </td>
                                         <td>
-                                            @Html.DropDownList("SectionName", (SelectList)ViewBag.SectionList, "Select Section", new { @id = "SectionlistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("SectionName", new SelectList(Enumerable.Empty<SelectListItem>()),"Please Select", new { @id = "SectionlistId", @class = "form-control", @required = "required" })
                                         </td>
                                     </tr>
                                     <tr>
@@ -78,7 +81,7 @@
                                     <tr>
 
                                         <td>
-                                            @Html.DropDownList("TestName", (SelectList)ViewBag.TestList, "Select Test", new { @id = "TestlistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("TestName", new SelectList(Enumerable.Empty<SelectListItem>()), "Please Select", new { @id = "TestlistId", @class = "form-control", @required = "required" })
                                         </td>
                                         <td>
                                             <input type="hidden" id="hdfSubjectId" />

@@ -248,15 +248,18 @@
     <Compile Include="CommonServices\UserService.cs" />
     <Compile Include="Controllers\CategoryMasterController.cs" />
     <Compile Include="Controllers\CollegeCourseController.cs" />
+    <Compile Include="Controllers\CollegesController.cs" />
     <Compile Include="Controllers\CollegeSubjectController.cs" />
     <Compile Include="Controllers\CollegeUploadPaperController.cs" />
     <Compile Include="Controllers\CourseMasterController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DataFileController.cs" />
     <Compile Include="Controllers\ExamUpdateLinksController.cs" />
+    <Compile Include="Controllers\ExamUpdatesController.cs" />
     <Compile Include="Controllers\ExamUpdateSectionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MockTestsController.cs" />
     <Compile Include="Controllers\SchoolClassController.cs" />
     <Compile Include="Controllers\SchoolsController.cs" />
     <Compile Include="Controllers\SchoolSectionController.cs" />
@@ -1711,6 +1714,9 @@
     <Content Include="Views\ExamUpdateLinks\Index.cshtml" />
     <Content Include="Views\ExamUpdateLinks\ExamLinkList.cshtml" />
     <Content Include="Views\Schools\Index.cshtml" />
+    <Content Include="Views\Colleges\Index.cshtml" />
+    <Content Include="Views\ExamUpdates\Index.cshtml" />
+    <Content Include="Views\MockTests\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

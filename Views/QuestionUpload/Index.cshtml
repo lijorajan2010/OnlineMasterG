@@ -12,6 +12,10 @@
         DELETESQUESTIONUPLOAD: '@Url.Action("DeleteQuestionUpload", "QuestionUpload")',
         APPROVEQUESTIONUPLOAD: '@Url.Action("ApproveQuestionUpload", "QuestionUpload")',
         DENYQUESTIONUPLOAD: '@Url.Action("DenyQuestionUpload", "QuestionUpload")',
+        BINDCATEGORY: '@Url.Action("BindCategory", "QuestionUpload")',
+        BINDSECTIONS: '@Url.Action("BindSections", "QuestionUpload")',
+        BINDTESTS: '@Url.Action("BindTests", "QuestionUpload")',
+        BINDSUBJECTS: '@Url.Action("BindSubjects", "QuestionUpload")',
     };
 </script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/CustomScript/QuestionUpload.js?v=" + AppInfo.Version)"></script>
@@ -63,13 +67,13 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            @Html.DropDownList("CourseId", (SelectList)ViewBag.CourseList, "Select Course", new { @id = "CourelistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("CourseId", (SelectList)ViewBag.CourseList, "Please Select", new { @id = "CourelistId", @class = "form-control", @required = "required" })
                                         </td>
                                         <td>
-                                            @Html.DropDownList("CategoryId", (SelectList)ViewBag.CategoryList, "Select Category", new { @id = "CategorylistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("CategoryId", new SelectList(Enumerable.Empty<SelectListItem>()), "Please Select", new { @id = "CategorylistId", @class = "form-control", @required = "required" })
                                         </td>
                                         <td>
-                                            @Html.DropDownList("SectionId", (SelectList)ViewBag.SectionList, "Select Section", new { @id = "SectionlistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("SectionId",new SelectList(Enumerable.Empty<SelectListItem>()), "Please Select", new { @id = "SectionlistId", @class = "form-control", @required = "required" })
                                         </td>
                                     </tr>
                                     <tr>
@@ -80,10 +84,10 @@
                                     <tr>
 
                                         <td>
-                                            @Html.DropDownList("TestId", (SelectList)ViewBag.TestList, "Select Test", new { @id = "TestlistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("TestId", new SelectList(Enumerable.Empty<SelectListItem>()), "Please Select", new { @id = "TestlistId", @class = "form-control", @required = "required" })
                                         </td>
                                         <td>
-                                            @Html.DropDownList("SubjectId", (SelectList)ViewBag.SubjectList, "Select Test", new { @id = "SubjectlistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("SubjectId", new SelectList(Enumerable.Empty<SelectListItem>()), "Please Select", new { @id = "SubjectlistId", @class = "form-control", @required = "required" })
                                        <input type="hidden" id="hdfQuestionUploadId" name="QuestionUploadId" />
                                         </td>
                                         <td>

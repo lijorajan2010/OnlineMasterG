@@ -66,10 +66,19 @@ namespace OnlineMasterG.CommonServices
 
             try
             {
-                var Category = Fetch(CategoryId);
+                if (!SectionService.SectionList("en-US", true).Any(m => m.CategoryId == CategoryId))
+                {
+                    var Category = Fetch(CategoryId);
 
-                DB.Entry(Category).State = EntityState.Deleted;
-                DB.SaveChanges();
+                    DB.Entry(Category).State = EntityState.Deleted;
+                    DB.SaveChanges();
+                }
+                else
+                {
+                    var sectionsUsed = SectionService.SectionList("en-US", true).Where(m => m.CategoryId == CategoryId).Select(m => m.SectionName).ToList();
+                    sr.AddError($"You can't delete this category as it is being used by sections such as { string.Join(",", sectionsUsed)}  If you want to delete, please delete these sections first.");
+                }
+                    
             }
             catch (Exception exception)
             {

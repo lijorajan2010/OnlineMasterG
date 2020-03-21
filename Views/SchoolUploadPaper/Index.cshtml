@@ -8,6 +8,8 @@
     var URL = {
         SCHOOLUPLOADPAPERLIST: '@Url.Action("SchoolUploadPaperList", "SchoolUploadPaper")',
         DELETESCHOOLPAPER: '@Url.Action("DeleteSchoolPaper", "SchoolUploadPaper")',
+        BINDSUBJECTS: '@Url.Action("BindSubjects", "SchoolUploadPaper")',
+        BINDSECTIONS: '@Url.Action("BindSections", "SchoolUploadPaper")',
     };
 </script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/CustomScript/SchoolUpload.js?v=" + AppInfo.Version)"></script>
@@ -60,15 +62,15 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            @Html.DropDownList("ClassName", (SelectList)ViewBag.ClassList, "Select Class", new { @id = "ClasslistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("ClassName", (SelectList)ViewBag.ClassList, "Please Select", new { @id = "ClasslistId", @class = "form-control", @required = "required" })
 
                                         </td>
                                         <td>
-                                            @Html.DropDownList("Subjectame", (SelectList)ViewBag.SubjectList, "Select Subject", new { @id = "SubjectlistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("Subjectame",  new SelectList(Enumerable.Empty<SelectListItem>()), "Please Select", new { @id = "SubjectlistId", @class = "form-control", @required = "required" })
 
                                         </td>
                                         <td>
-                                            @Html.DropDownList("SectionName", (SelectList)ViewBag.SectionList, "Select Section", new { @id = "SectionlistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("SectionName",  new SelectList(Enumerable.Empty<SelectListItem>()), "Please Select", new { @id = "SectionlistId", @class = "form-control", @required = "required" })
 
                                         </td>
                                         <td>

@@ -28,6 +28,25 @@ function attachEvents() {
         clearFields();
         return false;
     });
+
+    $("#ClasslistId").change(function () {
+        $('#SubjectlistId').empty();
+        $('#SubjectlistId').append($('<option/>', { Value: "", text: "Please Select" }));
+        $.ajax({
+            url: URL.BINDSUBJECTS,
+            datatype: 'json',
+            data: { classId: $(this).val() ? $(this).val() : 0 },
+            method: 'Post',
+            success: function (data) {
+
+                $('#SubjectlistId').prop("disabled", false);
+                $(data).each(function (index, item) {
+                    $('#SubjectlistId').append($('<option/>', { Value: item.SubjectId, text: item.SubjectName }));
+                });
+            }
+        });
+    });
+
 }
 
 

@@ -170,10 +170,21 @@ namespace OnlineMasterG.CommonServices
 
             try
             {
-                var Subject = Fetch(SubjectId);
 
-                DB.Entry(Subject).State = EntityState.Deleted;
-                DB.SaveChanges();
+                if (!QuestionUploadService.QuestionUploadList("en-US", true).Any(m => m.SubjectId == SubjectId))
+                {
+                    var Subject = Fetch(SubjectId);
+
+                    DB.Entry(Subject).State = EntityState.Deleted;
+                    DB.SaveChanges();
+                }
+                else
+                {
+                    var Qustions = QuestionUploadService.QuestionUploadList("en-US", true).Where(m => m.SubjectId == SubjectId).ToList();
+                    sr.AddError($"You can't delete this Subject as it is being used in Question uploads.");
+
+                }
+
             }
             catch (Exception exception)
             {

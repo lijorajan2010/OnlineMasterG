@@ -18,8 +18,8 @@ namespace OnlineMasterG.Controllers
         public ActionResult Index()
         {
             ViewBag.ClassList = new SelectList(ClassService.SchoolClassList("en-US", true), "ClassId", "ClassName");
-            ViewBag.SubjectList = new SelectList(SubjectService.SchoolSubjectList("en-US", true), "SubjectId", "SubjectName");
-            ViewBag.SectionList = new SelectList(SectionService.SchoolSectionList("en-US", true), "SectionId", "SectionName");
+            //ViewBag.SubjectList = new SelectList(SubjectService.SchoolSubjectList("en-US", true), "SubjectId", "SubjectName");
+            //ViewBag.SectionList = new SelectList(SectionService.SchoolSectionList("en-US", true), "SectionId", "SectionName");
             return View();
         }
         [HttpGet]
@@ -52,5 +52,20 @@ namespace OnlineMasterG.Controllers
 
             return GetJsonValidation(sr, "Paper has been successfully deleted.");
         }
+        [HttpPost]
+        public JsonResult BindSubjects(int classId)
+        {
+            var subjects = SubjectService.SchoolSubjectList("en-US", true).Where(m => m.ClassId == classId).Select(m => new { SubjectId = m.SubjectId, SubjectName = m.SubjectName }).ToList();
+
+            return GetJsonResult(subjects);
+        }
+        [HttpPost]
+        public JsonResult BindSections(int subjectId)
+        {
+            var Sections = SectionService.SchoolSectionList("en-US", true).Where(m => m.SubjectId == subjectId).Select(m => new { SectionId = m.SectionId, SectionName = m.SectionName }).ToList();
+
+            return GetJsonResult(Sections);
+        }
+
     }
 }

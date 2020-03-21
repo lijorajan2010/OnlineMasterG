@@ -18,7 +18,7 @@ namespace OnlineMasterG.Controllers
         public ActionResult Index()
         {
             ViewBag.CourseList = new SelectList(CourseService.CollegeCourseList("en-US", true), "CourseId", "CourseName");
-            ViewBag.SubjectList = new SelectList(SubjectService.CollegeSubjectList("en-US", true), "SubjectId", "SubjectName");
+          //  ViewBag.SubjectList = new SelectList(SubjectService.CollegeSubjectList("en-US", true), "SubjectId", "SubjectName");
 
             return View();
         }
@@ -51,6 +51,14 @@ namespace OnlineMasterG.Controllers
             var sr =PaperService.DeleteCollegePaper(PaperId);
 
             return GetJsonValidation(sr, "Paper has been successfully deleted.");
+        }
+
+        [HttpPost]
+        public JsonResult BindSubjects(int courseId)
+        {
+            var Sections = SubjectService.CollegeSubjectList("en-US", true).Where(m => m.CourseId == courseId).Select(m => new { SubjectId = m.SubjectId, SubjectName = m.SubjectName }).ToList();
+
+            return GetJsonResult(Sections);
         }
     }
 }

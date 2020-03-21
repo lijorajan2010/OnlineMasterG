@@ -8,6 +8,7 @@
     var URL = {
         SECTIONLIST: '@Url.Action("SectionList", "SectionMaster")',
         DELETESECTION: '@Url.Action("DeleteSection", "SectionMaster")',
+        BINDCATEGORY: '@Url.Action("BindCategory", "SectionMaster")',
     };
 </script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/CustomScript/SectionMaster.js?v=" + AppInfo.Version)"></script>
@@ -59,11 +60,11 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            @Html.DropDownList("CourseName", (SelectList)ViewBag.CourseList, "Select Course", new { @id = "CourelistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("CourseName", (SelectList)ViewBag.CourseList, "Please Select", new { @id = "CourelistId", @class = "form-control", @required = "required" })
 
                                         </td>
                                         <td>
-                                            @Html.DropDownList("CategoryName", (SelectList)ViewBag.CategoryList, "Select Category", new { @id = "CategorylistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("CategoryName",new SelectList(Enumerable.Empty<SelectListItem>()), "Please Select", new { @id = "CategorylistId", @class = "form-control", @required = "required" })
 
                                         </td>
                                         <td>

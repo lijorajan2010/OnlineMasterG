@@ -18,7 +18,9 @@ namespace OnlineMasterG.Controllers
         public ActionResult Index()
         {
             ViewBag.ClassList = new SelectList(ClassService.SchoolClassList("en-US", true), "ClassId", "ClassName");
-            ViewBag.SubjectList = new SelectList(SubjectService.SchoolSubjectList("en-US", true), "SubjectId", "SubjectName");
+           // ViewBag.SubjectList = new SelectList(SubjectService.SchoolSubjectList("en-US", true), "SubjectId", "SubjectName");
+
+
             return View();
         }
         [HttpGet]
@@ -51,5 +53,13 @@ namespace OnlineMasterG.Controllers
 
             return GetJsonValidation(sr, "Section has been successfully deleted.");
         }
+        [HttpPost]
+        public JsonResult BindSubjects(int classId)
+        {
+            var Subjects = SubjectService.SchoolSubjectList("en-US", true).Where(m => m.ClassId == classId).Select(m => new { SubjectId = m.SubjectId, SubjectName = m.SubjectName }).ToList();
+
+            return GetJsonResult(Subjects);
+        }
+
     }
 }

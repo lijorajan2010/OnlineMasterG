@@ -18,7 +18,7 @@ namespace OnlineMasterG.Controllers
         public ActionResult Index()
         {
             ViewBag.CourseList = new SelectList(CourseService.CourseList("en-US", true), "CourseId", "CourseName");
-            ViewBag.CategoryList = new SelectList(CategoryService.CategoryList("en-US", true), "CategoryId", "CategoryName");
+          //  ViewBag.CategoryList = new SelectList(CategoryService.CategoryList("en-US", true), "CategoryId", "CategoryName");
             return View();
         }
         [HttpGet]
@@ -50,6 +50,13 @@ namespace OnlineMasterG.Controllers
             var sr = SectionService.DeleteSection(SectionId);
 
             return GetJsonValidation(sr, "Section has been successfully deleted.");
+        }
+        [HttpPost]
+        public JsonResult BindCategory(int courseId)
+        {
+            var Categories = CategoryService.CategoryList("en-US", true).Where(m => m.CourseId == courseId).Select(m=>new { CategoryId = m.CategoryId, CategoryName = m.CategoryName}).ToList();
+            
+            return GetJsonResult(Categories);
         }
     }
 }

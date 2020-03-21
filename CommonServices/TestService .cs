@@ -69,10 +69,20 @@ namespace OnlineMasterG.CommonServices
 
             try
             {
-                var Test = Fetch(TestId);
+                if (!SubjectService.SubjectList("en-US", true).Any(m => m.TestId == TestId))
+                {
+                    var Test = Fetch(TestId);
 
-                DB.Entry(Test).State = EntityState.Deleted;
-                DB.SaveChanges();
+                    DB.Entry(Test).State = EntityState.Deleted;
+                    DB.SaveChanges();
+                }
+                else
+                {
+                    var subjectsUsed = SubjectService.SubjectList("en-US", true).Where(m => m.TestId == TestId).Select(m => m.SubjectName).ToList();
+                    sr.AddError($"You can't delete this Test as it is being used by Subjects such as { string.Join(",", subjectsUsed)}. If you want to delete, please delete these Subjects first.");
+
+                }
+
             }
             catch (Exception exception)
             {

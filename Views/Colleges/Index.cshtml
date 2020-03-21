@@ -1,0 +1,282 @@
+﻿@using OnlineMasterG.CommonFramework
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/PublicLayout.cshtml";
+}
+<section class="breadcrumb_area test_detail">
+    <img class="breadcrumb_shap" src="img/breadcrumb/banner_bg.png" alt="">
+    <div class="container">
+        <!--
+                        <div class="breadcrumb_content text-center">
+                            <h1 class="f_p f_700 f_size_50 w_color l_height50 mb_20">Staf Selection Commission</h1>
+                            <p class="f_400 w_color f_size_16 l_height26">Here you can prepare for your exam, below are all the mock tests available!!</p>
+                        </div>
+        -->
+    </div>
+</section>
+<section class="service_area sec_pad s_service_section breadcrumb_area typography_breacrumb" style="padding-top: 30px;">
+    <img class="breadcrumb_shap" alt="" src="img/breadcrumb/banner_bg.png">
+    <div class="container custom_container test_details">
+        <div class="row m_0">
+            <div class="col-lg-3 col-md-3 m_p0">
+
+                <ul class="nav nav-tabs software_service_tab" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link"><h5>Previous Year Papers</h5></a>
+                    </li>
+                    @if (AppInfo.GetColleageCourses != null)
+                    {
+                        foreach (var item in AppInfo.GetColleageCourses.Select((x, y) => new { Data = x, Index = y }))
+                        {
+                            if (item.Index == 0)
+                            {
+                                var btnId = "btn" + item.Index;
+                                var dvId = "dvId" + item.Index;
+                                <li class="nav-item tab">
+                                    <button id="@btnId" class="tablinks nav-link active lstbtns" onclick="openCourses(event, '@dvId')">@item.Data.CourseName</button>
+                                    @*<a class="nav-link active tab" href="#">@item.Data</a>*@
+                                </li>
+                            }
+                            else
+                            {
+                                var btnId = "btn" + item.Index;
+                                var dvId = "dvId" + item.Index;
+                                <li class="nav-item tab">
+                                    <button id="@btnId" class="tablinks nav-link lstbtns" onclick="openCourses(event, '@dvId')">@item.Data.CourseName</button>
+                                    @*<a class="nav-link tab" href="#">@item.Data</a>*@
+                                </li>
+                            }
+
+                        }
+                    }
+
+
+
+                </ul>
+                <br />
+                <br />
+                <br />
+            </div>
+
+
+            @if (AppInfo.GetColleageCourses != null)
+            {
+                foreach (var crs in AppInfo.GetColleageCourses.Select((x, y) => new { Data = x, Index = y }))
+                {
+                    var dvId = "dvId" + crs.Index;
+                    var firstItem = string.Empty;
+                    <div class="col-md-9 tabcontent" id="@dvId">
+                        <div class="sec_title">
+                            @if (AppInfo.GetCollegeSubjects != null)
+                            {
+
+                                foreach (var item in AppInfo.GetCollegeSubjects.Where(m => m.CourseId == crs.Data.CourseId).ToList().Select((x, y) => new { Data = x, Index = y }))
+                                {
+                                    var subjectbtn = dvId + "SubjectBtn" + item.Index;
+                                    var subjectDivId = dvId + "SubjectDivId" + item.Index;
+                                    if (item.Index == 0)
+                                    {
+                                        firstItem = item.Data.SubjectName;
+                                        <button id="@subjectbtn" class="tablinksSections agency_banner_btn" onclick="openSubject(event, '@subjectDivId')">@item.Data.SubjectName</button>
+                                    }
+                                    else
+                                    {
+                                        <button id="@subjectbtn" class="tablinksSections btn_get" onclick="openSubject(event, '@subjectDivId')">@item.Data.SubjectName</button>
+
+                                    }
+
+                                }
+
+                                <h4 id="selectedSubjectName" style="margin-top:20px;" class="f_p f_700 t_color2 mt_20">@firstItem</h4>
+                            }
+
+                        </div>
+
+                            <div class="tab-content developer_tab_content">
+
+                                @if (AppInfo.GetCollegeSubjects != null)
+                                {
+
+                                    string subjectDivId = string.Empty;
+                                    string hrefTabclass = string.Empty;
+                                    foreach (var sub in AppInfo.GetCollegeSubjects.Where(m => m.CourseId == crs.Data.CourseId ).ToList().Select((x, y) => new { Data = x, Index = y }))
+                                    {
+                                        if (sub.Index == 0)
+                                        {
+                                            hrefTabclass = " active";
+                                        }
+                                        else
+                                        {
+                                            hrefTabclass = "";
+                                        }
+
+                                          subjectDivId = dvId + "SubjectDivId" + sub.Index;
+
+                                        if (AppInfo.GetSchoolPapers != null)
+                                        {
+                                            <div class="tab-pane Section @hrefTabclass" id="@subjectDivId">
+                                                <div class="accordion">
+                                                    <div class="service_info">
+                                                        <div class="service_item  mb-0">
+                                                            @foreach (var pap in AppInfo.GetCollegePapers.Where(m => m.CourseId == crs.Data.CourseId && sub.Data.SubjectId == m.SubjectId).ToList().Select((x, y) => new { Data = x, Index = y }))
+                                                            {
+                                                                <div class="mb_10">
+                                                                    <div class="row m-0 border_b">
+                                                                        <div class="col-md-4 col-md-4 col-xs-4">
+                                                                            <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">@pap.Data.PaperName</h4>
+                                                                        </div>
+                                                                        <div class="col-md-4 col-md-4 col-xs-4">
+                                                                            <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">@pap.Data.Description</h4>
+                                                                        </div>
+                                                                        <div class="col-md-4 col-md-4 col-xs-4">
+                                                                            @Html.ActionLink(" View ", "View", "DataFile", new { p = CustomEncrypt.Encrypt(pap.Data.DataFileId.Value.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        }
+                                    }
+                                }
+
+
+
+                            </div>
+
+                    </div>
+                }
+            }
+        </div>
+
+    </div>
+
+
+</section>
+<style>
+    .nav-tabs {
+        border-bottom: 0px;
+    }
+
+    body {
+        font-family: Arial;
+    }
+
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        /*border: 1px solid #ccc;
+        background-color: #f1f1f1;*/
+    }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+                background-color: #ddd;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+                background-color: #ccc;
+            }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        /*border: 1px solid #ccc;*/
+        border-top: none;
+    }
+
+    .tabcontentSubjects {
+        display: none;
+        padding: 6px 12px;
+        /*border: 1px solid #ccc;*/
+        border-top: none;
+    }
+
+    .Section {
+        display: none;
+        padding: 6px 12px;
+        /*border: 1px solid #ccc;*/
+        border-top: none;
+    }
+</style>
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+        $("#btn0").click();
+        $("#dvId0SubjectBtn0").click();
+        $("#dvId0SubjectDivId0Id_ruby_tab0").click();
+
+    });
+
+    function openCourses(evt, className) {
+        var i, tabcontent, tablinks;
+        debugger
+
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        tabcontent = document.getElementsByClassName("tabcontentSubjects");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinksSubject");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" agency_banner_btn", " btn_get");
+        }
+
+
+        document.getElementById(className).style.display = "block";
+        evt.target.className += " active";
+
+        var divId = "#" + className;
+        var firstbuttonId = "#" + $("" + divId + " >").find('button')[0]?.id;
+
+        $(firstbuttonId).click();
+
+    }
+
+    
+
+    function openSubject(evt, className) {
+
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("Section");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinksSections");
+        for (i = 0; i < tablinks.length; i++) {
+           tablinks[i].className = tablinks[i].className.replace(" agency_banner_btn", " btn_get");
+        }
+
+        document.getElementById(className).click();
+        document.getElementById(className).style.display = "block";
+         evt.target.className.replace(" btn_get", " agency_banner_btn");
+    }
+</script>

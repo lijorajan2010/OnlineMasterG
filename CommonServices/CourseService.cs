@@ -113,10 +113,18 @@ namespace OnlineMasterG.CommonServices
 
             try
             {
-                var course = Fetch(courseId);
+                if (!CategoryService.CategoryList("en-US", true).Any(m => m.CourseId == courseId))
+                {
+                    var course = Fetch(courseId);
+                    DB.Entry(course).State = EntityState.Deleted;
+                    DB.SaveChanges();
+                }
+                else
+                {
+                    var categoriesused = CategoryService.CategoryList("en-US", true).Where(m => m.CourseId == courseId).Select(m => m.CategoryName).ToList();
+                    sr.AddError($"You can't delete this course as it is being used by categories such as { string.Join(",", categoriesused)}. If you want to delete, please delete these categories first.");
+                }
 
-                DB.Entry(course).State = EntityState.Deleted;
-                DB.SaveChanges();
             }
             catch (Exception exception)
             {

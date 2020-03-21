@@ -8,6 +8,7 @@
     var URL = {
         COLLEGEUPLOADPAPERLIST: '@Url.Action("CollegeUploadPaperList", "CollegeUploadPaper")',
         DELETECOLLEGEUPLOADPAPER: '@Url.Action("DeleteCollegeUploadPaper", "CollegeUploadPaper")',
+        BINDSUBJECTS: '@Url.Action("BindSubjects", "CollegeUploadPaper")',
     };
 </script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/CustomScript/CollegeUpload.js?v=" + AppInfo.Version)"></script>
@@ -59,11 +60,11 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            @Html.DropDownList("CourseName", (SelectList)ViewBag.CourseList, "Select Course", new { @id = "CourelistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("CourseName", (SelectList)ViewBag.CourseList, "Please Select", new { @id = "CourelistId", @class = "form-control", @required = "required" })
 
                                         </td>
                                         <td>
-                                            @Html.DropDownList("Subjectame", (SelectList)ViewBag.SubjectList, "Select Subject", new { @id = "SubjectlistId", @class = "form-control", @required = "required" })
+                                            @Html.DropDownList("Subjectame", new SelectList(Enumerable.Empty<SelectListItem>()), "Please Select", new { @id = "SubjectlistId", @class = "form-control", @required = "required" })
 
                                         </td>
                                         <td>
