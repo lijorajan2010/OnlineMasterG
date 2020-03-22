@@ -1,0 +1,43 @@
+﻿@model List<OnlineMasterG.Models.ViewModels.GenneralInstructionVM>
+
+<table id="tblGeneralList" class="dataTables_wrapper dt-bootstrap4 no-footer">
+    <thead>
+        <tr>
+            <th>Sl No.</th>
+            <th>Test </th>
+            <th>Subject </th>
+            <th>No. of Questions</th>
+            <th>Correct Mark</th>
+            <th>Negative Mark</th>
+            @*<th>Edit</th>*@
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model.Select((x, y) => new { Data = x, Index = y }))
+            {
+                <tr>
+                    <td>@(item.Index + 1)</td>
+                    <td>@(item.Data.TestName)</td>
+                    <td>@item.Data.SubjectName</td>
+                    <td>@item.Data.QuestionCount</td>
+                    <td>@item.Data.CorrectMarks</td>
+                    <td>@item.Data.NegativeMarks</td>
+                    @*<td><button class="btn btn-info" onclick='editInstruction(@Html.Raw(Json.Encode(new { id=item.Data.InstructionId,classId= item.Data.ClassId,subjectId= item.Data.SubjectId,sectionName = item.Data.SectionName,description = item.Data.Description, languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt"></i></button></td>*@
+                    <td><button class="btn btn-danger" onclick='deleteInstruction(@Html.Raw(Json.Encode(new { id=item.Data.InstructionId,SubjectName = item.Data.SubjectName})))'><i class="fa fa-trash"></i></button></td>
+                </tr>
+
+            }
+
+        }
+
+    </tbody>
+</table>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#tblGeneralList").DataTable();
+    });
+</script>

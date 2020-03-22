@@ -14,6 +14,9 @@ namespace OnlineMasterG.Code
         public string Login { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string FullName { get; set; }
         public string UserTypeCode { get; set; }
         public int? LogoDataFileId { get; set; }
         public string DefaultLanguageCode { get; set; }
@@ -47,6 +50,9 @@ namespace OnlineMasterG.Code
             UserTypeCode = user.UserTypeCode;
             LogoDataFileId = logoId;
             DefaultLanguageCode = user.DefaultLanguageCode;
+            FirstName = user.FirstName;
+            LastName = user.LastName;
+            FullName = user.FirstName + " " + user.LastName;
         }
        
 

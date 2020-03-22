@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using OnlineMasterG.Code;
 
 namespace OnlineMasterG.CommonFramework
 {
@@ -26,21 +27,22 @@ namespace OnlineMasterG.CommonFramework
                 return langCookie == null ? "en-US" : langCookie.Value;
             }
         }
-     
+
         public static List<string> GetCourses
         {
-            get{ 
+            get
+            {
                 var CourseName = CourseService.CourseList("en-US", true).OrderBy(m => m.Sequence).Take(5).ToList();
                 return CourseName.Select(m => m.CourseName).ToList();
             }
-        
+
         }
         public static List<Course> GetCourseList
         {
             get
             {
                 return CourseService.CourseList("en-US", true).OrderBy(m => m.Sequence).ToList();
-               
+
             }
 
         }
@@ -49,7 +51,7 @@ namespace OnlineMasterG.CommonFramework
             get
             {
                 return ClassService.SchoolClassList("en-US", true).OrderBy(m => m.Sequence).Distinct().ToList();
-            
+
             }
 
         }
@@ -74,8 +76,8 @@ namespace OnlineMasterG.CommonFramework
         {
             get
             {
-               return SectionService.SchoolSectionList("en-US", true).Distinct().ToList();
-               
+                return SectionService.SchoolSectionList("en-US", true).Distinct().ToList();
+
             }
 
         }
@@ -102,7 +104,7 @@ namespace OnlineMasterG.CommonFramework
             get
             {
                 return PaperService.SchoolPaperList("en-US", true).Distinct().ToList();
-                
+
             }
             set { }
 
@@ -136,6 +138,16 @@ namespace OnlineMasterG.CommonFramework
             }
             set { }
 
+        }
+
+        public static ActiveUser ActiveUser
+        {
+            get
+            {
+                if (!HttpContext.Current.User.Identity.IsAuthenticated) return null;
+
+                return new ActiveUser(HttpContext.Current.User.Identity.Name);
+            }
         }
 
     }

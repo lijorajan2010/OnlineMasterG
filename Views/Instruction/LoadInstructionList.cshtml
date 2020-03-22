@@ -1,0 +1,52 @@
+﻿@model IEnumerable<OnlineMasterG.Models.ViewModels.GenneralInstructionVM>
+
+@{
+
+    var rowCound = Model != null ? Model.Count() : 0;
+}
+
+    <table class="table-bordered">
+        <tr>
+            <th>Section Name</th>
+            <th>Total Questions </th>
+            <th>Correct Marks</th>
+            <th>Negative Marks</th>
+        </tr>
+
+
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model.Select((x, y) => new { Data = x, Index = y }))
+            {
+                <tr>
+                    <td>
+                        @item.Data.SubjectName
+                    
+                    </td>
+                    <td>
+                        @item.Data.QuestionCount
+
+                    </td>
+                    <td>
+                     @item.Data.CorrectMarks
+
+                    </td>
+                    <td>
+                   @item.Data.NegativeMarks
+                    </td>
+
+                </tr>
+
+            }
+
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">
+                    No marks details found!
+                </td>
+            </tr>
+
+        }
+    </table>

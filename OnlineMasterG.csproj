@@ -236,6 +236,7 @@
     <Compile Include="CommonServices\ClassService .cs" />
     <Compile Include="CommonServices\DataFileService.cs" />
     <Compile Include="CommonServices\ExamUpdateService.cs" />
+    <Compile Include="CommonServices\GeneralService.cs" />
     <Compile Include="CommonServices\QuestionUploadService.cs" />
     <Compile Include="CommonServices\PaperService.cs" />
     <Compile Include="CommonServices\SubjectService.cs" />
@@ -254,10 +255,13 @@
     <Compile Include="Controllers\CourseMasterController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DataFileController.cs" />
+    <Compile Include="Controllers\ExaminationController.cs" />
     <Compile Include="Controllers\ExamUpdateLinksController.cs" />
     <Compile Include="Controllers\ExamUpdatesController.cs" />
     <Compile Include="Controllers\ExamUpdateSectionController.cs" />
+    <Compile Include="Controllers\GeneralInstructionMasterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstructionController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MockTestsController.cs" />
     <Compile Include="Controllers\SchoolClassController.cs" />
@@ -271,6 +275,7 @@
     <Compile Include="Controllers\QuestionUploadController.cs" />
     <Compile Include="DomainLogic\ClassLogics.cs" />
     <Compile Include="DomainLogic\ExamUpdateLogics.cs" />
+    <Compile Include="DomainLogic\GeneralLogics.cs" />
     <Compile Include="DomainLogic\PaperLogics.cs" />
     <Compile Include="DomainLogic\SubjectLogics.cs" />
     <Compile Include="DomainLogic\QuestionUploadLogics.cs" />
@@ -306,6 +311,9 @@
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\ExamSectionLink.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\GeneralInstruction.cs">
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\Language.cs">
@@ -377,6 +385,7 @@
     <Compile Include="Models\ViewModels\ClassVM.cs" />
     <Compile Include="Models\ViewModels\DataFileVM.cs" />
     <Compile Include="Models\ViewModels\ExcelQuestions.cs" />
+    <Compile Include="Models\ViewModels\GenneralInstructionVM.cs" />
     <Compile Include="Models\ViewModels\QuestionReviewEdit.cs" />
     <Compile Include="Models\ViewModels\QuestionReviewVM.cs" />
     <Compile Include="Models\ViewModels\QuestionUploadVM.cs" />
@@ -1443,6 +1452,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\CustomScript\ExamLinks.js" />
     <Content Include="Scripts\CustomScript\ExamUpdateSection.js" />
+    <Content Include="Scripts\CustomScript\GeneralInstruction.js" />
     <Content Include="Scripts\CustomScript\SchoolUpload.js" />
     <Content Include="Scripts\CustomScript\SchoolSubject.js" />
     <Content Include="Scripts\CustomScript\CollegeSubject.js" />
@@ -1491,6 +1501,7 @@
     <Content Include="assets\fonts\ionicons.ttf" />
     <Content Include="assets\fonts\ionicons.woff" />
     <Content Include="assets\fonts\PK.svg.z" />
+    <Content Include="Content\Sample\QuestionFormat_Sample.xlsx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -1717,6 +1728,12 @@
     <Content Include="Views\Colleges\Index.cshtml" />
     <Content Include="Views\ExamUpdates\Index.cshtml" />
     <Content Include="Views\MockTests\Index.cshtml" />
+    <Content Include="Views\GeneralInstructionMaster\Index.cshtml" />
+    <Content Include="Views\GeneralInstructionMaster\InstructionList.cshtml" />
+    <Content Include="Views\GeneralInstructionMaster\LoadInstructionList.cshtml" />
+    <Content Include="Views\Instruction\Index.cshtml" />
+    <Content Include="Views\Instruction\LoadInstructionList.cshtml" />
+    <Content Include="Views\Examination\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

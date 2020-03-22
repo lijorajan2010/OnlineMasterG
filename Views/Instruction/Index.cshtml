@@ -1,0 +1,347 @@
+﻿@using OnlineMasterG.CommonFramework
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+
+}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="~/img/favicon.png" type="image/x-icon">
+    <title>Online Master JI</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/vendors/bootstrap-selector/css/bootstrap-select.min.css">
+    <!--icon font css-->
+    <link rel="stylesheet" href="~/vendors/themify-icon/themify-icons.css">
+    <link rel="stylesheet" href="~/vendors/flaticon/flaticon.css">
+    <link rel="stylesheet" href="~/vendors/animation/animate.css">
+    <link rel="stylesheet" href="~/vendors/owl-carousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/vendors/magnify-pop/magnific-popup.css">
+    <link rel="stylesheet" href="~/vendors/nice-select/nice-select.css">
+    <link rel="stylesheet" href="~/vendors/elagent/style.css">
+    <link rel="stylesheet" href="~/vendors/scroll/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <style>
+        section.service_area.sec_pad.s_service_section.breadcrumb_area.typography_breacrumb {
+            padding: 40px 0px 75px;
+        }
+
+        @@media (max-width: 1550px) {
+            .service_item {
+                padding: 10px 30px;
+            }
+        }
+
+        .pay_btn.pay_btn_two {
+            margin-left: 0;
+        }
+
+        .navbar-brand {
+            margin-left: 0;
+        }
+
+        section.service_area.sec_pad.s_service_section.breadcrumb_area.typography_breacrumb {
+            padding: 16px 0px 75px;
+        }
+
+        p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .instructionHead {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .instructionFoot {
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        ul {
+            list-style-type: decimal;
+        }
+
+            ul ul {
+                list-style-type: circle;
+            }
+
+        table {
+            font-size: 13px;
+            padding: 5px;
+            text-align: center;
+        }
+
+        td, th {
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preloader">
+        <div id="ctn-preloader" class="ctn-preloader">
+            <div class="animation-preloader">
+                <div class="spinner"></div>
+                <div class="txt-loading">
+                    <span data-text-preloader="O" class="letters-loading">
+                        O
+                    </span>
+                    <span data-text-preloader="N" class="letters-loading">
+                        N
+                    </span>
+                    <span data-text-preloader="L" class="letters-loading">
+                        L
+                    </span>
+                    <span data-text-preloader="I" class="letters-loading">
+                        I
+                    </span>
+                    <span data-text-preloader="N" class="letters-loading">
+                        N
+                    </span>
+                    <span data-text-preloader="E" class="letters-loading">
+                        E
+                    </span>
+                    <span data-text-preloader="M" class="letters-loading">
+                        M
+                    </span>
+                    <span data-text-preloader="A" class="letters-loading">
+                        A
+                    </span>
+                    <span data-text-preloader="S" class="letters-loading">
+                        S
+                    </span>
+                    <span data-text-preloader="T" class="letters-loading">
+                        T
+                    </span>
+                    <span data-text-preloader="E" class="letters-loading">
+                        E
+                    </span>
+                    <span data-text-preloader="R" class="letters-loading">
+                        R
+                    </span>
+                    <span data-text-preloader="J" class="letters-loading">
+                        J
+                    </span>
+                    <span data-text-preloader="I" class="letters-loading">
+                        I
+                    </span>
+                </div>
+                <p class="text-center">Loading</p>
+            </div>
+            <div class="loader">
+                <div class="row">
+                    <div class="col-3 loader-section section-left">
+                        <div class="bg"></div>
+                    </div>
+                    <div class="col-3 loader-section section-left">
+                        <div class="bg"></div>
+                    </div>
+                    <div class="col-3 loader-section section-right">
+                        <div class="bg"></div>
+                    </div>
+                    <div class="col-3 loader-section section-right">
+                        <div class="bg"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="body_wrapper">
+
+        <header class="breadcrumb_area p-0 hidden-xs">
+            <img class="breadcrumb_shap" src="~/img/breadcrumb/banner_bg.png" alt="">
+            <nav class="navbar navbar-expand-lg menu_one menu_four">
+                <div class="container-fluid">
+
+                    <a class="navbar-brand col-md-2" href="index.html"><img src="~/img/WhiteLogo.png" alt="logo"></a>
+
+                    <div class="col-md-5 breadcrumb_content text-center">
+                        <!-- <span class="w_color f_600">SSC CGL</span> -->
+                        <h1 class="f_p f_700 w_color l_height50" style="font-size:20px;">SSC CGL</h1>
+                    </div>
+
+
+                    <div class="col-md-2 text-center">
+                        @{
+                            var ActiveUser = AppInfo.ActiveUser;
+                            var ImgId = ActiveUser != null && ActiveUser.LogoDataFileId != null ? ActiveUser.LogoDataFileId.Value.ToString() : "0";
+                        }
+                        <img class="student_img" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(ImgId)})' alt="" width="50">
+                        <span>@ActiveUser.Email</span>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <section class="service_area sec_pad s_service_section breadcrumb_area typography_breacrumb" style="background:#fff;">
+            <div class="container custom_container p0">
+
+                <div class="service_info">
+                    <div class="row instructionHead mb_15">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6 sec_title text-center">
+                            <h2 class="f_p f_size_20 f_700 t_color2 mb-0">Instructions</h2>
+                            <p class="f_400 f_size_12 l_height30">Please Read all the Instructions Carefully.</p>
+                        </div>
+                        @*<div class="col-md-3 language text-right">
+                                <span>Select Language </span>
+                                <select>
+                                    <option>English</option>
+                                    <option>Hindi</option>
+
+                                </select>
+                            </div>*@
+                    </div>
+                    <div class="col-lg-12 mb-30 hideOnClick">
+                        <div class="">
+
+                         
+                            <!-- <div class="icon s_icon_one"><i class="ti-check"></i></div> -->
+                            <h4 class="f_600 f_size_15 l_height28 t_color2 mb-0">General Instructions</h4>
+                            <ul>
+                                <li>Total durtion of examination is 45 minutes.</li>
+                                <li>The clock will be set at the server.</li>
+                                <li>
+                                    The Question Palette displayedon the right side of screen will show the..
+                                    <ul>
+                                        <li>You have not visited the question yet.</li>
+                                        <li>You have answered the question.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <h4 class="f_600 f_size_15 l_height28 t_color2 mb-0">Navigating to a Question</h4>
+                            <ul>
+
+                                <li>
+                                    To answer a question do the following.
+                                    <ul>
+                                        <li>Click on the question.</li>
+                                        <li>Click on the question.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <h4 class="f_600 f_size_15 l_height28 t_color2 mb-0">Answer a Question</h4>
+                            <ul>
+
+                                <li>
+                                    Procedure for answering a multiple choice type question
+                                    <ul>
+                                        <li>Click on the question.</li>
+                                        <li>Click on the question.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="instructionFoot">
+
+                                <a href="javascript:void(0);" class="btn_hover agency_banner_btn" id="nextBtn">Next</a>
+                            </div>
+
+
+                            <!--  <img class="float-right" src="img/home2/undraw.png" alt=""> -->
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-12 mb-30 showOnClick" style="display:none;">
+                        <div class="">
+                            <!-- <div class="icon s_icon_one"><i class="ti-check"></i></div> -->
+                            <h4 class="f_600 f_size_15 l_height28 t_color2 mb-0">General Instructions</h4>
+                            <div id="loadmarks">
+
+                            </div>
+
+                            <h4 class="f_600 f_size_15 l_height28 t_color2 mb-0">Navigating to a Question</h4>
+                            <ul>
+
+                                <li>
+                                    To answer a question do the following.
+                                    <ul>
+                                        <li>Click on the question.</li>
+                                        <li>Click on the question.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+
+
+                            <h4 class="f_600 f_size_15 l_height28 t_color2 mb-0">Answer a Question</h4>
+                            <ul>
+
+                                <li>
+                                    Procedure for answering a multiple choice type question
+                                    <ul>
+                                        <li>Click on the question.</li>
+                                        <li>Click on the question.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <form method="post" action="@Url.Action("Index","Examination")">
+                                <div class="instructionFoot">
+                                    <p><label><input type="checkbox" required> I have read and understand the instructions. </label></p>
+                                    <input type="hidden" id="hdfTestId" name="TestId" value="@ViewBag.TestId" />
+                                  
+                                    <input type="submit" class="btn_hover agency_banner_btn" value="I am Ready to Begin" />
+                                </div>
+                            </form>
+                           
+
+
+                            <!--  <img class="float-right" src="img/home2/undraw.png" alt=""> -->
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </section>
+
+
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/js/propper.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/vendors/wow/wow.min.js"></script>
+    <script src="~/vendors/sckroller/jquery.parallax-scroll.js"></script>
+    <script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="~/vendors/isotope/isotope-min.js"></script>
+    <script src="~/vendors/magnify-pop/jquery.magnific-popup.min.js"></script>
+    <script src="~/vendors/bootstrap-selector/js/bootstrap-select.min.js"></script>
+    <script src="~/vendors/nice-select/jquery.nice-select.min.js"></script>
+    <script src="~/vendors/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/js/plugins.js"></script>
+    <script src="~/js/main.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#loadmarks").html('');
+            $.post('/Instruction/LoadInstructionList', { testId: $("#hdfTestId").val() }, function (data) {
+
+                $("#loadmarks").html(data);
+            })
+
+        })
+        $("#nextBtn").click(function () {
+            $(".hideOnClick").hide();
+            $(".showOnClick").show();
+        });
+
+
+    </script>
+
+</body>
+</html>

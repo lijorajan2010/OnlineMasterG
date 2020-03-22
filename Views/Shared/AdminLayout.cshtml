@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using OnlineMasterG.CommonFramework
+
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -2254,22 +2256,101 @@
 
     <style>
 
-          @@keyframes check {0% {height: 0;width: 0;}
-    25% {height: 0;width: 10px;}
-    50% {height: 20px;width: 10px;}
-  }
-  .checkbox{background-color:#fff;display:inline-block;height:28px;margin:0 .25em;width:28px;border-radius:4px;border:1px solid #ccc;float:right}
-  .checkbox span{display:block;height:28px;position:relative;width:28px;padding:0}
-  .checkbox span:after{-moz-transform:scaleX(-1) rotate(135deg);-ms-transform:scaleX(-1) rotate(135deg);-webkit-transform:scaleX(-1) rotate(135deg);transform:scaleX(-1) rotate(135deg);-moz-transform-origin:left top;-ms-transform-origin:left top;-webkit-transform-origin:left top;transform-origin:left top;border-right:4px solid #fff;border-top:4px solid #fff;content:'';display:block;height:20px;left:3px;position:absolute;top:15px;width:10px}
-  .checkbox span:hover:after{border-color:#999}
-  .checkbox input{display:none}
-  .checkbox input:checked + span:after{-webkit-animation:check .8s;-moz-animation:check .8s;-o-animation:check .8s;animation:check .8s;border-color:#555}
-.checkbox input:checked + .default:after{border-color:#444}
-.checkbox input:checked + .primary:after{border-color:#2196F3}
-.checkbox input:checked + .success:after{border-color:#8bc34a}
-.checkbox input:checked + .info:after{border-color:#3de0f5}
-.checkbox input:checked + .warning:after{border-color:#FFC107}
-.checkbox input:checked + .danger:after{border-color:#f44336}
+        @@keyframes check {
+            0% {
+                height: 0;
+                width: 0;
+            }
+
+            25% {
+                height: 0;
+                width: 10px;
+            }
+
+            50% {
+                height: 20px;
+                width: 10px;
+            }
+        }
+
+        .checkbox {
+            background-color: #fff;
+            display: inline-block;
+            height: 28px;
+            margin: 0 .25em;
+            width: 28px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            float: right
+        }
+
+            .checkbox span {
+                display: block;
+                height: 28px;
+                position: relative;
+                width: 28px;
+                padding: 0
+            }
+
+                .checkbox span:after {
+                    -moz-transform: scaleX(-1) rotate(135deg);
+                    -ms-transform: scaleX(-1) rotate(135deg);
+                    -webkit-transform: scaleX(-1) rotate(135deg);
+                    transform: scaleX(-1) rotate(135deg);
+                    -moz-transform-origin: left top;
+                    -ms-transform-origin: left top;
+                    -webkit-transform-origin: left top;
+                    transform-origin: left top;
+                    border-right: 4px solid #fff;
+                    border-top: 4px solid #fff;
+                    content: '';
+                    display: block;
+                    height: 20px;
+                    left: 3px;
+                    position: absolute;
+                    top: 15px;
+                    width: 10px
+                }
+
+                .checkbox span:hover:after {
+                    border-color: #999
+                }
+
+            .checkbox input {
+                display: none
+            }
+
+                .checkbox input:checked + span:after {
+                    -webkit-animation: check .8s;
+                    -moz-animation: check .8s;
+                    -o-animation: check .8s;
+                    animation: check .8s;
+                    border-color: #555
+                }
+
+                .checkbox input:checked + .default:after {
+                    border-color: #444
+                }
+
+                .checkbox input:checked + .primary:after {
+                    border-color: #2196F3
+                }
+
+                .checkbox input:checked + .success:after {
+                    border-color: #8bc34a
+                }
+
+                .checkbox input:checked + .info:after {
+                    border-color: #3de0f5
+                }
+
+                .checkbox input:checked + .warning:after {
+                    border-color: #FFC107
+                }
+
+                .checkbox input:checked + .danger:after {
+                    border-color: #f44336
+                }
     </style>
     <link href="~/main.cba69814a806ecc7945a.css" rel="stylesheet" />
 
@@ -2308,16 +2389,20 @@
 
     <style>
         .modal-backdrop {
-    z-index: 1040 !important;
-}
-.modal-dialog {
-    margin: 2px auto;
-    z-index: 1100 !important;
-}
+            z-index: 1040 !important;
+        }
+
+        .modal-dialog {
+            margin: 2px auto;
+            z-index: 1100 !important;
+        }
     </style>
 
 </head>
 <body>
+
+
+
     <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
         <div class="app-header header-shadow">
             <div class="app-header__logo">
@@ -2520,7 +2605,7 @@
                     <input type="hidden" id="hdnDownloadDataFileId" name="DataFileKey" />
                 }
             </div>
-       
+
 
             <div class="app-header__menu">
                 <span>
@@ -2841,9 +2926,9 @@
                                                                 </div>
                                                                 <div class="widget-content-right mr-2">
                                                                     @*<button class="btn-pill btn-shadow btn-shine btn btn-focus">
-                                                                        
-                                                                    </button>*@
-                                                                    @Html.ActionLink("Logout", "Logout", "Login", new { },new {@class="btn-pill btn-shadow btn-shine btn btn-focus" })
+
+                                                                        </button>*@
+                                                                    @Html.ActionLink("Logout", "Logout", "Login", new { }, new { @class = "btn-pill btn-shadow btn-shine btn btn-focus" })
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2930,10 +3015,10 @@
                                 </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
-                                        Alina Mclourd
+                                        @AppInfo.ActiveUser.Email
                                     </div>
                                     <div class="widget-subheading">
-                                        VP People Manager
+                                        @*VP People Manager*@
                                     </div>
                                 </div>
                                 <div class="widget-content-right header-user-info ml-3">
@@ -3463,7 +3548,7 @@
                             <li>
                                 <a href="@Url.Action("Index","TestMaster")">
                                     <i class="metismenu-icon"></i>
-                                   Test Master
+                                    Test Master
                                 </a>
                             </li>
                             <li>
@@ -3476,6 +3561,12 @@
                                 <a href="@Url.Action("Index","QuestionUpload")">
                                     <i class="metismenu-icon"></i>
                                     Upload Test
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index","GeneralInstructionMaster")">
+                                    <i class="metismenu-icon"></i>
+                                   Instruction / Setup marks
                                 </a>
                             </li>
                             <li class="app-sidebar__heading">Daily Quiz</li>
@@ -3583,7 +3674,7 @@
                     <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 548px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 259px;"></div></div>
                 </div>
             </div>
-           
+
 
             <div class="app-main__outer">
                 <div class="app-main__inner">
@@ -3837,7 +3928,7 @@
                                                                     <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
                                                                     <span class="swal2-success-line-tip"></span>
                                                                     <span class="swal2-success-line-long"></span>
-                                                                    <div class="swal2-success-ring"></div>
+                                                                    <div class="swal2-success-ring"></div>  @AppInfo.ActiveUser.Email
                                                                     <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
                                                                     <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
                                                                 </div>
@@ -4477,6 +4568,10 @@
         top: -100%;
         left: -100%;
         position: absolute;
-        opacity: 0;"><defs id="SvgjsDefs1002"></defs><polyline id="SvgjsPolyline1003" points="0,0"></polyline><path id="SvgjsPath1004" d="M0 0 "></path></svg><div class="jvectormap-tip"></div>
+        opacity: 0;">
+        <defs id="SvgjsDefs1002"></defs>
+        <polyline id="SvgjsPolyline1003" points="0,0"></polyline>
+        <path id="SvgjsPath1004" d="M0 0 "></path>
+    </svg><div class="jvectormap-tip"></div>
 </body>
 </html>>

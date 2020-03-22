@@ -128,6 +128,24 @@
           <Property Name="EditOn" Type="datetime" />
           <Property Name="SectionId" Type="int" />
         </EntityType>
+        <EntityType Name="GeneralInstruction">
+          <Key>
+            <PropertyRef Name="InstructionId" />
+          </Key>
+          <Property Name="InstructionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditOn" Type="datetime" />
+          <Property Name="TestId" Type="int" />
+          <Property Name="CorrectMarks" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NegativeMarks" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalQuestions" Type="int" />
+          <Property Name="SubjectId" Type="int" />
+        </EntityType>
         <EntityType Name="Language">
           <Key>
             <PropertyRef Name="LanguageId" />
@@ -439,6 +457,30 @@
             </Principal>
             <Dependent Role="ExamSectionLink">
               <PropertyRef Name="SectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GeneralIn__Subje__00DF2177">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="0..1" />
+          <End Role="GeneralInstruction" Type="Self.GeneralInstruction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="SubjectId" />
+            </Principal>
+            <Dependent Role="GeneralInstruction">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GeneralIn__TestI__7FEAFD3E">
+          <End Role="MockTest" Type="Self.MockTest" Multiplicity="0..1" />
+          <End Role="GeneralInstruction" Type="Self.GeneralInstruction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MockTest">
+              <PropertyRef Name="TestId" />
+            </Principal>
+            <Dependent Role="GeneralInstruction">
+              <PropertyRef Name="TestId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -776,6 +818,7 @@
           <EntitySet Name="DataFile" EntityType="Self.DataFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExamSection" EntityType="Self.ExamSection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExamSectionLink" EntityType="Self.ExamSectionLink" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GeneralInstruction" EntityType="Self.GeneralInstruction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Language" EntityType="Self.Language" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MockTest" EntityType="Self.MockTest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuestionAnswerChoices" EntityType="Self.QuestionAnswerChoices" Schema="dbo" store:Type="Tables" />
@@ -818,6 +861,14 @@
           <AssociationSet Name="FK__ExamSecti__Secti__7A3223E8" Association="Self.FK__ExamSecti__Secti__7A3223E8">
             <End Role="ExamSection" EntitySet="ExamSection" />
             <End Role="ExamSectionLink" EntitySet="ExamSectionLink" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GeneralIn__Subje__00DF2177" Association="Self.FK__GeneralIn__Subje__00DF2177">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="GeneralInstruction" EntitySet="GeneralInstruction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GeneralIn__TestI__7FEAFD3E" Association="Self.FK__GeneralIn__TestI__7FEAFD3E">
+            <End Role="MockTest" EntitySet="MockTest" />
+            <End Role="GeneralInstruction" EntitySet="GeneralInstruction" />
           </AssociationSet>
           <AssociationSet Name="FK__MockTest__Catego__6754599E" Association="Self.FK__MockTest__Catego__6754599E">
             <End Role="Category" EntitySet="Category" />
@@ -1093,6 +1144,15 @@
             <End Role="ExamSection" EntitySet="ExamSections" />
             <End Role="ExamSectionLink" EntitySet="ExamSectionLinks" />
           </AssociationSet>
+          <EntitySet Name="GeneralInstructions" EntityType="OnlinemasterjiModel.GeneralInstruction" />
+          <AssociationSet Name="FK__GeneralIn__TestI__7FEAFD3E" Association="OnlinemasterjiModel.FK__GeneralIn__TestI__7FEAFD3E">
+            <End Role="MockTest" EntitySet="MockTests" />
+            <End Role="GeneralInstruction" EntitySet="GeneralInstructions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GeneralIn__Subje__00DF2177" Association="OnlinemasterjiModel.FK__GeneralIn__Subje__00DF2177">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="GeneralInstruction" EntitySet="GeneralInstructions" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Category">
           <Key>
@@ -1242,6 +1302,7 @@
           <NavigationProperty Name="Section" Relationship="OnlinemasterjiModel.FK__MockTest__Sectio__68487DD7" FromRole="MockTest" ToRole="Section" />
           <NavigationProperty Name="QuestionUploads" Relationship="OnlinemasterjiModel.FK__QuestionU__TestI__47A6A41B" FromRole="MockTest" ToRole="QuestionUpload" />
           <NavigationProperty Name="Subjects" Relationship="OnlinemasterjiModel.FK__Subjects__TestId__6EF57B66" FromRole="MockTest" ToRole="Subject" />
+          <NavigationProperty Name="GeneralInstructions" Relationship="OnlinemasterjiModel.FK__GeneralIn__TestI__7FEAFD3E" FromRole="MockTest" ToRole="GeneralInstruction" />
         </EntityType>
         <EntityType Name="QuestionAnswerChoice">
           <Key>
@@ -1434,6 +1495,7 @@
           <NavigationProperty Name="MockTest" Relationship="OnlinemasterjiModel.FK__Subjects__TestId__6EF57B66" FromRole="Subject" ToRole="MockTest" />
           <NavigationProperty Name="QuestionUploads" Relationship="OnlinemasterjiModel.FK__QuestionU__Subje__489AC854" FromRole="Subject" ToRole="QuestionUpload" />
           <NavigationProperty Name="Section" Relationship="OnlinemasterjiModel.FK__Subjects__Sectio__6E01572D" FromRole="Subject" ToRole="Section" />
+          <NavigationProperty Name="GeneralInstructions" Relationship="OnlinemasterjiModel.FK__GeneralIn__Subje__00DF2177" FromRole="Subject" ToRole="GeneralInstruction" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -1923,6 +1985,50 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="GeneralInstruction">
+          <Key>
+            <PropertyRef Name="InstructionId" />
+          </Key>
+          <Property Name="InstructionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <Property Name="TestId" Type="Int32" />
+          <NavigationProperty Name="MockTest" Relationship="OnlinemasterjiModel.FK__GeneralIn__TestI__7FEAFD3E" FromRole="GeneralInstruction" ToRole="MockTest" />
+          <Property Name="CorrectMarks" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NegativeMarks" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalQuestions" Type="Int32" />
+          <Property Name="SubjectId" Type="Int32" />
+          <NavigationProperty Name="Subject" Relationship="OnlinemasterjiModel.FK__GeneralIn__Subje__00DF2177" FromRole="GeneralInstruction" ToRole="Subject" />
+        </EntityType>
+        <Association Name="FK__GeneralIn__TestI__7FEAFD3E">
+          <End Type="OnlinemasterjiModel.MockTest" Role="MockTest" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.GeneralInstruction" Role="GeneralInstruction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MockTest">
+              <PropertyRef Name="TestId" />
+            </Principal>
+            <Dependent Role="GeneralInstruction">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GeneralIn__Subje__00DF2177">
+          <End Type="OnlinemasterjiModel.Subject" Role="Subject" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.GeneralInstruction" Role="GeneralInstruction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="SubjectId" />
+            </Principal>
+            <Dependent Role="GeneralInstruction">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2303,6 +2409,25 @@
                 <ScalarProperty Name="Sequence" ColumnName="Sequence" />
                 <ScalarProperty Name="LinkName" ColumnName="LinkName" />
                 <ScalarProperty Name="LinkId" ColumnName="LinkId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GeneralInstructions">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.GeneralInstruction">
+              <MappingFragment StoreEntitySet="GeneralInstruction">
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="TotalQuestions" ColumnName="TotalQuestions" />
+                <ScalarProperty Name="NegativeMarks" ColumnName="NegativeMarks" />
+                <ScalarProperty Name="CorrectMarks" ColumnName="CorrectMarks" />
+                <ScalarProperty Name="TestId" ColumnName="TestId" />
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="TestName" ColumnName="TestName" />
+                <ScalarProperty Name="InstructionId" ColumnName="InstructionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<OnlineMasterG.Models.ViewModels.GenneralInstructionVM>
+
+@{ 
+
+    var rowCound = Model != null ? Model.Count() : 0;
+}
+    <table style="width: 100%;" id="example12" class="table table-hover table-striped table-bordered">
+
+        <thead>
+            <tr>
+                <th>Subject Name</th>
+                <th>Total Questions</th>
+                <th>Correct Marks</th>
+                <th>Negative Marks
+                <input type="hidden" id="rowsTr" value="@rowCound" />
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (Model != null && Model.Count() > 0)
+            {
+                foreach (var item in Model.Select((x, y) => new { Data = x, Index = y }))
+                {
+                    <tr>
+                        <td>
+                            @item.Data.SubjectName
+                            <input type="hidden" name="setupMarks[@item.Index].TestId" value='@item.Data.TestId'>
+                            <input type="hidden" name="setupMarks[@item.Index].InstructionId" value='@item.Data.InstructionId'>
+                            <input type="hidden" name="setupMarks[@item.Index].SubjectId" value='@item.Data.SubjectId'>
+                            <input type="hidden" name="setupMarks[@item.Index].TotalQuestions" value='@item.Data.QuestionCount'>
+
+                        </td>
+                        <td>
+                            @item.Data.QuestionCount
+
+                        </td>
+                        <td>
+                            <input type="number" name="setupMarks[@item.Index].CorrectMarks" class="form-control" value='@item.Data.CorrectMarks'>
+
+                        </td>
+                        <td>
+                            <input type="number" name="setupMarks[@item.Index].NegativeMarks" class="form-control" value='@item.Data.NegativeMarks'>
+                        </td>
+
+                    </tr>
+                
+                }
+             
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">
+                        No Subjects Found! Please upload/add Questions for the subjects and approve, before setting up the marks
+                    </td>
+                </tr>
+
+            }
+
+        </tbody>
+    </table>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        if ($("#rowsTr").val() != 0) {
+
+            $("#tblSubmit").show();
+        }
+        else {
+              $("#tblSubmit").hide();
+        }
+    })
+</script>

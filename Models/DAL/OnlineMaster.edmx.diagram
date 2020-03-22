@@ -63,6 +63,9 @@
         <EntityTypeShape EntityType="OnlinemasterjiModel.ExamSection" Width="1.5" PointX="5.375" PointY="12.75" />
         <EntityTypeShape EntityType="OnlinemasterjiModel.ExamSectionLink" Width="1.5" PointX="7.625" PointY="16.625" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__ExamSecti__Secti__7A3223E8" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.GeneralInstruction" Width="1.5" PointX="9.75" PointY="20.625" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__GeneralIn__TestI__7FEAFD3E" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__GeneralIn__Subje__00DF2177" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

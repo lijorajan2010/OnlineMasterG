@@ -152,6 +152,12 @@ namespace OnlineMasterG.CommonServices
                   .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
                   .ToList();
         }
+        public static List<GeneralInstruction> GeneralInstructionList(string Lang, bool IsActive)
+        {
+            return DB.GeneralInstructions
+                  .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
+                  .ToList();
+        }
         public static List<CollegeSubject> CollegeSubjectList(string Lang, bool IsActive)
         {
             return DB.CollegeSubjects

@@ -18,6 +18,7 @@ namespace OnlineMasterG.Models.DAL
         public Subject()
         {
             this.QuestionUploads = new HashSet<QuestionUpload>();
+            this.GeneralInstructions = new HashSet<GeneralInstruction>();
         }
     
         public int SubjectId { get; set; }
@@ -40,5 +41,7 @@ namespace OnlineMasterG.Models.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuestionUpload> QuestionUploads { get; set; }
         public virtual Section Section { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GeneralInstruction> GeneralInstructions { get; set; }
     }
 }

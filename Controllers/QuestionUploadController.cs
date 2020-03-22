@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 
@@ -179,6 +180,14 @@ namespace OnlineMasterG.Controllers
             var Subjects = SubjectService.SubjectList("en-US", true).Where(m => m.TestId == testId).Select(m => new { SubjectId = m.SubjectId, SubjectName = m.SubjectName }).ToList();
 
             return GetJsonResult(Subjects);
+        }
+
+        public FileResult DownloadSample()
+        {
+           
+            byte[] fileBytes = System.IO.File.ReadAllBytes(Server.MapPath(@"~/Content/Sample/QuestionFormat_Sample.xlsx"));
+            string fileName = "SampleQuestionUpload.xlsx";
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
     }
 }

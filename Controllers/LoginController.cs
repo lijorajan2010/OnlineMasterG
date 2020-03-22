@@ -69,13 +69,14 @@ namespace OnlineMasterG.Controllers
                     cookie.Expires = DateTime.Now.AddYears(-1);
                     Response.Cookies.Add(cookie);
                 }
-                LoginVM Coockieuser = new LoginVM() { 
-                Login = userData.Login,
-                Password=userData.Password,
-                FirstName = userData.FirstName,
-                LastName = userData.LastName
+                LoginVM Coockieuser = new LoginVM()
+                {
+                    Login = userData.Login,
+                    Password = userData.Password,
+                    FirstName = userData.FirstName,
+                    LastName = userData.LastName
                 };
-              
+
                 SessionObject.SetUserInFormsCookie(Coockieuser);
                 string CultLang = userData != null ? (!string.IsNullOrEmpty(userData.DefaultLanguageCode) ? userData.DefaultLanguageCode : "en-US") : "en-US";
                 var langCookie = new HttpCookie("lang", userData.DefaultLanguageCode) { HttpOnly = true };
@@ -89,21 +90,19 @@ namespace OnlineMasterG.Controllers
                 var dirCookie = new HttpCookie("direction", dir) { HttpOnly = true };
                 Response.AppendCookie(dirCookie);
 
+
+                if (!string.IsNullOrEmpty(loginModel.ReturnUrl))
+                {
+                    var routeValues = SessionObject._getControllerAndActionName(loginModel.ReturnUrl);
+                    return RedirectToAction($"{routeValues.Item2}", $"{routeValues.Item1}");
+                }
                 if (userData.UserTypeCode == UserService.UserTypes.ADMIN.ToString())
                 {
                     return RedirectToAction("Index", "Dashboard");
                 }
-                else
-                {
-                    if (!string.IsNullOrEmpty(loginModel.ReturnUrl))
-                    {
-                        var routeValues = SessionObject._getControllerAndActionName(loginModel.ReturnUrl);
-                        return RedirectToAction($"{routeValues.Item2}", $"{routeValues.Item1}");
-                    }
-                    return RedirectToAction("Index", "Home");
-                }
-
+                return RedirectToAction("Index", "Home");
             }
+
             else
             {
                 ViewBag.IsInvalid = "The EmailId and/or Password is not recognized. The password is CASE sensitive. Please ensure that the Caps Lock setting is not enabled. Please re-enter your EmailId and Password or contact your administrator to have your password reset / Click forgot password.";
@@ -135,7 +134,7 @@ namespace OnlineMasterG.Controllers
                     user.CreateBy = loginVM.Login;
                     user.CreateOn = DateTime.Now;
                     user.UserTypeCode = UserService.UserTypes.STUDENT.ToString();
-                    sr =  UserService.SaveUser(user);
+                    sr = UserService.SaveUser(user);
                 }
                 else
                 {
@@ -154,7 +153,7 @@ namespace OnlineMasterG.Controllers
                     var subject = "New Account created ";
                     var body = "Hi " + loginVM.FirstName + " " + loginVM.LastName + ", <br/> New account has been created. " +
 
-                         " <br/><br/> Username is "+ loginVM .Login+ " <br/><br/>" +
+                         " <br/><br/> Username is " + loginVM.Login + " <br/><br/>" +
                            " <br/>Password is " + loginVM.Password + " <br/><br/>" +
                          "Now you can login into OnlineMasterJi.<br/><br/> Thank you";
 
@@ -274,7 +273,7 @@ namespace OnlineMasterG.Controllers
             if (ModelState.IsValid)
             {
                 var getUser = UserService.FetchUserByResetCode(model.ResetCode);
-                if (getUser!=null)
+                if (getUser != null)
                 {
                     //you can encrypt password here, we are not doing it
                     getUser.Password = PasswordUtilities.CreateHash(model.NewPassword);
@@ -359,7 +358,7 @@ namespace OnlineMasterG.Controllers
             {
                 return Redirect(Url.Action("Index", "Login"));
             }
-          
+
             // User has logged in with provider successfully
             // Check if user is already registered locally
             //You can call you user data access method to check and create users based on your model
