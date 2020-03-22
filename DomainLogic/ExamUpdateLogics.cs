@@ -62,6 +62,7 @@ namespace OnlineMasterG.DomainLogic
                     {
                         LinkId = item.LinkId,
                         Link = item.LinkName,
+                        LinkDescription = item.LinkDescription,
                         SectionName = ExamUpdateService.Fetch(item.SectionId)?.SectionName,
                         SectionLinkId = item.SectionId,
                         IsActive = item.Isactive,
@@ -80,6 +81,7 @@ namespace OnlineMasterG.DomainLogic
             {
                 LinkId = model.LinkId,
                 LinkName = model.Link,
+                LinkDescription = model.LinkDescription,
                 SectionId = model.SectionLinkId,
                 Sequence = model.Sequence,
                 LanguageCode = model.LanguageCode,

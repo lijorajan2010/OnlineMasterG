@@ -68,6 +68,7 @@ namespace OnlineMasterG.CommonServices
                 else
                 {
                     dbexamSectionlink.LinkName = examSectionlink.LinkName;
+                    dbexamSectionlink.LinkDescription = examSectionlink.LinkDescription;
                     dbexamSectionlink.LanguageCode = examSectionlink.LanguageCode;
                     dbexamSectionlink.Sequence = examSectionlink.Sequence;
                     dbexamSectionlink.Isactive = examSectionlink.Isactive;

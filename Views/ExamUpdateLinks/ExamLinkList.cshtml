@@ -7,6 +7,7 @@
         <tr>
             <th>Sl No.</th>
             <th>Section</th>
+            <th>Desctiption</th>
             <th>Link</th>
             <th>Sequence</th>
             <th>Edit</th>
@@ -21,9 +22,10 @@
                 <tr>
                     <td>@(item.Index + 1)</td>
                     <td>@(item.Data.SectionName)</td>
+                    <td>@item.Data.LinkDescription</td>
                     <td>@item.Data.Link</td>
                     <td>@item.Data.Sequence</td>
-                    <td><button class="btn btn-info" onclick='editLinks(@Html.Raw(Json.Encode(new { id=item.Data.LinkId,sectionId= item.Data.SectionLinkId,link = item.Data.Link,sequence = item.Data.Sequence, isActive = item.Data.IsActive,languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt"></i></button></td>
+                    <td><button class="btn btn-info" onclick='editLinks(@Html.Raw(Json.Encode(new { id=item.Data.LinkId,sectionId= item.Data.SectionLinkId,link = item.Data.Link,sequence = item.Data.Sequence, isActive = item.Data.IsActive,languagecode = item.Data.LanguageCode ,linkDescription = item.Data.LinkDescription})));'><i class="fa fa-pencil-alt"></i></button></td>
                     <td><button class="btn btn-danger" onclick='deleteLinks(@Html.Raw(Json.Encode(new { id=item.Data.LinkId,link = item.Data.Link})))'><i class="fa fa-trash"></i></button></td>
                 </tr>
 

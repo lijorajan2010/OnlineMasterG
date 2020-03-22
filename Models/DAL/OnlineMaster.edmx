@@ -127,6 +127,7 @@
           <Property Name="EditBy" Type="varchar" MaxLength="50" />
           <Property Name="EditOn" Type="datetime" />
           <Property Name="SectionId" Type="int" />
+          <Property Name="LinkDescription" Type="varchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="GeneralInstruction">
           <Key>
@@ -1972,6 +1973,7 @@
           <Property Name="EditOn" Type="DateTime" Precision="3" />
           <Property Name="SectionId" Type="Int32" />
           <NavigationProperty Name="ExamSection" Relationship="OnlinemasterjiModel.FK__ExamSecti__Secti__7A3223E8" FromRole="ExamSectionLink" ToRole="ExamSection" />
+          <Property Name="LinkDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__ExamSecti__Secti__7A3223E8">
           <End Type="OnlinemasterjiModel.ExamSection" Role="ExamSection" Multiplicity="0..1" />
@@ -2399,6 +2401,7 @@
           <EntitySetMapping Name="ExamSectionLinks">
             <EntityTypeMapping TypeName="OnlinemasterjiModel.ExamSectionLink">
               <MappingFragment StoreEntitySet="ExamSectionLink">
+                <ScalarProperty Name="LinkDescription" ColumnName="LinkDescription" />
                 <ScalarProperty Name="SectionId" ColumnName="SectionId" />
                 <ScalarProperty Name="EditOn" ColumnName="EditOn" />
                 <ScalarProperty Name="EditBy" ColumnName="EditBy" />

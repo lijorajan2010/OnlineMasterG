@@ -1502,6 +1502,7 @@
     <Content Include="assets\fonts\ionicons.woff" />
     <Content Include="assets\fonts\PK.svg.z" />
     <Content Include="Content\Sample\QuestionFormat_Sample.xlsx" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

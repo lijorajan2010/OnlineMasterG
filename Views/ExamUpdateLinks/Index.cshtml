@@ -52,6 +52,7 @@
                                 <thead>
                                     <tr>
                                         <th>Select Section</th>
+                                        <th>Description</th>
                                         <th>Add Links</th>
                                         <th style="width:50px;">Order Sequence</th>
                                         <th style="width:50px;">Is Active</th>
@@ -65,9 +66,16 @@
                                         </td>
                                         <td>
                                             <input type="hidden" id="hdfLinkId" />
+                                            <input type="text" required id="txtLinkDescription" name="LinkDescription" class="form-control" value="">
+                                           
+
+                                        </td>
+                                        <td>
+
                                             <input type="text" required id="txtLink" name="Link" class="form-control" value="">
 
                                         </td>
+
                                         <td>
                                             <input type="number" class="form-control" id="txtSequence" min="0" value="">
 

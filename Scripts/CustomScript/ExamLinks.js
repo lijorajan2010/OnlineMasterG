@@ -37,6 +37,7 @@ function setupLinkList() {
 
 function clearFields() {
     $("#txtLink").val("");
+    $("#txtLinkDescription").val("");
     $("#txtSequence").val("");
     $("#SectionlistId").val("");
     $("#hdfLinkId").val("");
@@ -53,6 +54,7 @@ function saveLinks() {
         SectionLinkId: $("#SectionlistId").val(),
         LinkId: $("#hdfLinkId").val(),
         Link: $("#txtLink").val(),
+        LinkDescription: $("#txtLinkDescription").val(),
         Sequence: $("#txtSequence").val(),
         LanguageCode: $("#LanguageCode").val(),
         IsActive: $("#chkIsActive").prop('checked')
@@ -72,6 +74,7 @@ function editLinks(obj) {
     $("#hdfLinkId").val(obj.id);
     $("#SectionlistId").val(obj.sectionId);
     $("#txtLink").val(obj.link);
+    $("#txtLinkDescription").val(obj.linkDescription);
     $("#txtSequence").val(obj.sequence);
     $("#LanguageCode").val(obj.languagecode);
     if (obj.isActive == true) {

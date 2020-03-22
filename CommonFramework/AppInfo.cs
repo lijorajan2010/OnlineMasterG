@@ -129,11 +129,31 @@ namespace OnlineMasterG.CommonFramework
             set { }
 
         }
+        public static List<ExamSection> GetExamSections
+        {
+            get
+            {
+                return ExamUpdateService.ExamSectionList("en-US", true).OrderBy(m => m.Sequence).Distinct().ToList();
+
+            }
+            set { }
+
+        }
         public static List<CollegeSubject> GetCollegeSubjects
         {
             get
             {
                 return SubjectService.CollegeSubjectList("en-US", true).OrderBy(m => m.Sequence).Distinct().ToList();
+
+            }
+            set { }
+
+        }
+        public static List<ExamSectionLink> GetExamSectionLinks
+        {
+            get
+            {
+                return ExamUpdateService.ExamLinksList("en-US", true).OrderBy(m => m.Sequence).Distinct().ToList();
 
             }
             set { }

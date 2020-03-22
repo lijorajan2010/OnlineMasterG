@@ -1,8 +1,237 @@
-﻿
+﻿@using OnlineMasterG.CommonFramework
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/PublicLayout.cshtml";
 }
+<section class="breadcrumb_area test_detail">
+    <img class="breadcrumb_shap" src="img/breadcrumb/banner_bg.png" alt="">
+    <div class="container">
+        <!--
+                        <div class="breadcrumb_content text-center">
+                            <h1 class="f_p f_700 f_size_50 w_color l_height50 mb_20">Staf Selection Commission</h1>
+                            <p class="f_400 w_color f_size_16 l_height26">Here you can prepare for your exam, below are all the mock tests available!!</p>
+                        </div>
+        -->
+    </div>
+</section>
+<section class="service_area sec_pad s_service_section breadcrumb_area typography_breacrumb" style="padding-top: 30px;">
+    <img class="breadcrumb_shap" alt="" src="img/breadcrumb/banner_bg.png">
+    <div class="container custom_container test_details">
+        <div class="row m_0">
+            <div class="col-lg-3 col-md-3 m_p0">
 
-<h2>Index</h2>
+                <ul class="nav nav-tabs software_service_tab" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link"><h5>Exam Updates</h5></a>
+                    </li>
+                    @{ 
 
+                        var dvId = string.Empty;
+                    }
+                    @if (AppInfo.GetExamSections != null)
+                    {
+                        foreach (var item in AppInfo.GetExamSections.Select((x, y) => new { Data = x, Index = y }))
+                        {
+                            if (item.Index == 0)
+                            {
+                                var btnId = "btn" + item.Index;
+                                dvId = "dvId" + item.Index;
+                                <li class="nav-item tab">
+                                    <button id="@btnId" class="tablinks nav-link active lstbtns" onclick="openSections(event, '@dvId')">@item.Data.SectionName</button>
+                                    @*<a class="nav-link active tab" href="#">@item.Data</a>*@
+                                </li>
+                            }
+                            else
+                            {
+                                var btnId = "btn" + item.Index;
+                                dvId = "dvId" + item.Index;
+                                <li class="nav-item tab">
+                                    <button id="@btnId" class="tablinks nav-link lstbtns" onclick="openSections(event, '@dvId')">@item.Data.SectionName</button>
+                                    @*<a class="nav-link tab" href="#">@item.Data</a>*@
+                                </li>
+                            }
+
+                        }
+                    }
+
+
+
+                </ul>
+                <br />
+                <br />
+                <br />
+            </div>
+
+
+            <div class="col-md-9 m_p0">
+
+
+                @if (AppInfo.GetExamSections != null)
+                {
+                    foreach (var sec in AppInfo.GetExamSections.Select((x, y) => new { Data = x, Index = y }))
+                    {
+                        var   divisionvId = "dvId" + sec.Index;
+                <div class="tab-content faq_content Cus_acc" id="myTabContent">
+                    <div class="tabcontent tab-pane fade show active " id="@divisionvId" role="tabpanel" aria-labelledby="purchas-tab">
+                        <div id="accordion">
+                            <div class="service_info">
+                                <div class="service_item  mb-0">
+
+                                    <div class="mb_10">
+                                        <div class="row m-0 border_b">
+                                            <div class="col-md-9 col-sm-9 col-9">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2">Exams</h4>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-3">
+                                                <h4 class="f_600 f_size_18 l_height28 t_color2">Updates</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @if (AppInfo.GetExamSectionLinks != null)
+                                    {
+                                        foreach (var item in AppInfo.GetExamSectionLinks.Where(m=>m.SectionId == sec.Data.SectionId).ToList())
+                                        {
+                                            <div class="mb_10">
+                                                <div class="row m-0 border_b">
+                                                    <div class="col-md-9 col-sm-9 col-9">
+                                                        <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">@item.LinkDescription</h4>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-3 col-3">
+                                                        <a href="@item.LinkName" target="_blank" class="btn_hover agency_banner_btn">View</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        }
+                                    }
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                    }
+                }
+
+                
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+</section>
+<style>
+    .nav-tabs {
+        border-bottom: 0px;
+    }
+
+    body {
+        font-family: Arial;
+    }
+
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        /*border: 1px solid #ccc;
+        background-color: #f1f1f1;*/
+    }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+                background-color: #ddd;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+                background-color: #ccc;
+            }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        /*border: 1px solid #ccc;*/
+        border-top: none;
+    }
+
+    .tabcontentSubjects {
+        display: none;
+        padding: 6px 12px;
+        /*border: 1px solid #ccc;*/
+        border-top: none;
+    }
+
+    .Section {
+        display: none;
+        padding: 6px 12px;
+        /*border: 1px solid #ccc;*/
+        border-top: none;
+    }
+</style>
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+        $("#btn0").click();
+        //$("#dvId0SubjectBtn0").click();
+        //$("#dvId0SubjectDivId0Id_ruby_tab0").click();
+
+    });
+
+    function openSections(evt, className) {
+        var i, tabcontent, tablinks;
+        debugger
+
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        //tabcontent = document.getElementsByClassName("tabcontentSubjects");
+        //for (i = 0; i < tabcontent.length; i++) {
+        //    tabcontent[i].style.display = "none";
+        //}
+        //tablinks = document.getElementsByClassName("tablinksSubject");
+        //for (i = 0; i < tablinks.length; i++) {
+        //    tablinks[i].className = tablinks[i].className.replace(" agency_banner_btn", " btn_get");
+        //}
+
+
+        document.getElementById(className).style.display = "block";
+        evt.target.className += " active";
+
+        //var divId = "#" + className;
+        //var firstbuttonId = "#" + $("" + divId + " >").find('button')[0]?.id;
+
+        //$(firstbuttonId).click();
+
+    }
+
+
+</script>

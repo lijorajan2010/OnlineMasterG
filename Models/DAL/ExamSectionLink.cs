@@ -24,6 +24,7 @@ namespace OnlineMasterG.Models.DAL
         public string EditBy { get; set; }
         public Nullable<System.DateTime> EditOn { get; set; }
         public Nullable<int> SectionId { get; set; }
+        public string LinkDescription { get; set; }
     
         public virtual ExamSection ExamSection { get; set; }
     }
