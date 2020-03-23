@@ -1,6 +1,1301 @@
-﻿
+﻿@using OnlineMasterG.CommonFramework
 @{
     ViewBag.Title = "Index";
     Layout = null;
 }
-<h1>Under Construction</h1>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="~/img/favicon.png" type="image/x-icon">
+    <title>Online Master JI</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/vendors/bootstrap-selector/css/bootstrap-select.min.css">
+    <!--icon font css-->
+    <link rel="stylesheet" href="~/vendors/themify-icon/themify-icons.css">
+    <link rel="stylesheet" href="~/vendors/flaticon/flaticon.css">
+    <link rel="stylesheet" href="~/vendors/animation/animate.css">
+    <link rel="stylesheet" href="~/vendors/owl-carousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/vendors/magnify-pop/magnific-popup.css">
+    <link rel="stylesheet" href="~/vendors/nice-select/nice-select.css">
+    <link rel="stylesheet" href="~/vendors/elagent/style.css">
+    <link rel="stylesheet" href="~/vendors/scroll/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <style>
+        section.service_area.sec_pad.s_service_section.breadcrumb_area.typography_breacrumb {
+            padding: 40px 0px 75px;
+        }
+
+        @@media (max-width: 1550px) {
+            .service_item {
+                padding: 10px 30px;
+            }
+        }
+
+        .pay_btn.pay_btn_two {
+            margin-left: 0;
+        }
+
+        .navbar-brand {
+            margin-left: 0;
+        }
+
+        section.service_area.sec_pad.s_service_section.breadcrumb_area.typography_breacrumb {
+            padding: 16px 0px 75px;
+        }
+
+        p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .instructionHead {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .instructionFoot {
+            border-top: 1px solid #ddd;
+            padding-top: 9px;
+        }
+
+        .modal-backdrop {
+            display: none;
+        }
+
+        .modal-header {
+            display: block;
+        }
+
+        .modal-open .modal {
+            background: rgba(0, 0, 0, 0.72);
+        }
+
+        .typography_breacrumb p, .containerCheck {
+            color: #000;
+            font-weight: 400;
+            font-size: 15px;
+        }
+
+        .dropdown-menu {
+            border: none;
+            border-bottom: 1px solid #ddd;
+            padding: 0;
+        }
+
+        @@media(max-width:768px) {
+            .nav-tabs .nav-link {
+                font-size: 12px;
+            }
+
+            .dropdown-menu {
+                display: none
+            }
+        }
+
+        @@media(min-width:768px) {
+            .hidden-md, .hidden-lg {
+                display: none;
+            }
+
+            .dropdown-menu {
+                position: relative;
+                display: block;
+                float: none;
+                width: 100%;
+            }
+
+            li.nav-item {
+                display: inline-block;
+            }
+
+            #question, .hide_questions {
+                display: none
+            }
+
+            #SearchParameters {
+                display: block;
+            }
+
+            .visible-xs {
+                display: none;
+            }
+            <!-- #myTab2 .nav-tabs .nav-item {
+                display: inline-block;
+            }
+            --> <!-- -->
+        }
+
+        .read {
+            color: #000 !important;
+        }
+
+            .read::after {
+                display: inline-block;
+                width: 0;
+                height: 0;
+                margin-left: .255em;
+                vertical-align: .255em;
+                content: "";
+                border-top: .3em solid;
+                border-right: .3em solid transparent;
+                border-bottom: 0;
+                border-left: .3em solid transparent;
+            }
+
+        .instructionFoot {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #fff;
+        }
+
+        .test_response .fix_height {
+            // max-height: inherit;
+            height: calc(75vh - 50px);
+        }
+
+        @@media (max-width: 768px) {
+            .test_response .fix_height {
+                height: calc(75vh - 90px);
+            }
+        }
+
+        //.test_response {
+            margin-bottom: 50px;
+        }
+
+        @@media(max-width:768px) {
+            .test_page .max_h420 {
+                max-height: inherit;
+            }
+
+            .read {
+                display: block
+            }
+
+            .choose_question {
+                display: none;
+                position: fixed;
+                top: 0;
+                background: #fff;
+                z-index: 9;
+                left: 0;
+                bottom: 0;
+                transition: all ease 0.2s;
+                padding: 10px 0px 0px 0;
+            }
+
+            span.hide_questions {
+                position: absolute;
+                top: 6px;
+                right: 10px;
+                font-family: monospace;
+                font-size: 11px;
+                background: gray;
+                color: #fff;
+                padding: 5px;
+                border-radius: 50%;
+                line-height: 11px;
+                width: 21px;
+                height: 22px;
+                text-align: center;
+                font-weight: bold;
+            }
+        }
+
+        #SearchParameters.in,
+        #SearchParameters.collapsing {
+            display: block !important;
+        }
+
+        .small_fonts .h6, .small_fonts h6, .small_fonts p, .small_fonts a, .small_fonts ul li, .small_fonts label, .small_fonts span, .small_fonts select {
+            font-size: 14px !important;
+        }
+
+        //.overflow_auto p {
+            margin-bottom: 0 !important;
+        }
+
+        .language {
+            font-size: 13px;
+        }
+
+        .navbar-brand {
+            margin: 0;
+            padding: 5px 0px;
+        }
+
+        .shop_page_number li span {
+            font-size: 12px !important;
+        }
+
+        ul.list-unstyled.payment_list {
+            padding-left: 15px;
+        }
+
+        .body_wrapper {
+            background: #fff;
+        }
+
+        .full_screen_btn, .close_full_screen {
+            color: #ffffff;
+            border: solid #fff 1px;
+            padding: 7px 5px 6px 5px;
+            margin-top: 6px;
+            color: #fff !important;
+        }
+
+        .agency_banner_btn {
+            font: 400 12px "inherit", sans-serif;
+        }
+
+        .font_18 {
+            font-size: 18px;
+        }
+
+        @@media (max-width: 768px) {
+            .small_fonts .h6, .small_fonts h6, .small_fonts p, .small_fonts a, .small_fonts ul li, .small_fonts label, .small_fonts span, .small_fonts select, .btn {
+                font-size: 14px !important;
+            }
+
+            .shop_page_number li span {
+                margin-right: 20px;
+            }
+
+            .container_test .agency_banner_btn {
+                padding: 7px 7px;
+                margin-left: 0;
+            }
+
+            .containerCheck input:checked:parent li {
+                padding: 15px 10px;
+                line-height: 2px;
+                margin-bottom: 15px;
+                background: blue;
+            }
+
+            .responsive_modal div, .responsive_modal ul, .responsive_modal ul li {
+                padding-left: 0;
+                padding-right: 0;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .m_p0 {
+                padding: 0;
+            }
+
+            .report_responsive {
+                position: absolute;
+                top: -38px;
+                color: #007bff;
+                background: transparent;
+                border: none;
+                right: -188px;
+            }
+
+            .m_p0 {
+                padding: 0;
+            }
+        }
+
+        @@media (min-width: 768px) {
+            .test_response .col-md-9 {
+                padding-right: 0;
+                -ms-flex: 0 0 84%;
+                flex: 0 0 84%;
+                max-width: 84%;
+            }
+
+            .test_response .col-md-3 {
+                -ms-flex: 0 0 16%;
+                padding: 0;
+                flex: 0 0 16%;
+                max-width: 16%;
+            }
+        }
+
+        @@media (max-width: 768px) {
+            #mytest .table thead th, #mytest .table tbody td {
+                white-space: nowrap;
+            }
+        }
+    </style>
+    <style>
+        .nav-tabs {
+            border-bottom: 0px;
+        }
+
+        body {
+            font-family: Arial;
+        }
+
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            /*border: 1px solid #ccc;
+        background-color: #f1f1f1;*/
+        }
+
+            /* Style the buttons inside the tab */
+            .tab button {
+                background-color: inherit;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 14px 16px;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+
+                /* Change background color of buttons on hover */
+                .tab button:hover {
+                    background-color: #ddd;
+                }
+
+                /* Create an active/current tablink class */
+                .tab button.active {
+                    background-color: #ccc;
+                }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            /*border: 1px solid #ccc;*/
+            border-top: none;
+        }
+        /* Style the tab content */
+        .tabcontentQuestions {
+            display: none;
+            padding: 6px 12px;
+            /*border: 1px solid #ccc;*/
+            border-top: none;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function startCountdown(timeLeft) {
+            var interval = setInterval(countdown, 1000);
+            update();
+
+            function countdown() {
+                if (--timeLeft > 0) {
+                    update();
+                } else {
+                    clearInterval(interval);
+                    update();
+                    completed();
+                }
+            }
+
+            function update() {
+                hours = Math.floor(timeLeft / 3600);
+                minutes = Math.floor((timeLeft % 3600) / 60);
+                seconds = timeLeft % 60;
+
+                document.getElementById('time-left').innerHTML = '' + hours + ':' + minutes + ':' + seconds;
+            }
+
+            function completed() {
+                // Do whatever you need to do when the timer runs out...
+            }
+        }
+    </script>
+
+
+</head>
+
+<body onload="startCountdown('@ViewBag.ExamTimeInSeconds');">
+
+    <div class="body_wrapper small_fonts" id="mytest">
+
+        <header class="breadcrumb_area p-0">
+            <img class="breadcrumb_shap" src="~/img/breadcrumb/banner_bg.png" alt="">
+            <nav class="navbar navbar-expand-lg menu_one menu_four">
+                <div class="container-fluid">
+
+                    <a class="navbar-brand col-md-2 hidden-xs" href="@Url.Action("Index","Home")"><img src="~/img/WhiteLogo.png" alt="logo"></a>
+
+                    <div class="col-md-2 breadcrumb_content hidden-xs">
+                        <span class="w_color f_600">@ViewBag.TestName</span>
+                        <!-- <h1 class="f_p f_700 f_size_30 w_color l_height50">SSC CGL</h1> -->
+                    </div>
+
+                    <div class="col-md-2 col-xs-6 breadcrumb_content text-center">
+                        <div class="w_color f_700 ">Time Left: <span id="time-left"></span></div>
+
+                        <!-- <h1 class="f_p f_700 f_size_30 w_color l_height50">SSC CGL</h1> -->
+                    </div>
+                    <div class="col-md-2 hidden-xs text-center">
+                        <a class="btn_hover agency_banner_btn full_screen_btn" href="javascript:void();" onclick="openFullscreen();" style="">Full Screen</a>
+                        <a class="btn_hover agency_banner_btn close_full_screen" href="javascript:void();" onclick="closeFullscreen();" style="display: none;">Exit Full Screen</a>
+                    </div>
+
+
+                    <div class="col-md-2 col-xs-6 text-right">
+                        <div style="display:none" class="">
+
+                            <span>Select Language </span>
+                            <select id="LanguageCode">
+                                <option value="">Select Language</option>
+                                <option value="en-US" selected="selected">English</option>
+                                <option value="hi-HIN">Hindi</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-center hidden-xs">
+                        @{
+                            var ActiveUser = AppInfo.ActiveUser;
+                            var ImgId = ActiveUser != null && ActiveUser.LogoDataFileId != null ? ActiveUser.LogoDataFileId.Value.ToString() : "0";
+                        }
+
+                        <img class="student_img" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(ImgId)})' alt="" width="50">
+                        <span>@ActiveUser.Email</span>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+
+        <section class="service_area sec_pad s_service_section breadcrumb_area typography_breacrumb test_page" style="background:#fff;padding-bottom:0;padding-top:10px;">
+            <div class="container-fluid container_test">
+
+                <div class="service_info">
+
+
+                    <div class="row mb_15 test_response">
+                        <div class="col-md-9">
+                            <div class="row m0">
+
+                                <div class="">
+                                    <div class="dropdown">
+                                        @{
+                                            var TestId = ViewBag.TestId;
+                                        }
+
+                                        @*<button class="btn btn-primary dropdown-toggle hidden-md hidden-lg" type="button" data-toggle="dropdown" id="navText" style="float: left;border-radius: 0;width: 50%;">
+                                                Reasoning Ability
+                                                <span class="caret"></span>
+                                            </button>
+                                            <button class="btn btn-info hidden-md hidden-lg" id="question" style="border-radius: 0;width: 50%;background: #007bff;border: 1px solid #007bff;border-left: 1px solid #fff;">Questions</button>*@
+
+                                        <div class="mb_15 hidden-md hidden-lg"> </div>
+
+                                        <ul class="nav nav-tabs dropdown-menu develor_tab mb_15" id="myTab2" role="tablist">
+                                            @if (AppInfo.GetSubjects != null && AppInfo.GetSubjects.Count() > 0)
+                                            {
+                                                var Subjects = AppInfo.GetSubjects.Where(m => m.TestId == TestId).ToList();
+                                                foreach (var item in Subjects.Select((x, y) => new { Data = x, Index = y }))
+                                                {
+                                                    var divSubjectId = "divSubjectId" + item.Index;
+                                                    var idTab = "Btn" + item.Index;
+                                                    if (item.Index == 0)
+                                                    {
+                                                        <li class="nav-item">
+                                                            <button id="@idTab" class="tablinks nav-link active" onclick="openSubject(event, '@divSubjectId')">@item.Data.SubjectName</button>
+
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <li class="nav-item">
+                                                            <button id="@idTab" class="tablinks nav-link" onclick="openSubject(event, '@divSubjectId')">@item.Data.SubjectName</button>
+
+                                                        </li>
+                                                    }
+
+                                                }
+                                            }
+
+
+                                        </ul>
+                                        <div class="tab-content developer_tab_content">
+
+                                            @if (AppInfo.GetSubjects != null && AppInfo.GetSubjects.Count() > 0)
+                                            {
+                                                var Subjects = AppInfo.GetSubjects.Where(m => m.TestId == TestId).ToList();
+                                                foreach (var item in Subjects.Select((x, y) => new { Data = x, Index = y }))
+                                                {
+                                                    var divSubjectId = "divSubjectId" + item.Index;
+
+                                                    <div class="tabcontent" id="@divSubjectId">
+
+                                                        @if (AppInfo.GetQuestionsMockTests != null && AppInfo.GetQuestionsMockTests.Count() > 0)
+                                                        {
+                                                            var QuestionBasedOnTestAndSubjects = AppInfo.GetQuestionsMockTests.Where(m => m.QuestionUpload?.TestId == TestId && m.QuestionUpload?.SubjectId == item.Data.SubjectId).ToList();
+                                                            foreach (var Q in QuestionBasedOnTestAndSubjects.OrderBy(m => m.QuestionNumber).Select((x, y) => new { Data = x, Index = y }))
+                                                            {
+                                                                var classActive = string.Empty;
+                                                                var QuestionDiv = "QuestionDiv" + item.Index;
+                                                                if (Q.Index == 0)
+                                                                {
+                                                                    classActive = "active";
+                                                                }
+
+                                                                <div class="tabcontentQuestions tab-pane fade @classActive show" id="@QuestionDiv" role="tabpanel" aria-labelledby="ruby-tab">
+                                                                    <h6 class="mb_15">
+                                                                        <span class="f_500">
+                                                                            Directions (1-8): Read the following passage and answer the questions that follow it.<span class="hidden-xs hidden-sm">
+                                                                                Some words are highlighted to help you to answer some of the questions.
+                                                                            </span>
+                                                                        </span>
+                                                                    </h6>
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-6 fix_height overflow_auto SearchParameters collapse" id="SearchParameters">
+                                                                            <p class="text-justify" style="word-wrap: break-word;">
+                                                                                @Q.Data.Description
+                                                                                @*Today, on Universal Health Coverage (UHC) Day, I wonder how many readers are aware of what UHC is. According to the World Health Organisation, UHC means “ensuring that everyone, everywhere can access essential quality health services without facing financial hardship”. It sounds basic, yet the basics often pose a major challenge. Japan has been leading the international efforts towards UHC, including its inclusion in the sustainable development goals and G20 agenda under our chairmanship next year, because health is one of our fundamental rights.
+                                                                                    India has taken the vital first step towards UHC through Ayushman Bharat. This challenge is reminiscent of the path that Japan took more than half a century ago. Japan created national health insurance coverage in 1961, when it was yet to take off economically. A major political decision was required to expand national health insurance and establish medical schools all over Japan. The implementation of UHC could only have been possible through an early and vast national investment, and through a comprehensive government effort, with the Ministries of Health, Finance and Education, as well as local governments, working together.
+                                                                                    This investment has paid off. UHC has increased the number of healthy people and healthy workers in Japan. It has contributed to the economic miracle of Japan. Moreover, UHC has ensured social equity by functioning as a mechanism for redistribution of incomes. Even in the remotest of places in Japan, you do not have to worry about healthcare. The peace of mind which UHC ensures to the Japanese is an indispensable ingredient of our overall well-being.
+                                                                                    We are also partnering with India in wide-ranging projects for better healthcare. Japan has previously worked with India to eradicate polio in India. Today, Japanese and Indian doctors are exchanging ideas and expertise at a research and control centre on diarrhoea established by Japan in Kolkata, and precious lives of newborns are being saved daily in a children’s hospital constructed in Chennai. In 17 cities across Tamil Nadu, urban healthcare systems are being strengthened with our cooperation.
+                                                                                    When Prime Minister Narendra Modi visited Japan at the end of October, India and Japan signed a new Memorandum of Cooperation on healthcare to pursue the synergies between Ayushman Bharat and Japan’s Asia Health and Wellbeing Initiative. We aim to pursue our cooperation in various fields, such as honing skills of doctors in surgery of trauma as well as providing technical training for Indian nurses studying in Japanese caregiving facilities. We hope these efforts will lead to a better health ecosystem and the promotion of UHC in India. Japan is also willing to learn from India. For instance, Ayurveda can bring a new dimension to Japan’s healthcare system. The path towards UHC is not short. But India has taken the first bold step, and Japan will march along with India on this path, sharing its lessons, as a friend.*@
+                                                                            </p>
+                                                                        </div>
+
+                                                                        <div class="col-md-6 fix_height overflow_auto">
+                                                                            <div>
+                                                                                <h6 class="f_size_15 f_500 ml_30">
+                                                                                    <span class="qSpan">Q.@Q.Data.QuestionNumber</span>
+                                                                                    @Q.Data.Question ?
+                                                                                </h6>
+                                                                                @if (Q.Data.QuestionPoints != null && Q.Data.QuestionPoints.Count() > 0)
+                                                                                {
+                                                                                    foreach (var QP in Q.Data.QuestionPoints.Select((x, y) => new { Data = x, Index = y }))
+                                                                                    {
+                                                                                        <p>(@(QP.Index + 1)) @QP.Data.QPoint .</p>
+                                                                                    }
+                                                                                }
+
+                                                                                <ul class="list-unstyled payment_list">
+                                                                                    @if (Q.Data.QuestionAnswerChoices != null && Q.Data.QuestionAnswerChoices.Count() > 0)
+                                                                                    {
+                                                                                        foreach (var QA in Q.Data.QuestionAnswerChoices)
+                                                                                        {
+                                                                                            <li>
+                                                                                                <label class="containerCheck">
+                                                                                                    @QA.QuestionAnswer
+                                                                                                    <input type="radio" name="radio">
+                                                                                                    <span class="checkmark"></span>
+                                                                                                </label>
+                                                                                            </li>
+                                                                                        }
+                                                                                    }
+                                                                                </ul>
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            }
+
+
+                                                        }
+
+                                                    </div>
+
+                                                }
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3 choose_question">
+                            <div class="border_l">
+                                <ul class="list-unstyled page-numbers shop_page_number text-left border_b col-md-12">
+
+                                    <li class="mb_20"><a class="page-numbers answered" href="#"> </a> <span>Answered </span></li>
+                                    <li class="mb_20"><a class="page-numbers not_answered" href="#"> </a><span>Not Answered</span></li>
+                                    <li class="mb_20"><a class="page-numbers not_visited" href="#"> </a><span>Not Visited</span></li>
+                                    <li class="mb_20"><a class="page-numbers marked_review" href="#"> </a><span>Marked</span></li>
+
+                                </ul>
+                                <div class="">
+                                    <div>
+                                        <h6 class="text-center l_height40 mb-0" style="    font-size: 14px; line-height: inherit;">
+                                            Choose a Question
+                                        </h6>
+                                        <span class="hide_questions">X</span>
+                                    </div>
+                                    <ul class="question_list list-unstyled page-numbers shop_page_number text-left ml-0 pt_20 border_t pl_15">
+
+                                        @if (AppInfo.GetSubjects != null && AppInfo.GetSubjects.Count() > 0)
+                                        {
+                                            var Subjects = AppInfo.GetSubjects.Where(m => m.TestId == TestId).ToList();
+                                            foreach (var item in Subjects.Select((x, y) => new { Data = x, Index = y }))
+                                            {
+                                                var divSubjectId = "divSubjectId" + item.Index;
+
+                                                if (AppInfo.GetQuestionsMockTests != null && AppInfo.GetQuestionsMockTests.Count() > 0)
+                                                {
+                                                    var QuestionBasedOnTestAndSubjects = AppInfo.GetQuestionsMockTests.Where(m => m.QuestionUpload?.TestId == TestId && m.QuestionUpload?.SubjectId == item.Data.SubjectId).ToList();
+                                                    foreach (var Q in QuestionBasedOnTestAndSubjects.OrderBy(m => m.QuestionNumber).Select((x, y) => new { Data = x, Index = y }))
+                                                    {
+                                                        var classnot_answered = "not_visited";
+                                                        var QuestionDiv = "QuestionDiv" + item.Index;
+                                                        var QBtn = "QBtn" + item.Index;
+                                                        if (Q.Index == 0)
+                                                        {
+                                                            classnot_answered = "not_visited";
+
+                                                            <li>
+                                                                <button id="@QBtn" class="tablinksQuestions page-numbers  @classnot_answered" onclick="openQuestion(event, '@QuestionDiv')">@Q.Data.QuestionNumber</button>
+                                                            </li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li>
+                                                                <button id="@QBtn" class="tablinksQuestions page-numbers  @classnot_answered" onclick="openQuestion(event, '@QuestionDiv')">@Q.Data.QuestionNumber</button>
+                                                            </li>
+
+                                                        }
+
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                    </ul>
+
+                                </div>
+                                <div class="hidden-md hidden-lg">
+                                    <a href="#" class="btn_hover agency_banner_btn" data-toggle="modal" data-target="#instructionModal">Instructions</a>
+                                    <!-- <a href="#" class="btn_hover agency_banner_btn btn_clear" data-toggle="modal" data-target="#reportModal">Report</a> -->
+                                    <!-- <a href="#" class="btn_hover agency_banner_btn answered hidden-xs"> Prev</a> -->
+                                    <a href="#" class="btn_hover agency_banner_btn report " data-toggle="modal" data-target="#pauseModal1">Pause</a>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="instructionFoot row">
+                        <div class="col-md-6 col-5">
+
+                            <a href="#" class="btn_hover agency_banner_btn hidden-xs" data-toggle="modal" data-target="#instructionModal">Instructions</a>
+                            <a href="#" class="btn_hover agency_banner_btn  btn_clear report_responsive" data-toggle="modal" data-target="#reportModal">Report</a>
+
+                            <a href="#" class="btn_hover agency_banner_btn marked_review">Mark</a>
+                            <a href="#" class="btn_hover agency_banner_btn report">Clear</a>
+                        </div>
+                        <div class="col-md-6 col-7 text-right">
+
+                            <a href="#" class="btn_hover agency_banner_btn answered hidden-xs"> Prev</a>
+                            <a href="#" class="btn_hover agency_banner_btn answered">Save &amp; Next</a>
+                            <a href="#" class="btn_hover agency_banner_btn report hidden-xs" data-toggle="modal" data-target="#pauseModal1">Pause</a>
+                            <a href="#" class="btn_hover agency_banner_btn answered" data-toggle="modal" data-target="#finishModal">Finish</a>
+
+                        </div>
+                    </div>
+                    <!--
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+                    <!-- Modal -->
+                    <div class="modal fade" id="instructionModal" role="dialog" backdrop="static">
+                        <div class="modal-dialog modal-lg">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <!--  <div class="modal-header">
+
+                                  <h4 class="modal-title text-center">Instructions</h4>
+                                </div> -->
+                                <div class="modal-body">
+
+                                    <div class="container custom_container p0">
+
+                                        <div class="service_info">
+                                            <div class="row instructionHead mb_15">
+                                                <div class="col-md-3"></div>
+                                                <div class="col-md-6 sec_title text-center">
+                                                    <h2 class="f_p f_size_20 f_500 t_color2 mb-0">Instructions</h2>
+                                                    <p class="f_400 f_size_12 l_height30">Please Read all the Instructions Carefully.</p>
+                                                </div>
+                                                <div class="col-md-3 language text-right">
+                                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 mb-30">
+                                                <div class="">
+                                                    <!-- <div class="icon s_icon_one"><i class="ti-check"></i></div> -->
+                                                    <h4 class="f_400 f_size_15 l_height28 t_color2 mb-0">General Instructions</h4>
+                                                    <ul>
+                                                        <li>Total durtion of examination is 45 minutes.</li>
+                                                        <li>The clock will be set at the server.</li>
+                                                        <li>
+                                                            The Question Palette displayedon the right side of screen will show the..
+                                                            <ul>
+                                                                <li>You have not visited the question yet.</li>
+                                                                <li>You have answered the question.</li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                    <h4 class="f_400 f_size_15 l_height28 t_color2 mb-0">Navigating to a Question</h4>
+                                                    <ul>
+
+                                                        <li>
+                                                            To answer a question do the following.
+                                                            <ul>
+                                                                <li>Click on the question.</li>
+                                                                <li>Click on the question.</li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+
+
+
+                                                    <h4 class="f_400 f_size_15 l_height28 t_color2 mb-0">Answer a Question</h4>
+                                                    <ul>
+
+                                                        <li>
+                                                            Procedure for answering a multiple choice type question
+                                                            <ul>
+                                                                <li>Click on the question.</li>
+                                                                <li>Click on the question.</li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+
+
+                                                    <!--  <img class="float-right" src="img/home2/undraw.png" alt=""> -->
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                                <!--  <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div> -->
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="reportModal" role="dialog" backdrop="static">
+                        <div class="modal-dialog modal-sm">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <!--  <div class="modal-header">
+
+                                  <h4 class="modal-title text-center">Instructions</h4>
+                                </div> -->
+                                <div class="modal-body">
+
+                                    <div class="container custom_container p0">
+
+                                        <div class="service_info">
+                                            <div class="row instructionHead mb_15">
+
+                                                <div class="col-md-9 col-10 sec_title text-center">
+                                                    <h2 class="f_p font_18 f_500 t_color2 mb-10">Problem in Question</h2>
+                                                </div>
+                                                <div class="col-md-3 col-2 language text-right">
+                                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <div class="">
+                                                    <!-- <div class="icon s_icon_one"><i class="ti-check"></i></div> -->
+                                                    <h4 class="f_400 f_size_15 l_height28 t_color2 mb-0">Report Question</h4>
+                                                    <ul class="list-unstyled payment_list p-0 m-0">
+
+
+                                                        <li>
+                                                            <label class="">
+                                                                <input type="checkbox" name="problem">
+                                                                Spelling Mistake
+
+                                                            </label>
+                                                        </li>
+
+                                                        <li>
+                                                            <label class="">
+                                                                <input type="checkbox" name="problem">
+                                                                Graph/Image Not Visible
+
+                                                            </label>
+                                                        </li>
+
+                                                        <li>
+                                                            <label class="">
+                                                                <input type="checkbox" name="problem">
+                                                                Incomplete Question/Error in Question
+
+                                                            </label>
+                                                        </li>
+
+                                                        <li>
+                                                            <label class="">
+                                                                <input type="checkbox" name="problem">
+                                                                Direction not available
+
+                                                            </label>
+                                                        </li>
+
+                                                        <li>
+                                                            <label class="">
+                                                                <input type="checkbox" name="problem">
+                                                                Incorrect Answer/Solution
+
+                                                            </label>
+                                                        </li>
+
+                                                        <li>
+                                                            <label class="">
+                                                                <input type="checkbox" name="problem">
+                                                                No Solution
+
+                                                            </label>
+                                                        </li>
+
+                                                        <li>
+                                                            <label class="">
+                                                                <input class="issue" type="checkbox" name="problem" onclick="issues()">
+                                                                Other Issues
+
+                                                            </label>
+                                                            <textarea type="text" class="form-control" id="issuebox" style="display:none;"></textarea>
+                                                        </li>
+
+
+                                                    </ul>
+
+                                                    <!--  <img class="float-right" src="img/home2/undraw.png" alt=""> -->
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="border_t pt_10 pb_10">
+                                            <a href="#" class="btn_hover agency_banner_btn">Submit</a>
+                                            <!--          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="modal fade" id="finishModal" role="dialog" backdrop="static">
+                        <div class="modal-dialog modal-lg">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <!--  <div class="modal-header">
+
+                                  <h4 class="modal-title text-center">Instructions</h4>
+                                </div> -->
+                                <div class="modal-body responsive_modal">
+
+                                    <div class="container custom_container p0 m_p0">
+
+                                        <div class="service_info">
+                                            <div class="row instructionHead mb_15">
+                                                <div class="col-md-12 sec_title text-center">
+                                                    <h2 class="f_p f_size_20 f_500 t_color2 mb-10">Remaining Time : <span class="answered">00:00:15</span> </h2>
+                                                </div>
+                                                <!--
+                                                                        <div class="col-md-3 language text-right">
+                                                                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                            </div>
+                                                -->
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Section</th>
+                                                                <th>No. of questions</th>
+                                                                <th>Answered</th>
+                                                                <th>Not Answered</th>
+                                                                <th>Marked for Review</th>
+                                                                <th>Not Visited</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>English</td>
+                                                                <td>30</td>
+                                                                <td>8</td>
+                                                                <td>9</td>
+                                                                <td>7</td>
+                                                                <td>13</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Reasoning Ability</td>
+                                                                <td>35</td>
+                                                                <td>0</td>
+                                                                <td>0</td>
+                                                                <td>5</td>
+                                                                <td>15</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Numerical Aptitude</td>
+                                                                <td>35</td>
+                                                                <td>8</td>
+                                                                <td>9</td>
+                                                                <td>7</td>
+                                                                <td>13</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                    <!-- <div class="icon s_icon_one"><i class="ti-check"></i></div> -->
+                                                    <!--                            <h4 class="f_400 f_size_15 l_height28 t_color2 mb-0">Report Question</h4>-->
+                                                    <!-- 	<ul class="row question_list list-unstyled page-numbers shop_page_number text-left ml-0 pt_20 pl_15">
+
+                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers answered" href="#">05 </a> <span>Answered </span></li>
+                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers not_answered" href="#">08 </a>Not Answered</li>
+                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers not_visited" href="#">15   </a>Not Visited</li>
+                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers marked_review" href="#"> 05</a>Marked for Review</li>
+
+                                                    </ul> -->
+                                                    <!--  <img class="float-right" src="img/home2/undraw.png" alt=""> -->
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                                <div class="row border_t pt_10 pb_10 m-0">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-xs-6 text-center">
+                                                <a data-dismiss="modal" class="btn_hover agency_banner_btn answered">Resume</a>
+                                            </div>
+
+                                            <div class="col-md-6 col-xs-6 text-center">
+                                                <a href="reportcard.html" class="btn_hover agency_banner_btn m-0">Submit</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <!--          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="modal fade" id="pauseModal1" role="dialog" backdrop="static">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <!--  <div class="modal-header">
+
+                                  <h4 class="modal-title text-center">Instructions</h4>
+                                </div> -->
+                                <div class="modal-body">
+
+                                    <div class="container custom_container p0">
+
+                                        <div class="service_info">
+                                            <div class="row instructionHead mb_15">
+                                                <div class="col-md-12 sec_title text-center pb_10">
+                                                    <h2 class="f_p f_size_20 f_500 t_color2 mb-10">Are you sure you want to pause the test? </h2>
+                                                </div>
+                                                <!--
+                                                                        <div class="col-md-3 language text-right">
+                                                                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                            </div>
+                                                -->
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-xs-6 text-center">
+                                            <a href="#" class="btn_hover agency_banner_btn answered m-0" data-dismiss="modal">No</a>
+                                        </div>
+
+                                        <div class="col-md-6 col-xs-6 text-center">
+                                            <a href="#" class="btn_hover agency_banner_btn m-0" data-toggle="modal" data-target="#pauseModal2">Yes</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="pauseModal2" role="dialog" backdrop="static">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <!--  <div class="modal-header">
+
+                                  <h4 class="modal-title text-center">Instructions</h4>
+                                </div> -->
+                                <div class="modal-body">
+
+                                    <div class="container custom_container m_p0">
+
+                                        <div class="service_info">
+                                            <!--
+                                                                <div class="row instructionHead mb_15">
+                                                                    <div class="col-md-12 sec_title text-center">
+                                                                        <h2 class="f_p f_size_20 f_500 t_color2 mb-10">Remaining Time : <span class="answered">00:00:15</span> </h2>
+                                                                    </div>
+
+                                                                </div>
+                                            -->
+                                            <div class="col-lg-12 m_p0">
+                                                <div class="">
+                                                    <!-- <div class="icon s_icon_one"><i class="ti-check"></i></div> -->
+                                                    <!--                            <h4 class="f_400 f_size_15 l_height28 t_color2 mb-0">Report Question</h4>-->
+
+                                                    <table class="table-bordered">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Section</th>
+                                                                <th>No. of Questions </th>
+                                                                <th>Answered</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>English</td>
+                                                                <td>30</td>
+                                                                <td>15</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Reasoning Ability</td>
+                                                                <td>30</td>
+                                                                <td>25</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Numeric Ability</td>
+                                                                <td>30</td>
+                                                                <td>30</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+
+
+                                                    <!--  <img class="float-right" src="img/home2/undraw.png" alt=""> -->
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                                <div class="row pt_10 pb_10 m-0">
+                                    <div class="col-md-12">
+                                        <div class="row m-0">
+                                            <div class="col-md-6 col-6">
+                                                <a href="#" class="btn_hover agency_banner_btn answered m-0">Resume</a>
+                                            </div>
+
+                                            <div class="col-md-6 col-6 text-right">
+                                                <a href="mock-test.html" class="btn_hover agency_banner_btn m-0">Tests</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <!--          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="~/js/jquery-3.2.1.min.js"></script>
+        <script src="~/js/propper.js"></script>
+        <script src="~/js/bootstrap.min.js"></script>
+        <script src="~/vendors/wow/wow.min.js"></script>
+        <script src="~/vendors/sckroller/jquery.parallax-scroll.js"></script>
+        <script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
+        <script src="~/vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
+        <script src="~/vendors/isotope/isotope-min.js"></script>
+        <script src="~/vendors/magnify-pop/jquery.magnific-popup.min.js"></script>
+        <script src="~/vendors/bootstrap-selector/js/bootstrap-select.min.js"></script>
+        <script src="~/vendors/nice-select/jquery.nice-select.min.js"></script>
+        <script src="~/vendors/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="~/js/plugins.js"></script>
+        <script src="~/js/main.js"></script>
+        <script>
+
+            $(".nav-item").click(function () {
+                var liText = $(this).text();
+                $("#navText").text(liText);
+            });
+
+            $("#question").click(function () {
+                $(".choose_question").show();
+            });
+            $(".hide_questions").click(function () {
+                $(".choose_question").hide();
+            });
+
+                                                                                                                                                                                < !--$(".nav-link.active.show")dropdown - menu-- >
+                                                                                                                                                                                < !--$("#myTab2")dropdown - menu-- >
+        </script>
+
+
+
+
+        <script>
+
+
+            function issues() {
+                if ($(".issue").prop("checked") == true) {
+                    $("#issuebox").show();
+                }
+                if ($(".issue").prop("checked") == false) {
+                    $("#issuebox").val("");
+                    $("#issuebox").hide();
+                }
+            }
+
+
+        var elem = document.documentElement;
+        function openFullscreen() {
+
+            if (elem.RequestFullScreen) {
+                elem.RequestFullScreen();
+            } else if (elem.mozRequestFullScreen) { /* Firefox */
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullScreen) { /* Chrome, Safari & Opera */
+                elem.webkitRequestFullScreen();
+            } else if (elem.msRequestFullScreen) { /* IE/Edge */
+                elem.msRequestFullscreen();
+            }
+            $(".full_screen_btn").hide();
+            $(".close_full_screen").show();
+        }
+
+        function closeFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+            $(".full_screen_btn").show();
+            $(".close_full_screen").hide();
+        }
+
+        //$("#pause_close").click(function(){
+        //		$("#pauseModal1").modal("hide");
+        //});
+        </script>
+
+        <script type="text/javascript">
+
+
+            $(document).ready(function () {
+
+                $("#btn0").click();
+                $("#dvId0SubjectBtn0").click();
+                $("#dvId0SubjectDivId0Id_ruby_tab0").click();
+
+            });
+
+            function openSubject(evt, className) {
+                var i, tabcontent, tablinks;
+
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+
+                //tabcontent = document.getElementsByClassName("tabcontentQuestions");
+                //for (i = 0; i < tabcontent.length; i++) {
+                //    tabcontent[i].style.display = "none";
+                //}
+                //tablinks = document.getElementsByClassName("tablinksQuestions");
+                //for (i = 0; i < tablinks.length; i++) {
+                //     tablinks[i].className = tablinks[i].className.replace(" active", "");
+                //}
+
+                document.getElementById(className).style.display = "block";
+                evt.target.className += " active";
+
+                var divId = "#" + className;
+                var firstbuttonId = "#" + $("" + divId + " >").find('button')[0]?.id;
+
+                $(firstbuttonId).click();
+
+            }
+
+            function openQuestion(evt, className) {
+
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontentQuestions");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinksQuestions");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+
+                document.getElementById(className).click();
+                document.getElementById(className).style.display = "block";
+                evt.target.className += " active";
+            }
+        </script>
+    </div>
+
+</body>
+</html>

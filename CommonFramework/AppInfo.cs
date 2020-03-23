@@ -72,6 +72,15 @@ namespace OnlineMasterG.CommonFramework
             }
 
         }
+
+        public static List<Subject> GetSubjects
+        {
+            get
+            {
+                return SubjectService.SubjectList("en-US", true).OrderBy(m => m.Sequence).Distinct().ToList();
+            }
+
+        }
         public static List<SchoolSection> GetSchoolSections
         {
             get
@@ -114,6 +123,17 @@ namespace OnlineMasterG.CommonFramework
             get
             {
                 return TestService.TestList("en-US", true).Distinct().ToList();
+
+            }
+            set { }
+
+        }
+
+        public static List<QuestionsMockTest> GetQuestionsMockTests
+        {
+            get
+            {
+                return QuestionUploadService.GetAllQuestions();
 
             }
             set { }

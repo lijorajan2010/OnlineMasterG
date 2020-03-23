@@ -4,15 +4,28 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using OnlineMasterG.Base;
+using OnlineMasterG.CommonServices;
 
 namespace OnlineMasterG.Controllers
 {
     public class ExaminationController : BaseController
     {
         // GET: Examination
-        public ActionResult Index()
+        public ActionResult Index(int TestId)
         {
-            return View();
+            var TestDetails = TestService.Fetch(TestId);
+            if (TestDetails!=null)
+            {
+                ViewBag.ExamTimeInSeconds = TestDetails.TimeInMinutes * 60;
+                ViewBag.TestName = TestDetails.TestName;
+                ViewBag.TestId = TestDetails.TestId;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+           
         }
     }
 }

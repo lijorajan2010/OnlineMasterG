@@ -59,14 +59,29 @@ namespace OnlineMasterG.CommonServices
                   .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
                   .ToList();
         }
+        public static List<MockTest> GetAllMockTests()
+        {
+            return DB.MockTests
+                  .Where(m => m.Isactive == true)
+                  .ToList();
+        }
         public static List<QuestionsMockTest> GetQuestionsBasedOnTestAndSubject(int? TestId, int? SubjectId)
         {
             return DB.QuestionsMockTests
-                  .Include(m=>m.QuestionUpload)
-                  .Where(m => m.Isactive == true 
-                           && m.QuestionUpload.QuestionStatus =="VAL"
+                  .Include(m => m.QuestionUpload)
+                  .Where(m => m.Isactive == true
+                           && m.QuestionUpload.QuestionStatus == "VAL"
                            && m.QuestionUpload.TestId == TestId
                            && m.QuestionUpload.SubjectId == SubjectId)
+                  .ToList();
+        }
+        public static List<QuestionsMockTest> GetAllQuestions()
+        {
+            return DB.QuestionsMockTests
+                  .Include(m => m.QuestionUpload)
+                  .Where(m => m.Isactive == true
+                           && m.QuestionUpload.QuestionStatus == "VAL"
+                      )
                   .ToList();
         }
         public static List<QuestionsMockTest> QuestionsMockTestList(int? QuestionUploadId)
@@ -75,6 +90,7 @@ namespace OnlineMasterG.CommonServices
                   .Where(m=>m.QuestionUploadId == QuestionUploadId)
                   .ToList();
         }
+     
         public static ServiceResponse DeleteQuestionUpload(int questionUploadId)
         {
             var sr = new ServiceResponse();
