@@ -87,6 +87,10 @@ namespace OnlineMasterG.DomainLogic
                         TestId = TestId,
                         SubjectId = item.SubjectId,
                         SubjectName = item.SubjectName,
+                        CourseName = item.Course?.CourseName,
+                        CategoryName = item.Category?.CategoryName,
+                        SectionName = item.Section?.SectionName,
+                        TestName = item.MockTest?.TestName,
                         QuestionCount = QuestionUploadService.GetQuestionsBasedOnTestAndSubject(item.TestId,item.SubjectId).Count(),
                         CorrectMarks = 1,
                         NegativeMarks = 0
@@ -131,11 +135,15 @@ namespace OnlineMasterG.DomainLogic
             {
                 foreach (var item in instructions)
                 {
+                    var TestDetails = TestService.Fetch(item.TestId);
                     genneralInstructionVMs.Add(new GenneralInstructionVM()
                     {
                         InstructionId = item.InstructionId,
                         TestId = item.TestId,
-                        TestName = TestService.Fetch(item.TestId)?.TestName,
+                        TestName = TestDetails?.TestName,
+                        CourseName = CourseService.Fetch(TestDetails?.CourseId)?.CourseName,
+                        CategoryName = CategoryService.Fetch(TestDetails?.CategoryId)?.CategoryName,
+                        SectionName = SectionService.Fetch(TestDetails?.SectionId)?.SectionName,
                         SubjectId = item.SubjectId,
                         SubjectName = SubjectService.Fetch(item.SubjectId)?.SubjectName,
                         QuestionCount = QuestionUploadService.GetQuestionsBasedOnTestAndSubject(item.TestId, item.SubjectId).Count(),

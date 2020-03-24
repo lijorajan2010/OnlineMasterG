@@ -498,7 +498,7 @@
                                                     if (item.Index == 0)
                                                     {
                                                         <li class="nav-item">
-                                                            <button id="@idTab" class="tablinks nav-link active" onclick="openSubject(event, '@divSubjectId')">@item.Data.SubjectName</button>
+                                                            <button id="@idTab" class="tablinks nav-link @divSubjectId active" onclick="openSubject(event, '@divSubjectId')">@item.Data.SubjectName</button>
 
                                                         </li>
                                                     }
@@ -506,7 +506,7 @@
                                                     {
 
                                                         <li class="nav-item">
-                                                            <button id="@idTab" class="tablinks nav-link" onclick="openSubject(event, '@divSubjectId')">@item.Data.SubjectName</button>
+                                                            <button id="@idTab" class="tablinks nav-link @divSubjectId" onclick="openSubject(event, '@divSubjectId')">@item.Data.SubjectName</button>
 
                                                         </li>
                                                     }
@@ -533,7 +533,7 @@
                                                             foreach (var Q in QuestionBasedOnTestAndSubjects.OrderBy(m => m.QuestionNumber).Select((x, y) => new { Data = x, Index = y }))
                                                             {
                                                                 var classActive = string.Empty;
-                                                                var QuestionDiv = "QuestionDiv" + item.Index;
+                                                                var QuestionDiv = divSubjectId + "QuestionDiv" + Q.Index;
                                                                 if (Q.Index == 0)
                                                                 {
                                                                     classActive = "active";
@@ -624,54 +624,55 @@
                                     <li class="mb_20"><a class="page-numbers marked_review" href="#"> </a><span>Marked</span></li>
 
                                 </ul>
-                                <div class="">
-                                    <div>
-                                        <h6 class="text-center l_height40 mb-0" style="    font-size: 14px; line-height: inherit;">
-                                            Choose a Question
-                                        </h6>
-                                        <span class="hide_questions">X</span>
-                                    </div>
-                                    <ul class="question_list list-unstyled page-numbers shop_page_number text-left ml-0 pt_20 border_t pl_15">
 
-                                        @if (AppInfo.GetSubjects != null && AppInfo.GetSubjects.Count() > 0)
+                                <div>
+                                    <h6 class="text-center l_height40 mb-0" style="    font-size: 14px; line-height: inherit;">
+                                        Choose a Question
+                                    </h6>
+                                    <span class="hide_questions">X</span>
+                                </div>
+                                <ul class="question_list list-unstyled page-numbers shop_page_number text-left ml-0 pt_20 border_t pl_15">
+
+                                    @if (AppInfo.GetSubjects != null && AppInfo.GetSubjects.Count() > 0)
+                                    {
+                                        var Subjects = AppInfo.GetSubjects.Where(m => m.TestId == TestId).ToList();
+                                        foreach (var item in Subjects.Select((x, y) => new { Data = x, Index = y }))
                                         {
-                                            var Subjects = AppInfo.GetSubjects.Where(m => m.TestId == TestId).ToList();
-                                            foreach (var item in Subjects.Select((x, y) => new { Data = x, Index = y }))
+                                            var divSubjectId = "divSubjectId" + item.Index;
+
+                                            if (AppInfo.GetQuestionsMockTests != null && AppInfo.GetQuestionsMockTests.Count() > 0)
                                             {
-                                                var divSubjectId = "divSubjectId" + item.Index;
-
-                                                if (AppInfo.GetQuestionsMockTests != null && AppInfo.GetQuestionsMockTests.Count() > 0)
+                                                var QuestionBasedOnTestAndSubjects = AppInfo.GetQuestionsMockTests.Where(m => m.QuestionUpload?.TestId == TestId && m.QuestionUpload?.SubjectId == item.Data.SubjectId).ToList();
+                                                foreach (var Q in QuestionBasedOnTestAndSubjects.OrderBy(m => m.QuestionNumber).Select((x, y) => new { Data = x, Index = y }))
                                                 {
-                                                    var QuestionBasedOnTestAndSubjects = AppInfo.GetQuestionsMockTests.Where(m => m.QuestionUpload?.TestId == TestId && m.QuestionUpload?.SubjectId == item.Data.SubjectId).ToList();
-                                                    foreach (var Q in QuestionBasedOnTestAndSubjects.OrderBy(m => m.QuestionNumber).Select((x, y) => new { Data = x, Index = y }))
+                                                    var classnot_answered = "not_visited";
+                                                    var QuestionDiv = divSubjectId + "QuestionDiv" + Q.Index;
+                                                    var QBtn = divSubjectId + "QBtn" + Q.Index;
+                                                    var classIsFirst = "cls" + Q.Index;
+                                                    if (Q.Index == 0)
                                                     {
-                                                        var classnot_answered = "not_visited";
-                                                        var QuestionDiv = "QuestionDiv" + item.Index;
-                                                        var QBtn = "QBtn" + item.Index;
-                                                        if (Q.Index == 0)
-                                                        {
-                                                            classnot_answered = "not_visited";
+                                                        classnot_answered = "not_visited";
 
-                                                            <li>
-                                                                <button id="@QBtn" class="tablinksQuestions page-numbers  @classnot_answered" onclick="openQuestion(event, '@QuestionDiv')">@Q.Data.QuestionNumber</button>
-                                                            </li>
-                                                        }
-                                                        else
-                                                        {
-                                                            <li>
-                                                                <button id="@QBtn" class="tablinksQuestions page-numbers  @classnot_answered" onclick="openQuestion(event, '@QuestionDiv')">@Q.Data.QuestionNumber</button>
-                                                            </li>
-
-                                                        }
+                                                        <li>
+                                                            <button id="@QBtn" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuestionNumber">@Q.Data.QuestionNumber</button>
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li>
+                                                            <button id="@QBtn" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuestionNumber">@Q.Data.QuestionNumber</button>
+                                                        </li>
 
                                                     }
+
                                                 }
                                             }
                                         }
+                                    }
 
-                                    </ul>
+                                </ul>
 
-                                </div>
+
                                 <div class="hidden-md hidden-lg">
                                     <a href="#" class="btn_hover agency_banner_btn" data-toggle="modal" data-target="#instructionModal">Instructions</a>
                                     <!-- <a href="#" class="btn_hover agency_banner_btn btn_clear" data-toggle="modal" data-target="#reportModal">Report</a> -->
@@ -1180,8 +1181,9 @@
                 $(".choose_question").hide();
             });
 
-                                                                                                                                                                                < !--$(".nav-link.active.show")dropdown - menu-- >
-                                                                                                                                                                                < !--$("#myTab2")dropdown - menu-- >
+            //< !--$(".nav-link.active.show")dropdown - menu-- >
+            //< !--$("#myTab2")dropdown - menu-- >
+
         </script>
 
 
@@ -1201,39 +1203,39 @@
             }
 
 
-        var elem = document.documentElement;
-        function openFullscreen() {
+            var elem = document.documentElement;
+            function openFullscreen() {
 
-            if (elem.RequestFullScreen) {
-                elem.RequestFullScreen();
-            } else if (elem.mozRequestFullScreen) { /* Firefox */
-                elem.mozRequestFullScreen();
-            } else if (elem.webkitRequestFullScreen) { /* Chrome, Safari & Opera */
-                elem.webkitRequestFullScreen();
-            } else if (elem.msRequestFullScreen) { /* IE/Edge */
-                elem.msRequestFullscreen();
+                if (elem.RequestFullScreen) {
+                    elem.RequestFullScreen();
+                } else if (elem.mozRequestFullScreen) { /* Firefox */
+                    elem.mozRequestFullScreen();
+                } else if (elem.webkitRequestFullScreen) { /* Chrome, Safari & Opera */
+                    elem.webkitRequestFullScreen();
+                } else if (elem.msRequestFullScreen) { /* IE/Edge */
+                    elem.msRequestFullscreen();
+                }
+                $(".full_screen_btn").hide();
+                $(".close_full_screen").show();
             }
-            $(".full_screen_btn").hide();
-            $(".close_full_screen").show();
-        }
 
-        function closeFullscreen() {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) {
-                document.msExitFullscreen();
+            function closeFullscreen() {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+                $(".full_screen_btn").show();
+                $(".close_full_screen").hide();
             }
-            $(".full_screen_btn").show();
-            $(".close_full_screen").hide();
-        }
 
-        //$("#pause_close").click(function(){
-        //		$("#pauseModal1").modal("hide");
-        //});
+            //$("#pause_close").click(function(){
+            //		$("#pauseModal1").modal("hide");
+            //});
         </script>
 
         <script type="text/javascript">
@@ -1241,9 +1243,10 @@
 
             $(document).ready(function () {
 
-                $("#btn0").click();
-                $("#dvId0SubjectBtn0").click();
-                $("#dvId0SubjectDivId0Id_ruby_tab0").click();
+                $("#Btn0").click();
+                $("#divSubjectId0QuestionDiv0").click();
+                $("#divSubjectId0QBtn0").click();
+
 
             });
 
@@ -1259,28 +1262,41 @@
                     tablinks[i].className = tablinks[i].className.replace(" active", "");
                 }
 
-                //tabcontent = document.getElementsByClassName("tabcontentQuestions");
-                //for (i = 0; i < tabcontent.length; i++) {
-                //    tabcontent[i].style.display = "none";
-                //}
-                //tablinks = document.getElementsByClassName("tablinksQuestions");
-                //for (i = 0; i < tablinks.length; i++) {
-                //     tablinks[i].className = tablinks[i].className.replace(" active", "");
-                //}
+                tabcontent = document.getElementsByClassName("tabcontentQuestions");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinksQuestions");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
 
                 document.getElementById(className).style.display = "block";
                 evt.target.className += " active";
+                debugger
+                var SubjectDivId = "#" + className;
 
-                var divId = "#" + className;
-                var firstbuttonId = "#" + $("" + divId + " >").find('button')[0]?.id;
+                var classWithQustionDivId = $("" + SubjectDivId + " >").first().attr('id');
+                var QuestionButton = "#" + $('.' + classWithQustionDivId + '').first().attr('id');
 
-                $(firstbuttonId).click();
-
+                if ($(QuestionButton).hasClass('cls0')) {
+                    $(QuestionButton).click();
+                }
             }
 
             function openQuestion(evt, className) {
 
                 var i, tabcontent, tablinks;
+
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+
                 tabcontent = document.getElementsByClassName("tabcontentQuestions");
                 for (i = 0; i < tabcontent.length; i++) {
                     tabcontent[i].style.display = "none";
@@ -1293,6 +1309,17 @@
                 document.getElementById(className).click();
                 document.getElementById(className).style.display = "block";
                 evt.target.className += " active";
+
+                debugger
+                var SubjectQuestionId = "#" + className;
+
+                var SubjectDivId = $(SubjectQuestionId).parent().attr('id');
+                document.getElementById(SubjectDivId).style.display = "block";
+
+                var findNavLinkByDivIdClassName = $('.' + SubjectDivId + '').attr('id');
+                 document.getElementById(findNavLinkByDivIdClassName).className += " active";
+              
+
             }
         </script>
     </div>

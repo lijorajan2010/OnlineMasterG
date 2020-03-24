@@ -4,6 +4,9 @@
     <thead>
         <tr>
             <th>Sl No.</th>
+            <th>Course </th>
+            <th>Category </th>
+            <th>Section </th>
             <th>Test </th>
             <th>Subject </th>
             <th>No. of Questions</th>
@@ -20,8 +23,11 @@
             {
                 <tr>
                     <td>@(item.Index + 1)</td>
-                    <td>@(item.Data.TestName)</td>
+                    <td>@(item.Data.CourseName)</td>
+                    <td>@item.Data.CategoryName</td>
+                    <td>@item.Data.SectionName</td>
                     <td>@item.Data.SubjectName</td>
+                    <td>@item.Data.TestName</td>
                     <td>@item.Data.QuestionCount</td>
                     <td>@item.Data.CorrectMarks</td>
                     <td>@item.Data.NegativeMarks</td>

@@ -11,6 +11,9 @@ namespace OnlineMasterG.Models.ViewModels
         public int? SubjectId { get; set; }
         public string TestName { get; set; }
         public  string SubjectName { get; set; }
+        public  string CourseName { get; set; }
+        public  string CategoryName { get; set; }
+        public  string SectionName { get; set; }
         public int InstructionId { get; set; }
         public decimal? CorrectMarks { get; set; }
         public decimal? NegativeMarks { get; set; }
