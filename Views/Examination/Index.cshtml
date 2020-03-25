@@ -376,6 +376,12 @@
             /*border: 1px solid #ccc;*/
             border-top: none;
         }
+
+        .CurrentSelected {
+            background-color: #663cff !important;
+            ;
+            /*cursive !important;*/
+        }
     </style>
 
     <script type="text/javascript">
@@ -454,9 +460,12 @@
                             var ActiveUser = AppInfo.ActiveUser;
                             var ImgId = ActiveUser != null && ActiveUser.LogoDataFileId != null ? ActiveUser.LogoDataFileId.Value.ToString() : "0";
                         }
+                        @if (ImgId != "0")
+                        {
+                            <img class="student_img" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(ImgId)})' alt="" width="50">
+                        }
 
-                        <img class="student_img" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(ImgId)})' alt="" width="50">
-                        <span>@ActiveUser.Email</span>
+                        <span class="w_color f_600">@ActiveUser.Email</span>
                     </div>
                 </div>
             </nav>
@@ -582,7 +591,7 @@
                                                                                             <li>
                                                                                                 <label class="containerCheck">
                                                                                                     @QA.QuestionAnswer
-                                                                                                    <input type="radio" name="radio">
+                                                                                                    <input type="radio" name="Answer">
                                                                                                     <span class="checkmark"></span>
                                                                                                 </label>
                                                                                             </li>
@@ -655,12 +664,14 @@
 
                                                         <li>
                                                             <button id="@QBtn" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuestionNumber">@Q.Data.QuestionNumber</button>
+                                                            <input type="hidden" id="QDiv" value="@QuestionDiv" />
                                                         </li>
                                                     }
                                                     else
                                                     {
                                                         <li>
                                                             <button id="@QBtn" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuestionNumber">@Q.Data.QuestionNumber</button>
+                                                            <input type="hidden" id="QDiv" value="@QuestionDiv" />
                                                         </li>
 
                                                     }
@@ -692,12 +703,13 @@
                             <a href="#" class="btn_hover agency_banner_btn  btn_clear report_responsive" data-toggle="modal" data-target="#reportModal">Report</a>
 
                             <a href="#" class="btn_hover agency_banner_btn marked_review">Mark</a>
-                            <a href="#" class="btn_hover agency_banner_btn report">Clear</a>
+                            <a href="#" class="btn_hover agency_banner_btn report" onclick="fnClearRadioButtons(this);">Clear</a>
+                            @*<button class="btn_hover agency_banner_btn report" id="BtnClearRadioButtons"> Clear </button>*@
                         </div>
                         <div class="col-md-6 col-7 text-right">
 
-                            <a href="#" class="btn_hover agency_banner_btn answered hidden-xs"> Prev</a>
-                            <a href="#" class="btn_hover agency_banner_btn answered">Save &amp; Next</a>
+                            <a href="#" class="btn_hover agency_banner_btn answered hidden-xs" onclick="fnPrevious(this)"> Prev</a>
+                            <a href="#" class="btn_hover agency_banner_btn answered" onclick="fnNextAndSave(this)">Save &amp; Next</a>
                             <a href="#" class="btn_hover agency_banner_btn report hidden-xs" data-toggle="modal" data-target="#pauseModal1">Pause</a>
                             <a href="#" class="btn_hover agency_banner_btn answered" data-toggle="modal" data-target="#finishModal">Finish</a>
 
@@ -735,7 +747,7 @@
                                                     <!-- <div class="icon s_icon_one"><i class="ti-check"></i></div> -->
                                                     <h4 class="f_400 f_size_15 l_height28 t_color2 mb-0">General Instructions</h4>
                                                     <ul>
-                                                        <li>Total durtion of examination is 45 minutes.</li>
+                                                        <li>Total durtion of examination is @ViewBag.ExamTimeInMinutes minutes.</li>
                                                         <li>The clock will be set at the server.</li>
                                                         <li>
                                                             The Question Palette displayedon the right side of screen will show the..
@@ -1273,7 +1285,7 @@
 
                 document.getElementById(className).style.display = "block";
                 evt.target.className += " active";
-                debugger
+
                 var SubjectDivId = "#" + className;
 
                 var classWithQustionDivId = $("" + SubjectDivId + " >").first().attr('id');
@@ -1303,24 +1315,43 @@
                 }
                 tablinks = document.getElementsByClassName("tablinksQuestions");
                 for (i = 0; i < tablinks.length; i++) {
-                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    tablinks[i].className = tablinks[i].className.replace(" CurrentSelected", "");
                 }
 
                 document.getElementById(className).click();
                 document.getElementById(className).style.display = "block";
-                evt.target.className += " active";
+                evt.target.className += " CurrentSelected";
 
-                debugger
+
                 var SubjectQuestionId = "#" + className;
 
                 var SubjectDivId = $(SubjectQuestionId).parent().attr('id');
                 document.getElementById(SubjectDivId).style.display = "block";
 
                 var findNavLinkByDivIdClassName = $('.' + SubjectDivId + '').attr('id');
-                 document.getElementById(findNavLinkByDivIdClassName).className += " active";
-              
+                document.getElementById(findNavLinkByDivIdClassName).className += " active";
+
 
             }
+
+            function fnClearRadioButtons() {
+                var ActiveQuestionDiv = "#" + $('.CurrentSelected').next("input:hidden[id='QDiv']").val();
+                 $(ActiveQuestionDiv).find('.containerCheck').find("input:radio[name='Answer']").each(function (i) {
+                    this.checked = false;
+                });
+
+            }
+
+            function fnPrevious() {
+                var PreviousQButton = "#" + $('.CurrentSelected').parent().prev().children().attr('id');
+                $(PreviousQButton).click();
+            }
+            function fnNextAndSave() {
+                debugger
+                var NextQButton = "#" + $('.CurrentSelected').parent().next().children().attr('id');
+                $(NextQButton).click();
+            }
+
         </script>
     </div>
 
