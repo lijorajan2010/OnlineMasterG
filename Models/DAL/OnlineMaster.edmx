@@ -174,6 +174,54 @@
           <Property Name="SectionId" Type="int" />
           <Property Name="TimeInMinutes" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="MockTestAttemptDetails">
+          <Key>
+            <PropertyRef Name="AttemptDetailId" />
+          </Key>
+          <Property Name="AttemptDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttemptId" Type="int" />
+          <Property Name="CourseId" Type="int" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="SectionId" Type="int" />
+          <Property Name="SubjectId" Type="int" />
+          <Property Name="QuestionsMockTestId" Type="int" />
+          <Property Name="QuestionNumber" Type="int" Nullable="false" />
+          <Property Name="ChoosenAnswerChoiceId" Type="int" />
+          <Property Name="AnswerChoiceId" Type="int" />
+          <Property Name="AnswerStatus" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MarksScored" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MockTestAttempts">
+          <Key>
+            <PropertyRef Name="AttemptId" />
+          </Key>
+          <Property Name="AttemptId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="50" />
+          <Property Name="TestId" Type="int" />
+          <Property Name="IsPaused" Type="bit" Nullable="false" />
+          <Property Name="TimeLeftInMinutes" Type="int" Nullable="false" />
+          <Property Name="IsCompleted" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ProblemMaster">
+          <Key>
+            <PropertyRef Name="ProblemId" />
+          </Key>
+          <Property Name="ProblemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Problem" Type="varchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProblemsReported">
+          <Key>
+            <PropertyRef Name="ProblemReportId" />
+          </Key>
+          <Property Name="ProblemReportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttemptDetailId" Type="int" />
+          <Property Name="ProblemId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="QuestionAnswerChoices">
           <Key>
             <PropertyRef Name="QuestionAnswerChoiceId" />
@@ -521,6 +569,138 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__MockTestA__Attem__24285DB4">
+          <End Role="MockTestAttempts" Type="Self.MockTestAttempts" Multiplicity="0..1" />
+          <End Role="MockTestAttemptDetails" Type="Self.MockTestAttemptDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MockTestAttempts">
+              <PropertyRef Name="AttemptId" />
+            </Principal>
+            <Dependent Role="MockTestAttemptDetails">
+              <PropertyRef Name="AttemptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTestA__Categ__2610A626">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="MockTestAttemptDetails" Type="Self.MockTestAttemptDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="MockTestAttemptDetails">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTestA__Choos__29E1370A">
+          <End Role="QuestionAnswerChoices" Type="Self.QuestionAnswerChoices" Multiplicity="0..1" />
+          <End Role="MockTestAttemptDetails" Type="Self.MockTestAttemptDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionAnswerChoices">
+              <PropertyRef Name="QuestionAnswerChoiceId" />
+            </Principal>
+            <Dependent Role="MockTestAttemptDetails">
+              <PropertyRef Name="ChoosenAnswerChoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTestA__Cours__251C81ED">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="MockTestAttemptDetails" Type="Self.MockTestAttemptDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="MockTestAttemptDetails">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTestA__Login__1E6F845E">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="MockTestAttempts" Type="Self.MockTestAttempts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Login" />
+            </Principal>
+            <Dependent Role="MockTestAttempts">
+              <PropertyRef Name="Login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTestA__Quest__28ED12D1">
+          <End Role="QuestionsMockTest" Type="Self.QuestionsMockTest" Multiplicity="0..1" />
+          <End Role="MockTestAttemptDetails" Type="Self.MockTestAttemptDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionsMockTest">
+              <PropertyRef Name="QuestionsMockTestId" />
+            </Principal>
+            <Dependent Role="MockTestAttemptDetails">
+              <PropertyRef Name="QuestionsMockTestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTestA__Secti__2704CA5F">
+          <End Role="Section" Type="Self.Section" Multiplicity="0..1" />
+          <End Role="MockTestAttemptDetails" Type="Self.MockTestAttemptDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectionId" />
+            </Principal>
+            <Dependent Role="MockTestAttemptDetails">
+              <PropertyRef Name="SectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTestA__Subje__27F8EE98">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="0..1" />
+          <End Role="MockTestAttemptDetails" Type="Self.MockTestAttemptDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="SubjectId" />
+            </Principal>
+            <Dependent Role="MockTestAttemptDetails">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTestA__TestI__1F63A897">
+          <End Role="MockTest" Type="Self.MockTest" Multiplicity="0..1" />
+          <End Role="MockTestAttempts" Type="Self.MockTestAttempts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MockTest">
+              <PropertyRef Name="TestId" />
+            </Principal>
+            <Dependent Role="MockTestAttempts">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProblemsR__Attem__2CBDA3B5">
+          <End Role="MockTestAttemptDetails" Type="Self.MockTestAttemptDetails" Multiplicity="0..1" />
+          <End Role="ProblemsReported" Type="Self.ProblemsReported" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MockTestAttemptDetails">
+              <PropertyRef Name="AttemptDetailId" />
+            </Principal>
+            <Dependent Role="ProblemsReported">
+              <PropertyRef Name="AttemptDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProblemsR__Probl__2DB1C7EE">
+          <End Role="ProblemMaster" Type="Self.ProblemMaster" Multiplicity="1" />
+          <End Role="ProblemsReported" Type="Self.ProblemsReported" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProblemMaster">
+              <PropertyRef Name="ProblemId" />
+            </Principal>
+            <Dependent Role="ProblemsReported">
+              <PropertyRef Name="ProblemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__QuestionA__Quest__4F47C5E3">
           <End Role="QuestionsMockTest" Type="Self.QuestionsMockTest" Multiplicity="0..1" />
           <End Role="QuestionAnswerChoices" Type="Self.QuestionAnswerChoices" Multiplicity="*" />
@@ -822,6 +1002,10 @@
           <EntitySet Name="GeneralInstruction" EntityType="Self.GeneralInstruction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Language" EntityType="Self.Language" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MockTest" EntityType="Self.MockTest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MockTestAttemptDetails" EntityType="Self.MockTestAttemptDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MockTestAttempts" EntityType="Self.MockTestAttempts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProblemMaster" EntityType="Self.ProblemMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProblemsReported" EntityType="Self.ProblemsReported" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuestionAnswerChoices" EntityType="Self.QuestionAnswerChoices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuestionMaster" EntityType="Self.QuestionMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuestionPoints" EntityType="Self.QuestionPoints" Schema="dbo" store:Type="Tables" />
@@ -882,6 +1066,50 @@
           <AssociationSet Name="FK__MockTest__Sectio__68487DD7" Association="Self.FK__MockTest__Sectio__68487DD7">
             <End Role="Section" EntitySet="Section" />
             <End Role="MockTest" EntitySet="MockTest" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTestA__Attem__24285DB4" Association="Self.FK__MockTestA__Attem__24285DB4">
+            <End Role="MockTestAttempts" EntitySet="MockTestAttempts" />
+            <End Role="MockTestAttemptDetails" EntitySet="MockTestAttemptDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTestA__Categ__2610A626" Association="Self.FK__MockTestA__Categ__2610A626">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="MockTestAttemptDetails" EntitySet="MockTestAttemptDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTestA__Choos__29E1370A" Association="Self.FK__MockTestA__Choos__29E1370A">
+            <End Role="QuestionAnswerChoices" EntitySet="QuestionAnswerChoices" />
+            <End Role="MockTestAttemptDetails" EntitySet="MockTestAttemptDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTestA__Cours__251C81ED" Association="Self.FK__MockTestA__Cours__251C81ED">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="MockTestAttemptDetails" EntitySet="MockTestAttemptDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTestA__Login__1E6F845E" Association="Self.FK__MockTestA__Login__1E6F845E">
+            <End Role="User" EntitySet="User" />
+            <End Role="MockTestAttempts" EntitySet="MockTestAttempts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTestA__Quest__28ED12D1" Association="Self.FK__MockTestA__Quest__28ED12D1">
+            <End Role="QuestionsMockTest" EntitySet="QuestionsMockTest" />
+            <End Role="MockTestAttemptDetails" EntitySet="MockTestAttemptDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTestA__Secti__2704CA5F" Association="Self.FK__MockTestA__Secti__2704CA5F">
+            <End Role="Section" EntitySet="Section" />
+            <End Role="MockTestAttemptDetails" EntitySet="MockTestAttemptDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTestA__Subje__27F8EE98" Association="Self.FK__MockTestA__Subje__27F8EE98">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="MockTestAttemptDetails" EntitySet="MockTestAttemptDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTestA__TestI__1F63A897" Association="Self.FK__MockTestA__TestI__1F63A897">
+            <End Role="MockTest" EntitySet="MockTest" />
+            <End Role="MockTestAttempts" EntitySet="MockTestAttempts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProblemsR__Attem__2CBDA3B5" Association="Self.FK__ProblemsR__Attem__2CBDA3B5">
+            <End Role="MockTestAttemptDetails" EntitySet="MockTestAttemptDetails" />
+            <End Role="ProblemsReported" EntitySet="ProblemsReported" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProblemsR__Probl__2DB1C7EE" Association="Self.FK__ProblemsR__Probl__2DB1C7EE">
+            <End Role="ProblemMaster" EntitySet="ProblemMaster" />
+            <End Role="ProblemsReported" EntitySet="ProblemsReported" />
           </AssociationSet>
           <AssociationSet Name="FK__QuestionA__Quest__4F47C5E3" Association="Self.FK__QuestionA__Quest__4F47C5E3">
             <End Role="QuestionsMockTest" EntitySet="QuestionsMockTest" />
@@ -1154,6 +1382,54 @@
             <End Role="Subject" EntitySet="Subjects" />
             <End Role="GeneralInstruction" EntitySet="GeneralInstructions" />
           </AssociationSet>
+          <EntitySet Name="MockTestAttemptDetails" EntityType="OnlinemasterjiModel.MockTestAttemptDetail" />
+          <EntitySet Name="MockTestAttempts" EntityType="OnlinemasterjiModel.MockTestAttempt" />
+          <EntitySet Name="ProblemMasters" EntityType="OnlinemasterjiModel.ProblemMaster" />
+          <EntitySet Name="ProblemsReporteds" EntityType="OnlinemasterjiModel.ProblemsReported" />
+          <AssociationSet Name="FK__MockTestA__Categ__2610A626" Association="OnlinemasterjiModel.FK__MockTestA__Categ__2610A626">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="MockTestAttemptDetail" EntitySet="MockTestAttemptDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTestA__Cours__251C81ED" Association="OnlinemasterjiModel.FK__MockTestA__Cours__251C81ED">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="MockTestAttemptDetail" EntitySet="MockTestAttemptDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTestA__TestI__1F63A897" Association="OnlinemasterjiModel.FK__MockTestA__TestI__1F63A897">
+            <End Role="MockTest" EntitySet="MockTests" />
+            <End Role="MockTestAttempt" EntitySet="MockTestAttempts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTestA__Attem__24285DB4" Association="OnlinemasterjiModel.FK__MockTestA__Attem__24285DB4">
+            <End Role="MockTestAttempt" EntitySet="MockTestAttempts" />
+            <End Role="MockTestAttemptDetail" EntitySet="MockTestAttemptDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTestA__Choos__29E1370A" Association="OnlinemasterjiModel.FK__MockTestA__Choos__29E1370A">
+            <End Role="QuestionAnswerChoice" EntitySet="QuestionAnswerChoices" />
+            <End Role="MockTestAttemptDetail" EntitySet="MockTestAttemptDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTestA__Quest__28ED12D1" Association="OnlinemasterjiModel.FK__MockTestA__Quest__28ED12D1">
+            <End Role="QuestionsMockTest" EntitySet="QuestionsMockTests" />
+            <End Role="MockTestAttemptDetail" EntitySet="MockTestAttemptDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTestA__Secti__2704CA5F" Association="OnlinemasterjiModel.FK__MockTestA__Secti__2704CA5F">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="MockTestAttemptDetail" EntitySet="MockTestAttemptDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTestA__Subje__27F8EE98" Association="OnlinemasterjiModel.FK__MockTestA__Subje__27F8EE98">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="MockTestAttemptDetail" EntitySet="MockTestAttemptDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProblemsR__Attem__2CBDA3B5" Association="OnlinemasterjiModel.FK__ProblemsR__Attem__2CBDA3B5">
+            <End Role="MockTestAttemptDetail" EntitySet="MockTestAttemptDetails" />
+            <End Role="ProblemsReported" EntitySet="ProblemsReporteds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTestA__Login__1E6F845E" Association="OnlinemasterjiModel.FK__MockTestA__Login__1E6F845E">
+            <End Role="User" EntitySet="Users" />
+            <End Role="MockTestAttempt" EntitySet="MockTestAttempts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProblemsR__Probl__2DB1C7EE" Association="OnlinemasterjiModel.FK__ProblemsR__Probl__2DB1C7EE">
+            <End Role="ProblemMaster" EntitySet="ProblemMasters" />
+            <End Role="ProblemsReported" EntitySet="ProblemsReporteds" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Category">
           <Key>
@@ -1174,6 +1450,7 @@
           <NavigationProperty Name="QuestionUploads" Relationship="OnlinemasterjiModel.FK__QuestionU__Categ__45BE5BA9" FromRole="Category" ToRole="QuestionUpload" />
           <NavigationProperty Name="Sections" Relationship="OnlinemasterjiModel.FK__Section__Categor__628FA481" FromRole="Category" ToRole="Section" />
           <NavigationProperty Name="Subjects" Relationship="OnlinemasterjiModel.FK__Subjects__Catego__6D0D32F4" FromRole="Category" ToRole="Subject" />
+          <NavigationProperty Name="MockTestAttemptDetails" Relationship="OnlinemasterjiModel.FK__MockTestA__Categ__2610A626" FromRole="Category" ToRole="MockTestAttemptDetail" />
         </EntityType>
         <EntityType Name="ColleageCourse">
           <Key>
@@ -1246,6 +1523,7 @@
           <NavigationProperty Name="QuestionUploads" Relationship="OnlinemasterjiModel.FK__QuestionU__Cours__44CA3770" FromRole="Course" ToRole="QuestionUpload" />
           <NavigationProperty Name="Sections" Relationship="OnlinemasterjiModel.FK__Section__CourseI__619B8048" FromRole="Course" ToRole="Section" />
           <NavigationProperty Name="Subjects" Relationship="OnlinemasterjiModel.FK__Subjects__Course__6C190EBB" FromRole="Course" ToRole="Subject" />
+          <NavigationProperty Name="MockTestAttemptDetails" Relationship="OnlinemasterjiModel.FK__MockTestA__Cours__251C81ED" FromRole="Course" ToRole="MockTestAttemptDetail" />
         </EntityType>
         <EntityType Name="DataContent">
           <Key>
@@ -1304,6 +1582,7 @@
           <NavigationProperty Name="QuestionUploads" Relationship="OnlinemasterjiModel.FK__QuestionU__TestI__47A6A41B" FromRole="MockTest" ToRole="QuestionUpload" />
           <NavigationProperty Name="Subjects" Relationship="OnlinemasterjiModel.FK__Subjects__TestId__6EF57B66" FromRole="MockTest" ToRole="Subject" />
           <NavigationProperty Name="GeneralInstructions" Relationship="OnlinemasterjiModel.FK__GeneralIn__TestI__7FEAFD3E" FromRole="MockTest" ToRole="GeneralInstruction" />
+          <NavigationProperty Name="MockTestAttempts" Relationship="OnlinemasterjiModel.FK__MockTestA__TestI__1F63A897" FromRole="MockTest" ToRole="MockTestAttempt" />
         </EntityType>
         <EntityType Name="QuestionAnswerChoice">
           <Key>
@@ -1315,6 +1594,7 @@
           <Property Name="QuestionsMockTestId" Type="Int32" />
           <Property Name="ChoiceId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="QuestionsMockTest" Relationship="OnlinemasterjiModel.FK__QuestionA__Quest__4F47C5E3" FromRole="QuestionAnswerChoice" ToRole="QuestionsMockTest" />
+          <NavigationProperty Name="MockTestAttemptDetails" Relationship="OnlinemasterjiModel.FK__MockTestA__Choos__29E1370A" FromRole="QuestionAnswerChoice" ToRole="MockTestAttemptDetail" />
         </EntityType>
         <EntityType Name="QuestionMaster">
           <Key>
@@ -1374,6 +1654,7 @@
           <NavigationProperty Name="QuestionAnswerChoices" Relationship="OnlinemasterjiModel.FK__QuestionA__Quest__4F47C5E3" FromRole="QuestionsMockTest" ToRole="QuestionAnswerChoice" />
           <NavigationProperty Name="QuestionPoints" Relationship="OnlinemasterjiModel.FK__QuestionP__Quest__5224328E" FromRole="QuestionsMockTest" ToRole="QuestionPoint" />
           <NavigationProperty Name="QuestionUpload" Relationship="OnlinemasterjiModel.FK__Questions__Quest__42E1EEFE" FromRole="QuestionsMockTest" ToRole="QuestionUpload" />
+          <NavigationProperty Name="MockTestAttemptDetails" Relationship="OnlinemasterjiModel.FK__MockTestA__Quest__28ED12D1" FromRole="QuestionsMockTest" ToRole="MockTestAttemptDetail" />
         </EntityType>
         <EntityType Name="QuestionUpload">
           <Key>
@@ -1473,6 +1754,7 @@
           <NavigationProperty Name="MockTests" Relationship="OnlinemasterjiModel.FK__MockTest__Sectio__68487DD7" FromRole="Section" ToRole="MockTest" />
           <NavigationProperty Name="QuestionUploads" Relationship="OnlinemasterjiModel.FK__QuestionU__Secti__46B27FE2" FromRole="Section" ToRole="QuestionUpload" />
           <NavigationProperty Name="Subjects" Relationship="OnlinemasterjiModel.FK__Subjects__Sectio__6E01572D" FromRole="Section" ToRole="Subject" />
+          <NavigationProperty Name="MockTestAttemptDetails" Relationship="OnlinemasterjiModel.FK__MockTestA__Secti__2704CA5F" FromRole="Section" ToRole="MockTestAttemptDetail" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
@@ -1497,6 +1779,7 @@
           <NavigationProperty Name="QuestionUploads" Relationship="OnlinemasterjiModel.FK__QuestionU__Subje__489AC854" FromRole="Subject" ToRole="QuestionUpload" />
           <NavigationProperty Name="Section" Relationship="OnlinemasterjiModel.FK__Subjects__Sectio__6E01572D" FromRole="Subject" ToRole="Section" />
           <NavigationProperty Name="GeneralInstructions" Relationship="OnlinemasterjiModel.FK__GeneralIn__Subje__00DF2177" FromRole="Subject" ToRole="GeneralInstruction" />
+          <NavigationProperty Name="MockTestAttemptDetails" Relationship="OnlinemasterjiModel.FK__MockTestA__Subje__27F8EE98" FromRole="Subject" ToRole="MockTestAttemptDetail" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -1516,6 +1799,7 @@
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ResetPasswordCode" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="UserType" Relationship="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D" FromRole="User" ToRole="UserType" />
+          <NavigationProperty Name="MockTestAttempts" Relationship="OnlinemasterjiModel.FK__MockTestA__Login__1E6F845E" FromRole="User" ToRole="MockTestAttempt" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
@@ -2031,6 +2315,200 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="MockTestAttemptDetail">
+          <Key>
+            <PropertyRef Name="AttemptDetailId" />
+          </Key>
+          <Property Name="AttemptDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttemptId" Type="Int32" />
+          <Property Name="CourseId" Type="Int32" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="SectionId" Type="Int32" />
+          <Property Name="SubjectId" Type="Int32" />
+          <Property Name="QuestionsMockTestId" Type="Int32" />
+          <Property Name="QuestionNumber" Type="Int32" Nullable="false" />
+          <Property Name="ChoosenAnswerChoiceId" Type="Int32" />
+          <Property Name="AnswerChoiceId" Type="Int32" />
+          <Property Name="AnswerStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MarksScored" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Category" Relationship="OnlinemasterjiModel.FK__MockTestA__Categ__2610A626" FromRole="MockTestAttemptDetail" ToRole="Category" />
+          <NavigationProperty Name="Course" Relationship="OnlinemasterjiModel.FK__MockTestA__Cours__251C81ED" FromRole="MockTestAttemptDetail" ToRole="Course" />
+          <NavigationProperty Name="MockTestAttempt" Relationship="OnlinemasterjiModel.FK__MockTestA__Attem__24285DB4" FromRole="MockTestAttemptDetail" ToRole="MockTestAttempt" />
+          <NavigationProperty Name="QuestionAnswerChoice" Relationship="OnlinemasterjiModel.FK__MockTestA__Choos__29E1370A" FromRole="MockTestAttemptDetail" ToRole="QuestionAnswerChoice" />
+          <NavigationProperty Name="QuestionsMockTest" Relationship="OnlinemasterjiModel.FK__MockTestA__Quest__28ED12D1" FromRole="MockTestAttemptDetail" ToRole="QuestionsMockTest" />
+          <NavigationProperty Name="Section" Relationship="OnlinemasterjiModel.FK__MockTestA__Secti__2704CA5F" FromRole="MockTestAttemptDetail" ToRole="Section" />
+          <NavigationProperty Name="Subject" Relationship="OnlinemasterjiModel.FK__MockTestA__Subje__27F8EE98" FromRole="MockTestAttemptDetail" ToRole="Subject" />
+          <NavigationProperty Name="ProblemsReporteds" Relationship="OnlinemasterjiModel.FK__ProblemsR__Attem__2CBDA3B5" FromRole="MockTestAttemptDetail" ToRole="ProblemsReported" />
+        </EntityType>
+        <EntityType Name="MockTestAttempt">
+          <Key>
+            <PropertyRef Name="AttemptId" />
+          </Key>
+          <Property Name="AttemptId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TestId" Type="Int32" />
+          <Property Name="IsPaused" Type="Boolean" Nullable="false" />
+          <Property Name="TimeLeftInMinutes" Type="Int32" Nullable="false" />
+          <Property Name="IsCompleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="MockTest" Relationship="OnlinemasterjiModel.FK__MockTestA__TestI__1F63A897" FromRole="MockTestAttempt" ToRole="MockTest" />
+          <NavigationProperty Name="MockTestAttemptDetails" Relationship="OnlinemasterjiModel.FK__MockTestA__Attem__24285DB4" FromRole="MockTestAttempt" ToRole="MockTestAttemptDetail" />
+          <NavigationProperty Name="User" Relationship="OnlinemasterjiModel.FK__MockTestA__Login__1E6F845E" FromRole="MockTestAttempt" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ProblemMaster">
+          <Key>
+            <PropertyRef Name="ProblemId" />
+          </Key>
+          <Property Name="ProblemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Problem" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ProblemsReporteds" Relationship="OnlinemasterjiModel.FK__ProblemsR__Probl__2DB1C7EE" FromRole="ProblemMaster" ToRole="ProblemsReported" />
+        </EntityType>
+        <EntityType Name="ProblemsReported">
+          <Key>
+            <PropertyRef Name="ProblemReportId" />
+          </Key>
+          <Property Name="ProblemReportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttemptDetailId" Type="Int32" />
+          <Property Name="ProblemId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MockTestAttemptDetail" Relationship="OnlinemasterjiModel.FK__ProblemsR__Attem__2CBDA3B5" FromRole="ProblemsReported" ToRole="MockTestAttemptDetail" />
+          <NavigationProperty Name="ProblemMaster" Relationship="OnlinemasterjiModel.FK__ProblemsR__Probl__2DB1C7EE" FromRole="ProblemsReported" ToRole="ProblemMaster" />
+        </EntityType>
+        <Association Name="FK__MockTestA__Categ__2610A626">
+          <End Type="OnlinemasterjiModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.MockTestAttemptDetail" Role="MockTestAttemptDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="MockTestAttemptDetail">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTestA__Cours__251C81ED">
+          <End Type="OnlinemasterjiModel.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.MockTestAttemptDetail" Role="MockTestAttemptDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="MockTestAttemptDetail">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTestA__TestI__1F63A897">
+          <End Type="OnlinemasterjiModel.MockTest" Role="MockTest" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.MockTestAttempt" Role="MockTestAttempt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MockTest">
+              <PropertyRef Name="TestId" />
+            </Principal>
+            <Dependent Role="MockTestAttempt">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTestA__Attem__24285DB4">
+          <End Type="OnlinemasterjiModel.MockTestAttempt" Role="MockTestAttempt" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.MockTestAttemptDetail" Role="MockTestAttemptDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MockTestAttempt">
+              <PropertyRef Name="AttemptId" />
+            </Principal>
+            <Dependent Role="MockTestAttemptDetail">
+              <PropertyRef Name="AttemptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTestA__Choos__29E1370A">
+          <End Type="OnlinemasterjiModel.QuestionAnswerChoice" Role="QuestionAnswerChoice" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.MockTestAttemptDetail" Role="MockTestAttemptDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionAnswerChoice">
+              <PropertyRef Name="QuestionAnswerChoiceId" />
+            </Principal>
+            <Dependent Role="MockTestAttemptDetail">
+              <PropertyRef Name="ChoosenAnswerChoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTestA__Quest__28ED12D1">
+          <End Type="OnlinemasterjiModel.QuestionsMockTest" Role="QuestionsMockTest" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.MockTestAttemptDetail" Role="MockTestAttemptDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionsMockTest">
+              <PropertyRef Name="QuestionsMockTestId" />
+            </Principal>
+            <Dependent Role="MockTestAttemptDetail">
+              <PropertyRef Name="QuestionsMockTestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTestA__Secti__2704CA5F">
+          <End Type="OnlinemasterjiModel.Section" Role="Section" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.MockTestAttemptDetail" Role="MockTestAttemptDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectionId" />
+            </Principal>
+            <Dependent Role="MockTestAttemptDetail">
+              <PropertyRef Name="SectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTestA__Subje__27F8EE98">
+          <End Type="OnlinemasterjiModel.Subject" Role="Subject" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.MockTestAttemptDetail" Role="MockTestAttemptDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="SubjectId" />
+            </Principal>
+            <Dependent Role="MockTestAttemptDetail">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProblemsR__Attem__2CBDA3B5">
+          <End Type="OnlinemasterjiModel.MockTestAttemptDetail" Role="MockTestAttemptDetail" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.ProblemsReported" Role="ProblemsReported" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MockTestAttemptDetail">
+              <PropertyRef Name="AttemptDetailId" />
+            </Principal>
+            <Dependent Role="ProblemsReported">
+              <PropertyRef Name="AttemptDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MockTestA__Login__1E6F845E">
+          <End Type="OnlinemasterjiModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.MockTestAttempt" Role="MockTestAttempt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Login" />
+            </Principal>
+            <Dependent Role="MockTestAttempt">
+              <PropertyRef Name="Login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProblemsR__Probl__2DB1C7EE">
+          <End Type="OnlinemasterjiModel.ProblemMaster" Role="ProblemMaster" Multiplicity="1" />
+          <End Type="OnlinemasterjiModel.ProblemsReported" Role="ProblemsReported" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProblemMaster">
+              <PropertyRef Name="ProblemId" />
+            </Principal>
+            <Dependent Role="ProblemsReported">
+              <PropertyRef Name="ProblemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2431,6 +2909,58 @@
                 <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
                 <ScalarProperty Name="TestName" ColumnName="TestName" />
                 <ScalarProperty Name="InstructionId" ColumnName="InstructionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MockTestAttemptDetails">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.MockTestAttemptDetail">
+              <MappingFragment StoreEntitySet="MockTestAttemptDetails">
+                <ScalarProperty Name="MarksScored" ColumnName="MarksScored" />
+                <ScalarProperty Name="AnswerStatus" ColumnName="AnswerStatus" />
+                <ScalarProperty Name="AnswerChoiceId" ColumnName="AnswerChoiceId" />
+                <ScalarProperty Name="ChoosenAnswerChoiceId" ColumnName="ChoosenAnswerChoiceId" />
+                <ScalarProperty Name="QuestionNumber" ColumnName="QuestionNumber" />
+                <ScalarProperty Name="QuestionsMockTestId" ColumnName="QuestionsMockTestId" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="AttemptId" ColumnName="AttemptId" />
+                <ScalarProperty Name="AttemptDetailId" ColumnName="AttemptDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MockTestAttempts">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.MockTestAttempt">
+              <MappingFragment StoreEntitySet="MockTestAttempts">
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+                <ScalarProperty Name="TimeLeftInMinutes" ColumnName="TimeLeftInMinutes" />
+                <ScalarProperty Name="IsPaused" ColumnName="IsPaused" />
+                <ScalarProperty Name="TestId" ColumnName="TestId" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="AttemptId" ColumnName="AttemptId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProblemMasters">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.ProblemMaster">
+              <MappingFragment StoreEntitySet="ProblemMaster">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Problem" ColumnName="Problem" />
+                <ScalarProperty Name="ProblemId" ColumnName="ProblemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProblemsReporteds">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.ProblemsReported">
+              <MappingFragment StoreEntitySet="ProblemsReported">
+                <ScalarProperty Name="ProblemId" ColumnName="ProblemId" />
+                <ScalarProperty Name="AttemptDetailId" ColumnName="AttemptDetailId" />
+                <ScalarProperty Name="ProblemReportId" ColumnName="ProblemReportId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

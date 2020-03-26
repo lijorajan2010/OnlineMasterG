@@ -235,6 +235,7 @@
     <Compile Include="CommonFramework\TypeValidator.cs" />
     <Compile Include="CommonServices\ClassService .cs" />
     <Compile Include="CommonServices\DataFileService.cs" />
+    <Compile Include="CommonServices\ExamService.cs" />
     <Compile Include="CommonServices\ExamUpdateService.cs" />
     <Compile Include="CommonServices\GeneralService.cs" />
     <Compile Include="CommonServices\QuestionUploadService.cs" />
@@ -274,6 +275,7 @@
     <Compile Include="Controllers\TestMasterController.cs" />
     <Compile Include="Controllers\QuestionUploadController.cs" />
     <Compile Include="DomainLogic\ClassLogics.cs" />
+    <Compile Include="DomainLogic\ExamLogics.cs" />
     <Compile Include="DomainLogic\ExamUpdateLogics.cs" />
     <Compile Include="DomainLogic\GeneralLogics.cs" />
     <Compile Include="DomainLogic\PaperLogics.cs" />
@@ -322,6 +324,12 @@
     <Compile Include="Models\DAL\MockTest.cs">
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DAL\MockTestAttempt.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\MockTestAttemptDetail.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DAL\OnlineMaster.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -336,6 +344,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OnlineMaster.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\ProblemMaster.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\ProblemsReported.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\QuestionAnswerChoice.cs">
       <DependentUpon>OnlineMaster.tt</DependentUpon>
@@ -381,6 +395,7 @@
     <Compile Include="Models\Shared\UnauthorizedModel.cs" />
     <Compile Include="Models\Shared\ValidationErrorModel.cs" />
     <Compile Include="Models\Shared\ValidationSuccessModel.cs" />
+    <Compile Include="Models\ViewModels\MockTestAttemptVM.cs" />
     <Compile Include="Models\ViewModels\ExamUpdateSectionVM.cs" />
     <Compile Include="Models\ViewModels\ClassVM.cs" />
     <Compile Include="Models\ViewModels\DataFileVM.cs" />

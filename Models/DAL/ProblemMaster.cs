@@ -12,22 +12,19 @@ namespace OnlineMasterG.Models.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class QuestionAnswerChoice
+    public partial class ProblemMaster
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public QuestionAnswerChoice()
+        public ProblemMaster()
         {
-            this.MockTestAttemptDetails = new HashSet<MockTestAttemptDetail>();
+            this.ProblemsReporteds = new HashSet<ProblemsReported>();
         }
     
-        public int QuestionAnswerChoiceId { get; set; }
-        public string QuestionAnswer { get; set; }
-        public bool IsCorrect { get; set; }
-        public Nullable<int> QuestionsMockTestId { get; set; }
-        public int ChoiceId { get; set; }
+        public int ProblemId { get; set; }
+        public string Problem { get; set; }
+        public bool IsActive { get; set; }
     
-        public virtual QuestionsMockTest QuestionsMockTest { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MockTestAttemptDetail> MockTestAttemptDetails { get; set; }
+        public virtual ICollection<ProblemsReported> ProblemsReporteds { get; set; }
     }
 }

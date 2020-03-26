@@ -66,6 +66,21 @@
         <EntityTypeShape EntityType="OnlinemasterjiModel.GeneralInstruction" Width="1.5" PointX="9.75" PointY="20.625" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__GeneralIn__TestI__7FEAFD3E" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__GeneralIn__Subje__00DF2177" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.MockTestAttemptDetail" Width="1.5" PointX="19.5" PointY="4.25" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.MockTestAttempt" Width="1.5" PointX="14.25" PointY="1.625" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.ProblemMaster" Width="1.5" PointX="19.5" PointY="0.75" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.ProblemsReported" Width="1.5" PointX="21.75" PointY="5.625" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__MockTestA__Categ__2610A626" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__MockTestA__Cours__251C81ED" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__MockTestA__TestI__1F63A897" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__MockTestA__Attem__24285DB4" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__MockTestA__Choos__29E1370A" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__MockTestA__Quest__28ED12D1" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__MockTestA__Secti__2704CA5F" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__MockTestA__Subje__27F8EE98" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__ProblemsR__Attem__2CBDA3B5" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__MockTestA__Login__1E6F845E" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__ProblemsR__Probl__2DB1C7EE" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

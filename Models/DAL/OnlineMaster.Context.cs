@@ -50,5 +50,9 @@ namespace OnlineMasterG.Models.DAL
         public virtual DbSet<ExamSection> ExamSections { get; set; }
         public virtual DbSet<ExamSectionLink> ExamSectionLinks { get; set; }
         public virtual DbSet<GeneralInstruction> GeneralInstructions { get; set; }
+        public virtual DbSet<MockTestAttemptDetail> MockTestAttemptDetails { get; set; }
+        public virtual DbSet<MockTestAttempt> MockTestAttempts { get; set; }
+        public virtual DbSet<ProblemMaster> ProblemMasters { get; set; }
+        public virtual DbSet<ProblemsReported> ProblemsReporteds { get; set; }
     }
 }
