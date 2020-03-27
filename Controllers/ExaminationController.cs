@@ -31,8 +31,8 @@ namespace OnlineMasterG.Controllers
 
             if (TestDetails!=null)
             {
-                ViewBag.ExamTimeInSeconds = TestDetails.TimeInMinutes * 60;
-                ViewBag.ExamTimeInMinutes = TestDetails.TimeInMinutes;
+                ViewBag.ExamTimeInSeconds = model.TimeLeftInMinutes * 60;
+                ViewBag.ExamTimeInMinutes = model.TimeLeftInMinutes;
                 ViewBag.TestName = TestDetails.TestName;
                 ViewBag.TestId = TestDetails.TestId;  
             }

@@ -382,6 +382,24 @@
             ;
             /*cursive !important;*/
         }
+
+        .MarkedImportant {
+            background-color: #8a63c0 !important;
+            border: #8a63c0 !important;
+            color: #fff;
+        }
+
+        .NotAnsweredImportant {
+            background-color: #d63c08 !important;
+            border: #d63c08 !important;
+            color: #fff;
+        }
+
+        .AnsweredImportant {
+            background-color: #64b31a !important;
+            border: #64b31a !important;
+            color: #fff;
+        }
     </style>
 
     <script type="text/javascript">
@@ -465,7 +483,7 @@
                             <img class="student_img" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(ImgId)})' alt="" width="50">
                         }
 
-                        <span class="w_color f_600">@ActiveUser.Email</span>
+                        <span class="w_color f_600">@(ActiveUser?.Email)</span>
                     </div>
                 </div>
             </nav>
@@ -543,6 +561,7 @@
                                                             {
                                                                 var classActive = string.Empty;
                                                                 var QuestionDiv = divSubjectId + "QuestionDiv" + Q.Index;
+                                                               
                                                                 if (Q.Index == 0)
                                                                 {
                                                                     classActive = "active";
@@ -586,12 +605,14 @@
                                                                                 <ul class="list-unstyled payment_list">
                                                                                     @if (Q.Data.QuestionAnswerChoices != null && Q.Data.QuestionAnswerChoices.Count() > 0)
                                                                                     {
+                                                                                     var RadioButtonName = "Answer"+QuestionDiv;
+
                                                                                         foreach (var QA in Q.Data.QuestionAnswerChoices)
                                                                                         {
                                                                                             <li>
                                                                                                 <label class="containerCheck">
                                                                                                     @QA.QuestionAnswer
-                                                                                                    <input type="radio" name="Answer">
+                                                                                                    <input type="radio" name="@RadioButtonName">
                                                                                                     <span class="checkmark"></span>
                                                                                                 </label>
                                                                                             </li>
@@ -688,7 +709,7 @@
                                     <a href="#" class="btn_hover agency_banner_btn" data-toggle="modal" data-target="#instructionModal">Instructions</a>
                                     <!-- <a href="#" class="btn_hover agency_banner_btn btn_clear" data-toggle="modal" data-target="#reportModal">Report</a> -->
                                     <!-- <a href="#" class="btn_hover agency_banner_btn answered hidden-xs"> Prev</a> -->
-                                    <a href="#" class="btn_hover agency_banner_btn report " data-toggle="modal" data-target="#pauseModal1">Pause</a>
+                                    <a href="#" class="btn_hover agency_banner_btn report " onclick="fnPauseGetCurrentAnsweredDetails();" data-toggle="modal" data-target="#pauseModal1">Pause</a>
 
                                 </div>
                             </div>
@@ -702,7 +723,7 @@
                             <a href="#" class="btn_hover agency_banner_btn hidden-xs" data-toggle="modal" data-target="#instructionModal">Instructions</a>
                             <a href="#" class="btn_hover agency_banner_btn  btn_clear report_responsive" data-toggle="modal" data-target="#reportModal">Report</a>
 
-                            <a href="#" class="btn_hover agency_banner_btn marked_review">Mark</a>
+                            <a href="#" class="btn_hover agency_banner_btn marked_review " id="markUnmarkButton" onclick="fnMarkUnmark(this);">Mark</a>
                             <a href="#" class="btn_hover agency_banner_btn report" onclick="fnClearRadioButtons(this);">Clear</a>
                             @*<button class="btn_hover agency_banner_btn report" id="BtnClearRadioButtons"> Clear </button>*@
                         </div>
@@ -930,9 +951,9 @@
 
                                         <div class="service_info">
                                             <div class="row instructionHead mb_15">
-                                                <div class="col-md-12 sec_title text-center">
-                                                    <h2 class="f_p f_size_20 f_500 t_color2 mb-10">Remaining Time : <span class="answered">00:00:15</span> </h2>
-                                                </div>
+                                                @*<div class="col-md-12 sec_title text-center">
+                                                        <h2 class="f_p f_size_20 f_500 t_color2 mb-10">Remaining Time : <span class="answered">00:00:15</span> </h2>
+                                                    </div>*@
                                                 <!--
                                                                         <div class="col-md-3 language text-right">
                                                                               <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -1143,7 +1164,7 @@
                                             </div>
 
                                             <div class="col-md-6 col-6 text-right">
-                                                <a href="mock-test.html" class="btn_hover agency_banner_btn m-0">Tests</a>
+                                                <a href="@Url.Action("Index","MockTests")" class="btn_hover agency_banner_btn m-0">Tests</a>
                                             </div>
                                         </div>
 
@@ -1299,7 +1320,7 @@
             function openQuestion(evt, className) {
 
                 var i, tabcontent, tablinks;
-
+                // Clearing All Subjects
                 tabcontent = document.getElementsByClassName("tabcontent");
                 for (i = 0; i < tabcontent.length; i++) {
                     tabcontent[i].style.display = "none";
@@ -1308,7 +1329,7 @@
                 for (i = 0; i < tablinks.length; i++) {
                     tablinks[i].className = tablinks[i].className.replace(" active", "");
                 }
-
+                // Clearing All Questions
                 tabcontent = document.getElementsByClassName("tabcontentQuestions");
                 for (i = 0; i < tabcontent.length; i++) {
                     tabcontent[i].style.display = "none";
@@ -1317,8 +1338,9 @@
                 for (i = 0; i < tablinks.length; i++) {
                     tablinks[i].className = tablinks[i].className.replace(" CurrentSelected", "");
                 }
-
+                // Opening the subject Tab
                 document.getElementById(className).click();
+                // Adding current selected
                 document.getElementById(className).style.display = "block";
                 evt.target.className += " CurrentSelected";
 
@@ -1331,15 +1353,63 @@
                 var findNavLinkByDivIdClassName = $('.' + SubjectDivId + '').attr('id');
                 document.getElementById(findNavLinkByDivIdClassName).className += " active";
 
+                // Mark -Un Mark
+                var currentBtnId = "#" + evt.target.id;
+                if ($(currentBtnId).hasClass('MarkedImportant')) {
+                    $("#markUnmarkButton").text('Un-Mark');
+                }
+                else {
+                    $("#markUnmarkButton").text('Mark');
+                }
+                // Marking as Visited
+                if (!$(currentBtnId).hasClass('VISITED')) {
+                    $(currentBtnId).addClass('VISITED');
+                }
+                var AllVisitedQuestions = $('.VISITED');
+                 
+                $.each(AllVisitedQuestions, function (i, e) {
+                     var IsAnyChecked = false;
+                     var QuestionDiv = "#" + $(e).next('input[type="hidden"]').val();
+                    //$(QuestionDiv).find('.containerCheck').find("input:radio[name='Answer']").each(function (a, b) {
+                    //    if ($(b).is(":checked")) {
+                    //        IsAnyChecked = true;
+                    //    }
+                    //});
+                    debugger
+                    IsAnyChecked = $(QuestionDiv).find('.containerCheck').find("input:radio:checked").length > 0 ? true : false;
+                    if (!IsAnyChecked) {
+                        if (!$(e).hasClass('CurrentSelected') && !$(e).hasClass('NotAnsweredImportant') && !$(e).hasClass('MarkedImportant')) {
+                            if ($(e).hasClass('AnsweredImportant')) {
+                                $(e).removeClass('AnsweredImportant');
+                            }
 
-            }
+                            $(e).addClass('NotAnsweredImportant');
+                        }
+                    }
+                    else if (!$(e).hasClass('CurrentSelected') && !$(e).hasClass('MarkedImportant')) {
+                        if ($(e).hasClass('NotAnsweredImportant')) {
+                            $(e).removeClass('NotAnsweredImportant');
+                        }
+                        $(e).addClass('AnsweredImportant');
+                    }
+
+                });
+
+                if ($(currentBtnId).hasClass('CurrentSelected') && $(currentBtnId).hasClass('NotAnsweredImportant')) {
+                    $(currentBtnId).removeClass('NotAnsweredImportant');
+                }
+                if ($(currentBtnId).hasClass('AnsweredImportant') && $(currentBtnId).hasClass('CurrentSelected')) {
+                    $(currentBtnId).removeClass('AnsweredImportant');
+                }
+
+            };
 
             function fnClearRadioButtons() {
                 var ActiveQuestionDiv = "#" + $('.CurrentSelected').next("input:hidden[id='QDiv']").val();
-                 $(ActiveQuestionDiv).find('.containerCheck').find("input:radio[name='Answer']").each(function (i) {
+                $(ActiveQuestionDiv).find('.containerCheck').find("input:radio").each(function (i) {
                     this.checked = false;
                 });
-
+                return false;
             }
 
             function fnPrevious() {
@@ -1347,11 +1417,27 @@
                 $(PreviousQButton).click();
             }
             function fnNextAndSave() {
-                debugger
                 var NextQButton = "#" + $('.CurrentSelected').parent().next().children().attr('id');
                 $(NextQButton).click();
             }
+            function fnMarkUnmark() {
+                debugger
+                var currentButton = "#" + $('.CurrentSelected').attr('id');
+                if ($(currentButton).hasClass('MarkedImportant')) {
+                    $(currentButton).removeClass('MarkedImportant');
+                    $("#markUnmarkButton").text('Mark');
+                }
+                else {
+                    $(currentButton).addClass('MarkedImportant');
+                    $("#markUnmarkButton").text('Un-Mark');
 
+                }
+            }
+
+
+            function fnPauseGetCurrentAnsweredDetails() {
+
+            }
         </script>
     </div>
 
