@@ -17,6 +17,7 @@ namespace OnlineMasterG.Models.DAL
         public int ProblemReportId { get; set; }
         public Nullable<int> AttemptDetailId { get; set; }
         public int ProblemId { get; set; }
+        public bool IsReported { get; set; }
     
         public virtual MockTestAttemptDetail MockTestAttemptDetail { get; set; }
         public virtual ProblemMaster ProblemMaster { get; set; }

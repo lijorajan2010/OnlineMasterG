@@ -51,7 +51,7 @@ namespace OnlineMasterG.Models.ViewModels
         public string QuestionSet { get; set; }
         public string Solution { get; set; }
         public string CorrectAnswer { get; set; }
-        public List<string> OptionList { get; set; }
+        public List<int> OptionList { get; set; }
         public virtual ICollection<QuestionAnswerChoiceVM> QuestionAnswerChoices { get; set; }
         public virtual ICollection<QuestionPointVM> QuestionPoints { get; set; }
     }
@@ -59,7 +59,7 @@ namespace OnlineMasterG.Models.ViewModels
     {
         public int QuestionAnswerChoiceId { get; set; }
         public string QuestionAnswer { get; set; }
-        public string ChoiceId { get; set; }
+        public int ChoiceId { get; set; }
         public bool IsCorrect { get; set; }
         public Nullable<int> QuestionsMockTestId { get; set; }
 

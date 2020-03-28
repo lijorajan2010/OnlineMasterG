@@ -19,6 +19,8 @@ namespace OnlineMasterG.CommonServices
             return DB.MockTestAttempts.Where(m => m.AttemptId == attemptId).FirstOrDefault();
         }
 
+    
+
         internal static ServiceResponse SaveMockTestAttempt(MockTestAttempt firstTimeAttempt, string audiLogin)
         {
             ServiceResponse sr = new ServiceResponse();
@@ -62,6 +64,12 @@ namespace OnlineMasterG.CommonServices
 
             }
             return sr;
+        
+        }
+        public static List<ProblemMaster> GetProblemMasters()
+        {
+            return DB.ProblemMasters.Where(m => m.IsActive == true).ToList();
+
         }
     }
 }

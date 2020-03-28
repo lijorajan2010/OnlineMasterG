@@ -172,7 +172,7 @@
                                                                                     <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">@pap.Data.Description</h4>
                                                                                 </div>
                                                                                 <div class="col-md-4 col-md-4 col-xs-4">
-                                                                                    @Html.ActionLink(" Start ", "Index", "Instruction", new { TestId =pap.Data.TestId }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
+                                                                                    @Html.ActionLink(" Start ", "Index", "Instruction", new { p=CustomEncrypt.SafeUrlEncrypt(pap.Data.TestId.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
                                                                                 </div>
                                                                             </div>
                                                                         </div>

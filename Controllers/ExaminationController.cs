@@ -19,28 +19,31 @@ namespace OnlineMasterG.Controllers
 
             string CurrentLogin = HttpContext.User.Identity.Name;
             MockTestAttemptVM model = new MockTestAttemptVM();
-            if (!string.IsNullOrEmpty(CurrentLogin))
+            if (!string.IsNullOrEmpty(CurrentLogin) && TestDetails != null)
             {
                 model = ExamLogics.GetMockTestAttemptDetails(CurrentLogin, TestId, CurrentLogin);
-                ViewBag.CurrentAttempt = model;
+              //  ViewBag.CurrentAttempt = model;
             }
             else
             {
                 RedirectToAction("Index", "Login");
             }
 
-            if (TestDetails!=null)
-            {
-                ViewBag.ExamTimeInSeconds = model.TimeLeftInMinutes * 60;
-                ViewBag.ExamTimeInMinutes = model.TimeLeftInMinutes;
-                ViewBag.TestName = TestDetails.TestName;
-                ViewBag.TestId = TestDetails.TestId;  
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            return View();
+            //if (TestDetails!=null)
+            //{
+            //    //ViewBag.ExamTimeInSeconds = model.TimeLeftInMinutes * 60;
+            //    //ViewBag.ExamTimeInMinutes = model.TimeLeftInMinutes;
+            //    //ViewBag.TestName = TestDetails.TestName;
+            //    //ViewBag.TestId = TestDetails.TestId;
+            //    //ViewBag.ProblemsList = model?.MockTestAttemptDetails; 
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
+            ViewBag.ProblemsList = ExamService.GetProblemMasters();
+            ViewBag.AnswerStatus = ExamLogics.getAnswerStatuses();
+            return View(model);
         }
     }
 }

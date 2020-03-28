@@ -99,7 +99,7 @@ namespace OnlineMasterG.Controllers
                                 QuestionAnswer = qc.QuestionAnswer,
                                 QuestionsMockTestId = qc.QuestionsMockTestId,
                                 IsCorrect = qc.IsCorrect,
-                                ChoiceId = qc.ChoiceId.ToString()
+                                ChoiceId = qc.ChoiceId
                             });
                         }
 
@@ -117,7 +117,7 @@ namespace OnlineMasterG.Controllers
                         }
                         var CorrectAnswer = questionAnswerChoiceVMs.Where(m => m.IsCorrect == true).FirstOrDefault();
                         var OptionList = questionAnswerChoiceVMs.Select(m => m.ChoiceId).ToList();
-                        string CorrectAnswerId = null;
+                        int? CorrectAnswerId = null;
                         if (CorrectAnswer!=null)
                         {
                             CorrectAnswerId = CorrectAnswer.ChoiceId;
@@ -134,7 +134,7 @@ namespace OnlineMasterG.Controllers
                             QuestionPoints = questionPointVMs,
                             Solution = item.Solution,
                             QuestionUploadId = item.QuestionUploadId,
-                            CorrectAnswer = !string.IsNullOrEmpty(CorrectAnswerId) ? CorrectAnswerId : "1",
+                            CorrectAnswer = CorrectAnswerId!=null ? CorrectAnswerId.ToString() : "1",
                             OptionList = OptionList
                         }); 
                     }

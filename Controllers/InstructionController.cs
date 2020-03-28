@@ -1,5 +1,6 @@
 ﻿using OnlineMasterG.Base;
 using OnlineMasterG.Code;
+using OnlineMasterG.CommonFramework;
 using OnlineMasterG.DomainLogic;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,13 @@ namespace OnlineMasterG.Controllers
     public class InstructionController : BaseController
     {
         // GET: Instruction
-        public ActionResult Index(int TestId)
+        public ActionResult Index(string p)
         {
+            int TestId = 0;
+            if (!string.IsNullOrEmpty(p))
+            {
+                TestId = int.Parse(CustomEncrypt.SafeUrlDecrypt(p));
+            }
             ViewBag.TestId = TestId;
             return View();
         }

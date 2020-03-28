@@ -17,6 +17,7 @@ namespace OnlineMasterG.Models.ViewModels
         public bool IsPaused { get; set; }
         public int TimeLeftInMinutes { get; set; }
         public bool IsCompleted { get; set; }
+        public string TestName { get; set; }
         public string CreateBy { get; set; }
         public System.DateTime CreateDate { get; set; }
         public string EditBy { get; set; }
@@ -46,7 +47,7 @@ namespace OnlineMasterG.Models.ViewModels
         public virtual CourseVM Course { get; set; }
         public virtual MockTestAttemptVM MockTestAttempt { get; set; }
         public virtual QuestionAnswerChoiceVM QuestionAnswerChoice { get; set; }
-        public virtual QuestionsMockTestVM QuestionsMockTest { get; set; }
+        public virtual QuestionsMockTestVM QuestionsMockTests { get; set; }
         public virtual SectionVM Section { get; set; }
         public virtual SubjectVM Subject { get; set; }
       
@@ -58,6 +59,7 @@ namespace OnlineMasterG.Models.ViewModels
         public int ProblemReportId { get; set; }
         public Nullable<int> AttemptDetailId { get; set; }
         public int ProblemId { get; set; }
+        public bool IsReported { get; set; }
         public virtual MockTestAttemptDetailVM MockTestAttemptDetail { get; set; }
         public virtual ProblemMasterVM ProblemMaster { get; set; }
     }

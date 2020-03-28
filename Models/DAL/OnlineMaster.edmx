@@ -221,6 +221,7 @@
           <Property Name="ProblemReportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AttemptDetailId" Type="int" />
           <Property Name="ProblemId" Type="int" Nullable="false" />
+          <Property Name="IsReported" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="QuestionAnswerChoices">
           <Key>
@@ -2376,6 +2377,7 @@
           <Property Name="ProblemId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MockTestAttemptDetail" Relationship="OnlinemasterjiModel.FK__ProblemsR__Attem__2CBDA3B5" FromRole="ProblemsReported" ToRole="MockTestAttemptDetail" />
           <NavigationProperty Name="ProblemMaster" Relationship="OnlinemasterjiModel.FK__ProblemsR__Probl__2DB1C7EE" FromRole="ProblemsReported" ToRole="ProblemMaster" />
+          <Property Name="IsReported" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK__MockTestA__Categ__2610A626">
           <End Type="OnlinemasterjiModel.Category" Role="Category" Multiplicity="0..1" />
@@ -2958,6 +2960,7 @@
           <EntitySetMapping Name="ProblemsReporteds">
             <EntityTypeMapping TypeName="OnlinemasterjiModel.ProblemsReported">
               <MappingFragment StoreEntitySet="ProblemsReported">
+                <ScalarProperty Name="IsReported" ColumnName="IsReported" />
                 <ScalarProperty Name="ProblemId" ColumnName="ProblemId" />
                 <ScalarProperty Name="AttemptDetailId" ColumnName="AttemptDetailId" />
                 <ScalarProperty Name="ProblemReportId" ColumnName="ProblemReportId" />

@@ -30,7 +30,7 @@ namespace OnlineMasterG.CommonFramework
         public static void SetUserInFormsCookie(LoginVM loginResponse)
         {
             string userDataInJson = JsonConvert.SerializeObject(loginResponse);
-            var authTicket = new FormsAuthenticationTicket(1, loginResponse.Login, DateTime.Now, DateTime.Now.AddMinutes(150), false, userDataInJson);
+            var authTicket = new FormsAuthenticationTicket(1, loginResponse.Login, DateTime.Now, DateTime.Now.AddDays(30), false, userDataInJson);
             string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
             var faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
             System.Web.HttpContext.Current.Response.Cookies.Add(faCookie);
