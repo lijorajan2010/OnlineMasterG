@@ -32,27 +32,27 @@ namespace OnlineMasterG.Models.DAL
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<DataContent> DataContents { get; set; }
         public virtual DbSet<DataFile> DataFiles { get; set; }
+        public virtual DbSet<ExamSection> ExamSections { get; set; }
+        public virtual DbSet<ExamSectionLink> ExamSectionLinks { get; set; }
+        public virtual DbSet<GeneralInstruction> GeneralInstructions { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
         public virtual DbSet<MockTest> MockTests { get; set; }
+        public virtual DbSet<MockTestAttemptDetail> MockTestAttemptDetails { get; set; }
+        public virtual DbSet<MockTestAttempt> MockTestAttempts { get; set; }
+        public virtual DbSet<ProblemMaster> ProblemMasters { get; set; }
+        public virtual DbSet<ProblemsReported> ProblemsReporteds { get; set; }
         public virtual DbSet<QuestionAnswerChoice> QuestionAnswerChoices { get; set; }
         public virtual DbSet<QuestionMaster> QuestionMasters { get; set; }
         public virtual DbSet<QuestionPoint> QuestionPoints { get; set; }
         public virtual DbSet<QuestionsMockTest> QuestionsMockTests { get; set; }
         public virtual DbSet<QuestionUpload> QuestionUploads { get; set; }
         public virtual DbSet<SchoolClass> SchoolClasses { get; set; }
+        public virtual DbSet<SchoolPaper> SchoolPapers { get; set; }
         public virtual DbSet<SchoolSection> SchoolSections { get; set; }
         public virtual DbSet<SchoolSubject> SchoolSubjects { get; set; }
         public virtual DbSet<Section> Sections { get; set; }
+        public virtual DbSet<SubjectMaster> SubjectMasters { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserType> UserTypes { get; set; }
-        public virtual DbSet<SchoolPaper> SchoolPapers { get; set; }
-        public virtual DbSet<ExamSection> ExamSections { get; set; }
-        public virtual DbSet<ExamSectionLink> ExamSectionLinks { get; set; }
-        public virtual DbSet<GeneralInstruction> GeneralInstructions { get; set; }
-        public virtual DbSet<MockTestAttemptDetail> MockTestAttemptDetails { get; set; }
-        public virtual DbSet<MockTestAttempt> MockTestAttempts { get; set; }
-        public virtual DbSet<ProblemMaster> ProblemMasters { get; set; }
-        public virtual DbSet<ProblemsReported> ProblemsReporteds { get; set; }
     }
 }

@@ -17,10 +17,10 @@ namespace OnlineMasterG.Models.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MockTest()
         {
-            this.QuestionUploads = new HashSet<QuestionUpload>();
-            this.Subjects = new HashSet<Subject>();
             this.GeneralInstructions = new HashSet<GeneralInstruction>();
             this.MockTestAttempts = new HashSet<MockTestAttempt>();
+            this.QuestionUploads = new HashSet<QuestionUpload>();
+            this.Subjects = new HashSet<Subject>();
         }
     
         public int TestId { get; set; }
@@ -39,14 +39,14 @@ namespace OnlineMasterG.Models.DAL
     
         public virtual Category Category { get; set; }
         public virtual Course Course { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GeneralInstruction> GeneralInstructions { get; set; }
         public virtual Section Section { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MockTestAttempt> MockTestAttempts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuestionUpload> QuestionUploads { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Subject> Subjects { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GeneralInstruction> GeneralInstructions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MockTestAttempt> MockTestAttempts { get; set; }
     }
 }

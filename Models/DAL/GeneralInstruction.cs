@@ -28,7 +28,7 @@ namespace OnlineMasterG.Models.DAL
         public Nullable<int> TotalQuestions { get; set; }
         public Nullable<int> SubjectId { get; set; }
     
-        public virtual MockTest MockTest { get; set; }
         public virtual Subject Subject { get; set; }
+        public virtual MockTest MockTest { get; set; }
     }
 }

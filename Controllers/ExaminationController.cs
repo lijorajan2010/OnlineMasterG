@@ -22,28 +22,21 @@ namespace OnlineMasterG.Controllers
             if (!string.IsNullOrEmpty(CurrentLogin) && TestDetails != null)
             {
                 model = ExamLogics.GetMockTestAttemptDetails(CurrentLogin, TestId, CurrentLogin);
-              //  ViewBag.CurrentAttempt = model;
             }
             else
             {
                 RedirectToAction("Index", "Login");
             }
-
-            //if (TestDetails!=null)
-            //{
-            //    //ViewBag.ExamTimeInSeconds = model.TimeLeftInMinutes * 60;
-            //    //ViewBag.ExamTimeInMinutes = model.TimeLeftInMinutes;
-            //    //ViewBag.TestName = TestDetails.TestName;
-            //    //ViewBag.TestId = TestDetails.TestId;
-            //    //ViewBag.ProblemsList = model?.MockTestAttemptDetails; 
-            //}
-            //else
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
+          
             ViewBag.ProblemsList = ExamService.GetProblemMasters();
             ViewBag.AnswerStatus = ExamLogics.getAnswerStatuses();
             return View(model);
+        }
+        [HttpPost]
+        public ActionResult StudentFromAnswerSubmit(MockTestAttemptVM model)
+        {
+            var AttemptSaved = ExamLogics.SaveExamAttempts(model,HttpContext.User.Identity.Name);
+            return View();
         }
     }
 }

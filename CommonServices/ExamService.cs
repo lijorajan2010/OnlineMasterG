@@ -45,12 +45,44 @@ namespace OnlineMasterG.CommonServices
 
                         if (firstTimeAttempt.MockTestAttemptDetails != null && firstTimeAttempt.MockTestAttemptDetails.Count() > 0)
                         {
-                            // first removing
-                            DB.MockTestAttemptDetails.RemoveRange(dbMockTestAttempt.MockTestAttemptDetails);
-                            DB.SaveChanges();
-                            // and saving new list
-                            DB.MockTestAttemptDetails.AddRange(firstTimeAttempt.MockTestAttemptDetails);
-                            DB.SaveChanges();
+                            //// first removing
+                            //DB.MockTestAttemptDetails.RemoveRange(dbMockTestAttempt.MockTestAttemptDetails);
+                            //DB.SaveChanges();
+                            //// and saving new list
+                            //DB.MockTestAttemptDetails.AddRange(firstTimeAttempt.MockTestAttemptDetails);
+                            //DB.SaveChanges();
+
+                            foreach (var item in firstTimeAttempt.MockTestAttemptDetails)
+                            {
+                               var  DBMockTestAttemptDetails = dbMockTestAttempt.MockTestAttemptDetails.Where(m => m.AttemptDetailId == item.AttemptDetailId).FirstOrDefault();
+                                if (DBMockTestAttemptDetails!=null)
+                                {
+                                    DBMockTestAttemptDetails.AnswerChoiceId = item.AnswerChoiceId;
+                                    DBMockTestAttemptDetails.ChoosenAnswerChoiceId = item.ChoosenAnswerChoiceId;
+                                    DBMockTestAttemptDetails.IsAnswerCorrect = item.IsAnswerCorrect;
+                                    DBMockTestAttemptDetails.MarksScored = item.MarksScored;
+                                    DBMockTestAttemptDetails.AnswerStatus = item.AnswerStatus;
+                                    DBMockTestAttemptDetails.SubjectTimeUsed = item.SubjectTimeUsed;
+                                }
+                             
+
+                                if (DBMockTestAttemptDetails.ProblemsReporteds!=null && DBMockTestAttemptDetails.ProblemsReporteds.Count()>0
+                                    && item.ProblemsReporteds!=null && item.ProblemsReporteds.Count()>0)
+                                {
+                                    foreach (var prob in item.ProblemsReporteds)
+                                    {
+                                        var DBProb = DBMockTestAttemptDetails.ProblemsReporteds.Where(m => m.ProblemId == prob.ProblemId).FirstOrDefault();
+                                        if (DBProb!=null)
+                                        {
+                                            DBProb.IsReported = prob.IsReported;
+                                            DBProb.IssueText = prob.IssueText;
+
+                                        }
+
+                                    }
+                                }
+
+                            }
                         }
 
                         DB.SaveChanges();

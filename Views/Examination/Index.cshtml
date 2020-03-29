@@ -427,11 +427,14 @@
                 minutes = Math.floor((timeLeft % 3600) / 60).toLocaleString(undefined, { minimumIntegerDigits: 2 });
                 seconds = (timeLeft % 60).toLocaleString(undefined, { minimumIntegerDigits: 2 });
 
-                document.getElementById('time-left').innerHTML = '' + hours + ':' + minutes + ':' + seconds;
+                $('#time-lefthours').text(hours);
+                $('#time-leftminutes').text(minutes);
+                $('#time-leftseconds').text(seconds);
             }
 
             function completed() {
                 // Do whatever you need to do when the timer runs out...
+                LastAndFinalSubmitFrom();
             }
         }
     </script>
@@ -456,7 +459,10 @@
                     </div>
 
                     <div class="col-md-2 col-xs-6 breadcrumb_content text-center">
-                        <div class="w_color f_700 ">Time Left: <span id="time-left"></span></div>
+                        <div class="w_color f_700 ">
+                            Time Left: <span id="time-left"></span>
+                            <label style="font-weight:bold" id="time-lefthours">00</label>:<label style="font-weight:bold" id="time-leftminutes">00</label>:<label style="font-weight:bold" id="time-leftseconds">00</label>
+                        </div>
 
                         <!-- <h1 class="f_p f_700 f_size_30 w_color l_height50">SSC CGL</h1> -->
                     </div>
@@ -503,6 +509,7 @@
                         var TestId = Model.TestId;
 
                         var AnswerStatus = ViewBag.AnswerStatus;
+                        var FirstSubjectName = string.Empty;
                     }
 
 
@@ -519,13 +526,19 @@
 
                                             var divSubjectId = "divSubjectId" + item.Index;
                                             var idTab = "Btn" + item.Index;
+
+                                            if (item.Index == 0)
+                                            {
+                                                FirstSubjectName = item.Data.SubjectName;
+                                            }
+
                                             <script type="text/javascript">
                                                 var CurrentIndex = '@item.Index'
                                                 if (CurrentIndex == 0) {
-                                                    var Subject = { divTabId: '@idTab', IsPaused: false }
+                                                    var Subject = { divTabId: '@idTab', IsPaused: false , TotalSeconds : 0 , divSubjectName : '@item.Data.SubjectName' , SubjectId : '@item.Data.SubjectId' }
                                                 }
                                                 else {
-                                                    var Subject = { divTabId: '@idTab', IsPaused: true }
+                                                    var Subject = { divTabId: '@idTab', IsPaused: true , TotalSeconds : 0 , divSubjectName : '@item.Data.SubjectName' , SubjectId : '@item.Data.SubjectId' }
                                                 }
                                                 SubjectsTimers.push(Subject);
                                             </script>
@@ -533,7 +546,7 @@
                                     }
 
                                     <div id="activeSubjectTimer" class="text-right">
-                                        Time <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
+                                        Time usage of <lable id="subjectIdNameTimer" style="font-weight:bold"> @FirstSubjectName </lable> &nbsp; : <label style="font-weight:bold" id="hours">00</label>:<label style="font-weight:bold" id="minutes">00</label>:<label style="font-weight:bold" id="seconds">00</label>
                                     </div>
                                     <div class="dropdown">
 
@@ -557,16 +570,14 @@
                                                     if (item.Index == 0)
                                                     {
                                                         <li class="nav-item">
-                                                            <button id="@idTab" class="tablinks nav-link @divSubjectId active" onclick="openSubject(event, '@divSubjectId')">@item.Data.SubjectName</button>
-
+                                                            <button id="@idTab" class="tablinks nav-link SUBJECTBUTTON @divSubjectId active" onclick="openSubject(event, '@divSubjectId')">@item.Data.SubjectName</button>
                                                         </li>
                                                     }
                                                     else
                                                     {
 
                                                         <li class="nav-item">
-                                                            <button id="@idTab" class="tablinks nav-link @divSubjectId" onclick="openSubject(event, '@divSubjectId')">@item.Data.SubjectName</button>
-
+                                                            <button id="@idTab" class="tablinks nav-link SUBJECTBUTTON @divSubjectId" onclick="openSubject(event, '@divSubjectId')">@item.Data.SubjectName</button>
                                                         </li>
                                                     }
 
@@ -714,21 +725,24 @@
                                             if (Model.MockTestAttemptDetails != null && Model.MockTestAttemptDetails.Count() > 0)
                                             {
                                                 var QuestionBasedOnTestAndSubjects = Model.MockTestAttemptDetails.Where(m => m.SubjectId == item.Data.SubjectId).ToList();
+                                                var FinalQuestionAttemptDetailId = QuestionBasedOnTestAndSubjects.OrderByDescending(m => m.AttemptDetailId).FirstOrDefault().AttemptDetailId;
+
                                                 foreach (var Q in QuestionBasedOnTestAndSubjects.OrderBy(m => m.QuestionNumber).Select((x, y) => new { Data = x, Index = y }))
                                                 {
                                                     var classnot_answered = "not_visited";
                                                     var QuestionDiv = divSubjectId + "QuestionDiv" + Q.Index;
                                                     var QBtn = divSubjectId + "QBtn" + Q.Index;
                                                     var classIsFirst = "cls" + Q.Index;
-                                                    var QuestionNumnber = "Qnumber" + Q.Index;
+                                                    var QuestionNumnber = "Qnumber" + item.Data.SubjectId + "_" + Q.Data.QuestionsMockTests.QuestionNumber;
 
+                                                    var IsLastQ = Q.Data.AttemptDetailId == FinalQuestionAttemptDetailId ? true : false;
 
                                                     if (Q.Index == 0)
                                                     {
                                                         classnot_answered = "not_visited";
 
                                                         <li>
-                                                            <button id="@QBtn" disabled data-questionnumber="@Q.Data.QuestionsMockTests.QuestionNumber" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered @QuestionNumnber" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuestionsMockTests.QuestionNumber">@Q.Data.QuestionsMockTests.QuestionNumber</button>
+                                                            <button id="@QBtn" disabled data-questionnumber="@QuestionNumnber" data-subjectid="@item.Data.SubjectId" data-finalq="@IsLastQ" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered @QuestionNumnber" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuestionsMockTests.QuestionNumber">@Q.Data.QuestionsMockTests.QuestionNumber</button>
                                                             <input type="hidden" id="QDiv" value="@QuestionDiv" />
                                                             @*<input type="hidden" id="QAnswerStatus" value="NOTATTEMPTED" />*@
                                                         </li>
@@ -736,7 +750,7 @@
                                                     else
                                                     {
                                                         <li>
-                                                            <button id="@QBtn" disabled data-questionnumber="@Q.Data.QuestionsMockTests.QuestionNumber" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered @QuestionNumnber" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuestionsMockTests.QuestionNumber">@Q.Data.QuestionsMockTests.QuestionNumber</button>
+                                                            <button id="@QBtn" disabled data-questionnumber="@QuestionNumnber" data-subjectid="@item.Data.SubjectId" data-finalq="@IsLastQ" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered @QuestionNumnber" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuestionsMockTests.QuestionNumber">@Q.Data.QuestionsMockTests.QuestionNumber</button>
                                                             <input type="hidden" id="QDiv" value="@QuestionDiv" />
                                                             @*<input type="hidden" id="QAnswerStatus" value="NOTATTEMPTED" />*@
                                                         </li>
@@ -765,7 +779,7 @@
                     </div>
 
                     <div id="MarkingDiv" style="display:none">
-                        <form>
+                        <form id="frmAnswerForm" method="post" action="@Url.Action("StudentFromAnswerSubmit","Examination")">
                             @if (Model.MockTestAttemptDetails != null && Model.MockTestAttemptDetails.Count() > 0)
                             {
                                 <input type="hidden" id="hfIsPaused" name="IsPaused" value='@Model.IsPaused'>
@@ -774,20 +788,26 @@
 
                                 foreach (var item in Model.MockTestAttemptDetails.OrderBy(m => m.AttemptDetailId).Select((x, y) => new { Data = x, Index = y }))
                                 {
-                                    var QuestionNumnber = "Qnumber" + item.Data.QuestionNumber;
+                                    var QuestionNumnber = "Qnumber" + item.Data.SubjectId + "_" + item.Data.QuestionNumber;
                                     <div id="@QuestionNumnber">
-                                        <input type="hidden" name="Answers[@item.Index].AttemptId" value='@item.Data.AttemptId'>
-                                        <input type="hidden" name="Answers[@item.Index].QuestionsMockTestId" value='@item.Data.QuestionsMockTestId'>
-                                        <input type="hidden" name="Answers[@item.Index].QuestionNumber" value='@item.Data.QuestionNumber'>
-                                        <input type="hidden" name="Answers[@item.Index].ChoosenAnswerChoiceId" value='@item.Data.ChoosenAnswerChoiceId'>
-                                        <input type="hidden" name="Answers[@item.Index].ChoiceId" value='@item.Data.AnswerChoiceId'>
-                                        <input type="hidden" name="Answers[@item.Index].AnswerStatus" value='@item.Data.AnswerStatus'>
+                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].AttemptId" value='@item.Data.AttemptId'>
+                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].QuestionsMockTestId" value='@item.Data.QuestionsMockTestId'>
+                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].QuestionNumber" value='@item.Data.QuestionNumber'>
+                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].SubjectId" value='@item.Data.SubjectId'>
+                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].SubjectTimeUsed" value='@item.Data.SubjectTimeUsed'>
+                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].ChoosenAnswerChoiceId" value='@item.Data.ChoosenAnswerChoiceId'>
+                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].ChoiceId" value='@item.Data.AnswerChoiceId'>
+                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].AnswerStatus" value='@item.Data.AnswerStatus'>
+                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].AttemptDetailId" value='@item.Data.AttemptDetailId'>
                                         @if (item.Data.ProblemsReporteds != null)
                                         {
+                                            var totalProblems = item.Data.ProblemsReporteds.Count();
+                                            var IssueText = item.Data.ProblemsReporteds.OrderByDescending(m => m.ProblemId).FirstOrDefault().IssueText;
                                             foreach (var prob in item.Data.ProblemsReporteds.Select((x, y) => new { Data = x, Index = y }))
                                             {
-                                                <input type="hidden" name="Answers[@item.Index].ProblemsReporteds[@prob.Index]" data-problemid="@prob.Data.ProblemId" value='@prob.Data.IsReported'>
+                                                <input type="hidden" name="MockTestAttemptDetails[@item.Index].ProblemsReporteds[@prob.Index].ProblemId" data-problemid="@prob.Data.ProblemId" value='@prob.Data.IsReported'>
                                             }
+                                            <input type="hidden" name="MockTestAttemptDetails[@item.Index].ProblemsReporteds[@totalProblems].IssueText" value='@IssueText'>
                                         }
                                     </div>
                                 }
@@ -810,8 +830,8 @@
 
                             <a href="#" class="btn_hover agency_banner_btn answered hidden-xs" onclick="fnPrevious(this)"> Prev</a>
                             <a href="#" class="btn_hover agency_banner_btn answered" onclick="fnNextAndSave(this)">Save &amp; Next</a>
-                            <a href="#" class="btn_hover agency_banner_btn report hidden-xs" data-toggle="modal" data-target="#pauseModal1">Pause</a>
-                            <a href="#" class="btn_hover agency_banner_btn answered" data-toggle="modal" data-target="#finishModal">Finish</a>
+                            <a href="#" class="btn_hover agency_banner_btn report hidden-xs" data-toggle="modal" data-target="#pauseModal1" onclick="fnSaveAndPauseForm();">Pause</a>
+                            <a href="#" class="btn_hover agency_banner_btn answered" data-toggle="modal" data-target="#finishModal" onclick="fnSaveAndSubmitForm();">Finish</a>
 
                         </div>
                     </div>
@@ -1014,7 +1034,7 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="table-responsive">
-                                                    <table class="table table-bordered">
+                                                    <table class="table table-bordered" id="tableSummary">
                                                         <thead>
                                                             <tr>
                                                                 <th>Section</th>
@@ -1026,30 +1046,6 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>English</td>
-                                                                <td>30</td>
-                                                                <td>8</td>
-                                                                <td>9</td>
-                                                                <td>7</td>
-                                                                <td>13</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Reasoning Ability</td>
-                                                                <td>35</td>
-                                                                <td>0</td>
-                                                                <td>0</td>
-                                                                <td>5</td>
-                                                                <td>15</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Numerical Aptitude</td>
-                                                                <td>35</td>
-                                                                <td>8</td>
-                                                                <td>9</td>
-                                                                <td>7</td>
-                                                                <td>13</td>
-                                                            </tr>
                                                         </tbody>
                                                     </table>
 
@@ -1078,11 +1074,11 @@
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-md-6 col-xs-6 text-center">
-                                                <a data-dismiss="modal" class="btn_hover agency_banner_btn answered">Resume</a>
+                                                <a data-dismiss="modal" class="btn_hover agency_banner_btn answered" onclick="fnResumeComplete();">Resume</a>
                                             </div>
 
                                             <div class="col-md-6 col-xs-6 text-center">
-                                                <a href="reportcard.html" class="btn_hover agency_banner_btn m-0">Submit</a>
+                                                <a href="" class="btn_hover agency_banner_btn m-0" onclick="LastAndFinalSubmitFrom();">Submit</a>
                                             </div>
                                         </div>
 
@@ -1130,11 +1126,11 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 col-xs-6 text-center">
-                                            <a href="#" class="btn_hover agency_banner_btn answered m-0" data-dismiss="modal">No</a>
+                                            <a href="#" class="btn_hover agency_banner_btn answered m-0" onclick="fnResumePause();" data-dismiss="modal">No</a>
                                         </div>
 
                                         <div class="col-md-6 col-xs-6 text-center">
-                                            <a href="#" class="btn_hover agency_banner_btn m-0" data-toggle="modal" data-target="#pauseModal2">Yes</a>
+                                            <a href="#" class="btn_hover agency_banner_btn m-0" data-toggle="modal" onclick="fnPause();" data-target="#pauseModal2">Yes</a>
                                         </div>
                                     </div>
                                 </div>
@@ -1169,32 +1165,19 @@
                                                 <div class="">
                                                     <!-- <div class="icon s_icon_one"><i class="ti-check"></i></div> -->
                                                     <!--                            <h4 class="f_400 f_size_15 l_height28 t_color2 mb-0">Report Question</h4>-->
-
-                                                    <table class="table-bordered">
-                                                        <tbody>
-                                                            <tr>
-                                                                <th>Section</th>
-                                                                <th>No. of Questions </th>
-                                                                <th>Answered</th>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>English</td>
-                                                                <td>30</td>
-                                                                <td>15</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Reasoning Ability</td>
-                                                                <td>30</td>
-                                                                <td>25</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Numeric Ability</td>
-                                                                <td>30</td>
-                                                                <td>30</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-
+                                                    <div class="table-responsive">
+                                                        <table width="100%" class="table-bordered" id="tblPause">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Section</th>
+                                                                    <th>No. of Questions </th>
+                                                                    <th>Answered</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
 
 
                                                     <!--  <img class="float-right" src="img/home2/undraw.png" alt=""> -->
@@ -1212,11 +1195,11 @@
                                     <div class="col-md-12">
                                         <div class="row m-0">
                                             <div class="col-md-6 col-6">
-                                                <a href="#" data-dismiss="modal" class="btn_hover agency_banner_btn answered m-0">Resume</a>
+                                                <a href="#" data-dismiss="modal" class="btn_hover agency_banner_btn answered m-0" onclick="fnResumePause();">Resume</a>
                                             </div>
 
                                             <div class="col-md-6 col-6 text-right">
-                                                <a href="@Url.Action("Index","MockTests")" class="btn_hover agency_banner_btn m-0">Tests</a>
+                                                <a class="btn_hover agency_banner_btn m-0" onclick="LastAndFinalSubmitFrom();">Tests</a>
                                             </div>
                                         </div>
 
@@ -1330,9 +1313,9 @@
                     this.interval = setInterval(function () {
                         self.totalSeconds += 1;
 
-                        $("#hours").text(Math.floor(self.totalSeconds / 3600));
-                        $("#minutes").text(Math.floor(self.totalSeconds / 60 % 60));
-                        $("#seconds").text(parseInt(self.totalSeconds % 60));
+                        $("#hours").text(Math.floor(self.totalSeconds / 3600).toLocaleString(undefined, { minimumIntegerDigits: 2 }));
+                        $("#minutes").text(Math.floor(self.totalSeconds / 60 % 60).toLocaleString(undefined, { minimumIntegerDigits: 2 }));
+                        $("#seconds").text(parseInt(self.totalSeconds % 60).toLocaleString(undefined, { minimumIntegerDigits: 2 }));
                     }, 1000);
                 },
 
@@ -1354,7 +1337,60 @@
                 $("#divSubjectId0QuestionDiv0").click();
                 $("#divSubjectId0QBtn0").click();
 
+                $('.SUBJECTBUTTON').click(function (e) {
+                    var currentBtnthis = this;
+
+                    setTimeout(
+                        function () {
+                            var currentBtn = currentBtnthis.attributes.id.value;
+                            var currentBtnId = "#" + currentBtn;
+                            var activeArraySub = SubjectsTimers.filter(checkCurrentPausedOrNot);
+                            var activeBtnTab = activeArraySub[0].divTabId;
+                            var activeBtnTabId = "#" + activeBtnTab;
+                            if (currentBtnthis.className.endsWith('active')) {
+
+                                if ($(currentBtnId).hasClass('active') && activeBtnTabId != currentBtnId) {
+
+                                    // setting remaining time before pausing to the active subject
+                                    var hours = $("#hours").text();
+                                    var minutes = $("#minutes").text();
+                                    var seconds = $("#seconds").text();
+                                    var remainingSeconds = ((Math.floor(hours) * 3600) + (Math.floor(minutes) * 60) + (Math.floor(seconds)));
+
+                                    SubjectsTimers.find(v => v.divTabId == activeBtnTab).IsPaused = true;
+                                    SubjectsTimers.find(v => v.divTabId == activeBtnTab).TotalSeconds = remainingSeconds;
+                                    Clock.pause();
+
+                                    SubjectsTimers.find(v => v.divTabId == currentBtn).IsPaused = false;
+                                    var currentArraySub = SubjectsTimers.filter(checkCurrentPausedOrNot);
+                                    Clock.totalSeconds = currentArraySub[0].TotalSeconds;
+
+                                    $("#subjectIdNameTimer").text("");
+                                    var CurrentSubject = currentArraySub[0].divSubjectName;
+                                    $("#subjectIdNameTimer").text(CurrentSubject);
+                                    Clock.resume();
+                                }
+                                else if ($(currentBtnId).hasClass('active') && activeBtnTabId == currentBtnId) {
+                                    // setting remaining time before pausing to the active subject
+                                    var hours = $("#hours").text();
+                                    var minutes = $("#minutes").text();
+                                    var seconds = $("#seconds").text();
+                                    var remainingSeconds = ((Math.floor(hours) * 3600) + (Math.floor(minutes) * 60) + (Math.floor(seconds)));
+
+                                    SubjectsTimers.find(v => v.divTabId == activeBtnTab).IsPaused = false;
+                                    SubjectsTimers.find(v => v.divTabId == activeBtnTab).TotalSeconds = remainingSeconds;
+                                }
+                            }
+                        },
+                        0);
+                });
             });
+
+            function checkCurrentPausedOrNot(timer) {
+                if (timer.IsPaused == false) {
+                    return timer;
+                }
+            }
 
             function openSubject(evt, className) {
                 var i, tabcontent, tablinks;
@@ -1379,16 +1415,6 @@
 
                 document.getElementById(className).style.display = "block";
                 evt.target.className += " active";
-                debugger
-                // Timer
-                var currentBtnId = "#" + evt.target.id;
-                var activeBtnTabId = SubjectsTimers.filter(checkCurrentPausedOrNot)[0].divTabId;
-                if ($(currentBtnId).hasClass('active') && activeBtnTabId == evt.target.id) {
-                    Clock.pause();
-                }
-                else {
-                    Clock.resume();
-                }
 
                 var SubjectDivId = "#" + className;
                 var classWithQustionDivId = $("" + SubjectDivId + " >").first().attr('id');
@@ -1400,11 +1426,7 @@
 
 
             }
-            function checkCurrentPausedOrNot(timer) {
-                if (timer.IsPaused == false) {
-                    return timer;
-                }
-            }
+
             function openQuestion(evt, className) {
 
                 var i, tabcontent, tablinks;
@@ -1470,6 +1492,7 @@
                             //    $(QAnswerStatusId).val('NOTANSWERED');
                         }
                     }
+                    /// here, marked will also considered as answered if they selected
                     else if (!$(e).hasClass('CurrentSelected') && !$(e).hasClass('MarkedImportant')) {
                         if ($(e).hasClass('NotAnsweredImportant')) {
                             $(e).removeClass('NotAnsweredImportant');
@@ -1480,14 +1503,27 @@
 
                 });
 
-                if ($(currentBtnId).hasClass('CurrentSelected') && $(currentBtnId).hasClass('NotAnsweredImportant')) {
+                var isFinal = $(currentBtnId).data('finalq');
+                //if ($(currentBtnId).hasClass('CurrentSelected') && $(currentBtnId).hasClass('NotAnsweredImportant') && isFinal == "False") {
+                //    $(currentBtnId).removeClass('NotAnsweredImportant');
+                //}
+                if ($(currentBtnId).hasClass('CurrentSelected') && $(currentBtnId).hasClass('NotAnsweredImportant') && isFinal == "True") {
+                    // changing order for priority
                     $(currentBtnId).removeClass('NotAnsweredImportant');
-                    //  $(currentBtnId).next().next('input[type="hidden"]').val('NOTATTEMPTED');
-
+                    $(currentBtnId).removeClass('CurrentSelected');
+                    $(currentBtnId).addClass('NotAnsweredImportant');
+                    $(currentBtnId).addClass('CurrentSelected');
                 }
-                if ($(currentBtnId).hasClass('AnsweredImportant') && $(currentBtnId).hasClass('CurrentSelected')) {
+
+                //if ($(currentBtnId).hasClass('AnsweredImportant') && $(currentBtnId).hasClass('CurrentSelected') && isFinal == "False") {
+                //    $(currentBtnId).removeClass('AnsweredImportant');
+                //}
+                if ($(currentBtnId).hasClass('AnsweredImportant') && $(currentBtnId).hasClass('CurrentSelected') && isFinal == "True") {
+                    // changing order for priority
                     $(currentBtnId).removeClass('AnsweredImportant');
-                    //  $(currentBtnId).next().next('input[type="hidden"]').val('NOTATTEMPTED');
+                    $(currentBtnId).removeClass('CurrentSelected');
+                    $(currentBtnId).addClass('AnsweredImportant');
+                    $(currentBtnId).addClass('CurrentSelected');
                 }
 
                 //// finding and setting in submit forms
@@ -1499,6 +1535,7 @@
                     var Questionchoiceid;
                     var QuestionDiv = "#" + $(e).next('input[type="hidden"]').val();
                     var QuestionNumber = $(e).data('questionnumber');
+
                     IsAnyAnswer = $(QuestionDiv).find('.containerCheck').find("input:radio:checked").length > 0 ? true : false;
                     var Answerstatus = "NOTATTEMPTED";
                     if ($(e).hasClass('AnsweredImportant')) {
@@ -1510,15 +1547,16 @@
                     else if ($(e).hasClass('MarkedImportant')) {
                         Answerstatus = "MARKED";
                     }
+
                     if (IsAnyAnswer) {
                         Questionanswerchoiceid = $(QuestionDiv).find('.containerCheck').find("input:radio:checked").data('questionanswerchoiceid');
                         Questionchoiceid = $(QuestionDiv).find('.containerCheck').find("input:radio:checked").data('choiceid');
                     }
 
-                    var formQuestionDiv = "#Qnumber" + QuestionNumber;
+                    var formQuestionDiv = "#" + QuestionNumber;
                     var formValuesCurrentQuestion = $("#MarkingDiv").find("form").children().next("" + formQuestionDiv + "").find('input:hidden');
-                    $.each(formValuesCurrentQuestion, function (a, b) {
 
+                    $.each(formValuesCurrentQuestion, function (a, b) {
 
                         if ($(b).attr('name').endsWith("ChoosenAnswerChoiceId")) {
                             $(b).val(Questionanswerchoiceid);
@@ -1533,8 +1571,6 @@
                     });
 
                 });
-
-
 
             };
 
@@ -1580,7 +1616,7 @@
 
                 var currentButton = "#" + $('.CurrentSelected').attr('id');
                 var QuestionNumber = $(currentButton).data('questionnumber');
-                var formQuestionDiv = "#Qnumber" + QuestionNumber;
+                var formQuestionDiv = "#" + QuestionNumber;
                 var formValuesCurrentQuestion = $("#MarkingDiv").find("form").children().next("" + formQuestionDiv + "").find('input:hidden');
                 $.each(formValuesCurrentQuestion, function (a, b) {
 
@@ -1608,6 +1644,11 @@
                     else if ($(b).data('problemid') == 8 && $("#ProblemId8").is(":checked")) {
                         $(b).val(true);
                     }
+                    else if ($(b).data('problemid') == 8 && $("#ProblemId8").is(":checked")) {
+
+                        $(b).val(true);
+                        $(b).next().val($("#issuebox").val());
+                    }
 
                 });
             }
@@ -1621,12 +1662,13 @@
                 $("#ProblemId6").prop('checked', false);
                 $("#ProblemId7").prop('checked', false);
                 $("#ProblemId8").prop('checked', false);
+                $("#issuebox").val('');
 
             }
             function setCheckBoxes() {
                 var currentButton = "#" + $('.CurrentSelected').attr('id');
                 var QuestionNumber = $(currentButton).data('questionnumber');
-                var formQuestionDiv = "#Qnumber" + QuestionNumber;
+                var formQuestionDiv = "#" + QuestionNumber;
                 var formValuesCurrentQuestion = $("#MarkingDiv").find("form").children().next("" + formQuestionDiv + "").find('input:hidden');
                 $.each(formValuesCurrentQuestion, function (a, b) {
 
@@ -1653,12 +1695,183 @@
                     }
                     else if ($(b).data('problemid') == 8 && $(b).val() == "true") {
                         $("#ProblemId8").prop('checked', true);
+                        $("#issuebox").val($(b).next().val());
+
                     }
                 });
             }
-            function fnPauseGetCurrentAnsweredDetails() {
+            function fnSaveAndSubmitForm() {
+
+                // for setting updated values in array
+                $('.SUBJECTBUTTON').click();
+
+                setTimeout(function () {
+                    FinalSettingWithCurrentData();
+                }, 2);
+                setTimeout(function () {
+                    fnBeforeSumbit();
+                }, 6);
+                fnResumeComplete();
+            };
+
+            function fnSaveAndPauseForm() {
+                // for setting updated values in array
+                $('.SUBJECTBUTTON').click();
+
+                setTimeout(function () {
+                    FinalSettingWithCurrentData();
+                }, 2);
+
+                setTimeout(function () {
+                    fnBeforePause();
+                }, 6);
+            };
+
+            function FinalSettingWithCurrentData() {
+                var AllQuestionDiv = $("#MarkingDiv").find("form").children().filter('div');
+                $.each(AllQuestionDiv, function (i, e) {
+                    var AllInputsInDiv = $(e).find('input:hidden');
+                    $.each(AllInputsInDiv, function (a, b) {
+                        if ($(b).attr('name').endsWith("SubjectTimeUsed")) {
+                            var prevsubjectid = $(b).prev().val();
+                            var seconds = SubjectsTimers.find(v => v.SubjectId == prevsubjectid).TotalSeconds;
+                            var timeleftforSubject = 0.00;
+                            timeleftforSubject = (seconds / 60).toFixed(2);
+                            $(b).val(timeleftforSubject);
+                        }
+                    });
+                });
+
+
+            };
+            function fnBeforeSumbit() {
+                $("#tableSummary tbody").empty();
+                SubjectsTimers.forEach(setTbody);
+            }
+            function fnBeforePause() {
+                $("#hfIsPaused").val(true);
+                $("#tblPause tbody").empty();
+                SubjectsTimers.forEach(setTbodyPause);
+            }
+            function setTbody(value, index, array) {
+
+                var subjectId = value.SubjectId;
+                var subjectName = value.divSubjectName;
+                var numberOfQuestions = 0;
+                var answered = 0;
+                var notAnswered = 0;
+                var markedforReview = 0;
+                var notVisited = 0;
+
+                var AllQuestionDiv = $("#MarkingDiv").find("form").children().filter('div');
+
+
+                $.each(AllQuestionDiv, function (i, e) {
+
+                    var AllInputsInDiv = $(e).find('input:hidden');
+                    var divSubjectId;
+                    $.each(AllInputsInDiv, function (a, b) {
+                        if ($(b).attr('name').endsWith("SubjectId")) {
+
+                            if ($(b).val() == subjectId) {
+                                divSubjectId = $(b).val();
+                                numberOfQuestions++;
+                            }
+                        }
+                        if ($(b).attr('name').endsWith("AnswerStatus") && divSubjectId == subjectId) {
+
+                            if ($(b).val() == "ANSWERED") {
+                                answered++;
+                            }
+                            else if ($(b).val() == "NOTANSWERED") {
+                                notAnswered++;
+                            }
+                            else if ($(b).val() == "MARKED") {
+                                markedforReview++;
+                            }
+                            else if ($(b).val() == "NOTATTEMPTED") {
+                                notVisited++;
+                            }
+                        }
+                    });
+                });
+
+
+                var newRowContent = '<tr><td>' + subjectName + '</td><td>' + numberOfQuestions + '</td><td>' + answered + '</td><td>' + notAnswered + '</td><td>' + markedforReview + '</td><td>' + notVisited + '</td></tr>';
+
+                $("#tableSummary tbody").append(newRowContent);
 
             }
+            function setTbodyPause(value, index, array) {
+
+                var subjectId = value.SubjectId;
+                var subjectName = value.divSubjectName;
+                var numberOfQuestions = 0;
+                var answered = 0;
+
+                var AllQuestionDiv = $("#MarkingDiv").find("form").children().filter('div');
+
+                $.each(AllQuestionDiv, function (i, e) {
+
+                    var AllInputsInDiv = $(e).find('input:hidden');
+                    var divSubjectId;
+                    $.each(AllInputsInDiv, function (a, b) {
+                        if ($(b).attr('name').endsWith("SubjectId")) {
+
+                            if ($(b).val() == subjectId) {
+                                divSubjectId = $(b).val();
+                                numberOfQuestions++;
+                            }
+                        }
+                        if ($(b).attr('name').endsWith("AnswerStatus") && divSubjectId == subjectId) {
+
+                            if ($(b).val() == "ANSWERED") {
+                                answered++;
+                            }
+
+                        }
+                    });
+                });
+
+
+                var newRowContent = '<tr><td>' + subjectName + '</td><td>' + numberOfQuestions + '</td><td>' + answered + '</td></tr>';
+
+                $("#tblPause tbody").append(newRowContent);
+
+            }
+            function fnResumePause() {
+                $("#hfIsPaused").val(false);
+            }
+            function fnResumeComplete() {
+                $("#hfIsCompleted").val(false);
+            }
+            function fnPause() {
+                $("#hfIsPaused").val(true);
+            }
+            function fnComplete() {
+                $("#hfIsCompleted").val(true);
+            }
+            function fnSetTimeLeft() {
+
+                // setting remaining time before pausing to the active subject
+                var hours = $("#time-lefthours").text();
+                var minutes = $("#time-leftminutes").text();
+                var seconds = $("#time-leftseconds").text();
+                var remainingSeconds = ((Math.floor(hours) * 3600) + (Math.floor(minutes) * 60) + (Math.floor(seconds)));
+                var Inminutes = 0.00;
+                Inminutes = (remainingSeconds / 60);
+                $("#hfTimeLeftInMinutes").val(Inminutes);
+
+            }
+            function LastAndFinalSubmitFrom() {
+                fnComplete();
+                fnSetTimeLeft();
+                setTimeout(function () {
+                    @*$("#frmAnswerForm").ajaxForm({url: '@Url.Action("","")', type: 'post'})*@
+                    $("#frmAnswerForm").submit();
+                }, 6);
+            }
+
         </script>
     </div>
 

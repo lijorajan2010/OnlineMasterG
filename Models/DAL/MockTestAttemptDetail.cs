@@ -32,6 +32,8 @@ namespace OnlineMasterG.Models.DAL
         public Nullable<int> AnswerChoiceId { get; set; }
         public string AnswerStatus { get; set; }
         public decimal MarksScored { get; set; }
+        public Nullable<decimal> SubjectTimeUsed { get; set; }
+        public bool IsAnswerCorrect { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual Course Course { get; set; }

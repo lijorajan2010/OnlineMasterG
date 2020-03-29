@@ -17,9 +17,9 @@ namespace OnlineMasterG.Models.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SchoolClass()
         {
+            this.SchoolPapers = new HashSet<SchoolPaper>();
             this.SchoolSections = new HashSet<SchoolSection>();
             this.SchoolSubjects = new HashSet<SchoolSubject>();
-            this.SchoolPapers = new HashSet<SchoolPaper>();
         }
     
         public int ClassId { get; set; }
@@ -33,10 +33,10 @@ namespace OnlineMasterG.Models.DAL
         public Nullable<System.DateTime> EditOn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SchoolPaper> SchoolPapers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SchoolSection> SchoolSections { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SchoolSubject> SchoolSubjects { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SchoolPaper> SchoolPapers { get; set; }
     }
 }

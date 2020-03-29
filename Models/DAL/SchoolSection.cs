@@ -33,8 +33,8 @@ namespace OnlineMasterG.Models.DAL
         public Nullable<int> SubjectId { get; set; }
     
         public virtual SchoolClass SchoolClass { get; set; }
-        public virtual SchoolSubject SchoolSubject { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SchoolPaper> SchoolPapers { get; set; }
+        public virtual SchoolSubject SchoolSubject { get; set; }
     }
 }

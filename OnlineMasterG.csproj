@@ -384,10 +384,10 @@
     <Compile Include="Models\DAL\Subject.cs">
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DAL\User.cs">
+    <Compile Include="Models\DAL\SubjectMaster.cs">
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DAL\UserType.cs">
+    <Compile Include="Models\DAL\User.cs">
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Shared\ResetPasswordModel.cs" />

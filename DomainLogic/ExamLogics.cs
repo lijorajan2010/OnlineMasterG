@@ -1,4 +1,5 @@
-﻿using OnlineMasterG.CommonFramework;
+﻿using OnlineMasterG.Base;
+using OnlineMasterG.CommonFramework;
 using OnlineMasterG.CommonServices;
 using OnlineMasterG.Models.DAL;
 using OnlineMasterG.Models.ViewModels;
@@ -29,7 +30,26 @@ namespace OnlineMasterG.DomainLogic
             if (TestAttepts != null && TestAttepts.Count() > 0)
             {
                 var FirstNotCompletedAttempt = TestAttepts.Where(m => m.IsCompleted == false).OrderByDescending(m => m.CreateDate).FirstOrDefault();
-                model = SetAttemptVMModel(FirstNotCompletedAttempt, TestId);
+                if (FirstNotCompletedAttempt != null)
+                {
+                    model = SetAttemptVMModel(FirstNotCompletedAttempt, TestId);
+                }
+                else
+                {
+                    // create a dummy data / insert data into Mock ttest attempt table then return that table
+                    var CreateAnotherAttempt = GetFirstAttemptMocktest(Login, TestId);
+                    var sr = ExamService.SaveMockTestAttempt(CreateAnotherAttempt, auditlogin);
+                    if (sr.Status)
+                    {
+                        var newData = ExamService.Fetch(sr.ReturnId);
+                        model = SetAttemptVMModel(newData, TestId);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+
             }
             else
             {
@@ -48,6 +68,116 @@ namespace OnlineMasterG.DomainLogic
             }
 
             return model;
+        }
+
+        internal static ServiceResponse SaveExamAttempts(MockTestAttemptVM model, string auditLogin)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            try
+            {
+                if (model != null)
+                {
+                    MockTestAttempt mockTestAttempt = new MockTestAttempt();
+
+                    int? AttemptId = model.MockTestAttemptDetails?.FirstOrDefault()?.AttemptId;
+                    mockTestAttempt.AttemptId = AttemptId.Value;
+                    mockTestAttempt.IsPaused = model.IsPaused;
+                    mockTestAttempt.IsCompleted = model.IsCompleted;
+                    mockTestAttempt.TimeLeftInMinutes = model.TimeLeftInMinutes;
+
+                    List<MockTestAttemptDetail> mockTestAttemptDetailsList = new List<MockTestAttemptDetail>();
+
+                    if (model.MockTestAttemptDetails != null && model.MockTestAttemptDetails.Count() > 0)
+                    {
+                        foreach (var item in model.MockTestAttemptDetails)
+                        {
+                            MockTestAttemptDetail mockTestAttemptDetail = new MockTestAttemptDetail();
+                            mockTestAttemptDetail.ChoosenAnswerChoiceId = item.ChoosenAnswerChoiceId;
+                            mockTestAttemptDetail.AnswerChoiceId = item.AnswerChoiceId;
+                            mockTestAttemptDetail.QuestionNumber = item.QuestionNumber;
+                            mockTestAttemptDetail.AnswerStatus = item.AnswerStatus;
+                            mockTestAttemptDetail.QuestionsMockTestId = item.QuestionsMockTestId;
+                            mockTestAttemptDetail.AttemptDetailId = item.AttemptDetailId;
+                            mockTestAttemptDetail.SubjectTimeUsed = item.SubjectTimeUsed;
+                            mockTestAttemptDetail.IsAnswerCorrect = GetIsCorrectAnswer(item.QuestionsMockTestId, item.ChoosenAnswerChoiceId);
+                            mockTestAttemptDetail.MarksScored = GetMarksScored(mockTestAttemptDetail.IsAnswerCorrect, model.TestId, item.SubjectId);
+
+                            List<ProblemsReported> problemsReporteds = new List<ProblemsReported>();
+
+                            if (item.ProblemsReporteds != null && item.ProblemsReporteds.Count() > 0)
+                            {
+                                foreach (var prob in item.ProblemsReporteds)
+                                {
+                                    problemsReporteds.Add(new ProblemsReported()
+                                    {
+                                        ProblemId = prob.ProblemId,
+                                        IsReported = prob.IsReported,
+                                        IssueText = prob.IssueText
+
+                                    });
+                                }
+
+                            }
+
+                            mockTestAttemptDetail.ProblemsReporteds = problemsReporteds;
+                            mockTestAttemptDetailsList.Add(mockTestAttemptDetail);
+                        }
+                    }
+
+                    mockTestAttempt.MockTestAttemptDetails = mockTestAttemptDetailsList;
+
+
+                    sr = ExamService.SaveMockTestAttempt(mockTestAttempt, auditLogin);
+
+                }
+                else
+                {
+                    sr.AddError("Sorry. There is a problem in processing your request.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                sr.AddError(ex.Message);
+            }
+           
+
+
+            return sr;
+        }
+
+        private static decimal GetMarksScored(bool isAnswerCorrect, int? testId, int? subjectId)
+        {
+            decimal markScored = 0;
+            var markDetails = GeneralService.FetchByTestIdAndSubjectId(testId, subjectId);
+            if (markDetails != null)
+            {
+                decimal? CorrectMark = markDetails.CorrectMarks;
+                decimal? NegetiveMark = markDetails.NegativeMarks;
+
+                if (isAnswerCorrect)
+                {
+                    markScored = CorrectMark.HasValue ? CorrectMark.Value : 1;
+                }
+                else
+                {
+                    markScored = NegetiveMark.HasValue ? NegetiveMark.Value : 0;
+                }
+            }
+            return markScored;
+        }
+
+
+        private static bool GetIsCorrectAnswer(int? questionsMockTestId, int? choosenAnswerChoiceId)
+        {
+            bool isCorrect = false;
+            if (questionsMockTestId.HasValue && choosenAnswerChoiceId.HasValue)
+            {
+                var QuestionCorrectAnswerId = QuestionUploadService.FetchQuestionsMock(questionsMockTestId).QuestionAnswerChoices.Where(m => m.IsCorrect == true).FirstOrDefault().QuestionAnswerChoiceId;
+                isCorrect = QuestionCorrectAnswerId == choosenAnswerChoiceId ? true : false;
+            }
+            return isCorrect;
         }
 
         public static List<string> getAnswerStatuses()
@@ -94,7 +224,8 @@ namespace OnlineMasterG.DomainLogic
                             problemsOfThisQuestion.Add(new ProblemsReported()
                             {
                                 ProblemId = prob.ProblemId,
-                                IsReported = false
+                                IsReported = false,
+
                             });
                         }
 
@@ -103,6 +234,7 @@ namespace OnlineMasterG.DomainLogic
                         detail.CategoryId = Q.Data.QuestionUpload?.CategoryId;
                         detail.SectionId = Q.Data.QuestionUpload?.SectionId;
                         detail.SubjectId = Q.Data.QuestionUpload?.SubjectId;
+                        detail.SubjectTimeUsed = 0;
                         detail.QuestionsMockTestId = Q.Data.QuestionsMockTestId;
                         detail.MarksScored = 0;
                         detail.AnswerStatus = AnswerStatus.NOTATTEMPTED.ToString();
@@ -119,7 +251,7 @@ namespace OnlineMasterG.DomainLogic
                         mockTestAttemptDetails.Add(detail);
                     }
                 }
-               
+
             }
 
             mockTestAttempt.MockTestAttemptDetails = mockTestAttemptDetails;
@@ -164,12 +296,12 @@ namespace OnlineMasterG.DomainLogic
                             }
                         }
 
-                        var OriginalQuestion = QuestionUploadService.GetQuestionsBasedOnTestAndSubject(TestId, item.SubjectId).Where(m=>m.QuestionNumber == item.QuestionNumber).FirstOrDefault();
+                        var OriginalQuestion = QuestionUploadService.GetQuestionsBasedOnTestAndSubject(TestId, item.SubjectId).Where(m => m.QuestionNumber == item.QuestionNumber).FirstOrDefault();
 
                         List<QuestionAnswerChoiceVM> questionAnswerChoiceVMs = new List<QuestionAnswerChoiceVM>();
                         List<QuestionPointVM> QuestionPointVMs = new List<QuestionPointVM>();
 
-                        if (OriginalQuestion!=null && OriginalQuestion.QuestionAnswerChoices!=null && OriginalQuestion.QuestionAnswerChoices.Count()>0)
+                        if (OriginalQuestion != null && OriginalQuestion.QuestionAnswerChoices != null && OriginalQuestion.QuestionAnswerChoices.Count() > 0)
                         {
                             foreach (var Ans in OriginalQuestion.QuestionAnswerChoices)
                             {
@@ -190,13 +322,13 @@ namespace OnlineMasterG.DomainLogic
                                 QuestionPointVMs.Add(new QuestionPointVM()
                                 {
                                     QuestionPointId = Ques.QuestionPointId,
-                                    QPoint =Ques.QPoint
+                                    QPoint = Ques.QPoint
                                 });
                             }
                         }
 
                         QuestionsMockTestVM Question = new QuestionsMockTestVM();
-                        if (OriginalQuestion!=null)
+                        if (OriginalQuestion != null)
                         {
                             Question.Description = OriginalQuestion.Description;
                             Question.Isactive = OriginalQuestion.Isactive;
@@ -210,14 +342,16 @@ namespace OnlineMasterG.DomainLogic
                             Question.QuestionPoints = QuestionPointVMs;
                             Question.QuestionAnswerChoices = questionAnswerChoiceVMs;
                         }
-                      
+
                         mockTestAttemptDetails.Add(new MockTestAttemptDetailVM()
                         {
                             AttemptDetailId = item.AttemptDetailId,
+                            AttemptId = item.AttemptId,
                             CourseId = item.CourseId,
                             CategoryId = item.CategoryId,
                             SectionId = item.SectionId,
                             SubjectId = item.SubjectId,
+                            SubjectTimeUsed = item.SubjectTimeUsed,
                             QuestionsMockTestId = item.QuestionsMockTestId,
                             QuestionNumber = item.QuestionNumber,
                             ChoosenAnswerChoiceId = item.ChoosenAnswerChoiceId,

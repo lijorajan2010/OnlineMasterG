@@ -26,8 +26,8 @@ namespace OnlineMasterG.Models.DAL
         public Nullable<int> QuestionsMockTestId { get; set; }
         public int ChoiceId { get; set; }
     
-        public virtual QuestionsMockTest QuestionsMockTest { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MockTestAttemptDetail> MockTestAttemptDetails { get; set; }
+        public virtual QuestionsMockTest QuestionsMockTest { get; set; }
     }
 }

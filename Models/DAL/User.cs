@@ -34,7 +34,6 @@ namespace OnlineMasterG.Models.DAL
         public string LastName { get; set; }
         public string ResetPasswordCode { get; set; }
     
-        public virtual UserType UserType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MockTestAttempt> MockTestAttempts { get; set; }
     }

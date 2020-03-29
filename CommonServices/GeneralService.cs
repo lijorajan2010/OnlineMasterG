@@ -35,6 +35,12 @@ namespace OnlineMasterG.CommonServices
                      .Where(m => m.InstructionId == (InstructionId.HasValue ? InstructionId.Value : 0))
                      .FirstOrDefault();
         }
+        public static GeneralInstruction FetchByTestIdAndSubjectId(int? TestId, int? SubjectId)
+        {
+            return DB.GeneralInstructions
+                     .Where(m => m.TestId == (TestId.HasValue ? TestId.Value : 0) && m.SubjectId == (SubjectId.HasValue ? SubjectId.Value : 0))
+                     .FirstOrDefault();
+        }
 
         public static List<GeneralInstruction> GeneralInstructionList(string Lang, bool IsActive)
         {

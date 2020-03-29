@@ -24,7 +24,7 @@ namespace OnlineMasterG.Models.DAL
         public string Login { get; set; }
         public Nullable<int> TestId { get; set; }
         public bool IsPaused { get; set; }
-        public int TimeLeftInMinutes { get; set; }
+        public Nullable<decimal> TimeLeftInMinutes { get; set; }
         public bool IsCompleted { get; set; }
         public string CreateBy { get; set; }
         public System.DateTime CreateDate { get; set; }
