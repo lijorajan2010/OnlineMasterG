@@ -1,0 +1,466 @@
+﻿@model OnlineMasterG.Models.ViewModels.ReportCardVM
+
+@using OnlineMasterG.CommonFramework
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+    <title>Online Master JI</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/vendors/bootstrap-selector/css/bootstrap-select.min.css">
+    <!--icon font css-->
+    <link rel="stylesheet" href="~/vendors/themify-icon/themify-icons.css">
+    <link rel="stylesheet" href="~/vendors/flaticon/flaticon.css">
+    <link rel="stylesheet" href="~/vendors/animation/animate.css">
+    <link rel="stylesheet" href="~/vendors/owl-carousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/vendors/magnify-pop/magnific-popup.css">
+    <link rel="stylesheet" href="~/vendors/nice-select/nice-select.css">
+    <link rel="stylesheet" href="~/vendors/elagent/style.css">
+    <link rel="stylesheet" href="~/vendors/scroll/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <style>
+        section.service_area.sec_pad.s_service_section.breadcrumb_area.typography_breacrumb {
+            padding: 40px 0px 75px;
+        }
+
+        @@media (max-width: 1550px) {
+            .service_item {
+                padding: 10px 30px;
+            }
+        }
+
+        .pay_btn.pay_btn_two {
+            margin-left: 0;
+        }
+
+        .navbar-brand {
+            margin-left: 0;
+        }
+
+        section.service_area.sec_pad.s_service_section.breadcrumb_area.typography_breacrumb {
+            padding: 16px 0px 75px;
+        }
+
+        p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .instructionHead {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .instructionFoot {
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        ul {
+            list-style-type: decimal;
+        }
+
+            ul ul {
+                list-style-type: circle;
+            }
+
+        table {
+            font-size: 13px;
+            padding: 5px;
+            text-align: center;
+        }
+
+        td, th {
+            padding: 5px;
+        }
+
+        .result_section .btn_get, .result_section .agency_banner_btn {
+            line-height: inherit;
+            padding: 10px 15px;
+            font-size: 13px !important;
+        }
+
+        .result_section {
+            padding: 15px 25px 0px 25px;
+            border: solid 1px #fff;
+            margin-bottom: 20px;
+            box-shadow: 0px 2px 5px 0px rgba(63, 54, 132, 0.1);
+            background: #ffffff;
+        }
+
+        .border_r {
+            border-right: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .border-t {
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        body {
+            background: #f9f9f9;
+        }
+
+
+
+        /*//star*/
+        body {
+            background: #333;
+        }
+
+        .rating {
+            position: relative;
+            direction: rtl;
+            margin-top: 10px;
+        }
+
+            /*}*/
+            .rating .emo {
+                position: absolute;
+                font-family: FontAwesome;
+                color: #fff;
+                font-size: 100px;
+                bottom: 150%;
+                left: 50%;
+                -webkit-transform: translateX(-50%);
+                transform: translateX(-50%);
+                display: inline-block;
+            }
+
+                .rating .emo:after {
+                    content: '\f119';
+                }
+
+            .rating input {
+                position: absolute;
+                width: 26px;
+                height: 35px;
+                cursor: pointer;
+                opacity: 0;
+                z-index: 5;
+            }
+
+                .rating input:nth-of-type(4):checked ~ .emo:after, .rating input:nth-of-type(4):hover ~ .emo:after, .rating input:nth-of-type(3):checked ~ .emo:after, .rating input:nth-of-type(3):hover ~ .emo:after {
+                    content: '\f11a';
+                }
+
+                .rating input:nth-of-type(1):checked ~ .emo:after, .rating input:nth-of-type(1):hover ~ .emo:after, .rating input:nth-of-type(2):checked ~ .emo:after, .rating input:nth-of-type(2):hover ~ .emo:after {
+                    content: '\f118';
+                }
+
+                .rating input:checked ~ .star:after, .rating input:hover ~ .star:after {
+                    content: '\f005';
+                }
+
+            .rating .star {
+                display: inline-block;
+                font-family: FontAwesome;
+                font-size: 23px;
+                color: #ffd401;
+                cursor: pointer;
+                margin: 1px;
+            }
+
+                .rating .star:after {
+                    content: '\f006';
+                }
+
+                .rating .star:hover ~ .star:after, .rating .star:hover:after {
+                    content: '\f005';
+                }
+
+        .h6, h6 {
+            font-size: 14px;
+        }
+
+        .h5, h5 {
+            font-size: 17px;
+        }
+
+        h2.f_size_20 {
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+
+        .result_section .fa.fa-user {
+            background: #5e2ced;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 2;
+            color: #fff;
+            font-size: 14px;
+            float: left;
+            margin-right: 16px;
+            margin-bottom: 20px;
+        }
+
+        .mt_3 {
+            margin-top: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="body_wrapper">
+
+        <header class="breadcrumb_area p-0 mb-30">
+            <img class="breadcrumb_shap" src="~/img/breadcrumb/banner_bg.png" alt="">
+            <nav class="navbar navbar-expand-lg menu_four">
+                <div class="container">
+                    <!-- <div class="row"> -->
+                    <div class="col-md-3">
+                        <a class="navbar-brand" href="index.html"><img src="~/img/WhiteLogo.png" alt="logo"></a>
+                    </div>
+                    <div class="col-md-3 breadcrumb_content text-center">
+                        <!-- <span class="w_color f_600">SSC CGL</span> -->
+                        <h1 class="f_p f_700 w_color l_height50" style="font-size:20px;">@Model.TestName</h1>
+                    </div>
+
+                    <div class="col-md-3 breadcrumb_content text-center">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <p class=" f_700 w_color l_height50">Rate Us</p>
+                                <!-- <h1 class="f_p f_700 w_color l_height50" style="font-size:20px;">Rat</h1> -->
+                            </div>
+                            <div class="col-md-7">
+                                <div class="rating">
+                                    <input type="radio" name="star"><span class="star"> </span>
+                                    <input type="radio" name="star"><span class="star"> </span>
+                                    <input type="radio" name="star"><span class="star"> </span>
+                                    <input type="radio" name="star"><span class="star"> </span>
+                                    <input type="radio" name="star"><span class="star"> </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-3 text-right">
+                        <a class="btn_get btn_hover" href="@Url.Action("Index","MockTests")">Tests</a>
+
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </div>
+
+    <section class="">
+        <div class="container custom_container p0">
+
+            <div class="service_info">
+                <section class="result_section mb-30">
+
+                    <div class="row instructionHead mb_15">
+                        <!-- <div class="col-md-3"></div> -->
+                        <div class="col-md-12 sec_title">
+                            <h2 class="f_p f_size_20 f_500 mb-10">Overall Performance</h2>
+                            <!-- <p class="f_400 f_size_12 l_height30">Please Read all the Instructions Carefully.</p> -->
+                        </div>
+                    </div>
+                    <div class="row mb_15">
+                        <div class="col-md-3">
+                            <div class="border_r">
+                                <h6>Your Score</h6>
+                                <h5>@Model.TotalMarksScored/@Model.TotalOriginalMarks</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border_r">
+                                <h6>Rank</h6>
+                                <h5>@Model.Rank/@Model.TotalTestAttempts</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border_r">
+                                <h6>Percentage</h6>
+                                <h5>@Model.Percentage</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h6>Accuracy</h6>
+                                <h5>@Model.TotalTestAccuracy %</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb_15 border-t">
+                        <div class="col-md-12 text-right">
+                            @Html.ActionLink(" Reattempt", "Index", "Instruction", new { p = CustomEncrypt.SafeUrlEncrypt(Model.TestId.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
+                            @Html.ActionLink(" Solution", "Solution", "Examination", new { p = CustomEncrypt.SafeUrlEncrypt(Model.AttemptId.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
+                            <a class="btn_get btn_hover" href="login.html">Solution</a>
+                        </div>
+                    </div>
+                </section>
+                <section class="result_section mb-30">
+                    <div class="container custom_container p0 m_p0">
+
+                        <div class="row mb_15">
+                            <div class="col-md-12 sec_title">
+                                <h2 class="f_p f_size_20 f_500 mb-10">Subject Wise Score </h2>
+                            </div>
+
+                        </div>
+                        <div class="row mb_15">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Subjects</th>
+                                                <th>No. of questions</th>
+                                                <th>Answered</th>
+                                                <th>Not Answered</th>
+                                                <th>Marked for Review</th>
+                                                <th>Not Visited</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.subjectWiseScoreVMs != null && Model.subjectWiseScoreVMs.Count() > 0)
+                                            {
+                                                foreach (var item in Model.subjectWiseScoreVMs)
+                                                {
+                                                    <tr>
+                                                        <td>@item.SubjectName</td>
+                                                        <td>@item.TotalQuestions</td>
+                                                        <td>@item.NumberAnswered</td>
+                                                        <td>@item.NumberNotAnswered</td>
+                                                        <td>@item.NumberReview</td>
+                                                        <td>@item.NumberNotVisited</td>
+                                                    </tr>
+
+                                                }
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                @if (Model.subjectWiseScoreVMs != null && Model.subjectWiseScoreVMs.Count() > 0)
+                {
+                    foreach (var item in Model.subjectWiseScoreVMs)
+                    {
+                        <section class="result_section mb-30">
+                            <div class="row instructionHead mb_15">
+                                <div class="col-md-12 sec_title">
+                                    <h2 class="f_p f_size_20 f_500 mb-10">@item.SubjectName</h2>
+                                </div>
+                            </div>
+                            <div class="row mb_15">
+                                <div class="col-md-2">
+                                    <div class="border_r">
+                                        <h6>Your Score</h6>
+                                        <h5>@item.YourScore/@item.OriginalScore</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="border_r">
+                                        <h6>Correct Answeres</h6>
+                                        <h5>@item.TotalCorrectAnswers</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="border_r">
+                                        <h6>Wrong Answeres</h6>
+                                        <h5>@item.TotalWrongAnswers</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="border_r">
+                                        <h6>Accuracy</h6>
+                                        <h5>@item.Accuracy  %</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="text-center">
+                                        <h6>Time Spent</h6>
+                                        <h5>@item.SubjectTimeSpent Minutes</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    }
+                }
+
+
+                <section class="result_section mb-30">
+                    <div class="row instructionHead mb_15">
+                        <div class="col-md-6 sec_title">
+                            <h2 class="f_p f_size_20 f_500 mb-10">Top Performers</h2>
+                        </div>
+                        <div class="col-md-6 sec_title text-right">
+                            <a href="#">View All</a>
+                        </div>
+                    </div>
+                    @foreach (var item in Model.topPerformersVMs)
+                    {
+                        <div class="row instructionHead mb_15">
+
+                            <div class="col-md-6 sec_title">
+                                <i class="fa fa-user"></i>
+                                <h2 class="f_p f_size_20 f_500 mb-10 mt_3">@item.FullName</h2>
+                            </div>
+
+                            <div class="col-md-6 sec_title text-right">
+                                <h2 class="f_size_20 ">@item.MarksScored</h2>
+                            </div>
+                        </div>
+
+                    }
+
+
+
+                </section>
+
+            </div>
+
+
+
+        </div>
+    </section>
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/js/propper.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/vendors/wow/wow.min.js"></script>
+    <script src="~/vendors/sckroller/jquery.parallax-scroll.js"></script>
+    <script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="~/vendors/isotope/isotope-min.js"></script>
+    <script src="~/vendors/magnify-pop/jquery.magnific-popup.min.js"></script>
+    <script src="~/vendors/bootstrap-selector/js/bootstrap-select.min.js"></script>
+    <script src="~/vendors/nice-select/jquery.nice-select.min.js"></script>
+    <script src="~/vendors/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/js/plugins.js"></script>
+    <script src="~/js/main.js"></script>
+    <script>
+        $("#nextBtn").click(function () {
+            $(".hideOnClick").hide();
+            $(".showOnClick").show();
+        });
+    </script>
+
+
+</body>
+</html>

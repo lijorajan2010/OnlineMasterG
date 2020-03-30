@@ -405,6 +405,7 @@
     <Compile Include="Models\ViewModels\QuestionReviewVM.cs" />
     <Compile Include="Models\ViewModels\QuestionUploadVM.cs" />
     <Compile Include="Models\ViewModels\PaperVM.cs" />
+    <Compile Include="Models\ViewModels\ReportCardVM.cs" />
     <Compile Include="Models\ViewModels\SubjectVM.cs" />
     <Compile Include="Models\ViewModels\TestVM.cs" />
     <Compile Include="Models\ViewModels\SectionVM.cs" />
@@ -1750,6 +1751,8 @@
     <Content Include="Views\Instruction\Index.cshtml" />
     <Content Include="Views\Instruction\LoadInstructionList.cshtml" />
     <Content Include="Views\Examination\Index.cshtml" />
+    <Content Include="Views\Examination\ReportCard.cshtml" />
+    <Content Include="Views\Examination\Solution.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

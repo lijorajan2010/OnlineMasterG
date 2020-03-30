@@ -782,6 +782,7 @@
                         <form id="frmAnswerForm" method="post" action="@Url.Action("StudentFromAnswerSubmit","Examination")">
                             @if (Model.MockTestAttemptDetails != null && Model.MockTestAttemptDetails.Count() > 0)
                             {
+                                <input type="hidden" id="HfTestId" name="TestId" value='@Model.TestId'>
                                 <input type="hidden" id="hfIsPaused" name="IsPaused" value='@Model.IsPaused'>
                                 <input type="hidden" id="hfIsCompleted" name="IsCompleted" value='@Model.IsCompleted'>
                                 <input type="hidden" id="hfTimeLeftInMinutes" name="TimeLeftInMinutes" value='@Model.TimeLeftInMinutes'>
