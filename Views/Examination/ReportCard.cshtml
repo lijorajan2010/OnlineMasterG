@@ -1,5 +1,7 @@
 ﻿@model OnlineMasterG.Models.ViewModels.ReportCardVM
-
+@{
+    Layout = null;
+}
 @using OnlineMasterG.CommonFramework
 <html lang="en">
 <head>
@@ -111,7 +113,7 @@
 
         /*//star*/
         body {
-            background: #333;
+            background: #f9f9f9;
         }
 
         .rating {
@@ -227,6 +229,7 @@
                     </div>
 
                     <div class="col-md-3 breadcrumb_content text-center">
+                        <input type="hidden" id="hdfAttemptId" value="@Model.AttemptId" />
                         <div class="row">
                             <div class="col-md-5">
                                 <p class=" f_700 w_color l_height50">Rate Us</p>
@@ -234,11 +237,11 @@
                             </div>
                             <div class="col-md-7">
                                 <div class="rating">
-                                    <input type="radio" name="star"><span class="star"> </span>
-                                    <input type="radio" name="star"><span class="star"> </span>
-                                    <input type="radio" name="star"><span class="star"> </span>
-                                    <input type="radio" name="star"><span class="star"> </span>
-                                    <input type="radio" name="star"><span class="star"> </span>
+                                    <input type="radio" name="Rating" value="1" @(Model.CurrentRating==1 ? "checked" : "")  ><span class="star RatingStar"> </span>
+                                    <input type="radio" name="Rating" value="2" @(Model.CurrentRating==2 ? "checked" : "")><span class="star RatingStar"> </span>
+                                    <input type="radio" name="Rating" value="3" @(Model.CurrentRating==3 ? "checked" : "")><span class="star RatingStar"> </span>
+                                    <input type="radio" name="Rating" value="4" @(Model.CurrentRating==4 ? "checked" : "")><span class="star RatingStar"> </span>
+                                    <input type="radio" name="Rating" value="5" @(Model.CurrentRating==5 ? "checked" : "")><span class="star RatingStar"> </span>
                                 </div>
                             </div>
                         </div>
@@ -272,7 +275,7 @@
                         <div class="col-md-3">
                             <div class="border_r">
                                 <h6>Your Score</h6>
-                                <h5>@Model.TotalMarksScored/@Model.TotalOriginalMarks</h5>
+                                <h5>@Model.TotalMarksScored.ToString("0.00")/@(Model.TotalOriginalMarks?.ToString("0.00"))</h5>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -284,13 +287,13 @@
                         <div class="col-md-3">
                             <div class="border_r">
                                 <h6>Percentage</h6>
-                                <h5>@Model.Percentage</h5>
+                                <h5>@Model.Percentage.ToString("0.00") %</h5>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="text-center">
                                 <h6>Accuracy</h6>
-                                <h5>@Model.TotalTestAccuracy %</h5>
+                                <h5>@Model.TotalTestAccuracy.ToString("0.00") %</h5>
                             </div>
                         </div>
                     </div>
@@ -298,7 +301,7 @@
                         <div class="col-md-12 text-right">
                             @Html.ActionLink(" Reattempt", "Index", "Instruction", new { p = CustomEncrypt.SafeUrlEncrypt(Model.TestId.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
                             @Html.ActionLink(" Solution", "Solution", "Examination", new { p = CustomEncrypt.SafeUrlEncrypt(Model.AttemptId.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
-                            <a class="btn_get btn_hover" href="login.html">Solution</a>
+
                         </div>
                     </div>
                 </section>
@@ -384,13 +387,13 @@
                                 <div class="col-md-2">
                                     <div class="border_r">
                                         <h6>Accuracy</h6>
-                                        <h5>@item.Accuracy  %</h5>
+                                        <h5>@item.Accuracy.ToString("0.00")  %</h5>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="text-center">
                                         <h6>Time Spent</h6>
-                                        <h5>@item.SubjectTimeSpent Minutes</h5>
+                                        <h5>@item.SubjectTimeSpent </h5>
                                     </div>
                                 </div>
                             </div>
@@ -408,7 +411,7 @@
                             <a href="#">View All</a>
                         </div>
                     </div>
-                    @foreach (var item in Model.topPerformersVMs)
+                    @foreach (var item in Model.topPerformersVMs.Take(5))
                     {
                         <div class="row instructionHead mb_15">
 
@@ -460,7 +463,15 @@
             $(".showOnClick").show();
         });
     </script>
+    <script type="text/javascript">
 
+        $('input[type=radio][name=Rating]').change(function () {
+            var RatingGiven = $(this).val();
+            $.post('/Examination/AddRating', { AttemptId: $("#hdfAttemptId").val(), Rating: RatingGiven }, function () {});
+        });
+
+       
+    </script>
 
 </body>
 </html>

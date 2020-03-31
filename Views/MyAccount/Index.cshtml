@@ -1,0 +1,157 @@
+﻿@using OnlineMasterG.CommonFramework
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/PublicLayout.cshtml";
+}
+
+
+<div class="hidden-xs hidden-sm">
+    <section class="breadcrumb_area test_detail">
+        <img class="breadcrumb_shap" src="~/img/breadcrumb/banner_bg.png" alt="">
+        <div class="container">
+
+        </div>
+    </section>
+    @{
+        var ActiveUser = AppInfo.ActiveUser;
+        var ImgId = ActiveUser != null && ActiveUser.LogoDataFileId != null ? ActiveUser.LogoDataFileId.Value.ToString() : "0";
+    }
+
+    <section class="typography_breacrumb pt_20 pb_10">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    @if (ImgId != "0")
+                    {
+                        <img src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(ImgId)})' style="width:120px; border-radius:50%;">
+                    }
+
+
+                </div>
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h2 class="f_size_30 f_600 t_color2">@ActiveUser.FullName</h2>
+                            <p class="p-0">@ActiveUser.Login</p>
+                        </div>
+                        <div class="col-md-6">
+                            <a class="btn_hover agency_banner_btn" href="#">Edit Profile</a>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <p>
+                                <a href="#">Reset Password</a>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="">
+        <div class="container custom_container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs develor_tab mb_15" id="myTab2" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active show" data-tab="tab_one" id="ruby-tab" data-toggle="tab" href="#ruby" role="tab" aria-controls="ruby" aria-selected="true">Given Tests (02)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-tab="tab_two" id="curl-tab" data-toggle="tab" href="#curl" role="tab" aria-controls="curl" aria-selected="false">Given Quizes (05)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-tab="tab_three" data-toggle="tab" href="#resize" role="tab" aria-controls="resize" aria-selected="false">Subscription</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-tab="tab_four" id="doctl-tab" data-toggle="tab" href="#doctl" role="tab" aria-controls="doctl" aria-selected="false">Profile</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content developer_tab_content">
+                        <div class="tab-pane fade active show" id="ruby" role="tabpanel" aria-labelledby="ruby-tab">
+                            <div class="accordion">
+                                <div class="service_info">
+                                    <div class=" mb-0">
+
+                                        <div class="mb_10">
+                                            <div class="row m-0 border_b">
+
+                                                <div class="col-md-4 col-md-4 col-xs-4">
+                                                    <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">SSC CGL Test-1</h4>
+                                                </div>
+                                                <div class="col-md-4 col-md-4 col-xs-4">
+                                                    <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">(Time: 2 hrs)</h4>
+                                                </div>
+                                                <div class="col-md-4 col-md-4 col-xs-4">
+                                                    <a href="" target="_blank" class="">View Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="mb_10">
+                                            <div class="row m-0 border_b">
+
+                                                <div class="col-md-4 col-md-4 col-xs-4">
+                                                    <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">SSC MTS Tier I</h4>
+                                                </div>
+                                                <div class="col-md-4 col-md-4 col-xs-4">
+                                                    <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">(Time: 2 hrs)</h4>
+                                                </div>
+                                                <div class="col-md-4 col-md-4 col-xs-4">
+                                                    <a href="" target="_blank" class="">View Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="">
+                                            <div class="row m-0">
+                                                <div class="col-md-4 col-md-4 col-xs-4">
+                                                    <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">IBPS RRB OS-1 Prelims 2019</h4>
+                                                </div>
+                                                <div class="col-md-4 col-md-4 col-xs-4">
+                                                    <p>Available on March 7, 2019</p>
+                                                </div>
+                                                <div class="col-md-4 col-md-4 col-xs-4">
+                                                    <a href="" target="_blank" class="">View Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="curl" role="tabpanel" aria-labelledby="curl-tab">
+                            <h4>Take control of your <br> inventory</h4>
+                            <p>I blower he nicked it you mug pukka only a quid barmy Har?ry young delinquent knees up amongst such a fibber, daft gosh cracking goal wind up pardon me up the duff nice one he lost his bottle are you taking the piss is David, the BBC horse play.!</p>
+                        </div>
+                        <div class="tab-pane fade" id="resize" role="tabpanel" aria-labelledby="resize-tab">
+                            <h4>Take control of your <br> inventory</h4>
+                            <p>I blower he nicked it you mug pukka only a quid barmy Harry young delinquent knees up amongst such a fibber, daft gosh cracking goal wind up pardon me up the duff nice one he lost his bottle are you taking the piss is David, the BBC horse play.!</p>
+                        </div>
+                        <div class="tab-pane fade" id="doctl" role="tabpanel" aria-labelledby="doctl-tab">
+                            <h4>Take control of your <br> inventory</h4>
+                            <p>I blower he nicked it you mug pukka only a quid barmy Harry young delinquent knees up amongst such a fibber, daft gosh cracking goal wind up pardon me up the duff nice one he lost his bottle are you taking the piss is David, the BBC horse play.!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<br />
+<br />
+<br />

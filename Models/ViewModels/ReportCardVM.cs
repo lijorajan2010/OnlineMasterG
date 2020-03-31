@@ -21,7 +21,7 @@ namespace OnlineMasterG.Models.ViewModels
         public decimal TotalTestAccuracy { get; set; }
         public int TestId { get; set; }
         public string TestName { get; set; }
-        public int  CurrentRating { get; set; }
+        public int?  CurrentRating { get; set; }
         public decimal  Percentage { get; set; }
         public virtual List<SubjectWiseScoreVM> subjectWiseScoreVMs { get; set; }
         public virtual List<TopPerformersVM> topPerformersVMs { get; set; }
@@ -39,13 +39,13 @@ namespace OnlineMasterG.Models.ViewModels
         public int TotalCorrectAnswers { get; set; }
         public int TotalWrongAnswers { get; set; }
         public decimal Accuracy { get; set; }
-        public decimal? SubjectTimeSpent { get; set; }
+        public string SubjectTimeSpent { get; set; }
     }
     public class TopPerformersVM
     {
         public string Login { get; set; }
         public string FullName { get; set; }
         public int? ImageFieldId { get; set; }
-        public int MarksScored { get; set; }
+        public decimal? MarksScored { get; set; }
     }
 }

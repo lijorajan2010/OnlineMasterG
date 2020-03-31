@@ -100,7 +100,7 @@ namespace OnlineMasterG.Controllers
                 {
                     return RedirectToAction("Index", "Dashboard");
                 }
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "MyAccount");
             }
 
             else
@@ -169,7 +169,7 @@ namespace OnlineMasterG.Controllers
                     login.Login = loginVM.Login;
                     login.Password = loginVM.Password;
                     login.IsRememberMe = true;
-                    return Redirect(Url.Action("Index", "Login", new { loginModel = loginVM }));
+                    return Redirect(Url.Action("Index", "Login"));
                 }
 
             }

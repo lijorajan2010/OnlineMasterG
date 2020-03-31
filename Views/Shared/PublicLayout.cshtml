@@ -168,12 +168,12 @@
                                 </a>
                             </li>
                             <!--  <li class="nav-item">
-                               <a class="nav-link" href="mock-test.html">
-                                  CA
-                               </a>
+           <a class="nav-link" href="mock-test.html">
+              CA
+           </a>
 
-                               </li>
-                            -->
+           </li>
+        -->
 
 
                             <li class="nav-item dropdown submenu">
@@ -203,15 +203,37 @@
                                     <li class="nav-item"><a href="@Url.Action("Index","Colleges")" class="nav-link">College</a></li>
                                 </ul>
                             </li>
-                            <li class="hidden-lg hidden-md">
-                                @Html.ActionLink("Log in", "Index", "Login", new { }, new { @class = "btn_hover agency_banner_btn pay_btn pay_btn_two" })
-                                @Html.ActionLink("Register", "Signup", "Login", new { }, new { @class = "btn_hover agency_banner_btn pay_btn" })
-                                @*<a href="login.html" class="btn_hover agency_banner_btn pay_btn pay_btn_two">Log in</a>
-                                    <a href="signUp.html" class="btn_hover agency_banner_btn pay_btn">Register</a>*@
-                            </li>
-                        </ul>
+                            @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                            {
+                                var ActiveUser = AppInfo.ActiveUser;
+                                var ImgId = ActiveUser != null && ActiveUser.LogoDataFileId != null ? ActiveUser.LogoDataFileId.Value.ToString() : "0";
 
-                        @Html.ActionLink("Log in", "Index", "Login", new { }, new { @class = "btn_get btn_hover hidden-sm hidden-xs" })
+                                <li class="nav-item dropdown submenu">
+                                    <a class="nav-link dropdown-toggle profile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img class="student_img" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(ImgId)})' alt="" width="50">
+                                        Welcome @ActiveUser.FullName;
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a href="@Url.Action("Index","MyAccount")" class="nav-link">Profile</a></li>
+                                        <li class="nav-item"><a href="@Url.Action("Logout","Login")" class="nav-link">Logout</a></li>
+                                    </ul>
+                                </li>
+
+                            }
+                            else
+                            {
+                                <li class="hidden-lg hidden-md">
+                                    @Html.ActionLink("Log in", "Index", "Login", new { }, new { @class = "btn_hover agency_banner_btn pay_btn pay_btn_two" })
+                                    @Html.ActionLink("Register", "Signup", "Login", new { }, new { @class = "btn_hover agency_banner_btn pay_btn" })
+                                </li>
+                            }
+
+                        </ul>
+                        @if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                        {
+                            @Html.ActionLink("Log in", "Index", "Login", new { }, new { @class = "btn_get btn_hover hidden-sm hidden-xs" })
+                        }
+
                         @*<a class="btn_get btn_hover hidden-sm hidden-xs" href="login.html">Log In</a>*@
                     </div>
                 </div>
@@ -234,9 +256,9 @@
                             <div class="col-lg-4">
                                 <div class="service-content wow fadeInRight" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInRight;">
                                     <!--   <div class="pay_icon">
-                            <div class="icon_shape"></div>
-                            <img src="../Content/img/home9/icon7.png" alt="">
-                        </div> -->
+                                        <div class="icon_shape"></div>
+                                        <img src="../Content/img/home9/icon7.png" alt="">
+                                    </div> -->
                                     <div class="popular icon">
                                         <i class="ti-book"></i>
                                         <!-- <img src="../Content/img/home9/icon7.png" alt=""> -->
@@ -250,8 +272,8 @@
                                     <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
 
                                         <!--  <div class="icon">
-                                <img src="../Content/img/home9/icon4.png" alt="">
-                            </div> -->
+                                            <img src="../Content/img/home9/icon4.png" alt="">
+                                        </div> -->
                                         <a href="#">
                                             <div class="media-body">
                                                 <h3 class="f_size_20 f_p w_color f_600">SBI</h3>
@@ -261,8 +283,8 @@
                                     </div>
                                     <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
                                         <!-- <div class="icon">
-                                <img src="../Content/img/home9/icon7.png" alt="">
-                            </div> -->
+                                            <img src="../Content/img/home9/icon7.png" alt="">
+                                        </div> -->
                                         <a href="#">
                                             <div class="media-body">
                                                 <h3 class="f_size_20 f_p w_color f_600">SSC</h3>
@@ -272,8 +294,8 @@
                                     </div>
                                     <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
                                         <!-- <div class="icon">
-                                <img src="../Content/img/home9/icon5.png" alt="">
-                            </div> -->
+                                            <img src="../Content/img/home9/icon5.png" alt="">
+                                        </div> -->
                                         <a href="#">
                                             <div class="media-body">
                                                 <h3 class="f_size_20 f_p w_color f_600">IBPS</h3>
@@ -283,8 +305,8 @@
                                     </div>
                                     <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
                                         <!--  <div class="icon">
-                                <img src="../Content/img/home9/icon8.png" alt="">
-                            </div> -->
+                                            <img src="../Content/img/home9/icon8.png" alt="">
+                                        </div> -->
                                         <a href="#">
                                             <div class="media-body">
                                                 <h3 class="f_size_20 f_p w_color f_600">Railways</h3>
@@ -294,8 +316,8 @@
                                     </div>
                                     <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
                                         <!--   <div class="icon">
-                                <img src="../Content/img/home9/icon6.png" alt="">
-                            </div> -->
+                                            <img src="../Content/img/home9/icon6.png" alt="">
+                                        </div> -->
                                         <a href="#">
                                             <div class="media-body">
                                                 <h3 class="f_size_20 f_p w_color f_600">UPSSSC</h3>
@@ -305,8 +327,8 @@
                                     </div>
                                     <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
                                         <!--  <div class="icon">
-                                <img src="../Content/img/home9/icon6.png" alt="">
-                            </div> -->
+                                            <img src="../Content/img/home9/icon6.png" alt="">
+                                        </div> -->
                                         <a href="#">
                                             <div class="media-body">
                                                 <h3 class="f_size_20 f_p w_color f_600">LIC</h3>
@@ -316,8 +338,8 @@
                                     </div>
                                     <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
                                         <!-- <div class="icon">
-                                <img src="../Content/img/home9/icon6.png" alt="">
-                            </div> -->
+                                            <img src="../Content/img/home9/icon6.png" alt="">
+                                        </div> -->
                                         <a href="#">
                                             <div class="media-body">
                                                 <h3 class="f_size_20 f_p w_color f_600">CA</h3>
@@ -339,9 +361,9 @@
                             <div class="col-lg-6">
                                 <div class="payment_features_content pr_70 wow fadeInLeft" data-wow-delay="0.2s" style="visibility: hidden; animation-delay: 0.2s; animation-name: none;">
                                     <!--  <div class="icon">
-                            <img class="img_shape" src="../Content/img/home9/icon_shape.png" alt="">
-                            <img class="icon_img" src="../Content/img/home9/icon2.png" alt="">
-                        </div> -->
+                                        <img class="img_shape" src="../Content/img/home9/icon_shape.png" alt="">
+                                        <img class="icon_img" src="../Content/img/home9/icon2.png" alt="">
+                                    </div> -->
                                     <h2>Quick &amp; Easy Process</h2>
                                     <p>There is no long process to follow. Just click and go. Here you can find diffrent courses, their syllabus, PDfs, Quiz contest and much more all in one portal. So hurry us sign up and explore. </p>
 
@@ -357,29 +379,29 @@
                                         <p>All you need is an certified email account. If you<br> don't have an account, you can create one quickly.</p>
                                     </div>
                                     <!--  <div class="clients_item one wow fadeInLeft" data-wow-delay="0.2s">
-                            <img src="../Content/img/home9/logo1.png" alt="">
-                        </div>
-                        <div class="clients_item two wow fadeInLeft" data-wow-delay="0.3s">
-                            <img src="../Content/img/home9/logo2.png" alt="">
-                        </div>
-                        <div class="clients_item three wow fadeInLeft" data-wow-delay="0.4s">
-                            <img src="../Content/img/home9/logo3.png" alt="">
-                        </div>
-                        <div class="clients_item four wow fadeInLeft" data-wow-delay="0.5s">
-                            <img src="../Content/img/home9/logo4.png" alt="">
-                        </div>
-                        <div class="clients_item five wow fadeInLeft" data-wow-delay="0.6s">
-                            <img src="../Content/img/home9/logo5.png" alt="">
-                        </div>
-                        <div class="clients_item six wow fadeInLeft" data-wow-delay="0.7s">
-                            <img src="../Content/img/home9/logo6.png" alt="">
-                        </div>
-                        <div class="clients_item seven wow fadeInLeft" data-wow-delay="0.8s">
-                            <img src="../Content/img/home9/logo7.png" alt="">
-                        </div>
-                        <div class="clients_item eight wow fadeInLeft" data-wow-delay="0.8s">
-                            <img src="../Content/img/home9/logo8.png" alt="">
-                        </div> -->
+                                        <img src="../Content/img/home9/logo1.png" alt="">
+                                    </div>
+                                    <div class="clients_item two wow fadeInLeft" data-wow-delay="0.3s">
+                                        <img src="../Content/img/home9/logo2.png" alt="">
+                                    </div>
+                                    <div class="clients_item three wow fadeInLeft" data-wow-delay="0.4s">
+                                        <img src="../Content/img/home9/logo3.png" alt="">
+                                    </div>
+                                    <div class="clients_item four wow fadeInLeft" data-wow-delay="0.5s">
+                                        <img src="../Content/img/home9/logo4.png" alt="">
+                                    </div>
+                                    <div class="clients_item five wow fadeInLeft" data-wow-delay="0.6s">
+                                        <img src="../Content/img/home9/logo5.png" alt="">
+                                    </div>
+                                    <div class="clients_item six wow fadeInLeft" data-wow-delay="0.7s">
+                                        <img src="../Content/img/home9/logo6.png" alt="">
+                                    </div>
+                                    <div class="clients_item seven wow fadeInLeft" data-wow-delay="0.8s">
+                                        <img src="../Content/img/home9/logo7.png" alt="">
+                                    </div>
+                                    <div class="clients_item eight wow fadeInLeft" data-wow-delay="0.8s">
+                                        <img src="../Content/img/home9/logo8.png" alt="">
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

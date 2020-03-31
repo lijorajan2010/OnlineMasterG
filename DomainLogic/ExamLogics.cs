@@ -125,8 +125,7 @@ namespace OnlineMasterG.DomainLogic
                     }
 
                     mockTestAttempt.MockTestAttemptDetails = mockTestAttemptDetailsList;
-
-
+                    mockTestAttempt.FinalMarksScoredForRank = mockTestAttemptDetailsList.Sum(m => m.MarksScored);
                     sr = ExamService.SaveMockTestAttempt(mockTestAttempt, auditLogin);
 
                 }
@@ -162,7 +161,7 @@ namespace OnlineMasterG.DomainLogic
                 }
                 else
                 {
-                    markScored = NegetiveMark.HasValue ? NegetiveMark.Value : 0;
+                    markScored = NegetiveMark.HasValue ?  Decimal.Negate(NegetiveMark.Value) : 0;
                 }
             }
             return markScored;

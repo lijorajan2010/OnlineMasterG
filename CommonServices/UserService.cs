@@ -23,7 +23,6 @@ namespace OnlineMasterG.CommonServices
         {
             return DB
                 .Users
-                 .AsNoTracking()
                 .FirstOrDefault(x => x.Login.Equals(login, StringComparison.OrdinalIgnoreCase));
         }
         public static User FetchUserByResetCode(string resetCode)

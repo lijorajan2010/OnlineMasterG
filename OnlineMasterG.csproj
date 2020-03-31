@@ -265,6 +265,7 @@
     <Compile Include="Controllers\InstructionController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MockTestsController.cs" />
+    <Compile Include="Controllers\MyAccountController.cs" />
     <Compile Include="Controllers\SchoolClassController.cs" />
     <Compile Include="Controllers\SchoolsController.cs" />
     <Compile Include="Controllers\SchoolSectionController.cs" />
@@ -1753,6 +1754,7 @@
     <Content Include="Views\Examination\Index.cshtml" />
     <Content Include="Views\Examination\ReportCard.cshtml" />
     <Content Include="Views\Examination\Solution.cshtml" />
+    <Content Include="Views\MyAccount\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

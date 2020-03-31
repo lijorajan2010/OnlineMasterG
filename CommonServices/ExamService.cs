@@ -46,6 +46,7 @@ namespace OnlineMasterG.CommonServices
                         dbMockTestAttempt.IsCompleted = firstTimeAttempt.IsCompleted;
                         dbMockTestAttempt.EditBy = audiLogin;
                         dbMockTestAttempt.EditDate = DateTime.Now;
+                        dbMockTestAttempt.FinalMarksScoredForRank = firstTimeAttempt.FinalMarksScoredForRank;
 
                         if (firstTimeAttempt.MockTestAttemptDetails != null && firstTimeAttempt.MockTestAttemptDetails.Count() > 0)
                         {
@@ -106,6 +107,12 @@ namespace OnlineMasterG.CommonServices
         {
             return DB.ProblemMasters.Where(m => m.IsActive == true).ToList();
 
+        }
+
+        internal static void AddRatingOfTest(int attemptId, int? rating)
+        {
+            var Attempt = DB.MockTestAttempts.Where(m => m.AttemptId == attemptId).FirstOrDefault().Rating = rating.HasValue ? rating.Value : 0;
+            DB.SaveChanges();
         }
     }
 }
