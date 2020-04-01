@@ -54,5 +54,7 @@ namespace OnlineMasterG.Models.DAL
         public virtual DbSet<SubjectMaster> SubjectMasters { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<CurrentAffairsCategory> CurrentAffairsCategories { get; set; }
+        public virtual DbSet<CurrentAffairsUpload> CurrentAffairsUploads { get; set; }
     }
 }

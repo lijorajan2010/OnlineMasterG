@@ -80,6 +80,35 @@
           <Property Name="EditBy" Type="varchar" MaxLength="50" />
           <Property Name="EditOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="CurrentAffairsCategory">
+          <Key>
+            <PropertyRef Name="CurrentAffairsCategoryId" />
+          </Key>
+          <Property Name="CurrentAffairsCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CurrentAffairsCategoryName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Sequence" Type="int" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CurrentAffairsUpload">
+          <Key>
+            <PropertyRef Name="CurrentAffairsUploadId" />
+          </Key>
+          <Property Name="CurrentAffairsUploadId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UploadDate" Type="date" Nullable="false" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditOn" Type="datetime" />
+          <Property Name="CurrentAffairsCategoryId" Type="int" />
+          <Property Name="DataFileId" Type="int" />
+        </EntityType>
         <EntityType Name="DataContent">
           <Key>
             <PropertyRef Name="DataContentId" />
@@ -426,7 +455,7 @@
             <PropertyRef Name="Login" />
           </Key>
           <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="300" />
           <Property Name="DefaultLanguageCode" Type="varchar" MaxLength="10" />
           <Property Name="Isactive" Type="bit" Nullable="false" />
           <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
@@ -435,8 +464,8 @@
           <Property Name="EditOn" Type="datetime" />
           <Property Name="UserTypeCode" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="LogoDataFileId" Type="int" />
-          <Property Name="FirstName" Type="varchar" MaxLength="50" />
-          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="100" />
+          <Property Name="LastName" Type="varchar" MaxLength="100" />
           <Property Name="ResetPasswordCode" Type="varchar" MaxLength="500" />
         </EntityType>
         <Association Name="FK__Category__Course__5DCAEF64">
@@ -496,6 +525,30 @@
             </Principal>
             <Dependent Role="CollegeSubjects">
               <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CurrentAf__Curre__4959E263">
+          <End Role="CurrentAffairsCategory" Type="Self.CurrentAffairsCategory" Multiplicity="0..1" />
+          <End Role="CurrentAffairsUpload" Type="Self.CurrentAffairsUpload" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CurrentAffairsCategory">
+              <PropertyRef Name="CurrentAffairsCategoryId" />
+            </Principal>
+            <Dependent Role="CurrentAffairsUpload">
+              <PropertyRef Name="CurrentAffairsCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CurrentAf__DataF__4A4E069C">
+          <End Role="DataFile" Type="Self.DataFile" Multiplicity="0..1" />
+          <End Role="CurrentAffairsUpload" Type="Self.CurrentAffairsUpload" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataFile">
+              <PropertyRef Name="DataFileId" />
+            </Principal>
+            <Dependent Role="CurrentAffairsUpload">
+              <PropertyRef Name="DataFileId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -997,6 +1050,8 @@
           <EntitySet Name="CollegePaper" EntityType="Self.CollegePaper" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CollegeSubjects" EntityType="Self.CollegeSubjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CurrentAffairsCategory" EntityType="Self.CurrentAffairsCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CurrentAffairsUpload" EntityType="Self.CurrentAffairsUpload" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DataContent" EntityType="Self.DataContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DataFile" EntityType="Self.DataFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExamSection" EntityType="Self.ExamSection" Schema="dbo" store:Type="Tables" />
@@ -1040,6 +1095,14 @@
           <AssociationSet Name="FK__CollegeSu__Cours__58D1301D" Association="Self.FK__CollegeSu__Cours__58D1301D">
             <End Role="ColleageCourse" EntitySet="ColleageCourse" />
             <End Role="CollegeSubjects" EntitySet="CollegeSubjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CurrentAf__Curre__4959E263" Association="Self.FK__CurrentAf__Curre__4959E263">
+            <End Role="CurrentAffairsCategory" EntitySet="CurrentAffairsCategory" />
+            <End Role="CurrentAffairsUpload" EntitySet="CurrentAffairsUpload" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CurrentAf__DataF__4A4E069C" Association="Self.FK__CurrentAf__DataF__4A4E069C">
+            <End Role="DataFile" EntitySet="DataFile" />
+            <End Role="CurrentAffairsUpload" EntitySet="CurrentAffairsUpload" />
           </AssociationSet>
           <AssociationSet Name="FK__DataFile__DataCo__1AD3FDA4" Association="Self.FK__DataFile__DataCo__1AD3FDA4">
             <End Role="DataContent" EntitySet="DataContent" />
@@ -1424,6 +1487,16 @@
             <End Role="Section" EntitySet="Sections" />
             <End Role="Subject" EntitySet="Subjects" />
           </AssociationSet>
+          <EntitySet Name="CurrentAffairsCategories" EntityType="OnlinemasterjiModel.CurrentAffairsCategory" />
+          <EntitySet Name="CurrentAffairsUploads" EntityType="OnlinemasterjiModel.CurrentAffairsUpload" />
+          <AssociationSet Name="FK__CurrentAf__Curre__4959E263" Association="OnlinemasterjiModel.FK__CurrentAf__Curre__4959E263">
+            <End Role="CurrentAffairsCategory" EntitySet="CurrentAffairsCategories" />
+            <End Role="CurrentAffairsUpload" EntitySet="CurrentAffairsUploads" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CurrentAf__DataF__4A4E069C" Association="OnlinemasterjiModel.FK__CurrentAf__DataF__4A4E069C">
+            <End Role="DataFile" EntitySet="DataFiles" />
+            <End Role="CurrentAffairsUpload" EntitySet="CurrentAffairsUploads" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Category">
           <Key>
@@ -1543,6 +1616,7 @@
           <NavigationProperty Name="QuestionsMockTests" Relationship="OnlinemasterjiModel.FK__Questions__Quest__43D61337" FromRole="DataFile" ToRole="QuestionsMockTest" />
           <NavigationProperty Name="QuestionUploads" Relationship="OnlinemasterjiModel.FK__QuestionU__DataF__498EEC8D" FromRole="DataFile" ToRole="QuestionUpload" />
           <NavigationProperty Name="SchoolPapers" Relationship="OnlinemasterjiModel.FK__SchoolPap__DataF__73852659" FromRole="DataFile" ToRole="SchoolPaper" />
+          <NavigationProperty Name="CurrentAffairsUploads" Relationship="OnlinemasterjiModel.FK__CurrentAf__DataF__4A4E069C" FromRole="DataFile" ToRole="CurrentAffairsUpload" />
         </EntityType>
         <EntityType Name="ExamSection">
           <Key>
@@ -1937,7 +2011,7 @@
             <PropertyRef Name="Login" />
           </Key>
           <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="DefaultLanguageCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Isactive" Type="Boolean" Nullable="false" />
           <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1946,8 +2020,8 @@
           <Property Name="EditOn" Type="DateTime" Precision="3" />
           <Property Name="UserTypeCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="LogoDataFileId" Type="Int32" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ResetPasswordCode" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="MockTestAttempts" Relationship="OnlinemasterjiModel.FK__MockTestA__Login__318258D2" FromRole="User" ToRole="MockTestAttempt" />
         </EntityType>
@@ -2503,6 +2577,62 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CurrentAffairsCategory">
+          <Key>
+            <PropertyRef Name="CurrentAffairsCategoryId" />
+          </Key>
+          <Property Name="CurrentAffairsCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CurrentAffairsCategoryName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CurrentAffairsUploads" Relationship="OnlinemasterjiModel.FK__CurrentAf__Curre__4959E263" FromRole="CurrentAffairsCategory" ToRole="CurrentAffairsUpload" />
+        </EntityType>
+        <EntityType Name="CurrentAffairsUpload">
+          <Key>
+            <PropertyRef Name="CurrentAffairsUploadId" />
+          </Key>
+          <Property Name="CurrentAffairsUploadId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UploadDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <Property Name="CurrentAffairsCategoryId" Type="Int32" />
+          <NavigationProperty Name="CurrentAffairsCategory" Relationship="OnlinemasterjiModel.FK__CurrentAf__Curre__4959E263" FromRole="CurrentAffairsUpload" ToRole="CurrentAffairsCategory" />
+          <Property Name="DataFileId" Type="Int32" />
+          <NavigationProperty Name="DataFile" Relationship="OnlinemasterjiModel.FK__CurrentAf__DataF__4A4E069C" FromRole="CurrentAffairsUpload" ToRole="DataFile" />
+        </EntityType>
+        <Association Name="FK__CurrentAf__Curre__4959E263">
+          <End Type="OnlinemasterjiModel.CurrentAffairsCategory" Role="CurrentAffairsCategory" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.CurrentAffairsUpload" Role="CurrentAffairsUpload" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CurrentAffairsCategory">
+              <PropertyRef Name="CurrentAffairsCategoryId" />
+            </Principal>
+            <Dependent Role="CurrentAffairsUpload">
+              <PropertyRef Name="CurrentAffairsCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CurrentAf__DataF__4A4E069C">
+          <End Type="OnlinemasterjiModel.DataFile" Role="DataFile" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.CurrentAffairsUpload" Role="CurrentAffairsUpload" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataFile">
+              <PropertyRef Name="DataFileId" />
+            </Principal>
+            <Dependent Role="CurrentAffairsUpload">
+              <PropertyRef Name="DataFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2969,6 +3099,37 @@
                 <ScalarProperty Name="DefaultLanguageCode" ColumnName="DefaultLanguageCode" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CurrentAffairsCategories">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.CurrentAffairsCategory">
+              <MappingFragment StoreEntitySet="CurrentAffairsCategory">
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="CurrentAffairsCategoryName" ColumnName="CurrentAffairsCategoryName" />
+                <ScalarProperty Name="CurrentAffairsCategoryId" ColumnName="CurrentAffairsCategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CurrentAffairsUploads">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.CurrentAffairsUpload">
+              <MappingFragment StoreEntitySet="CurrentAffairsUpload">
+                <ScalarProperty Name="DataFileId" ColumnName="DataFileId" />
+                <ScalarProperty Name="CurrentAffairsCategoryId" ColumnName="CurrentAffairsCategoryId" />
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+                <ScalarProperty Name="CurrentAffairsUploadId" ColumnName="CurrentAffairsUploadId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

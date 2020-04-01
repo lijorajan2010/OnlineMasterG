@@ -1,0 +1,43 @@
+﻿@model List<OnlineMasterG.Models.ViewModels.CurrentAffairsUploadVM>
+@using OnlineMasterG.CommonFramework
+
+<table id="tblCurrentAffairsUploadList" class="dataTables_wrapper dt-bootstrap4 no-footer">
+    <thead>
+        <tr>
+            <th>Sl No.</th>
+            <th>Category</th>
+            <th>Upload Date</th>
+            <th>PDF</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model.Select((x, y) => new { Data = x, Index = y }))
+            {
+                <tr>
+                    <td>@(item.Index + 1)</td>
+                    <td>@(item.Data.CurrentAffairsCategoryName)</td>
+                    <td>@(item.Data.UploadDate)</td>
+                    <td>
+                        @Html.ActionLink(" ", "View", "DataFile", new { p = CustomEncrypt.Encrypt(item.Data.DataFileId.Value.ToString()) }, new { @class = "fa fa-eye text-primary", @target = "_blank" })
+
+                    </td>
+                    <td><button class="btn btn-info" onclick='editCurrentAffairsUpload(@Html.Raw(Json.Encode(new { id=item.Data.CurrentAffairsUploadId,categoryId= item.Data.CurrentAffairsCategoryId,languagecode = item.Data.LanguageCode ,dataFileId = item.Data.DataFileId,dataFileName = item.Data.DataFile.FileName, UploadDate =item.Data.UploadDate })));'><i class="fa fa-pencil-alt"></i></button></td>
+                    <td><button class="btn btn-danger" onclick='deleteCurrentAffairsUpload(@Html.Raw(Json.Encode(new { id=item.Data.CurrentAffairsUploadId,categoryName = item.Data.CurrentAffairsCategoryName})))'><i class="fa fa-trash"></i></button></td>
+                </tr>
+
+            }
+
+        }
+
+    </tbody>
+</table>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#tblCurrentAffairsUploadList").DataTable();
+    });
+</script>

@@ -80,6 +80,10 @@
         <AssociationConnector Association="OnlinemasterjiModel.FK__SchoolPap__Subje__719CDDE7" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__SchoolSec__Subje__6CD828CA" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__Subjects__Sectio__6E01572D" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.CurrentAffairsCategory" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.CurrentAffairsUpload" Width="1.5" PointX="10.625" PointY="0.75" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__CurrentAf__Curre__4959E263" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__CurrentAf__DataF__4A4E069C" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

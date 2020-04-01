@@ -123,7 +123,7 @@ namespace OnlineMasterG.Controllers
                                     .Select((grp, i) => new
                                     {
                                         Login = grp.Login,
-                                        FullName = grp.User.FirstName + " " + grp.User.LastName,
+                                        FullName = UserService.Fetch(grp.Login).FirstName+ " "+ UserService.Fetch(grp.Login).LastName,
                                         MarkScored = grp.FinalMarksScoredForRank,
                                         Rank = i + 1
                                     })

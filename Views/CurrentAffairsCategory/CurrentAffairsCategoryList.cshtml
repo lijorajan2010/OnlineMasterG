@@ -1,0 +1,39 @@
+﻿
+@model IEnumerable<OnlineMasterG.Models.DAL.CurrentAffairsCategory>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#tblCategory").DataTable();
+    });
+</script>
+
+<table id="tblCategory" class="dataTables_wrapper dt-bootstrap4 no-footer">
+    <thead>
+        <tr>
+            <th style="width:30px;">Sl No.</th>
+            <th>Category Name</th>
+            <th style="width:50px;">Sequence</th>
+            <th style="width:50px;">Edit</th>
+            <th style="width:50px;">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model.Select((x, y) => new { Data = x, Index = y }))
+            {
+                <tr>
+                    <td>@(item.Index + 1)</td>
+                    <td>@item.Data.CurrentAffairsCategoryName</td>
+                    <td>@item.Data.Sequence</td>
+                    <td><button class="btn btn-info" onclick='editCategory(@Html.Raw(Json.Encode(new { id=item.Data.CurrentAffairsCategoryId,categoryName = item.Data.CurrentAffairsCategoryName,sequence = item.Data.Sequence, isActive = item.Data.Isactive,languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt"></i></button></td>
+                    <td><button class="btn btn-danger" onclick='deleteCategory(@Html.Raw(Json.Encode(new { id=item.Data.CurrentAffairsCategoryId,categoryName = item.Data.CurrentAffairsCategoryName})))'><i class="fa fa-trash"></i></button></td>
+                </tr>
+
+            }
+
+        }
+
+    </tbody>
+</table>

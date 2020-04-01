@@ -402,17 +402,36 @@
                 }
 
 
-                <section class="result_section mb-30">
+            <section class="result_section mb-30">
+                <div class="row instructionHead mb_15">
+                    <div class="col-md-6 sec_title">
+                        <h2 class="f_p f_size_20 f_500 mb-10">Top Performers</h2>
+                    </div>
+                    <div class="col-md-6 sec_title text-right">
+                        <div id="fnId" style="color:blue" onclick="fnViewAll();">View All</div>
+                    </div>
+                </div>
+                @foreach (var item in Model.topPerformersVMs.Take(5))
+                {
                     <div class="row instructionHead mb_15">
+
                         <div class="col-md-6 sec_title">
-                            <h2 class="f_p f_size_20 f_500 mb-10">Top Performers</h2>
+                            <i class="fa fa-user"></i>
+                            <h2 class="f_p f_size_20 f_500 mb-10 mt_3">@item.FullName</h2>
                         </div>
+
                         <div class="col-md-6 sec_title text-right">
-                            <a href="#">View All</a>
+                            <h2 class="f_size_20 ">@item.MarksScored</h2>
                         </div>
                     </div>
-                    @foreach (var item in Model.topPerformersVMs.Take(5))
+
+                }
+            <div id="dvAll" style="display:none">
+                @if (Model.topPerformersVMs.Count() > 5)
+                {
+                    foreach (var item in Model.topPerformersVMs.Skip(5))
                     {
+
                         <div class="row instructionHead mb_15">
 
                             <div class="col-md-6 sec_title">
@@ -426,10 +445,12 @@
                         </div>
 
                     }
+                }
+
+            </div>
 
 
-
-                </section>
+            </section>
 
             </div>
 
@@ -470,7 +491,10 @@
             $.post('/Examination/AddRating', { AttemptId: $("#hdfAttemptId").val(), Rating: RatingGiven }, function () {});
         });
 
-       
+        function fnViewAll() {
+
+            $("#dvAll").show();
+        }
     </script>
 
 </body>

@@ -48,7 +48,7 @@ namespace OnlineMasterG.Controllers
         [HttpPost]
         public JsonResult DeleteCollegeUploadPaper(int PaperId)
         {
-            var sr =PaperService.DeleteCollegePaper(PaperId);
+            var sr = PaperService.DeleteCollegePaper(PaperId);
 
             return GetJsonValidation(sr, "Paper has been successfully deleted.");
         }
