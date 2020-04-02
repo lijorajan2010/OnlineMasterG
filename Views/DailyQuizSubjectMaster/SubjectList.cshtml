@@ -1,0 +1,40 @@
+﻿@model List<OnlineMasterG.Models.ViewModels.DailyQuizSubjectVM>
+
+
+
+<table id="tblSubjectList" class="dataTables_wrapper dt-bootstrap4 no-footer">
+    <thead>
+        <tr>
+            <th>Sl No.</th>
+            <th>Course Name</th>
+            <th>Subject Name</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model.Select((x, y) => new { Data = x, Index = y }))
+            {
+                <tr>
+                    <td>@(item.Index + 1)</td>
+                    <td>@(item.Data.DailyQuizCourseName)</td>
+                    <td>@item.Data.DailyQuizSubjectName</td>
+                
+                    <td><button class="btn btn-info" onclick='editCourse(@Html.Raw(Json.Encode(new { id=item.Data.DailyQuizSubjectId,courseId= item.Data.DailyQuizCourseId,subjectName = item.Data.DailyQuizCourseName,sequence = item.Data.Sequence, isActive = item.Data.IsActive,languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt"></i></button></td>
+                    <td><button class="btn btn-danger" onclick='deleteCourse(@Html.Raw(Json.Encode(new { id=item.Data.DailyQuizSubjectId,subjectName = item.Data.DailyQuizSubjectName})))'><i class="fa fa-trash"></i></button></td>
+                </tr>
+
+            }
+
+        }
+
+    </tbody>
+</table>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#tblSubjectList").DataTable();
+    });
+</script>

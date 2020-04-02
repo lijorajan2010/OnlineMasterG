@@ -235,6 +235,7 @@
     <Compile Include="CommonFramework\TypeValidator.cs" />
     <Compile Include="CommonServices\ClassService .cs" />
     <Compile Include="CommonServices\CurrentAffairsService.cs" />
+    <Compile Include="CommonServices\DailyQuizService.cs" />
     <Compile Include="CommonServices\DataFileService.cs" />
     <Compile Include="CommonServices\ExamService.cs" />
     <Compile Include="CommonServices\ExamUpdateService.cs" />
@@ -257,6 +258,8 @@
     <Compile Include="Controllers\CourseMasterController.cs" />
     <Compile Include="Controllers\CurrentAffairsCategoryController.cs" />
     <Compile Include="Controllers\CurrentAffairsUploadController.cs" />
+    <Compile Include="Controllers\DailyQuizCourseMasterController.cs" />
+    <Compile Include="Controllers\DailyQuizSubjectMasterController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DataFileController.cs" />
     <Compile Include="Controllers\ExaminationController.cs" />
@@ -280,6 +283,7 @@
     <Compile Include="Controllers\QuestionUploadController.cs" />
     <Compile Include="DomainLogic\ClassLogics.cs" />
     <Compile Include="DomainLogic\CurrentAffairsLogics.cs" />
+    <Compile Include="DomainLogic\DailyQuizLogics.cs" />
     <Compile Include="DomainLogic\ExamLogics.cs" />
     <Compile Include="DomainLogic\ExamUpdateLogics.cs" />
     <Compile Include="DomainLogic\GeneralLogics.cs" />
@@ -312,6 +316,15 @@
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\CurrentAffairsUpload.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\DailyQuiz.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\DailyQuizCourse.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\DailyQuizSubject.cs">
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\DataContent.cs">
@@ -401,6 +414,9 @@
     <Compile Include="Models\DAL\User.cs">
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DAL\UserType.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Shared\ResetPasswordModel.cs" />
     <Compile Include="Models\Shared\SessionExpiredModel.cs" />
     <Compile Include="Models\Shared\UnauthorizedModel.cs" />
@@ -408,6 +424,8 @@
     <Compile Include="Models\Shared\ValidationSuccessModel.cs" />
     <Compile Include="Models\ViewModels\CurrentAffairsUploadVM.cs" />
     <Compile Include="Models\ViewModels\CurrentAffairsVM.cs" />
+    <Compile Include="Models\ViewModels\DailyQuizSubjectVM.cs" />
+    <Compile Include="Models\ViewModels\DailyQuizCourseVM.cs" />
     <Compile Include="Models\ViewModels\MockTestAttemptVM.cs" />
     <Compile Include="Models\ViewModels\ExamUpdateSectionVM.cs" />
     <Compile Include="Models\ViewModels\ClassVM.cs" />
@@ -1479,6 +1497,8 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CustomScript\DailyQuizSubject.js" />
+    <Content Include="Scripts\CustomScript\DailyQuizCourse.js" />
     <Content Include="Scripts\CustomScript\CurrentAffairsCategory.js" />
     <Content Include="Scripts\CustomScript\ExamLinks.js" />
     <Content Include="Scripts\CustomScript\ExamUpdateSection.js" />
@@ -1773,6 +1793,10 @@
     <Content Include="Views\CurrentAffairsCategory\CurrentAffairsCategoryList.cshtml" />
     <Content Include="Views\CurrentAffairsUpload\Index.cshtml" />
     <Content Include="Views\CurrentAffairsUpload\CurrentAffairsUploadList.cshtml" />
+    <Content Include="Views\DailyQuizCourseMaster\Index.cshtml" />
+    <Content Include="Views\DailyQuizCourseMaster\DailyQuizCourseList.cshtml" />
+    <Content Include="Views\DailyQuizSubjectMaster\Index.cshtml" />
+    <Content Include="Views\DailyQuizSubjectMaster\SubjectList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

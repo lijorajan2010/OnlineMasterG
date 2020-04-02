@@ -109,6 +109,49 @@
           <Property Name="CurrentAffairsCategoryId" Type="int" />
           <Property Name="DataFileId" Type="int" />
         </EntityType>
+        <EntityType Name="DailyQuiz">
+          <Key>
+            <PropertyRef Name="DailyQuizId" />
+          </Key>
+          <Property Name="DailyQuizId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DailyQuizName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditOn" Type="datetime" />
+          <Property Name="DailyQuizCourseId" Type="int" />
+          <Property Name="DailyQuizSubjectId" Type="int" />
+        </EntityType>
+        <EntityType Name="DailyQuizCourse">
+          <Key>
+            <PropertyRef Name="DailyQuizCourseId" />
+          </Key>
+          <Property Name="DailyQuizCourseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DailyQuizCourseName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Sequence" Type="int" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DailyQuizSubjects">
+          <Key>
+            <PropertyRef Name="DailyQuizSubjectId" />
+          </Key>
+          <Property Name="DailyQuizSubjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DailyQuizSubjectName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditOn" Type="datetime" />
+          <Property Name="DailyQuizCourseId" Type="int" />
+        </EntityType>
         <EntityType Name="DataContent">
           <Key>
             <PropertyRef Name="DataContentId" />
@@ -468,6 +511,13 @@
           <Property Name="LastName" Type="varchar" MaxLength="100" />
           <Property Name="ResetPasswordCode" Type="varchar" MaxLength="500" />
         </EntityType>
+        <EntityType Name="UserTypes">
+          <Key>
+            <PropertyRef Name="UserTypeCode" />
+          </Key>
+          <Property Name="UserTypeCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="UserTypeName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <Association Name="FK__Category__Course__5DCAEF64">
           <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
           <End Role="Category" Type="Self.Category" Multiplicity="*" />
@@ -549,6 +599,42 @@
             </Principal>
             <Dependent Role="CurrentAffairsUpload">
               <PropertyRef Name="DataFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DailyQuiz__Daily__50FB042B">
+          <End Role="DailyQuizCourse" Type="Self.DailyQuizCourse" Multiplicity="0..1" />
+          <End Role="DailyQuizSubjects" Type="Self.DailyQuizSubjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DailyQuizCourse">
+              <PropertyRef Name="DailyQuizCourseId" />
+            </Principal>
+            <Dependent Role="DailyQuizSubjects">
+              <PropertyRef Name="DailyQuizCourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DailyQuiz__Daily__54CB950F">
+          <End Role="DailyQuizCourse" Type="Self.DailyQuizCourse" Multiplicity="0..1" />
+          <End Role="DailyQuiz" Type="Self.DailyQuiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DailyQuizCourse">
+              <PropertyRef Name="DailyQuizCourseId" />
+            </Principal>
+            <Dependent Role="DailyQuiz">
+              <PropertyRef Name="DailyQuizCourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DailyQuiz__Daily__55BFB948">
+          <End Role="DailyQuizSubjects" Type="Self.DailyQuizSubjects" Multiplicity="0..1" />
+          <End Role="DailyQuiz" Type="Self.DailyQuiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DailyQuizSubjects">
+              <PropertyRef Name="DailyQuizSubjectId" />
+            </Principal>
+            <Dependent Role="DailyQuiz">
+              <PropertyRef Name="DailyQuizSubjectId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1044,6 +1130,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__User__UserTypeCo__403A8C7D">
+          <End Role="UserTypes" Type="Self.UserTypes" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTypes">
+              <PropertyRef Name="UserTypeCode" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserTypeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="OnlinemasterjiModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ColleageCourse" EntityType="Self.ColleageCourse" Schema="dbo" store:Type="Tables" />
@@ -1052,6 +1150,9 @@
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CurrentAffairsCategory" EntityType="Self.CurrentAffairsCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CurrentAffairsUpload" EntityType="Self.CurrentAffairsUpload" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DailyQuiz" EntityType="Self.DailyQuiz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DailyQuizCourse" EntityType="Self.DailyQuizCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DailyQuizSubjects" EntityType="Self.DailyQuizSubjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DataContent" EntityType="Self.DataContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DataFile" EntityType="Self.DataFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExamSection" EntityType="Self.ExamSection" Schema="dbo" store:Type="Tables" />
@@ -1076,6 +1177,7 @@
           <EntitySet Name="SubjectMaster" EntityType="Self.SubjectMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTypes" EntityType="Self.UserTypes" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Category__Course__5DCAEF64" Association="Self.FK__Category__Course__5DCAEF64">
             <End Role="Course" EntitySet="Course" />
             <End Role="Category" EntitySet="Category" />
@@ -1103,6 +1205,18 @@
           <AssociationSet Name="FK__CurrentAf__DataF__4A4E069C" Association="Self.FK__CurrentAf__DataF__4A4E069C">
             <End Role="DataFile" EntitySet="DataFile" />
             <End Role="CurrentAffairsUpload" EntitySet="CurrentAffairsUpload" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DailyQuiz__Daily__50FB042B" Association="Self.FK__DailyQuiz__Daily__50FB042B">
+            <End Role="DailyQuizCourse" EntitySet="DailyQuizCourse" />
+            <End Role="DailyQuizSubjects" EntitySet="DailyQuizSubjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DailyQuiz__Daily__54CB950F" Association="Self.FK__DailyQuiz__Daily__54CB950F">
+            <End Role="DailyQuizCourse" EntitySet="DailyQuizCourse" />
+            <End Role="DailyQuiz" EntitySet="DailyQuiz" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DailyQuiz__Daily__55BFB948" Association="Self.FK__DailyQuiz__Daily__55BFB948">
+            <End Role="DailyQuizSubjects" EntitySet="DailyQuizSubjects" />
+            <End Role="DailyQuiz" EntitySet="DailyQuiz" />
           </AssociationSet>
           <AssociationSet Name="FK__DataFile__DataCo__1AD3FDA4" Association="Self.FK__DataFile__DataCo__1AD3FDA4">
             <End Role="DataContent" EntitySet="DataContent" />
@@ -1267,6 +1381,10 @@
           <AssociationSet Name="FK__Subjects__TestId__6EF57B66" Association="Self.FK__Subjects__TestId__6EF57B66">
             <End Role="MockTest" EntitySet="MockTest" />
             <End Role="Subjects" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__UserTypeCo__403A8C7D" Association="Self.FK__User__UserTypeCo__403A8C7D">
+            <End Role="UserTypes" EntitySet="UserTypes" />
+            <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1496,6 +1614,26 @@
           <AssociationSet Name="FK__CurrentAf__DataF__4A4E069C" Association="OnlinemasterjiModel.FK__CurrentAf__DataF__4A4E069C">
             <End Role="DataFile" EntitySet="DataFiles" />
             <End Role="CurrentAffairsUpload" EntitySet="CurrentAffairsUploads" />
+          </AssociationSet>
+          <EntitySet Name="DailyQuizCourses" EntityType="OnlinemasterjiModel.DailyQuizCourse" />
+          <EntitySet Name="DailyQuizSubjects" EntityType="OnlinemasterjiModel.DailyQuizSubject" />
+          <EntitySet Name="UserTypes" EntityType="OnlinemasterjiModel.UserType" />
+          <AssociationSet Name="FK__DailyQuiz__Daily__50FB042B" Association="OnlinemasterjiModel.FK__DailyQuiz__Daily__50FB042B">
+            <End Role="DailyQuizCourse" EntitySet="DailyQuizCourses" />
+            <End Role="DailyQuizSubject" EntitySet="DailyQuizSubjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__UserTypeCo__403A8C7D" Association="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D">
+            <End Role="UserType" EntitySet="UserTypes" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="DailyQuizs" EntityType="OnlinemasterjiModel.DailyQuiz" />
+          <AssociationSet Name="FK__DailyQuiz__Daily__54CB950F" Association="OnlinemasterjiModel.FK__DailyQuiz__Daily__54CB950F">
+            <End Role="DailyQuizCourse" EntitySet="DailyQuizCourses" />
+            <End Role="DailyQuiz" EntitySet="DailyQuizs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DailyQuiz__Daily__55BFB948" Association="OnlinemasterjiModel.FK__DailyQuiz__Daily__55BFB948">
+            <End Role="DailyQuizSubject" EntitySet="DailyQuizSubjects" />
+            <End Role="DailyQuiz" EntitySet="DailyQuizs" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Category">
@@ -2024,6 +2162,7 @@
           <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ResetPasswordCode" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="MockTestAttempts" Relationship="OnlinemasterjiModel.FK__MockTestA__Login__318258D2" FromRole="User" ToRole="MockTestAttempt" />
+          <NavigationProperty Name="UserType" Relationship="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D" FromRole="User" ToRole="UserType" />
         </EntityType>
         <Association Name="FK__Category__Course__5DCAEF64">
           <End Type="OnlinemasterjiModel.Course" Role="Course" Multiplicity="0..1" />
@@ -2633,6 +2772,111 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DailyQuizCourse">
+          <Key>
+            <PropertyRef Name="DailyQuizCourseId" />
+          </Key>
+          <Property Name="DailyQuizCourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DailyQuizCourseName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DailyQuizSubjects" Relationship="OnlinemasterjiModel.FK__DailyQuiz__Daily__50FB042B" FromRole="DailyQuizCourse" ToRole="DailyQuizSubject" />
+          <NavigationProperty Name="DailyQuizs" Relationship="OnlinemasterjiModel.FK__DailyQuiz__Daily__54CB950F" FromRole="DailyQuizCourse" ToRole="DailyQuiz" />
+        </EntityType>
+        <EntityType Name="DailyQuizSubject">
+          <Key>
+            <PropertyRef Name="DailyQuizSubjectId" />
+          </Key>
+          <Property Name="DailyQuizSubjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DailyQuizSubjectName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <Property Name="DailyQuizCourseId" Type="Int32" />
+          <NavigationProperty Name="DailyQuizCourse" Relationship="OnlinemasterjiModel.FK__DailyQuiz__Daily__50FB042B" FromRole="DailyQuizSubject" ToRole="DailyQuizCourse" />
+          <NavigationProperty Name="DailyQuizs" Relationship="OnlinemasterjiModel.FK__DailyQuiz__Daily__55BFB948" FromRole="DailyQuizSubject" ToRole="DailyQuiz" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="UserTypeCode" />
+          </Key>
+          <Property Name="UserTypeCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UserTypeName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D" FromRole="UserType" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__DailyQuiz__Daily__50FB042B">
+          <End Type="OnlinemasterjiModel.DailyQuizCourse" Role="DailyQuizCourse" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.DailyQuizSubject" Role="DailyQuizSubject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DailyQuizCourse">
+              <PropertyRef Name="DailyQuizCourseId" />
+            </Principal>
+            <Dependent Role="DailyQuizSubject">
+              <PropertyRef Name="DailyQuizCourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__UserTypeCo__403A8C7D">
+          <End Type="OnlinemasterjiModel.UserType" Role="UserType" Multiplicity="1" />
+          <End Type="OnlinemasterjiModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserType">
+              <PropertyRef Name="UserTypeCode" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserTypeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DailyQuiz">
+          <Key>
+            <PropertyRef Name="DailyQuizId" />
+          </Key>
+          <Property Name="DailyQuizId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DailyQuizName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <Property Name="DailyQuizCourseId" Type="Int32" />
+          <Property Name="DailyQuizSubjectId" Type="Int32" />
+          <NavigationProperty Name="DailyQuizCourse" Relationship="OnlinemasterjiModel.FK__DailyQuiz__Daily__54CB950F" FromRole="DailyQuiz" ToRole="DailyQuizCourse" />
+          <NavigationProperty Name="DailyQuizSubject" Relationship="OnlinemasterjiModel.FK__DailyQuiz__Daily__55BFB948" FromRole="DailyQuiz" ToRole="DailyQuizSubject" />
+        </EntityType>
+        <Association Name="FK__DailyQuiz__Daily__54CB950F">
+          <End Type="OnlinemasterjiModel.DailyQuizCourse" Role="DailyQuizCourse" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.DailyQuiz" Role="DailyQuiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DailyQuizCourse">
+              <PropertyRef Name="DailyQuizCourseId" />
+            </Principal>
+            <Dependent Role="DailyQuiz">
+              <PropertyRef Name="DailyQuizCourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DailyQuiz__Daily__55BFB948">
+          <End Type="OnlinemasterjiModel.DailyQuizSubject" Role="DailyQuizSubject" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.DailyQuiz" Role="DailyQuiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DailyQuizSubject">
+              <PropertyRef Name="DailyQuizSubjectId" />
+            </Principal>
+            <Dependent Role="DailyQuiz">
+              <PropertyRef Name="DailyQuizSubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3130,6 +3374,60 @@
                 <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
                 <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
                 <ScalarProperty Name="CurrentAffairsUploadId" ColumnName="CurrentAffairsUploadId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DailyQuizCourses">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.DailyQuizCourse">
+              <MappingFragment StoreEntitySet="DailyQuizCourse">
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="DailyQuizCourseName" ColumnName="DailyQuizCourseName" />
+                <ScalarProperty Name="DailyQuizCourseId" ColumnName="DailyQuizCourseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DailyQuizSubjects">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.DailyQuizSubject">
+              <MappingFragment StoreEntitySet="DailyQuizSubjects">
+                <ScalarProperty Name="DailyQuizCourseId" ColumnName="DailyQuizCourseId" />
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="DailyQuizSubjectName" ColumnName="DailyQuizSubjectName" />
+                <ScalarProperty Name="DailyQuizSubjectId" ColumnName="DailyQuizSubjectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTypes">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.UserType">
+              <MappingFragment StoreEntitySet="UserTypes">
+                <ScalarProperty Name="UserTypeName" ColumnName="UserTypeName" />
+                <ScalarProperty Name="UserTypeCode" ColumnName="UserTypeCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DailyQuizs">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.DailyQuiz">
+              <MappingFragment StoreEntitySet="DailyQuiz">
+                <ScalarProperty Name="DailyQuizSubjectId" ColumnName="DailyQuizSubjectId" />
+                <ScalarProperty Name="DailyQuizCourseId" ColumnName="DailyQuizCourseId" />
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="DailyQuizName" ColumnName="DailyQuizName" />
+                <ScalarProperty Name="DailyQuizId" ColumnName="DailyQuizId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

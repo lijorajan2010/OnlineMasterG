@@ -237,11 +237,11 @@
                             </div>
                             <div class="col-md-7">
                                 <div class="rating">
-                                    <input type="radio" name="Rating" value="1" @(Model.CurrentRating==1 ? "checked" : "")  ><span class="star RatingStar"> </span>
-                                    <input type="radio" name="Rating" value="2" @(Model.CurrentRating==2 ? "checked" : "")><span class="star RatingStar"> </span>
-                                    <input type="radio" name="Rating" value="3" @(Model.CurrentRating==3 ? "checked" : "")><span class="star RatingStar"> </span>
-                                    <input type="radio" name="Rating" value="4" @(Model.CurrentRating==4 ? "checked" : "")><span class="star RatingStar"> </span>
-                                    <input type="radio" name="Rating" value="5" @(Model.CurrentRating==5 ? "checked" : "")><span class="star RatingStar"> </span>
+                                    <input type="radio" name="Rating" value="1" @(Model.CurrentRating == 1 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
+                                    <input type="radio" name="Rating" value="2" @(Model.CurrentRating == 2 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
+                                    <input type="radio" name="Rating" value="3" @(Model.CurrentRating == 3 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
+                                    <input type="radio" name="Rating" value="4" @(Model.CurrentRating == 4 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
+                                    <input type="radio" name="Rating" value="5" @(Model.CurrentRating == 5 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
                                 </div>
                             </div>
                         </div>
@@ -402,36 +402,17 @@
                 }
 
 
-            <section class="result_section mb-30">
-                <div class="row instructionHead mb_15">
-                    <div class="col-md-6 sec_title">
-                        <h2 class="f_p f_size_20 f_500 mb-10">Top Performers</h2>
-                    </div>
-                    <div class="col-md-6 sec_title text-right">
-                        <div id="fnId" style="color:blue" onclick="fnViewAll();">View All</div>
-                    </div>
-                </div>
-                @foreach (var item in Model.topPerformersVMs.Take(5))
-                {
+                <section class="result_section mb-30">
                     <div class="row instructionHead mb_15">
-
                         <div class="col-md-6 sec_title">
-                            <i class="fa fa-user"></i>
-                            <h2 class="f_p f_size_20 f_500 mb-10 mt_3">@item.FullName</h2>
+                            <h2 class="f_p f_size_20 f_500 mb-10">Top Performers</h2>
                         </div>
-
                         <div class="col-md-6 sec_title text-right">
-                            <h2 class="f_size_20 ">@item.MarksScored</h2>
+                            <div id="fnId" style="color:blue" onclick="fnViewAll();">View All</div>
                         </div>
                     </div>
-
-                }
-            <div id="dvAll" style="display:none">
-                @if (Model.topPerformersVMs.Count() > 5)
-                {
-                    foreach (var item in Model.topPerformersVMs.Skip(5))
+                    @foreach (var item in Model.topPerformersVMs.Take(5))
                     {
-
                         <div class="row instructionHead mb_15">
 
                             <div class="col-md-6 sec_title">
@@ -445,12 +426,31 @@
                         </div>
 
                     }
-                }
+                    <div id="dvAll" style="display:none">
+                        @if (Model.topPerformersVMs.Count() > 5)
+                        {
+                            foreach (var item in Model.topPerformersVMs.Skip(5))
+                            {
 
-            </div>
+                                <div class="row instructionHead mb_15">
+
+                                    <div class="col-md-6 sec_title">
+                                        <i class="fa fa-user"></i>
+                                        <h2 class="f_p f_size_20 f_500 mb-10 mt_3">@item.FullName</h2>
+                                    </div>
+
+                                    <div class="col-md-6 sec_title text-right">
+                                        <h2 class="f_size_20 ">@item.MarksScored</h2>
+                                    </div>
+                                </div>
+
+                            }
+                        }
+
+                    </div>
 
 
-            </section>
+                </section>
 
             </div>
 
@@ -458,7 +458,59 @@
 
         </div>
     </section>
+    <div class="modal fade" id="feedback_Modal1" role="dialog" backdrop="static" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+                <!--  <div class="modal-header">
+
+                   <h4 class="modal-title text-center">Instructions</h4>
+                 </div> -->
+                <div class="modal-body">
+
+                    <div class="container custom_container p0">
+
+                        <div class="service_info">
+                            <div class="row mb_15">
+                                <div class="col-md-12 sec_title text-center pb_10">
+                                    <h2 class="f_p f_size_20 f_500 t_color2 mb-10"> Review</h2>
+                                </div>
+
+                                <!-- 	<div class="col-md-12">
+                                        <div class="rating text-center">
+                                          <input type="radio" name="star" class="giv_feedback"><span class="star"> </span>
+                                          <input type="radio" name="star" class="giv_feedback"><span class="star"> </span>
+                                          <input type="radio" name="star" class="giv_feedback"><span class="star"> </span>
+                                          <input type="radio" name="star" class="giv_feedback"><span class="star"> </span>
+                                          <input type="radio" name="star" class="giv_feedback"><span class="star"> </span>
+                                        </div>
+                                    </div> -->
+                                <div class="col-md-12">
+                                    <textarea class="form-control" placeholder="Write Your Review Here" cols="30" rows="5"></textarea>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6 text-center">
+                            <!-- <a href="#" class="btn_hover agency_banner_btn answered m-0" data-dismiss="modal">No</a> -->
+                        </div>
+
+                        <div class="col-md-6 col-xs-6 text-right">
+                            <a href="#" class="btn_hover agency_banner_btn m-0" data-toggle="modal" data-target="#pauseModal2">Submit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 
 
@@ -483,12 +535,17 @@
             $(".hideOnClick").hide();
             $(".showOnClick").show();
         });
+        $(".giv_feedback").click(function () {
+            $("#feedback_Modal1").modal("show");
+        });
+
+
     </script>
     <script type="text/javascript">
 
         $('input[type=radio][name=Rating]').change(function () {
             var RatingGiven = $(this).val();
-            $.post('/Examination/AddRating', { AttemptId: $("#hdfAttemptId").val(), Rating: RatingGiven }, function () {});
+            $.post('/Examination/AddRating', { AttemptId: $("#hdfAttemptId").val(), Rating: RatingGiven }, function () { });
         });
 
         function fnViewAll() {

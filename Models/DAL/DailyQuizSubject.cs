@@ -12,30 +12,26 @@ namespace OnlineMasterG.Models.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class DailyQuizSubject
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public DailyQuizSubject()
         {
-            this.MockTestAttempts = new HashSet<MockTestAttempt>();
+            this.DailyQuizs = new HashSet<DailyQuiz>();
         }
     
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public string DefaultLanguageCode { get; set; }
+        public int DailyQuizSubjectId { get; set; }
+        public string DailyQuizSubjectName { get; set; }
+        public string LanguageCode { get; set; }
         public bool Isactive { get; set; }
         public string CreateBy { get; set; }
         public System.DateTime CreateOn { get; set; }
         public string EditBy { get; set; }
         public Nullable<System.DateTime> EditOn { get; set; }
-        public string UserTypeCode { get; set; }
-        public Nullable<int> LogoDataFileId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string ResetPasswordCode { get; set; }
+        public Nullable<int> DailyQuizCourseId { get; set; }
     
+        public virtual DailyQuizCourse DailyQuizCourse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MockTestAttempt> MockTestAttempts { get; set; }
-        public virtual UserType UserType { get; set; }
+        public virtual ICollection<DailyQuiz> DailyQuizs { get; set; }
     }
 }

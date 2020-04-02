@@ -12,30 +12,18 @@ namespace OnlineMasterG.Models.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class UserType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public UserType()
         {
-            this.MockTestAttempts = new HashSet<MockTestAttempt>();
+            this.Users = new HashSet<User>();
         }
     
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public string DefaultLanguageCode { get; set; }
-        public bool Isactive { get; set; }
-        public string CreateBy { get; set; }
-        public System.DateTime CreateOn { get; set; }
-        public string EditBy { get; set; }
-        public Nullable<System.DateTime> EditOn { get; set; }
         public string UserTypeCode { get; set; }
-        public Nullable<int> LogoDataFileId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string ResetPasswordCode { get; set; }
+        public string UserTypeName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MockTestAttempt> MockTestAttempts { get; set; }
-        public virtual UserType UserType { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

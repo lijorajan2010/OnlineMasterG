@@ -84,6 +84,14 @@
         <EntityTypeShape EntityType="OnlinemasterjiModel.CurrentAffairsUpload" Width="1.5" PointX="10.625" PointY="0.75" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__CurrentAf__Curre__4959E263" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__CurrentAf__DataF__4A4E069C" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.DailyQuizCourse" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.DailyQuizSubject" Width="1.5" PointX="15.625" PointY="0.75" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.UserType" Width="1.5" PointX="5.25" PointY="21.375" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__DailyQuiz__Daily__50FB042B" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__User__UserTypeCo__403A8C7D" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.DailyQuiz" Width="1.5" PointX="17.875" PointY="0.75" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__DailyQuiz__Daily__54CB950F" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__DailyQuiz__Daily__55BFB948" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
