@@ -258,6 +258,7 @@
     <Compile Include="Controllers\CourseMasterController.cs" />
     <Compile Include="Controllers\CurrentAffairsCategoryController.cs" />
     <Compile Include="Controllers\CurrentAffairsUploadController.cs" />
+    <Compile Include="Controllers\DailyQuizMasterController.cs" />
     <Compile Include="Controllers\DailyQuizCourseMasterController.cs" />
     <Compile Include="Controllers\DailyQuizSubjectMasterController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -325,6 +326,9 @@
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\DailyQuizSubject.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\DailyQuizUpload.cs">
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\DataContent.cs">
@@ -426,6 +430,7 @@
     <Compile Include="Models\ViewModels\CurrentAffairsVM.cs" />
     <Compile Include="Models\ViewModels\DailyQuizSubjectVM.cs" />
     <Compile Include="Models\ViewModels\DailyQuizCourseVM.cs" />
+    <Compile Include="Models\ViewModels\DailyQuizVM.cs" />
     <Compile Include="Models\ViewModels\MockTestAttemptVM.cs" />
     <Compile Include="Models\ViewModels\ExamUpdateSectionVM.cs" />
     <Compile Include="Models\ViewModels\ClassVM.cs" />
@@ -1497,6 +1502,7 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CustomScript\DailyQuiz.js" />
     <Content Include="Scripts\CustomScript\DailyQuizSubject.js" />
     <Content Include="Scripts\CustomScript\DailyQuizCourse.js" />
     <Content Include="Scripts\CustomScript\CurrentAffairsCategory.js" />
@@ -1797,6 +1803,8 @@
     <Content Include="Views\DailyQuizCourseMaster\DailyQuizCourseList.cshtml" />
     <Content Include="Views\DailyQuizSubjectMaster\Index.cshtml" />
     <Content Include="Views\DailyQuizSubjectMaster\SubjectList.cshtml" />
+    <Content Include="Views\DailyQuizMaster\Index.cshtml" />
+    <Content Include="Views\DailyQuizMaster\DailyQuizList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

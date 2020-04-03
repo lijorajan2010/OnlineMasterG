@@ -37,9 +37,9 @@ function setupCourseList() {
 
 
 function clearFields() {
-    $("#DailyQuizCourseName").val("");
+    $("#txtDailyQuizCourseName").val("");
     $("#txtSequence").val("");
-    $("#hdfcourseId").val("");
+    $("#hdfCourseId").val("");
     $('#chkIsActive').attr('checked', false);
     if ($("#chkIsActive").prop('checked')) {
         $('#chkIsActive').click();
@@ -50,8 +50,8 @@ function clearFields() {
 
 function saveCourse() {
     var model = {
-        DailyQuizCourseId: $("#hdfcourseId").val(),
-        DailyQuizCourseName: $("#DailyQuizCourseName").val(),
+        DailyQuizCourseId: $("#hdfCourseId").val(),
+        DailyQuizCourseName: $("#txtDailyQuizCourseName").val(),
         Sequence: $("#txtSequence").val(),
         LanguageCode: $("#LanguageCode").val(),
         IsActive: $("#chkIsActive").prop('checked')
@@ -69,8 +69,8 @@ function saveCourse() {
 
 function editCourse(obj) {
 
-    $("#hdfcourseId").val(obj.id);
-    $("#DailyQuizCourseName").val(obj.courseName);
+    $("#hdfCourseId").val(obj.id);
+    $("#txtDailyQuizCourseName").val(obj.courseName);
     $("#txtSequence").val(obj.sequence);
     $("#LanguageCode").val(obj.languagecode);
     if (obj.isActive == true) {

@@ -60,5 +60,6 @@ namespace OnlineMasterG.Models.DAL
         public virtual DbSet<DailyQuizSubject> DailyQuizSubjects { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
         public virtual DbSet<DailyQuiz> DailyQuizs { get; set; }
+        public virtual DbSet<DailyQuizUpload> DailyQuizUploads { get; set; }
     }
 }

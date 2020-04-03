@@ -22,8 +22,8 @@
                     <td>@(item.Data.DailyQuizCourseName)</td>
                     <td>@item.Data.DailyQuizSubjectName</td>
                 
-                    <td><button class="btn btn-info" onclick='editCourse(@Html.Raw(Json.Encode(new { id=item.Data.DailyQuizSubjectId,courseId= item.Data.DailyQuizCourseId,subjectName = item.Data.DailyQuizCourseName,sequence = item.Data.Sequence, isActive = item.Data.IsActive,languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt"></i></button></td>
-                    <td><button class="btn btn-danger" onclick='deleteCourse(@Html.Raw(Json.Encode(new { id=item.Data.DailyQuizSubjectId,subjectName = item.Data.DailyQuizSubjectName})))'><i class="fa fa-trash"></i></button></td>
+                    <td><button class="btn btn-info" onclick='editSubject(@Html.Raw(Json.Encode(new { id=item.Data.DailyQuizSubjectId,courseId= item.Data.DailyQuizCourseId,subjectName = item.Data.DailyQuizCourseName,sequence = item.Data.Sequence, isActive = item.Data.IsActive,languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt"></i></button></td>
+                    <td><button class="btn btn-danger" onclick='deleteSubject(@Html.Raw(Json.Encode(new { id=item.Data.DailyQuizSubjectId,subjectName = item.Data.DailyQuizSubjectName})))'><i class="fa fa-trash"></i></button></td>
                 </tr>
 
             }

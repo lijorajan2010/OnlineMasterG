@@ -92,6 +92,10 @@
         <EntityTypeShape EntityType="OnlinemasterjiModel.DailyQuiz" Width="1.5" PointX="17.875" PointY="0.75" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__DailyQuiz__Daily__54CB950F" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__DailyQuiz__Daily__55BFB948" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.DailyQuizUpload" Width="1.5" PointX="17.875" PointY="7.75" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__DailyQuiz__Daily__603D47BB" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__DailyQuiz__Daily__61316BF4" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__DailyQuiz__DataF__6225902D" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -22,6 +22,15 @@ namespace OnlineMasterG.DomainLogic
 
             return sr;
         }
+        public static ServiceResponse ValidateDailyQuiz(DailyQuizVM model)
+        {
+            ServiceResponse sr = new ServiceResponse();
+
+            if (String.IsNullOrEmpty(model.DailyQuizName))
+                sr.AddError("The [Quiz Name] field cannot be empty.");
+
+            return sr;
+        }
         public static ServiceResponse SaveDailyQuizCourse(DailyQuizCourseVM model, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();
@@ -36,6 +45,26 @@ namespace OnlineMasterG.DomainLogic
                 CreateOn = DateTime.Now
             };
             sr = DailyQuizService.SaveDailyQuizCourse(course, auditlogin);
+
+            return sr;
+        }
+        public static ServiceResponse SaveDailyQuiz(DailyQuizVM model, string auditlogin)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            DailyQuiz quiz = new DailyQuiz()
+            {
+                DailyQuizId = model.DailyQuizId,
+                DailyQuizName = model.DailyQuizName,
+                DailyQuizCourseId = model.DailyQuizCourseId,
+                DailyQuizSubjectId = model.DailyQuizSubjectId,
+                NoOfQuestions = model.NoOfQuestions,
+                Description = model.Description,
+                LanguageCode = model.LanguageCode,
+                Isactive = true,
+                CreateBy = auditlogin,
+                CreateOn = DateTime.Now
+            };
+            sr = DailyQuizService.SaveDailyQuiz(quiz, auditlogin);
 
             return sr;
         }
@@ -82,6 +111,31 @@ namespace OnlineMasterG.DomainLogic
                         IsActive = item.Isactive,
                         LanguageCode = item.LanguageCode
 
+                    });
+                }
+            }
+            return model;
+        }
+        public static List<DailyQuizVM> DailyQuizList(string Lang, bool IsActive)
+        {
+            List<DailyQuizVM> model = new List<DailyQuizVM>();
+            var dailyQuizes = DailyQuizService.DailyQuizList(Lang, IsActive);
+            if (dailyQuizes != null && dailyQuizes.Count() > 0)
+            {
+                foreach (var item in dailyQuizes)
+                {
+                    model.Add(new DailyQuizVM()
+                    {
+                        DailyQuizId = item.DailyQuizId,
+                        DailyQuizSubjectId = item.DailyQuizSubjectId,
+                        DailyQuizName = item.DailyQuizName,
+                        DailyQuizSubjectName = DailyQuizService.FetchDailyQuizSubject(item.DailyQuizSubjectId)?.DailyQuizSubjectName,
+                        DailyQuizCourseName = DailyQuizService.Fetch(item.DailyQuizCourseId)?.DailyQuizCourseName,
+                        DailyQuizCourseId = item.DailyQuizCourseId,
+                        NoOfQuestions = item.NoOfQuestions,
+                        Description = item.Description,
+                        Isactive = item.Isactive,
+                        LanguageCode = item.LanguageCode
                     });
                 }
             }

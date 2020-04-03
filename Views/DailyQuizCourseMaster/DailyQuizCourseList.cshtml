@@ -26,8 +26,8 @@
                     <td>@(item.Index + 1)</td>
                     <td>@item.Data.DailyQuizCourseName</td>
                     <td>@item.Data.Sequence</td>
-                    <td><button class="btn btn-info" onclick='editCourse(@Html.Raw(Json.Encode(new { id=item.Data.CourseId,courseName = item.Data.DailyQuizCourseName,sequence = item.Data.Sequence, isActive = item.Data.Isactive,languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt"></i></button></td>
-                    <td><button class="btn btn-danger" onclick='deleteCourse(@Html.Raw(Json.Encode(new { id=item.Data.CourseId,courseName = item.Data.DailyQuizCourseName})))'><i class="fa fa-trash"></i></button></td>
+                    <td><button class="btn btn-info" onclick='editCourse(@Html.Raw(Json.Encode(new { id=item.Data.DailyQuizCourseId,courseName = item.Data.DailyQuizCourseName,sequence = item.Data.Sequence, isActive = item.Data.Isactive,languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt"></i></button></td>
+                    <td><button class="btn btn-danger" onclick='deleteCourse(@Html.Raw(Json.Encode(new { id=item.Data.DailyQuizCourseId,courseName = item.Data.DailyQuizCourseName})))'><i class="fa fa-trash"></i></button></td>
                 </tr>
 
             }

@@ -6,11 +6,12 @@
 
 <script>
     var URL = {
-        DAILYQUIZCOURSELIST: '@Url.Action("DailyQuizCourseList", "DailyQuizCourseMaster")',
-        DELETEDAILYQUIZCOURSE: '@Url.Action("DeleteDailyQuizCourse", "DailyQuizCourseMaster")',
+        DAILYQUIZLIST: '@Url.Action("DailyQuizList", "DailyQuizMaster")',
+        DELETEDAILYQUIZ: '@Url.Action("DeleteDailyQuiz", "DailyQuizMaster")',
+        BINDSUBJECTS: '@Url.Action("BindSubjects", "DailyQuizMaster")',
     };
 </script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/CustomScript/DailyQuizCourse.js?v=" + AppInfo.Version)"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/CustomScript/DailyQuiz.js?v=" + AppInfo.Version)"></script>
 
 
 
@@ -23,7 +24,7 @@
                     </i>
                 </div>
                 <div>
-                   Course Master
+                    Add Quiz
                     <!--  <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
                     </div> -->
                 </div>
@@ -37,7 +38,7 @@
             <div class="card-header-tab card-header">
                 <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
                     <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
-                   Course Master
+                    Add Quiz
                 </div>
                 <!-- <div class="btn-actions-pane-right text-capitalize">
                     <button class="btn-wide btn-outline-2x mr-md-2 btn btn-outline-focus btn-sm">View All</button>
@@ -45,34 +46,42 @@
             </div>
             <div class="no-gutters row">
                 <div class="col-md-12">
-                    @using (Html.BeginForm("SaveDailyQuizCourse", "DailyQuizCourseMaster", FormMethod.Post, new { id = "frmDailyQuizCourseMaster", autocomplete = "off" }))
+                    @using (Html.BeginForm("SaveDailyQuiz", "DailyQuizMaster", FormMethod.Post, new { id = "frmDailyQuizMaster", autocomplete = "off" }))
                     {
                         <div class="card-body table-responsive">
                             <table style="width: 100%;" id="example12" class="table table-hover table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Course Name</th>
-                                        <th style="width:50px;">Order Sequence</th>
-                                        <th style="width:50px;">Is Active</th>
+                                        <th>Select Course</th>
+                                        <th>Select Subject</th>
+                                        <th>Quiz Name</th>
+                                        <th style="width:70px;">No of Questions</th>
+                                        <th>Description</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <input type="hidden" id="hdfCourseId" />
-                                            <input type="text" required id="txtDailyQuizCourseName" name="DailyQuizCourseName" class="form-control" value="">
+                                            <input type="hidden" id="hdfQuizId" />
+                                            @Html.DropDownList("CourseName", (SelectList)ViewBag.CourseList, "Please Select", new { @id = "CourelistId", @class = "form-control", @required = "required" })
+
 
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control" id="txtSequence" min="0" value="">
+                                            @Html.DropDownList("SubjectName", new SelectList(Enumerable.Empty<SelectListItem>()), "Please Select", new { @id = "SubjectlistId", @class = "form-control", @required = "required" })
 
                                         </td>
                                         <td>
-                                            <label class="checkbox">
-                                                <input type="checkbox" id="chkIsActive" style="text-align:center" />
-                                                <span class="default"></span>
-                                            </label>
+                                            <input type="text" required id="txtQuizName" name="QuizName" class="form-control" value="">
+
+                                        </td>
+                                        <td>
+                                            <input type="number" style="width:70px;" required id="txtNoOfQuestion" name="NoOfQuestions" class="form-control" value="">
+
+                                        </td>
+                                        <td>
+                                            <input type="text" required id="txtDescription" name="Description" class="form-control" value="">
 
                                         </td>
                                         <td>
@@ -125,7 +134,7 @@
 
 
             <div class="card-body table-responsive">
-                <div id="tblDailyQuizSubjectList"></div>
+                <div id="tblDailyQuizList"></div>
 
 
             </div>

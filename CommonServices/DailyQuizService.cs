@@ -27,6 +27,11 @@ namespace OnlineMasterG.CommonServices
             return DB.DailyQuizSubjects.Where(m => m.DailyQuizSubjectId == (DailyQuizSubjectId.HasValue ? DailyQuizSubjectId.Value : 0)).FirstOrDefault();
         }
 
+        internal static DailyQuiz FetchDailyQuiz(int? DailyQuizId)
+        {
+            return DB.DailyQuizs.Where(m => m.DailyQuizId == (DailyQuizId.HasValue ? DailyQuizId.Value : 0)).FirstOrDefault();
+        }
+
         public static ServiceResponse SaveDailyQuizCourse(DailyQuizCourse course, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();
@@ -74,7 +79,7 @@ namespace OnlineMasterG.CommonServices
             }
             else
             {
-                var dbSubject = FetchDailyQuizSubject(subjects.DailyQuizCourseId);
+                var dbSubject = FetchDailyQuizSubject(subjects.DailyQuizSubjectId);
                 if (dbSubject == null)
                 {
                     sr.AddError($"SubjectId for {subjects.DailyQuizSubjectName} was not found.");
@@ -99,6 +104,47 @@ namespace OnlineMasterG.CommonServices
             }
             return sr;
         }
+
+        public static ServiceResponse SaveDailyQuiz(DailyQuiz dailyQuiz, string auditlogin)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            if (dailyQuiz.DailyQuizId == 0)
+            {
+                DB.DailyQuizs.Add(dailyQuiz);
+                DB.SaveChanges();
+            }
+            else
+            {
+                var dbDailyQuiz = FetchDailyQuiz(dailyQuiz.DailyQuizId);
+                if (dbDailyQuiz == null)
+                {
+                    sr.AddError($"DailyQuizId for {dailyQuiz.DailyQuizName} was not found.");
+                    return sr;
+                }
+                else
+                {
+                    dbDailyQuiz.DailyQuizSubjectId = dailyQuiz.DailyQuizSubjectId;
+                    dbDailyQuiz.DailyQuizCourseId = dailyQuiz.DailyQuizCourseId;
+                    dbDailyQuiz.DailyQuizName = dailyQuiz.DailyQuizName;
+                    dbDailyQuiz.LanguageCode = dailyQuiz.LanguageCode;
+                    dbDailyQuiz.Description = dailyQuiz.Description;
+                    dbDailyQuiz.NoOfQuestions = dailyQuiz.NoOfQuestions;
+                    dbDailyQuiz.Isactive = dailyQuiz.Isactive;
+                    dbDailyQuiz.EditBy = auditlogin;
+                    dbDailyQuiz.EditOn = DateTime.Now;
+                    // Save in DB
+                    DB.SaveChanges();
+
+                    // Return
+                    sr.ReturnId = dbDailyQuiz.DailyQuizId;
+                    sr.ReturnName = dbDailyQuiz.DailyQuizName;
+
+                    return sr;
+                }
+            }
+            return sr;
+        }
+
         public static List<DailyQuizSubject> DailyQuizSubjectList(string Lang, bool IsActive)
         {
             return DB.DailyQuizSubjects
@@ -110,6 +156,13 @@ namespace OnlineMasterG.CommonServices
         {
             return DB.DailyQuizs
                   .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
+                  .ToList();
+        }
+
+        public static List<DailyQuizUpload> DailyQuizUploadList(string Lang, bool IsActive)
+        {
+            return DB.DailyQuizUploads
+                  .Where(m=> m.Isactive == IsActive)
                   .ToList();
         }
 
@@ -162,6 +215,33 @@ namespace OnlineMasterG.CommonServices
                 {
                     var quizused = DailyQuizList("en-US", true).Where(m => m.DailyQuizSubjectId == subjectId).Select(m => m.DailyQuizName).ToList();
                     sr.AddError($"You can't delete this subject as it is being used by quiz such as { string.Join(",", quizused)}. If you want to delete, please delete these quizes first.");
+                }
+
+            }
+            catch (Exception exception)
+            {
+                sr.AddError(exception.Message);
+            }
+
+            return sr;
+        }
+
+        public static ServiceResponse DeleteDailyQuiz(int dailyQuizId)
+        {
+            var sr = new ServiceResponse();
+
+            try
+            {
+                if (!DailyQuizUploadList("en-US", true).Any(m => m.DailyQuizId == dailyQuizId))
+                {
+                    var dailyQuiz = FetchDailyQuiz(dailyQuizId);
+                    DB.Entry(dailyQuiz).State = EntityState.Deleted;
+                    DB.SaveChanges();
+                }
+                else
+                {
+                    var quizused = DailyQuizUploadList("en-US", true).Where(m => m.DailyQuizId == dailyQuizId).Any();
+                    sr.AddError($"You can't delete this daily quiz as it is being used by quiz upload.  If you want to delete, please delete these quiz uploads first.");
                 }
 
             }

@@ -12,29 +12,21 @@ namespace OnlineMasterG.Models.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class DailyQuizSubject
+    public partial class DailyQuizUpload
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DailyQuizSubject()
-        {
-            this.DailyQuizs = new HashSet<DailyQuiz>();
-            this.DailyQuizUploads = new HashSet<DailyQuizUpload>();
-        }
-    
-        public int DailyQuizSubjectId { get; set; }
-        public string DailyQuizSubjectName { get; set; }
-        public string LanguageCode { get; set; }
+        public int DailyQuizUploadId { get; set; }
         public bool Isactive { get; set; }
         public string CreateBy { get; set; }
         public System.DateTime CreateOn { get; set; }
         public string EditBy { get; set; }
         public Nullable<System.DateTime> EditOn { get; set; }
         public Nullable<int> DailyQuizCourseId { get; set; }
+        public Nullable<int> DailyQuizSubjectId { get; set; }
+        public Nullable<int> DataFileId { get; set; }
+        public Nullable<int> DailyQuizId { get; set; }
     
         public virtual DailyQuizCourse DailyQuizCourse { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DailyQuiz> DailyQuizs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DailyQuizUpload> DailyQuizUploads { get; set; }
+        public virtual DailyQuizSubject DailyQuizSubject { get; set; }
+        public virtual DataFile DataFile { get; set; }
     }
 }

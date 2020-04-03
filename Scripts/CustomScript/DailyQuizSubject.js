@@ -50,7 +50,7 @@ function saveSubject() {
     var model = {
         DailyQuizCourseId: $("#CourelistId").val(),
         DailyQuizSubjectId: $("#hdfDailyQuizSubjectId").val(),
-        DailyQuizSubjectName: $("#hdfDailyQuizSubjectName").val(),
+        DailyQuizSubjectName: $("#txtDailyQuizSubjectName").val(),
         LanguageCode: $("#LanguageCode").val(),
         IsActive: $("#chkIsActive").prop('checked')
     };
@@ -68,7 +68,7 @@ function saveSubject() {
 function editSubject(obj) {
     $("#hdfDailyQuizSubjectId").val(obj.id);
     $("#CourelistId").val(obj.courseId);
-    $("#hdfDailyQuizSubjectName").val(obj.subjectName);
+    $("#txtDailyQuizSubjectName").val(obj.subjectName);
     $("#LanguageCode").val(obj.languagecode);
     if (obj.isActive == true) {
         $('#chkIsActive').click();

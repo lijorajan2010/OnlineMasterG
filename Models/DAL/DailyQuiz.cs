@@ -24,6 +24,8 @@ namespace OnlineMasterG.Models.DAL
         public Nullable<System.DateTime> EditOn { get; set; }
         public Nullable<int> DailyQuizCourseId { get; set; }
         public Nullable<int> DailyQuizSubjectId { get; set; }
+        public int NoOfQuestions { get; set; }
+        public string Description { get; set; }
     
         public virtual DailyQuizCourse DailyQuizCourse { get; set; }
         public virtual DailyQuizSubject DailyQuizSubject { get; set; }
