@@ -125,6 +125,7 @@
           <Property Name="DailyQuizSubjectId" Type="int" />
           <Property Name="NoOfQuestions" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar(max)" />
+          <Property Name="TimeInMinutes" Type="int" />
         </EntityType>
         <EntityType Name="DailyQuizCourse">
           <Key>
@@ -3097,6 +3098,7 @@
           <NavigationProperty Name="DailyQuizCourse" Relationship="OnlinemasterjiModel.FK__DailyQuiz__Daily__54CB950F" FromRole="DailyQuiz" ToRole="DailyQuizCourse" />
           <NavigationProperty Name="DailyQuizSubject" Relationship="OnlinemasterjiModel.FK__DailyQuiz__Daily__55BFB948" FromRole="DailyQuiz" ToRole="DailyQuizSubject" />
           <NavigationProperty Name="DailyQuizUploads" Relationship="OnlinemasterjiModel.FK__DailyQuiz__Daily__6D9742D9" FromRole="DailyQuiz" ToRole="DailyQuizUpload" />
+          <Property Name="TimeInMinutes" Type="Int32" />
         </EntityType>
         <Association Name="FK__DailyQuiz__Daily__54CB950F">
           <End Type="OnlinemasterjiModel.DailyQuizCourse" Role="DailyQuizCourse" Multiplicity="0..1" />
@@ -3836,6 +3838,7 @@
           <EntitySetMapping Name="DailyQuizs">
             <EntityTypeMapping TypeName="OnlinemasterjiModel.DailyQuiz">
               <MappingFragment StoreEntitySet="DailyQuiz">
+                <ScalarProperty Name="TimeInMinutes" ColumnName="TimeInMinutes" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="NoOfQuestions" ColumnName="NoOfQuestions" />
                 <ScalarProperty Name="DailyQuizSubjectId" ColumnName="DailyQuizSubjectId" />

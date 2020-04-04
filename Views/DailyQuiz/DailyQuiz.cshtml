@@ -1,0 +1,672 @@
+﻿
+@{
+    
+    Layout = null;
+}
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="~/img/favicon.png" type="image/x-icon">
+    <title>Online Master JI</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/vendors/bootstrap-selector/css/bootstrap-select.min.css">
+    <!--icon font css-->
+    <link rel="stylesheet" href="~/vendors/themify-icon/themify-icons.css">
+    <link rel="stylesheet" href="~/vendors/flaticon/flaticon.css">
+    <link rel="stylesheet" href="~/vendors/animation/animate.css">
+    <link rel="stylesheet" href="~/vendors/owl-carousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/vendors/magnify-pop/magnific-popup.css">
+    <link rel="stylesheet" href="~/vendors/nice-select/nice-select.css">
+    <link rel="stylesheet" href="~/vendors/elagent/style.css">
+    <link rel="stylesheet" href="~/vendors/scroll/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <style>
+        section.service_area.sec_pad.s_service_section.breadcrumb_area.typography_breacrumb {
+            padding: 40px 0px 75px;
+        }
+
+        @@media (max-width: 1550px) {
+            .service_item {
+                padding: 10px 30px;
+            }
+        }
+
+        .pay_btn.pay_btn_two {
+            margin-left: 0;
+        }
+
+        .navbar-brand {
+            margin-left: 0;
+        }
+
+        section.service_area.sec_pad.s_service_section.breadcrumb_area.typography_breacrumb {
+            padding: 16px 0px 75px;
+        }
+
+        p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .instructionHead {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .instructionFoot {
+            border-top: 1px solid #ddd;
+            padding-top: 9px;
+        }
+
+        .modal-backdrop {
+            display: none;
+        }
+
+        .modal-header {
+            display: block;
+        }
+
+        .modal-open .modal {
+            background: rgba(0, 0, 0, 0.72);
+        }
+
+        .typography_breacrumb p, .containerCheck {
+            color: #000;
+            font-weight: 400;
+            font-size: 15px;
+        }
+
+        .dropdown-menu {
+            border: none;
+            border-bottom: 1px solid #ddd;
+            padding: 0;
+        }
+
+        @@media(max-width:768px) {
+            .nav-tabs .nav-link {
+                font-size: 12px;
+            }
+
+            .dropdown-menu {
+                display: none
+            }
+        }
+
+        @@media(min-width:768px) {
+            .hidden-md, .hidden-lg {
+                display: none;
+            }
+
+            .dropdown-menu {
+                position: relative;
+                display: block;
+                float: none;
+                width: 100%;
+            }
+
+            li.nav-item {
+                display: inline-block;
+            }
+
+            #question, .hide_questions {
+                display: none
+            }
+
+            #SearchParameters {
+                display: block;
+            }
+
+            .visible-xs {
+                display: none;
+            }
+            <!-- #myTab2 .nav-tabs .nav-item {
+                display: inline-block;
+            }
+            --> <!-- -->
+        }
+
+        .read {
+            color: #000 !important;
+        }
+
+            .read::after {
+                display: inline-block;
+                width: 0;
+                height: 0;
+                margin-left: .255em;
+                vertical-align: .255em;
+                content: "";
+                border-top: .3em solid;
+                border-right: .3em solid transparent;
+                border-bottom: 0;
+                border-left: .3em solid transparent;
+            }
+
+        @@media (min-width: 768px) {
+            .instructionFoot {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                background: #fff;
+            }
+
+            .test_response .fix_height {
+                // max-height: inherit;
+                height: calc(75vh - 50px);
+            }
+        }
+
+        //.test_response {
+            margin-bottom: 50px;
+        }
+
+        @@media(max-width:768px) {
+            .test_page .max_h420 {
+                max-height: inherit;
+            }
+
+            .read {
+                display: block
+            }
+
+            .choose_question {
+                display: none;
+                position: fixed;
+                top: 0;
+                background: #fff;
+                z-index: 9;
+                left: 0;
+                bottom: 0;
+                transition: all ease 0.2s;
+                padding: 10px 0px 0px 0;
+            }
+
+            span.hide_questions {
+                position: absolute;
+                top: 6px;
+                right: 10px;
+                font-family: monospace;
+                font-size: 11px;
+                background: gray;
+                color: #fff;
+                padding: 5px;
+                border-radius: 50%;
+                line-height: 11px;
+                width: 21px;
+                height: 22px;
+                text-align: center;
+                font-weight: bold;
+            }
+        }
+
+        #SearchParameters.in,
+        #SearchParameters.collapsing {
+            display: block !important;
+        }
+
+        .small_fonts .h6, .small_fonts h6, .small_fonts p, .small_fonts a, .small_fonts ul li, .small_fonts label, .small_fonts span, .small_fonts select {
+            font-size: 14px !important;
+        }
+
+        //.overflow_auto p {
+            margin-bottom: 0 !important;
+        }
+
+        .language {
+            font-size: 13px;
+        }
+
+        .navbar-brand {
+            margin: 0;
+            padding: 5px 0px;
+        }
+
+        .shop_page_number li span {
+            font-size: 12px !important;
+        }
+
+        ul.list-unstyled.payment_list {
+            padding-left: 15px;
+        }
+
+        .body_wrapper {
+            background: #fff;
+        }
+
+        .full_screen_btn, .close_full_screen {
+            color: #ffffff;
+            border: solid #fff 1px;
+            padding: 7px 5px 6px 5px;
+            margin-top: 6px;
+            color: #fff !important;
+        }
+
+        .agency_banner_btn {
+            font: 400 12px "inherit", sans-serif;
+        }
+
+        .font_18 {
+            font-size: 18px;
+        }
+
+        .mt_20 {
+            margin-top: 20px;
+        }
+
+        @@media (max-width: 768px) {
+            .small_fonts .h6, .small_fonts h6, .small_fonts p, .small_fonts a, .small_fonts ul li, .small_fonts label, .small_fonts span, .small_fonts select, .btn {
+                font-size: 14px !important;
+            }
+
+            .shop_page_number li span {
+                margin-right: 20px;
+            }
+
+            .container_test .agency_banner_btn {
+                padding: 7px 7px;
+                margin-left: 0;
+            }
+
+            .containerCheck input:checked:parent li {
+                padding: 15px 10px;
+                line-height: 2px;
+                margin-bottom: 15px;
+                background: blue;
+            }
+
+            .responsive_modal div, .responsive_modal ul, .responsive_modal ul li {
+                padding-left: 0;
+                padding-right: 0;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .m_p0 {
+                padding: 0;
+            }
+
+            .report_responsive {
+                position: absolute;
+                top: -35px;
+                color: #007bff;
+                background: transparent;
+                border: none;
+                left: 10px;
+            }
+        }
+
+        @@media (min-width: 768px) {
+            .test_response .col-md-9 {
+                padding-right: 0;
+                -ms-flex: 0 0 84%;
+                flex: 0 0 84%;
+                max-width: 84%;
+            }
+
+            .test_response .col-md-3 {
+                -ms-flex: 0 0 16%;
+                padding: 0;
+                flex: 0 0 16%;
+                max-width: 16%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="body_wrapper small_fonts" id="mytest">
+
+        <header class="breadcrumb_area p-0">
+            <img class="breadcrumb_shap" src="~/img/breadcrumb/banner_bg.png" alt="">
+            <nav class="navbar navbar-expand-lg menu_one menu_four">
+                <div class="container-fluid">
+
+                    <a class="navbar-brand col-md-2 hidden-xs" href="index.html"><img src="~/img/WhiteLogo.png" alt="logo"></a>
+
+                    <div class="col-md-2 breadcrumb_content hidden-xs">
+                        <span class="w_color f_600">SSC CGL</span>
+                        <!-- <h1 class="f_p f_700 f_size_30 w_color l_height50">SSC CGL</h1> -->
+                    </div>
+
+                    <div class="col-md-3 col-xs-6 breadcrumb_content text-center">
+                        <span class="w_color f_700 ">Time Left: 02:00:00</span>
+                        <!-- <h1 class="f_p f_700 f_size_30 w_color l_height50">SSC CGL</h1> -->
+                    </div>
+
+
+
+                    <div class="col-md-3 col-xs-6 text-right" style="display:none">
+                        <span class="w_color f_600 hidden-xs">Select Language </span>
+                        <select>
+                            <option>English</option>
+                            <option>Hindi</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-2 text-center hidden-xs">
+                        <img class="student_img" src="~/img/new/member_01.jpg" alt="" width="50">
+                        <span>Here Is the Name</span>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+
+        <section class="service_area sec_pad s_service_section breadcrumb_area typography_breacrumb test_page" style="background:#fff;padding-bottom:0;padding-top:10px;">
+            <div class="container-fluid container_test">
+
+                <div class="service_info">
+
+                    <!--<div class="row instructionHead">
+                    <div class="col-md-3"></div>
+                     <div class="col-md-6 col-xs-6 sec_title text-center">
+                        <h2 class="f_p f_size_15 f_600 t_color2 mb-0">Time Left: 02:00:00</h2>
+
+                    </div> -->
+                    <!-- <div class="col-md-3 col-xs-6 language text-right">
+                            <span>Select Language </span>
+                            <select>
+                                <option>English</option>
+                                <option>Hindi</option>
+
+                            </select>
+                            </div>
+                    </div>-->
+                    <div class="row mb_15 test_response">
+                        <div class="col-md-9">
+                            <div class="row m0">
+
+                                <div class="">
+                                    <div class="">
+
+
+                                        <button class="btn btn-info hidden-md hidden-lg" id="question" style="border-radius: 0;width: 50%;background: #007bff;border: 1px solid #007bff;border-left: 1px solid #fff;">Questions</button>
+
+                                        <div class="tab-content developer_tab_content">
+                                            <div class="tab-pane fade active show" id="ruby" role="tabpanel" aria-labelledby="ruby-tab">
+
+
+
+                                                <div class="row">
+
+
+
+
+
+                                                    <div class="col-md-12 fix_height overflow_auto mt_20">
+                                                        <div>
+                                                            <h6 class="f_size_15 f_500 ml_30">
+                                                                <span class="qSpan">Q.1 </span>In the sentence ‘the basics often pose a major challenge’, what could be inferred?
+                                                            </h6>	<p>(I) Facing financial hardship is a major challenge.</p>
+                                                            <p>(II) Not everyone, everywhere has access to essential quality health services.</p>
+                                                            <p>(III) Accessing quality health services without facing financial hardship is difficult.</p>
+
+
+                                                            <ul class="list-unstyled payment_list">
+                                                                <li>
+                                                                    <label class="containerCheck">
+                                                                        Only (II)
+                                                                        <input type="radio" name="radio">
+                                                                        <span class="checkmark"></span>
+                                                                    </label>
+                                                                </li>
+
+                                                                <li>
+                                                                    <label class="containerCheck">
+                                                                        Both (II) and (III)
+                                                                        <input type="radio" name="radio">
+                                                                        <span class="checkmark"></span>
+                                                                    </label>
+                                                                </li>
+
+                                                                <li>
+                                                                    <label class="containerCheck">
+                                                                        Both (I) and (III)
+                                                                        <input type="radio" name="radio">
+                                                                        <span class="checkmark"></span>
+                                                                    </label>
+                                                                </li>
+
+                                                                <li>
+                                                                    <label class="containerCheck">
+                                                                        Only (I)
+                                                                        <input type="radio" name="radio">
+                                                                        <span class="checkmark"></span>
+                                                                    </label>
+                                                                </li>
+
+                                                                <li>
+                                                                    <label class="containerCheck">
+                                                                        Only (III)
+                                                                        <input type="radio" name="radio">
+                                                                        <span class="checkmark"></span>
+                                                                    </label>
+                                                                </li>
+
+                                                            </ul>
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </div>
+
+
+
+
+
+
+
+
+                                            </div>
+                                            <div class="tab-pane fade" id="curl" role="tabpanel" aria-labelledby="curl-tab">
+                                                <h4>Take control of your <br> inventory</h4>
+                                                <p>I blower he nicked it you mug pukka only a quid barmy Har?ry young delinquent knees up amongst such a fibber, daft gosh cracking goal wind up pardon me up the duff nice one he lost his bottle are you taking the piss is David, the BBC horse play.!</p>
+                                            </div>
+                                            <div class="tab-pane fade" id="resize" role="tabpanel" aria-labelledby="resize-tab">
+                                                <h4>Take control of your <br> inventory</h4>
+                                                <p>I blower he nicked it you mug pukka only a quid barmy Harry young delinquent knees up amongst such a fibber, daft gosh cracking goal wind up pardon me up the duff nice one he lost his bottle are you taking the piss is David, the BBC horse play.!</p>
+                                            </div>
+                                            <div class="tab-pane fade" id="doctl" role="tabpanel" aria-labelledby="doctl-tab">
+                                                <h4>Take control of your <br> inventory</h4>
+                                                <p>I blower he nicked it you mug pukka only a quid barmy Harry young delinquent knees up amongst such a fibber, daft gosh cracking goal wind up pardon me up the duff nice one he lost his bottle are you taking the piss is David, the BBC horse play.!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+                        </div>
+                        <div class="col-md-3 choose_question">
+                            <div class="border_l">
+                                <ul class="list-unstyled page-numbers shop_page_number text-left border_b col-md-12">
+
+                                    <li class="mb_20"><a class="page-numbers answered" href="#"> </a> <span>Answered </span></li>
+                                    <li class="mb_20"><a class="page-numbers not_answered" href="#"> </a><span>Not Answered</span></li>
+                                    <li class="mb_20"><a class="page-numbers not_visited" href="#"> </a><span>Not Visited</span></li>
+                                    <li class="mb_20"><a class="page-numbers marked_review" href="#"> </a><span>Marked</span></li>
+
+                                </ul>
+                                <div class="">
+                                    <div>
+                                        <h6 class="text-center l_height40 mb-0" style="    font-size: 14px;
+    line-height: inherit;">
+                                            Choose a Question
+                                        </h6>
+                                        <span class="hide_questions">X</span>
+                                    </div>
+                                    <ul class="question_list list-unstyled page-numbers shop_page_number text-left ml-0 pt_20 border_t pl_15">
+
+                                        <li><a class="page-numbers answered">1</a></li>
+                                        <li><a class="page-numbers" href="#">2</a></li>
+                                        <li><a class="next page-numbers not_visited" href="#">3</a></li>
+                                        <li><a class="next page-numbers" href="#">4</a></li>
+                                        <li><a class="next page-numbers" href="#">5</a></li>
+                                        <li><a class="page-numbers not_answered">6</a></li>
+                                        <li><a class="page-numbers" href="#">7</a></li>
+                                        <li><a class="next page-numbers" href="#">8</a></li>
+                                        <li><a class="next page-numbers" href="#">9</a></li>
+                                        <li><a class="next page-numbers" href="#">10</a></li>
+                                        <li><a class="page-numbers">11</a></li>
+                                        <li><a class="page-numbers" href="#">12</a></li>
+                                        <li><a class="next page-numbers" href="#">13</a></li>
+                                        <li><a class="next page-numbers" href="#">14</a></li>
+                                        <li><a class="next page-numbers" href="#">15</a></li>
+                                        <li><a class="page-numbers">16</a></li>
+                                        <li><a class="page-numbers" href="#">17</a></li>
+                                        <li><a class="next page-numbers" href="#">18</a></li>
+                                        <li><a class="next page-numbers" href="#">19</a></li>
+                                        <li><a class="next page-numbers" href="#">20</a></li>
+                                        <li><a class="page-numbers marked_review">21</a></li>
+                                        <li><a class="page-numbers" href="#">22</a></li>
+                                        <li><a class="next page-numbers" href="#">23</a></li>
+                                        <li><a class="next page-numbers" href="#">24</a></li>
+                                        <li><a class="next page-numbers" href="#">25</a></li>
+
+                                    </ul>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="instructionFoot row">
+                        <div class="col-md-6 col-8">
+
+                            <a href="#" class="btn_hover agency_banner_btn report">Clear</a>
+                            <a href="#" class="btn_hover agency_banner_btn answered">Save &amp; Next</a>
+                        </div>
+                        <div class="col-md-6 col-4 text-right">
+
+
+                            <a href="#" class="btn_hover agency_banner_btn answered" data-toggle="modal" data-target="#finishModal">Finish</a>
+
+                        </div>
+                    </div>
+                    <!--
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+
+
+
+                    <div class="modal fade" id="finishModal" role="dialog" backdrop="static">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <!--  <div class="modal-header">
+
+                                  <h4 class="modal-title text-center">Instructions</h4>
+                                </div> -->
+                                <div class="modal-body responsive_modal">
+
+                                    <div class="container custom_container p0 m_p0">
+
+                                        <div class="service_info">
+                                            <div class="row instructionHead mb_15">
+                                                <div class="col-md-12 sec_title text-center">
+                                                    <h2 class="f_p f_size_20 f_500 t_color2 mb-10">Remaining Time : <span class="answered">00:00:15</span> </h2>
+                                                </div>
+                                                <!--
+                                                                        <div class="col-md-3 language text-right">
+                                                                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                            </div>
+                                                -->
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="">
+                                                    <!-- <div class="icon s_icon_one"><i class="ti-check"></i></div> -->
+                                                    <!--                            <h4 class="f_400 f_size_15 l_height28 t_color2 mb-0">Report Question</h4>-->
+                                                    <ul class="row question_list list-unstyled page-numbers shop_page_number text-left ml-0 pt_20 pl_15">
+
+                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers answered" href="#">05 </a> <span>Answered </span></li>
+                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers not_answered" href="#">08 </a>Not Answered</li>
+                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers not_visited" href="#">15   </a>Not Visited</li>
+                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers marked_review" href="#"> 05</a>Marked for Review</li>
+
+                                                    </ul>
+                                                    <!--  <img class="float-right" src="img/home2/undraw.png" alt=""> -->
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                                <div class="row border_t pt_10 pb_10 m-0">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-xs-6 text-center">
+                                                <a href="#" class="btn_hover agency_banner_btn answered">Resume</a>
+                                            </div>
+
+                                            <div class="col-md-6 col-xs-6 text-center">
+                                                <a href="quiz_reportcard.html" class="btn_hover agency_banner_btn m-0">Submit</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <!--          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+        <script src="~/js/jquery-3.2.1.min.js"></script>
+        <script src="~/js/propper.js"></script>
+        <script src="~/js/bootstrap.min.js"></script>
+        <script src="~/vendors/wow/wow.min.js"></script>
+        <script src="~/vendors/sckroller/jquery.parallax-scroll.js"></script>
+        <script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
+        <script src="~/vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
+        <script src="~/vendors/isotope/isotope-min.js"></script>
+        <script src="~/vendors/magnify-pop/jquery.magnific-popup.min.js"></script>
+        <script src="~/vendors/bootstrap-selector/js/bootstrap-select.min.js"></script>
+        <script src="~/vendors/nice-select/jquery.nice-select.min.js"></script>
+        <script src="~/vendors/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="~/js/plugins.js"></script>
+        <script src="~/js/main.js"></script>
+
+        <script>
+            $("#question").click(function () {
+                $(".choose_question").show();
+            });
+            $(".hide_questions").click(function () {
+                $(".choose_question").hide();
+            });
+        </script>
+    </div>
+
+</body>
+</html>

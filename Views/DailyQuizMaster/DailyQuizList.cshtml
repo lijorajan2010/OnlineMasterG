@@ -10,6 +10,7 @@
             <th>Course Name</th>
             <th>Subject Name</th>
             <th>Daily Quiz Name</th>
+            <th>Time In Minutes</th>
             <th>No of Question</th>
             <th>Description</th>
             <th>Quiz</th>
@@ -26,9 +27,10 @@
                     <td>@(item.Data.DailyQuizCourseName)</td>
                     <td>@item.Data.DailyQuizSubjectName</td>
                     <td>@item.Data.DailyQuizName</td>
+                    <td>@item.Data.TimeInMinutes</td>
                     <td>@item.Data.NoOfQuestions</td>
                     <td>@item.Data.Description</td>
-                    <td><button class="btn btn-info" onclick='editQuiz(@Html.Raw(Json.Encode(new { id=item.Data.DailyQuizId,courseId= item.Data.DailyQuizCourseId, subjectId = item.Data.DailyQuizSubjectId,quizName = item.Data.DailyQuizName, isActive = item.Data.Isactive,languagecode = item.Data.LanguageCode ,description = item.Data.Description,noOfQuestion = item.Data.NoOfQuestions})));'><i class="fa fa-pencil-alt"></i></button></td>
+                    <td><button class="btn btn-info" onclick='editQuiz(@Html.Raw(Json.Encode(new { id=item.Data.DailyQuizId,courseId= item.Data.DailyQuizCourseId, subjectId = item.Data.DailyQuizSubjectId,quizName = item.Data.DailyQuizName, isActive = item.Data.Isactive,languagecode = item.Data.LanguageCode ,description = item.Data.Description,noOfQuestion = item.Data.NoOfQuestions, timeInMinutes= item.Data.TimeInMinutes})));'><i class="fa fa-pencil-alt"></i></button></td>
                     <td><button class="btn btn-danger" onclick='deleteQuiz(@Html.Raw(Json.Encode(new { id=item.Data.DailyQuizId,quizName = item.Data.DailyQuizName})))'><i class="fa fa-trash"></i></button></td>
                 </tr>
 

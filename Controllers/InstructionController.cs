@@ -1,6 +1,7 @@
 ﻿using OnlineMasterG.Base;
 using OnlineMasterG.Code;
 using OnlineMasterG.CommonFramework;
+using OnlineMasterG.CommonServices;
 using OnlineMasterG.DomainLogic;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,19 @@ namespace OnlineMasterG.Controllers
             var model = GeneralLogics.LoadDBGeneralInstruction("en-US",true,testId);
 
             return PartialView(model);
+        }
+
+        public ActionResult DailyQuiz(string p)
+        {
+            int DailyQuizId = 0;
+            if (!string.IsNullOrEmpty(p))
+            {
+                DailyQuizId = int.Parse(CustomEncrypt.SafeUrlDecrypt(p));
+            }
+            ViewBag.DailyQuizId = DailyQuizId;
+           
+            var model = DailyQuizService.FetchDailyQuiz(DailyQuizId);
+            return View(model);
         }
     }
 }

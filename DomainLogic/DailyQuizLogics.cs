@@ -102,6 +102,7 @@ namespace OnlineMasterG.DomainLogic
                 NoOfQuestions = model.NoOfQuestions,
                 Description = model.Description,
                 LanguageCode = model.LanguageCode,
+                TimeInMinutes = model.TimeInMinutes,
                 Isactive = true,
                 CreateBy = auditlogin,
                 CreateOn = DateTime.Now
@@ -466,6 +467,7 @@ namespace OnlineMasterG.DomainLogic
                         DailyQuizCourseName = DailyQuizService.Fetch(item.DailyQuizCourseId)?.DailyQuizCourseName,
                         DailyQuizCourseId = item.DailyQuizCourseId,
                         NoOfQuestions = item.NoOfQuestions,
+                        TimeInMinutes = item.TimeInMinutes,
                         Description = item.Description,
                         Isactive = item.Isactive,
                         LanguageCode = item.LanguageCode

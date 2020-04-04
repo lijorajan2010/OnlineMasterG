@@ -13,5 +13,9 @@ namespace OnlineMasterG.Controllers
         {
             return View();
         }
+        public ActionResult DailyQuiz()
+        {
+            return View();
+        }
     }
 }

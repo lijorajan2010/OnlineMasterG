@@ -11,6 +11,7 @@ namespace OnlineMasterG.Models.ViewModels
         public int? DailyQuizCourseId { get; set; }
         public int? DailyQuizSubjectId { get; set; }
         public int NoOfQuestions { get; set; }
+        public int? TimeInMinutes { get; set; }
         public string DailyQuizName { get; set; }
         public string DailyQuizSubjectName { get; set; }
         public string DailyQuizCourseName { get; set; }

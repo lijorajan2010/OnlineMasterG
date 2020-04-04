@@ -1830,6 +1830,8 @@
     <Content Include="Views\LatestUpdates\Index.cshtml" />
     <Content Include="Views\LatestUpdates\LatestUpdatesList.cshtml" />
     <Content Include="Views\DailyQuiz\Index.cshtml" />
+    <Content Include="Views\Instruction\DailyQuiz.cshtml" />
+    <Content Include="Views\DailyQuiz\DailyQuiz.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

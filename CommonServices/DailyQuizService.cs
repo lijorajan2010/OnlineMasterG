@@ -137,6 +137,7 @@ namespace OnlineMasterG.CommonServices
                     dbDailyQuiz.LanguageCode = dailyQuiz.LanguageCode;
                     dbDailyQuiz.Description = dailyQuiz.Description;
                     dbDailyQuiz.NoOfQuestions = dailyQuiz.NoOfQuestions;
+                    dbDailyQuiz.TimeInMinutes = dailyQuiz.TimeInMinutes;
                     dbDailyQuiz.Isactive = dailyQuiz.Isactive;
                     dbDailyQuiz.EditBy = auditlogin;
                     dbDailyQuiz.EditOn = DateTime.Now;

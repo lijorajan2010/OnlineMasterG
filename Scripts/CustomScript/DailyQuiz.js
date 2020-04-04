@@ -59,6 +59,7 @@ function clearFields() {
     $("#SubjectlistId").val("");
     $("#txtQuizName").val("");
     $("#txtNoOfQuestion").val("");
+    $("#txtTimeInMinutes").val("");
     $("#txtDescription").val("");
    
 }
@@ -71,7 +72,8 @@ function saveQuiz() {
         DailyQuizName: $("#txtQuizName").val(),
         NoOfQuestions: $("#txtNoOfQuestion").val(),
         Description: $("#txtDescription").val(),
-        LanguageCode: $("#LanguageCode").val()
+        LanguageCode: $("#LanguageCode").val(),
+        TimeInMinutes: $("#txtTimeInMinutes").val()
     };
 
     $.postForm(
@@ -91,6 +93,7 @@ function editQuiz(obj) {
     setTimeout(function () { $("#SubjectlistId").val(obj.subjectId);  }, 500);
     $("#txtQuizName").val(obj.quizName);
     $("#txtNoOfQuestion").val(obj.noOfQuestion);
+    $("#txtTimeInMinutes").val(obj.timeInMinutes);
     $("#txtDescription").val(obj.description);
 }
 

@@ -32,6 +32,7 @@ namespace OnlineMasterG.Models.DAL
         public Nullable<int> DailyQuizSubjectId { get; set; }
         public int NoOfQuestions { get; set; }
         public string Description { get; set; }
+        public Nullable<int> TimeInMinutes { get; set; }
     
         public virtual DailyQuizCourse DailyQuizCourse { get; set; }
         public virtual DailyQuizSubject DailyQuizSubject { get; set; }
