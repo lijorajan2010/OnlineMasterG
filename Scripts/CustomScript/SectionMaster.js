@@ -3,7 +3,7 @@
     $("#txtSectionName").focus();
     attachEvents();
     setupSectionList();
- 
+
     $("input").bind("keydown", function (event) {
         // track enter key
         var keycode = (event.keyCode ? event.keyCode : (event.which ? event.which : event.charCode));
@@ -32,26 +32,28 @@ function attachEvents() {
 
     $("#CourelistId").change(function () {
         $('#CategorylistId').empty();
-        $('#CategorylistId').append($('<option/>', { Value: "", text: "Please Select"}));
+        $('#CategorylistId').append($('<option/>', { Value: "", text: "Please Select" }));
         $.ajax({
             url: URL.BINDCATEGORY,
             datatype: 'json',
             data: { courseId: $(this).val() ? $(this).val() : 0 },
             method: 'Post',
             success: function (data) {
-            
+
                 $('#CategorylistId').prop("disabled", false);
                 $(data).each(function (index, item) {
                     $('#CategorylistId').append($('<option/>', { Value: item.CategoryId, text: item.CategoryName }));
                 });
             }
         });
-    });
+
+    }
+    );
 }
 
 
 function setupSectionList() {
-    $.getDataTableList(URL.SECTIONLIST, $("#dvSectionList")); 
+    $.getDataTableList(URL.SECTIONLIST, $("#dvSectionList"));
 }
 
 
@@ -59,13 +61,14 @@ function clearFields() {
     $("#txtSectionName").val("");
     $("#txtSectionDescription").val("");
     $("#CourelistId").val("");
+  
     $("#CategorylistId").val("");
     $("#hdfSectionId").val("");
     //$('#chkIsActive').attr('checked', false);
     //if ($("#chkIsActive").prop('checked')) {
     //    $('#chkIsActive').click();
     //}
-   
+
 }
 
 
@@ -93,7 +96,8 @@ function saveSection() {
 function editSection(obj) {
     $("#hdfSectionId").val(obj.id);
     $("#CourelistId").val(obj.courseId);
-    $("#CategorylistId").val(obj.categoryId);
+    $("#CourelistId").change();
+    setTimeout(function () { $("#CategorylistId").val(obj.categoryId); }, 500);
     $("#txtSectionName").val(obj.sectionName);
     $("#txtSectionDescription").val(obj.description);
     $("#LanguageCode").val(obj.languagecode);

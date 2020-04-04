@@ -96,6 +96,15 @@
         <AssociationConnector Association="OnlinemasterjiModel.FK__DailyQuiz__Daily__603D47BB" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__DailyQuiz__Daily__61316BF4" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__DailyQuiz__DataF__6225902D" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.QuizQuestionAnswerChoice" Width="1.5" PointX="22.375" PointY="10.75" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.QuizQuestionPoint" Width="1.5" PointX="22.375" PointY="13.625" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.QuizTest" Width="1.5" PointX="20.125" PointY="11" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__QuizTest__DailyQ__65F62111" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__QuizTest__QuizIm__66EA454A" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__QuizQuest__QuizT__6CA31EA0" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__QuizQuest__QuizT__69C6B1F5" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__DailyQuiz__Daily__6D9742D9" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.LatestUpdate" Width="1.5" PointX="17.375" PointY="17.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

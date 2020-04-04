@@ -25,16 +25,16 @@
                     <li class="nav-item">
                         <a class="nav-link"><h5>Previous Year Papers</h5></a>
                     </li>
-                    @if (AppInfo.GetColleageCourses != null)
+                    @if (AppInfo.GetDailyQuizCourses != null)
                     {
-                        foreach (var item in AppInfo.GetColleageCourses.Select((x, y) => new { Data = x, Index = y }))
+                        foreach (var item in AppInfo.GetDailyQuizCourses.Select((x, y) => new { Data = x, Index = y }))
                         {
                             if (item.Index == 0)
                             {
                                 var btnId = "btn" + item.Index;
                                 var dvId = "dvId" + item.Index;
                                 <li class="nav-item tab">
-                                    <button id="@btnId" class="tablinks nav-link active lstbtns" onclick="openCourses(event, '@dvId')">@item.Data.CourseName</button>
+                                    <button id="@btnId" class="tablinks nav-link active lstbtns" onclick="openCourses(event, '@dvId')">@item.Data.DailyQuizCourseName</button>
                                     @*<a class="nav-link active tab" href="#">@item.Data</a>*@
                                 </li>
                             }
@@ -43,7 +43,7 @@
                                 var btnId = "btn" + item.Index;
                                 var dvId = "dvId" + item.Index;
                                 <li class="nav-item tab">
-                                    <button id="@btnId" class="tablinks nav-link lstbtns" onclick="openCourses(event, '@dvId')">@item.Data.CourseName</button>
+                                    <button id="@btnId" class="tablinks nav-link lstbtns" onclick="openCourses(event, '@dvId')">@item.Data.DailyQuizCourseName</button>
                                     @*<a class="nav-link tab" href="#">@item.Data</a>*@
                                 </li>
                             }
@@ -60,9 +60,9 @@
             </div>
 
 
-            @if (AppInfo.GetColleageCourses != null)
+            @if (AppInfo.GetDailyQuizCourses != null)
             {
-                foreach (var crs in AppInfo.GetColleageCourses.Select((x, y) => new { Data = x, Index = y }))
+                foreach (var crs in AppInfo.GetDailyQuizCourses.Select((x, y) => new { Data = x, Index = y }))
                 {
                     var dvId = "dvId" + crs.Index;
                     var firstItem = string.Empty;
@@ -71,18 +71,18 @@
                             @if (AppInfo.GetCollegeSubjects != null)
                             {
 
-                                foreach (var item in AppInfo.GetCollegeSubjects.Where(m => m.CourseId == crs.Data.CourseId).ToList().Select((x, y) => new { Data = x, Index = y }))
+                                foreach (var item in AppInfo.GetDailyQuizSubjects.Where(m => m.DailyQuizCourseId == crs.Data.DailyQuizCourseId).ToList().Select((x, y) => new { Data = x, Index = y }))
                                 {
                                     var subjectbtn = dvId + "SubjectBtn" + item.Index;
                                     var subjectDivId = dvId + "SubjectDivId" + item.Index;
                                     if (item.Index == 0)
                                     {
-                                        firstItem = item.Data.SubjectName;
-                                        <button id="@subjectbtn" class="tablinksSections agency_banner_btn" onclick="openSubject(event, '@subjectDivId')">@item.Data.SubjectName</button>
+                                        firstItem = item.Data.DailyQuizSubjectName;
+                                        <button id="@subjectbtn" class="tablinksSections agency_banner_btn" onclick="openSubject(event, '@subjectDivId')">@item.Data.DailyQuizSubjectName</button>
                                     }
                                     else
                                     {
-                                        <button id="@subjectbtn" class="tablinksSections btn_get" onclick="openSubject(event, '@subjectDivId')">@item.Data.SubjectName</button>
+                                        <button id="@subjectbtn" class="tablinksSections btn_get" onclick="openSubject(event, '@subjectDivId')">@item.Data.DailyQuizSubjectName</button>
 
                                     }
 
@@ -93,60 +93,63 @@
 
                         </div>
 
-                            <div class="tab-content developer_tab_content">
+                        <div class="tab-content developer_tab_content">
 
-                                @if (AppInfo.GetCollegeSubjects != null)
+                            @if (AppInfo.GetDailyQuizCourses != null)
+                            {
+
+                                string subjectDivId = string.Empty;
+                                string hrefTabclass = string.Empty;
+                                foreach (var sub in AppInfo.GetDailyQuizSubjects.Where(m => m.DailyQuizCourseId == crs.Data.DailyQuizCourseId).ToList().Select((x, y) => new { Data = x, Index = y }))
                                 {
-
-                                    string subjectDivId = string.Empty;
-                                    string hrefTabclass = string.Empty;
-                                    foreach (var sub in AppInfo.GetCollegeSubjects.Where(m => m.CourseId == crs.Data.CourseId ).ToList().Select((x, y) => new { Data = x, Index = y }))
+                                    if (sub.Index == 0)
                                     {
-                                        if (sub.Index == 0)
-                                        {
-                                            hrefTabclass = " active";
-                                        }
-                                        else
-                                        {
-                                            hrefTabclass = "";
-                                        }
+                                        hrefTabclass = " active";
+                                    }
+                                    else
+                                    {
+                                        hrefTabclass = "";
+                                    }
 
-                                          subjectDivId = dvId + "SubjectDivId" + sub.Index;
+                                    subjectDivId = dvId + "SubjectDivId" + sub.Index;
 
-                                        if (AppInfo.GetSchoolPapers != null)
-                                        {
-                                            <div class="tab-pane Section @hrefTabclass" id="@subjectDivId">
-                                                <div class="accordion">
-                                                    <div class="service_info">
-                                                        <div class="service_item  mb-0">
-                                                            @foreach (var pap in AppInfo.GetCollegePapers.Where(m => m.CourseId == crs.Data.CourseId && sub.Data.SubjectId == m.SubjectId).ToList().Select((x, y) => new { Data = x, Index = y }))
-                                                            {
-                                                                <div class="mb_10">
-                                                                    <div class="row m-0 border_b">
-                                                                        <div class="col-md-4 col-md-4 col-xs-4">
-                                                                            <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">@pap.Data.PaperName</h4>
-                                                                        </div>
-                                                                        <div class="col-md-4 col-md-4 col-xs-4">
-                                                                            <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">@pap.Data.Description</h4>
-                                                                        </div>
-                                                                        <div class="col-md-4 col-md-4 col-xs-4">
-                                                                            @Html.ActionLink(" View ", "View", "DataFile", new { p = CustomEncrypt.Encrypt(pap.Data.DataFileId.Value.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
-                                                                        </div>
+                                    if (AppInfo.GetDailyQuizs != null)
+                                    {
+                                        <div class="tab-pane Section @hrefTabclass" id="@subjectDivId">
+                                            <div class="accordion">
+                                                <div class="service_info">
+                                                    <div class="service_item  mb-0">
+                                                        @foreach (var pap in AppInfo.GetDailyQuizs.Where(m => m.DailyQuizCourseId == crs.Data.DailyQuizCourseId && sub.Data.DailyQuizSubjectId == m.DailyQuizSubjectId).ToList().Select((x, y) => new { Data = x, Index = y }))
+                                                        {
+                                                            <div class="mb_10">
+                                                                <div class="row m-0 border_b">
+                                                                    <div class="col-md-3 col-md-3 col-xs-3">
+                                                                        <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">@pap.Data.DailyQuizName</h4>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-md-3 col-xs-3">
+                                                                        <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">@pap.Data.NoOfQuestions Questions</h4>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-md-3 col-xs-3">
+                                                                        <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">@pap.Data.Description</h4>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-md-3 col-xs-3">
+                                                                        @Html.ActionLink(" Play ", "Index", "Instruction", new { p = CustomEncrypt.SafeUrlEncrypt(pap.Data.DailyQuizId.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
                                                                     </div>
                                                                 </div>
-                                                            }
-                                                        </div>
+                                                            </div>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
 
-                                        }
                                     }
                                 }
+                            }
 
 
 
-                            </div>
+                        </div>
 
                     </div>
                 }
@@ -261,7 +264,7 @@
 
     }
 
-    
+
 
     function openSubject(evt, className) {
 
@@ -274,9 +277,7 @@
         for (i = 0; i < tablinks.length; i++) {
            tablinks[i].className = tablinks[i].className.replace(" agency_banner_btn", " btn_get");
         }
-
         $("#selectedSubjectName").text($(evt.target).text());
-
         document.getElementById(className).click();
         document.getElementById(className).style.display = "block";
          evt.target.className.replace(" btn_get", " agency_banner_btn");

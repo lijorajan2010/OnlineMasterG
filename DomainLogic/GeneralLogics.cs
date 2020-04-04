@@ -32,6 +32,34 @@ namespace OnlineMasterG.DomainLogic
             return sr;
         }
 
+    
+        public static ServiceResponse ValidateLatestUpdate(LatestUpdatesVM model)
+        {
+            ServiceResponse sr = new ServiceResponse();
+
+            if (String.IsNullOrEmpty(model.UpdateDescription))
+                sr.AddError("The [Update Description] field cannot be empty.");
+
+            return sr;
+        }
+
+        public static ServiceResponse SaveLatestUpdate(LatestUpdatesVM model, string auditlogin)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            LatestUpdate course = new  LatestUpdate()
+            {
+                UpdateId = model.UpdateId,
+                UpdateDescription = model.UpdateDescription,
+                Sequence = model.Sequence,
+                LanguageCode = model.LanguageCode,
+                Isactive = model.IsActive,
+                CreateBy = auditlogin,
+                CreateOn = DateTime.Now
+            };
+            sr = GeneralService.SaveLatestUpdates(course, auditlogin);
+
+            return sr;
+        }
         public static ServiceResponse SaveGeneralInstructions(List<GenneralInstructionVM> model, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();

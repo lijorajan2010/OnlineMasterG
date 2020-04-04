@@ -20,6 +20,13 @@ namespace OnlineMasterG.CommonServices
                 .Where(x => x.DataFileId == dataFileId)
                 .FirstOrDefault();
         }
+        public static DataFile FetchNullData(int? dataFileId)
+        {
+            return DB
+                .DataFiles
+                .Where(x => x.DataFileId == (dataFileId.HasValue?dataFileId:0))
+                .FirstOrDefault();
+        }
 
         public static DataFile GetDataByFileName(string fileName, string extension, string sourceCode)
         {

@@ -136,9 +136,10 @@ function saveSubject() {
 function editSubject(obj) {
     $("#hdfSubjectId").val(obj.id);
     $("#CourelistId").val(obj.courseId);
-    $("#CategorylistId").val(obj.categoryId);
-    $("#SectionlistId").val(obj.sectionId);
-    $("#TestlistId").val(obj.testId);
+    $("#CourelistId").change();
+    setTimeout(function () { $("#CategorylistId").val(obj.categoryId); $("#CategorylistId").change(); }, 500);
+    setTimeout(function () { $("#SectionlistId").val(obj.sectionId); $("#SectionlistId").change(); }, 1500);
+    setTimeout(function () { $("#TestlistId").val(obj.testId); }, 3000);
     $("#txtSubjectName").val(obj.subjectName);
     $("#txtSequence").val(obj.sequence);
     $("#LanguageCode").val(obj.languagecode);

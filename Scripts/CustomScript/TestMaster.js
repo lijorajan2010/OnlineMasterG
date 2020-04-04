@@ -115,8 +115,10 @@ function saveTest() {
 function editTest(obj) {
     $("#hdfTestId").val(obj.id);
     $("#CourelistId").val(obj.courseId);
-    $("#CategorylistId").val(obj.categoryId);
-    $("#SectionlistId").val(obj.sectionId);
+    $("#CourelistId").change();
+    setTimeout(function () { $("#CategorylistId").val(obj.categoryId); $("#CategorylistId").change(); }, 500);
+    setTimeout(function () { $("#SectionlistId").val(obj.sectionId); }, 1500);
+ 
     $("#txtTestName").val(obj.testName);
     $("#txtTestDescription").val(obj.description);
     $("#LanguageCode").val(obj.languagecode);

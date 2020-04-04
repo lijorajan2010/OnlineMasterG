@@ -1,0 +1,65 @@
+﻿@model List<OnlineMasterG.Models.ViewModels.DailyQuizUploadVM>
+
+<table id="tblQuizUploadList" class="dataTables_wrapper dt-bootstrap4 no-footer">
+    <thead>
+        <tr>
+            <th>Sl No.</th>
+            <th>Course </th>
+            <th>Subject </th>
+            <th>Quiz </th>
+            <th>Question Status</th>
+            <th>Review / Finalize Questions</th>
+            <th>Approve</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model.Select((x, y) => new { Data = x, Index = y }))
+            {
+        <tr>
+            <td>@(item.Index + 1)</td>
+            <td>@(item.Data.DailyQuizCourseName)</td>
+            <td>@item.Data.DailyQuizSubjectName</td>
+            <td>@item.Data.DailyQuizName</td>
+            <td>@item.Data.QuestionStatus</td>
+            <td>
+                @if (item.Data.QuestionStatus == "VAL")
+                {
+                    <button class="btn btn-info" disabled onclick='editQuestionUpload(@Html.Raw(Json.Encode(new { id=item.Data.DailyQuizUploadId,courseId= item.Data.DailyQuizCourseId,subjectId= item.Data.DailyQuizSubjectId, languagecode = item.Data.LanguageCode,questionStatus =item.Data.QuestionStatus })));'><i class="fa fa-ban"></i></button>
+
+                }
+                else
+                {
+                    @Html.ActionLink("  Review / Finalize", "EditQuizQuestions", "DailyQuizUpload", new { id = item.Data.DailyQuizUploadId }, new { @class = "fa fa-pencil-alt", @target = "_blank" })
+                    @*<button class="btn btn-info"  onclick='editQuestionUpload(@Html.Raw(Json.Encode(new { id=item.Data.QuestionUploadId,courseId= item.Data.CourseId,categoryId= item.Data.CategoryId,sectionId = item.Data.SectionId, testId = item.Data.TestId,subjectId = item.Data.SubjectId, languagecode = item.Data.LanguageCode,questionStatus =item.Data.QuestionStatus })));'><i class="fa fa-pencil-alt"></i></button>*@
+
+                }
+
+            </td>
+            <td>
+                @if (item.Data.QuestionStatus == "VAL")
+                {
+                    <button class="btn btn-primary" onclick='fnDenyApproval(@Html.Raw(Json.Encode(new { id=item.Data.DailyQuizUploadId})))'>Deny</button>
+                }
+                else
+                {
+                    <button class="btn btn-primary" onclick='fnApproval(@Html.Raw(Json.Encode(new { id=item.Data.DailyQuizUploadId})))'>Approve</button>
+                }
+            </td>
+            <td><button class="btn btn-danger" onclick='deleteQuizUpload(@Html.Raw(Json.Encode(new { id=item.Data.DailyQuizUploadId,subjectName = item.Data.DailyQuizSubjectName})))'><i class="fa fa-trash"></i></button></td>
+        </tr>
+
+            }
+
+        }
+
+    </tbody>
+</table>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#tblQuizUploadList").DataTable();
+    });
+</script>

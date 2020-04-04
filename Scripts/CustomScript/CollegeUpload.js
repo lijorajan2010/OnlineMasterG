@@ -97,7 +97,8 @@ function saveQuestionUpload() {
 function editPaper(obj) {
     $("#hdfCollegePaperId").val(obj.id);
     $("#CourelistId").val(obj.courseId);
-    $("#SubjectlistId").val(obj.subjectId);
+    $("#CourelistId").change();
+    setTimeout(function () { $("#SubjectlistId").val(obj.subjectId); }, 500);
     $("#txtPaperName").val(obj.paperName);
     $("#txtPaperDescription").val(obj.description);
     $("#LanguageCode").val(obj.languagecode);

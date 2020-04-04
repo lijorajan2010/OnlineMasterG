@@ -14,6 +14,12 @@ namespace OnlineMasterG.Models.DAL
     
     public partial class DailyQuiz
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DailyQuiz()
+        {
+            this.DailyQuizUploads = new HashSet<DailyQuizUpload>();
+        }
+    
         public int DailyQuizId { get; set; }
         public string DailyQuizName { get; set; }
         public string LanguageCode { get; set; }
@@ -29,5 +35,7 @@ namespace OnlineMasterG.Models.DAL
     
         public virtual DailyQuizCourse DailyQuizCourse { get; set; }
         public virtual DailyQuizSubject DailyQuizSubject { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DailyQuizUpload> DailyQuizUploads { get; set; }
     }
 }

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<OnlineMasterG.Models.DAL.LatestUpdate>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#tblLatestUpdates").DataTable();
+    });
+</script>
+
+<table id="tblLatestUpdates" class="dataTables_wrapper dt-bootstrap4 no-footer">
+    <thead>
+        <tr>
+            <th style="width:30px;">Sl No.</th>
+            <th>Update Descriptions</th>
+            <th style="width:50px;">Sequence</th>
+            <th style="width:50px;">Edit</th>
+            <th style="width:50px;">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model.Select((x, y) => new { Data = x, Index = y }))
+            {
+                <tr>
+                    <td>@(item.Index + 1)</td>
+                    <td>@item.Data.UpdateDescription</td>
+                    <td>@item.Data.Sequence</td>
+                    <td><button class="btn btn-info" onclick='editUpdates(@Html.Raw(Json.Encode(new { id=item.Data.UpdateId,updateDescription = item.Data.UpdateDescription,sequence = item.Data.Sequence, isActive = item.Data.Isactive,languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt"></i></button></td>
+                    <td><button class="btn btn-danger" onclick='deleteUpdates(@Html.Raw(Json.Encode(new { id=item.Data.UpdateId,updateDescription = item.Data.UpdateDescription})))'><i class="fa fa-trash"></i></button></td>
+                </tr>
+
+            }
+
+        }
+
+    </tbody>
+</table>
+

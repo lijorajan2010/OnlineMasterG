@@ -117,8 +117,9 @@ function saveQuestionUpload() {
 function editPaper(obj) {
     $("#hdfSchoolPaperId").val(obj.id);
     $("#ClasslistId").val(obj.classId);
-    $("#SubjectlistId").val(obj.subjectId);
-    $("#SectionlistId").val(obj.sectionId);
+    $("#ClasslistId").change();
+    setTimeout(function () { $("#SubjectlistId").val(obj.subjectId); $("#SubjectlistId").change(); }, 500);
+    setTimeout(function () { $("#SectionlistId").val(obj.sectionId);}, 1500);
     $("#txtPaperName").val(obj.paperName);
     $("#txtPaperDescription").val(obj.description);
     $("#LanguageCode").val(obj.languagecode);

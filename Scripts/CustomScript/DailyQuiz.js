@@ -30,8 +30,8 @@ function attachEvents() {
     });
 
     $("#CourelistId").change(function () {
-        $('#SubjectlistId').empty();
-        $('#SubjectlistId').append($('<option/>', { Value: "", text: "Please Select" }));
+        $("#SubjectlistId").empty();
+        $("#SubjectlistId").append($('<option/>', { Value: "", text: "Please Select" }));
         $.ajax({
             url: URL.BINDSUBJECTS,
             datatype: 'json',
@@ -39,9 +39,9 @@ function attachEvents() {
             method: 'Post',
             success: function (data) {
 
-                $('#SubjectlistId').prop("disabled", false);
+                $("#SubjectlistId").prop("disabled", false);
                 $(data).each(function (index, item) {
-                    $('#SubjectlistId').append($('<option/>', { Value: item.SubjectId, text: item.SubjectName }));
+                    $("#SubjectlistId").append($('<option/>', { Value: item.SubjectId, text: item.SubjectName }));
                 });
             }
         });
@@ -57,21 +57,21 @@ function clearFields() {
     $("#hdfQuizId").val(""); 
     $("#CourelistId").val("");
     $("#SubjectlistId").val("");
-    $('#txtQuizName').val("");
-    $('#txtNoOfQuestion').val("");
-    $('#txtDescription').val("");
+    $("#txtQuizName").val("");
+    $("#txtNoOfQuestion").val("");
+    $("#txtDescription").val("");
    
 }
 
 function saveQuiz() {
     var model = {
-        QuizId: $("#hdfQuizId").val(),
+        DailyQuizId: $("#hdfQuizId").val(),
         DailyQuizCourseId: $("#CourelistId").val(),
         DailyQuizSubjectId: $("#SubjectlistId").val(),
         DailyQuizName: $("#txtQuizName").val(),
         NoOfQuestions: $("#txtNoOfQuestion").val(),
         Description: $("#txtDescription").val(),
-        LanguageCode: $("#LanguageCode").val(),
+        LanguageCode: $("#LanguageCode").val()
     };
 
     $.postForm(
@@ -87,10 +87,11 @@ function saveQuiz() {
 function editQuiz(obj) {
     $("#hdfQuizId").val(obj.id);
     $("#CourelistId").val(obj.courseId);
-    $("#SubjectlistId").val(obj.subjectId);
-    $('#txtQuizName').val(obj.quizName);
-    $('#txtNoOfQuestion').val(obj.noOfQuestion);
-    $('#txtDescription').val(obj.description);
+    $("#CourelistId").change();
+    setTimeout(function () { $("#SubjectlistId").val(obj.subjectId);  }, 500);
+    $("#txtQuizName").val(obj.quizName);
+    $("#txtNoOfQuestion").val(obj.noOfQuestion);
+    $("#txtDescription").val(obj.description);
 }
 
 
@@ -106,7 +107,7 @@ function deleteQuiz(obj) {
         function () {
             $.postData(
                 URL.DELETEDAILYQUIZ,
-                { QuizId: QuizId },
+                { DailyQuizId: QuizId },
                 function () {
                     clearFields();
                     setupQuizList();

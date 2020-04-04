@@ -31,6 +31,14 @@ namespace OnlineMasterG.CommonServices
         {
             return DB.DailyQuizs.Where(m => m.DailyQuizId == (DailyQuizId.HasValue ? DailyQuizId.Value : 0)).FirstOrDefault();
         }
+        internal static DailyQuizUpload FetchDailyQuizUpload(int? DailyQuizUploadId)
+        {
+            return DB.DailyQuizUploads.Where(m => m.DailyQuizUploadId == (DailyQuizUploadId.HasValue ? DailyQuizUploadId.Value : 0)).FirstOrDefault();
+        }
+        internal static QuizTest FetchQuizTest(int? QuizTestId)
+        {
+            return DB.QuizTests.Where(m => m.QuizTestId == (QuizTestId.HasValue ? QuizTestId.Value : 0)).FirstOrDefault();
+        }
 
         public static ServiceResponse SaveDailyQuizCourse(DailyQuizCourse course, string auditlogin)
         {
@@ -144,7 +152,36 @@ namespace OnlineMasterG.CommonServices
             }
             return sr;
         }
-
+        public static ServiceResponse SaveQuizUpload(DailyQuizUpload question)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            try
+            {
+                DB.DailyQuizUploads.Add(question);
+                DB.SaveChanges();
+                // Return
+                sr.ReturnId = question.DailyQuizUploadId;
+            }
+            catch (Exception ex)
+            {
+                sr.AddError(ex.Message);
+            }
+            return sr;
+        }
+        public static ServiceResponse SaveQuestionQuizTest(List<QuizTest> questions, string auditlogin)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            try
+            {
+                DB.QuizTests.AddRange(questions);
+                DB.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                sr.AddError(ex.Message);
+            }
+            return sr;
+        }
         public static List<DailyQuizSubject> DailyQuizSubjectList(string Lang, bool IsActive)
         {
             return DB.DailyQuizSubjects
@@ -250,6 +287,88 @@ namespace OnlineMasterG.CommonServices
                 sr.AddError(exception.Message);
             }
 
+            return sr;
+        }
+        public static ServiceResponse DeleteQuizUpload(int dailyQuizUploadId)
+        {
+            var sr = new ServiceResponse();
+
+            try
+            {
+                var QuestionUpload = FetchDailyQuizUpload(dailyQuizUploadId);
+
+                QuestionUpload.QuestionStatus = "DEL";
+                QuestionUpload.Isactive = false;
+                DB.SaveChanges();
+            }
+            catch (Exception exception)
+            {
+                sr.AddError(exception.Message);
+            }
+
+            return sr;
+        }
+        public static ServiceResponse ApproveQuizUpload(int dailyQuizUploadId)
+        {
+            var sr = new ServiceResponse();
+
+            try
+            {
+                var QuestionUpload = FetchDailyQuizUpload(dailyQuizUploadId);
+
+                QuestionUpload.QuestionStatus = "VAL";
+                QuestionUpload.Isactive = true;
+                DB.SaveChanges();
+            }
+            catch (Exception exception)
+            {
+                sr.AddError(exception.Message);
+            }
+
+            return sr;
+        }
+        public static ServiceResponse DenyQuizUpload(int dailyQuizUploadId)
+        {
+            var sr = new ServiceResponse();
+
+            try
+            {
+                var QuestionUpload = FetchDailyQuizUpload(dailyQuizUploadId);
+
+                QuestionUpload.QuestionStatus = "PEN";
+                QuestionUpload.Isactive = true;
+                DB.SaveChanges();
+            }
+            catch (Exception exception)
+            {
+                sr.AddError(exception.Message);
+            }
+
+            return sr;
+        }
+
+        internal static ServiceResponse EditSaveQuestionReview(QuizTest existingMockTest, List<QuizQuestionAnswerChoice> newquestionAnswerChoices, List<QuizQuestionPoint> newquestionPoint)
+        {
+            var sr = new ServiceResponse();
+            try
+            {
+                // First remove and Add new Questions and Answers the update existing
+
+                DB.QuizQuestionPoints.RemoveRange(existingMockTest.QuizQuestionPoints);
+                DB.QuizQuestionAnswerChoices.RemoveRange(existingMockTest.QuizQuestionAnswerChoices);
+                DB.SaveChanges();
+
+                DB.QuizQuestionPoints.AddRange(newquestionPoint);
+                DB.QuizQuestionAnswerChoices.AddRange(newquestionAnswerChoices);
+
+                DB.SaveChanges();
+
+                sr.ReturnId = existingMockTest.QuizTestId;
+            }
+            catch (Exception exception)
+            {
+                sr.AddError(exception.Message);
+            }
             return sr;
         }
 

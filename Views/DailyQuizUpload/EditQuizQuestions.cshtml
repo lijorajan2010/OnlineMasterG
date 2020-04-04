@@ -11,12 +11,12 @@
         UPLOADDATAFILE: '@Url.Action("UploadImage", "DataFile")',
     };
 </script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/CustomScript/QuestionUpload.js?v=" + AppInfo.Version)"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/CustomScript/DailyQuizUpload.js?v=" + AppInfo.Version)"></script>
 <script src="~/Scripts/Libraries/jquery.form.js"></script>
 <div class="app-main__inner">
     <div class="app-page-title">
         <div class="text-right">
-            <i class="fas fa-arrow-alt-circle-left"></i>  @Html.ActionLink("Back to Question Upload", "Index", "QuestionUpload", new { @class = "glyphicon glyphicon-log-out", @id = "bkbtn" })
+            <i class="fas fa-arrow-alt-circle-left"></i>  @Html.ActionLink("Back to Quiz Upload", "Index", "DailyQuizUpload", new { @class = "glyphicon glyphicon-log-out", @id = "bkbtn" })
 
         </div>
         <div class="page-title-wrapper">
@@ -49,7 +49,7 @@
 
             <div class="no-gutters row">
                 <div class="col-md-12">
-                    @using (Html.BeginForm("SaveReviewedQuestions", "QuestionUpload", FormMethod.Post, new { id = "frmReviewedQuestions", autocomplete = "off", @enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("SaveReviewedQuestions", "DailyQuizUpload", FormMethod.Post, new { id = "frmReviewedQuestions", autocomplete = "off", @enctype = "multipart/form-data" }))
                     {
                         if (Model != null)
                         {
@@ -58,30 +58,18 @@
                                     <tbody>
                                         <tr>
                                             <th> Course :</th>
-                                            <th> Category:</th>
-                                            <th> Section :</th>
+                                            <th> Subject:</th>
+                                            <th> Quiz :</th>
                                         </tr>
                                         <tr>
                                             <td>
                                                 @Model.CourseName
                                             </td>
                                             <td>
-                                                @Model.CategoryName
+                                                @Model.SubjectName
                                             </td>
-                                            <td>
-                                                @Model.SectionName
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Test :</th>
-                                            <th colspan="2">Subject :</th>
-                                        </tr>
-                                        <tr>
                                             <td>
                                                 @Model.TestName
-                                            </td>
-                                            <td colspan="2">
-                                                @Model.SubjectName
                                             </td>
                                         </tr>
                                     </tbody>
@@ -231,7 +219,7 @@
                                                                                     }
                                                                                     <label for="opt2">Option 2</label><br>
                                                                                 }
-                                                                                @if(itemQset.Data.OptionList.Contains(3))
+                                                                                @if (itemQset.Data.OptionList.Contains(3))
                                                                                 {
                                                                                     if (itemQset.Data.CorrectAnswer == "3")
                                                                                     {
@@ -248,27 +236,27 @@
 
                                                                                     if (itemQset.Data.CorrectAnswer == "4")
                                                                                     {
-                                                                                    <input type="radio" id="opt4" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].CorrectAnswer" checked value="4">
+                                                                                        <input type="radio" id="opt4" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].CorrectAnswer" checked value="4">
                                                                                     }
                                                                                     else
                                                                                     {
-                                                                                    <input type="radio" id="opt4" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].CorrectAnswer" value="4">
+                                                                                        <input type="radio" id="opt4" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].CorrectAnswer" value="4">
                                                                                     }
-                                                                                <label for="opt4">Option 4</label><br>
+                                                                                    <label for="opt4">Option 4</label><br>
                                                                                 }
                                                                                 @if (itemQset.Data.OptionList.Contains(5))
                                                                                 {
 
                                                                                     if (itemQset.Data.CorrectAnswer == "5")
                                                                                     {
-                                                                                    <input type="radio" id="opt5" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].CorrectAnswer" checked value="5">
+                                                                                        <input type="radio" id="opt5" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].CorrectAnswer" checked value="5">
 
                                                                                     }
                                                                                     else
                                                                                     {
-                                                                                    <input type="radio" id="opt5" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].CorrectAnswer" value="5">
+                                                                                        <input type="radio" id="opt5" name="EditQuestionSet[@qset.Index].EditQuestions[@itemQset.Index].CorrectAnswer" value="5">
                                                                                     }
-                                                                                <label for="opt5">Option 5</label>
+                                                                                    <label for="opt5">Option 5</label>
                                                                                 }
                                                                             </td>
                                                                         </tr>
@@ -393,7 +381,6 @@
         ImgPreviewDiv = $(obj).next().next().attr('id')
         $("#divUploadDataFileDialog").appendTo("body").modal("show");
     }
-
     $("#btnUploadFile").click(function () {
 
         $.submitForm(

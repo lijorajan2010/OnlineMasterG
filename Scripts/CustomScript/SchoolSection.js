@@ -93,7 +93,8 @@ function saveSection() {
 function editSection(obj) {
     $("#hdfSectionId").val(obj.id);
     $("#ClasslistId").val(obj.classId);
-    $("#SubjectlistId").val(obj.subjectId);
+    $("#ClasslistId").change();
+    setTimeout(function () { $("#SubjectlistId").val(obj.subjectId); }, 500);
     $("#txtSectionName").val(obj.sectionName);
     $("#txtSectionDescription").val(obj.description);
     $("#LanguageCode").val(obj.languagecode);
