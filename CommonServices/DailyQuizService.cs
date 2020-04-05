@@ -16,10 +16,10 @@ namespace OnlineMasterG.CommonServices
         {
             return DB.DailyQuizCourses.Where(m => m.LanguageCode == Lang && m.Isactive == isActive).ToList();
         }
-    
+
         internal static DailyQuizCourse Fetch(int? DailyQuizCourseId)
         {
-            return DB.DailyQuizCourses.Where(m => m.DailyQuizCourseId == (DailyQuizCourseId.HasValue? DailyQuizCourseId.Value:0)).FirstOrDefault();
+            return DB.DailyQuizCourses.Where(m => m.DailyQuizCourseId == (DailyQuizCourseId.HasValue ? DailyQuizCourseId.Value : 0)).FirstOrDefault();
         }
 
         internal static DailyQuizSubject FetchDailyQuizSubject(int? DailyQuizSubjectId)
@@ -39,7 +39,28 @@ namespace OnlineMasterG.CommonServices
         {
             return DB.QuizTests.Where(m => m.QuizTestId == (QuizTestId.HasValue ? QuizTestId.Value : 0)).FirstOrDefault();
         }
-
+        internal static List<QuizTest> GetQuizTestsList(string Lang, bool isActive)
+        {
+            return DB.QuizTests.Where(m => m.LanguageCode == Lang && m.Isactive == isActive).ToList();
+        }
+        public static List<DailyQuizAttempt> GetDailyQuizAttemptListByLoginAndTestId(string Login, int DailyQuizId)
+        {
+            return DB.DailyQuizAttempts.Where(m => m.Login == Login && m.DailyQuizId == DailyQuizId).ToList();
+        }
+        public static DailyQuizAttempt GetDailyQuizAttempt(int? AttemptId)
+        {
+            return DB.DailyQuizAttempts.Where(m => m.AttemptId == (AttemptId.HasValue? AttemptId.Value:0)).FirstOrDefault();
+        }
+        public static List<QuizTest> GetQuizQuestionsBasedOnTestAndSubject(int? DailyQuizId, int? SubjectId)
+        {
+            return DB.QuizTests
+                  .Include(m => m.DailyQuizUpload)
+                  .Where(m => m.Isactive == true
+                           && m.DailyQuizUpload.QuestionStatus == "VAL"
+                           && m.DailyQuizUpload.DailyQuizId == DailyQuizId
+                           && m.DailyQuizUpload.DailyQuizSubjectId == SubjectId)
+                  .ToList();
+        }
         public static ServiceResponse SaveDailyQuizCourse(DailyQuizCourse course, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();
@@ -153,6 +174,66 @@ namespace OnlineMasterG.CommonServices
             }
             return sr;
         }
+        internal static ServiceResponse SaveDailyQuizAttempt(DailyQuizAttempt firstTimeAttempt, string audiLogin)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            if (firstTimeAttempt.AttemptId == 0)
+            {
+                DB.DailyQuizAttempts.Add(firstTimeAttempt);
+                DB.SaveChanges();
+                sr.ReturnId = firstTimeAttempt.AttemptId;
+            }
+            else
+            {
+                try
+                {
+                    var dbDailyQuizAttempt = GetDailyQuizAttempt(firstTimeAttempt.AttemptId);
+                    if (dbDailyQuizAttempt != null)
+                    {
+                        dbDailyQuizAttempt.IsPaused = firstTimeAttempt.IsPaused;
+                        dbDailyQuizAttempt.TimeLeftInMinutes = firstTimeAttempt.TimeLeftInMinutes;
+                        dbDailyQuizAttempt.IsCompleted = firstTimeAttempt.IsCompleted;
+                        dbDailyQuizAttempt.EditBy = audiLogin;
+                        dbDailyQuizAttempt.EditDate = DateTime.Now;
+                        dbDailyQuizAttempt.FinalMarksScoredForRank = firstTimeAttempt.FinalMarksScoredForRank;
+
+                        if (firstTimeAttempt.DailyQuizAttemptDetails != null && firstTimeAttempt.DailyQuizAttemptDetails.Count() > 0)
+                        {
+                            //// first removing
+                            //DB.MockTestAttemptDetails.RemoveRange(dbMockTestAttempt.MockTestAttemptDetails);
+                            //DB.SaveChanges();
+                            //// and saving new list
+                            //DB.MockTestAttemptDetails.AddRange(firstTimeAttempt.MockTestAttemptDetails);
+                            //DB.SaveChanges();
+
+                            foreach (var item in firstTimeAttempt.DailyQuizAttemptDetails)
+                            {
+                                var DBMockTestAttemptDetails = dbDailyQuizAttempt.DailyQuizAttemptDetails.Where(m => m.AttemptDetailId == item.AttemptDetailId).FirstOrDefault();
+                                if (DBMockTestAttemptDetails != null)
+                                {
+                                    DBMockTestAttemptDetails.AnswerChoiceId = item.AnswerChoiceId;
+                                    DBMockTestAttemptDetails.QuizQuestionAnswerChoiceId = item.QuizQuestionAnswerChoiceId;
+                                    DBMockTestAttemptDetails.IsAnswerCorrect = item.IsAnswerCorrect;
+                                    DBMockTestAttemptDetails.MarksScored = item.MarksScored;
+                                    DBMockTestAttemptDetails.AnswerStatus = item.AnswerStatus;
+                                }
+
+                            }
+                        }
+
+                        DB.SaveChanges();
+                        sr.ReturnId = dbDailyQuizAttempt.AttemptId;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    sr.AddError(ex.Message);
+                }
+
+            }
+            return sr;
+
+        }
         public static ServiceResponse SaveQuizUpload(DailyQuizUpload question)
         {
             ServiceResponse sr = new ServiceResponse();
@@ -200,7 +281,7 @@ namespace OnlineMasterG.CommonServices
         public static List<DailyQuizUpload> DailyQuizUploadList(string Lang, bool IsActive)
         {
             return DB.DailyQuizUploads
-                  .Where(m=> m.Isactive == IsActive)
+                  .Where(m => m.Isactive == IsActive)
                   .ToList();
         }
 
@@ -208,7 +289,7 @@ namespace OnlineMasterG.CommonServices
         public static DailyQuizSubject FetchDailyQuizSubject(int subjectId)
         {
             return DB.DailyQuizSubjects
-                  .Where(m => m.DailyQuizSubjectId == subjectId ).FirstOrDefault();
+                  .Where(m => m.DailyQuizSubjectId == subjectId).FirstOrDefault();
 
         }
         public static ServiceResponse DeleteDailyQuizCourse(int courseId)

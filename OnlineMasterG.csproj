@@ -257,6 +257,7 @@
     <Compile Include="Controllers\CollegeUploadPaperController.cs" />
     <Compile Include="Controllers\CourseMasterController.cs" />
     <Compile Include="Controllers\CurrentAffairsCategoryController.cs" />
+    <Compile Include="Controllers\CurrentAffairsController.cs" />
     <Compile Include="Controllers\CurrentAffairsUploadController.cs" />
     <Compile Include="Controllers\DailyQuizController.cs" />
     <Compile Include="Controllers\DailyQuizMasterController.cs" />
@@ -323,6 +324,12 @@
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\DailyQuiz.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\DailyQuizAttempt.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\DailyQuizAttemptDetail.cs">
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\DailyQuizCourse.cs">
@@ -448,6 +455,7 @@
     <Compile Include="Models\ViewModels\DailyQuizCourseVM.cs" />
     <Compile Include="Models\ViewModels\DailyQuizUploadVM.cs" />
     <Compile Include="Models\ViewModels\DailyQuizVM.cs" />
+    <Compile Include="Models\ViewModels\DailyQuizAttemptVM.cs" />
     <Compile Include="Models\ViewModels\MockTestAttemptVM.cs" />
     <Compile Include="Models\ViewModels\ExamUpdateSectionVM.cs" />
     <Compile Include="Models\ViewModels\ClassVM.cs" />
@@ -1832,6 +1840,7 @@
     <Content Include="Views\DailyQuiz\Index.cshtml" />
     <Content Include="Views\Instruction\DailyQuiz.cshtml" />
     <Content Include="Views\DailyQuiz\DailyQuiz.cshtml" />
+    <Content Include="Views\CurrentAffairs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

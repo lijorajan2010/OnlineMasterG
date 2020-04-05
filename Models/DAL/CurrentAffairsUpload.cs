@@ -15,7 +15,7 @@ namespace OnlineMasterG.Models.DAL
     public partial class CurrentAffairsUpload
     {
         public int CurrentAffairsUploadId { get; set; }
-        public System.DateTime UploadDate { get; set; }
+        public Nullable<System.DateTime> UploadDate { get; set; }
         public string LanguageCode { get; set; }
         public bool Isactive { get; set; }
         public string CreateBy { get; set; }

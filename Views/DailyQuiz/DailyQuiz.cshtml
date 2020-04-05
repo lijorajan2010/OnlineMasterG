@@ -1,6 +1,13 @@
-﻿
+﻿@model OnlineMasterG.Models.ViewModels.DailyQuizAttemptVM
+
+@using OnlineMasterG.CommonFramework
+@using OnlineMasterG.Models.DAL;
 @{
-    
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+@{
+
     Layout = null;
 }
 <html lang="en">
@@ -312,11 +319,83 @@
                 flex: 0 0 16%;
                 max-width: 16%;
             }
+
+              /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            /*border: 1px solid #ccc;*/
+            border-top: none;
+        }
+        /* Style the tab content */
+        .tabcontentQuestions {
+            display: none;
+            padding: 6px 12px;
+            /*border: 1px solid #ccc;*/
+            border-top: none;
+        }
+
+        .CurrentSelected {
+            background-color: #663cff !important;
+           
+            /*cursive !important;*/
+        }
+
+        .MarkedImportant {
+            background-color: #8a63c0 !important;
+            border: #8a63c0 !important;
+            color: #fff;
+        }
+
+        .NotAnsweredImportant {
+            background-color: #d63c08 !important;
+            border: #d63c08 !important;
+            color: #fff;
+        }
+
+        .AnsweredImportant {
+            background-color: #64b31a !important;
+            border: #64b31a !important;
+            color: #fff;
+        }
         }
     </style>
+    <script type="text/javascript">
+        var SubjectsTimers = new Array();
+
+        function startCountdown(timeLeft) {
+            var interval = setInterval(countdown, 1000);
+            update();
+
+            function countdown() {
+                if (--timeLeft > 0) {
+                    update();
+                } else {
+                    clearInterval(interval);
+                    update();
+                    completed();
+                }
+            }
+
+            function update() {
+                hours = Math.floor(timeLeft / 3600).toLocaleString(undefined, { minimumIntegerDigits: 2 });
+                minutes = Math.floor((timeLeft % 3600) / 60).toLocaleString(undefined, { minimumIntegerDigits: 2 });
+                seconds = (timeLeft % 60).toLocaleString(undefined, { minimumIntegerDigits: 2 });
+
+                $('#time-lefthours').text(hours);
+                $('#time-leftminutes').text(minutes);
+                $('#time-leftseconds').text(seconds);
+            }
+
+            function completed() {
+                // Do whatever you need to do when the timer runs out...
+                LastAndFinalSubmitFrom();
+            }
+        }
+    </script>
 </head>
 
-<body>
+<body onload="startCountdown('@(Model.TimeLeftInMinutes*60)');">
 
     <div class="body_wrapper small_fonts" id="mytest">
 
@@ -325,15 +404,18 @@
             <nav class="navbar navbar-expand-lg menu_one menu_four">
                 <div class="container-fluid">
 
-                    <a class="navbar-brand col-md-2 hidden-xs" href="index.html"><img src="~/img/WhiteLogo.png" alt="logo"></a>
+                    <a class="navbar-brand col-md-2 hidden-xs" href="@Url.Action("Index","Home")"><img src="~/img/WhiteLogo.png" alt="logo"></a>
 
                     <div class="col-md-2 breadcrumb_content hidden-xs">
-                        <span class="w_color f_600">SSC CGL</span>
+                        <span class="w_color f_600">@Model.QuizName</span>
                         <!-- <h1 class="f_p f_700 f_size_30 w_color l_height50">SSC CGL</h1> -->
                     </div>
 
                     <div class="col-md-3 col-xs-6 breadcrumb_content text-center">
-                        <span class="w_color f_700 ">Time Left: 02:00:00</span>
+                        <div class="w_color f_700 ">
+                            Time Left: <span id="time-left"></span>
+                            <label style="font-weight:bold" id="time-lefthours">00</label>:<label style="font-weight:bold" id="time-leftminutes">00</label>:<label style="font-weight:bold" id="time-leftseconds">00</label>
+                        </div>
                         <!-- <h1 class="f_p f_700 f_size_30 w_color l_height50">SSC CGL</h1> -->
                     </div>
 
@@ -348,8 +430,16 @@
                         </select>
                     </div>
                     <div class="col-md-2 text-center hidden-xs">
-                        <img class="student_img" src="~/img/new/member_01.jpg" alt="" width="50">
-                        <span>Here Is the Name</span>
+                        @{
+                            var ActiveUser = AppInfo.ActiveUser;
+                            var ImgId = ActiveUser != null && ActiveUser.LogoDataFileId != null ? ActiveUser.LogoDataFileId.Value.ToString() : "0";
+                        }
+                        @if (ImgId != "0")
+                        {
+                            <img class="student_img" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(ImgId)})' alt="" width="50">
+                        }
+
+                        <span class="w_color f_600">@(ActiveUser?.Email)</span>
                     </div>
                 </div>
             </nav>
@@ -361,132 +451,144 @@
 
                 <div class="service_info">
 
-                    <!--<div class="row instructionHead">
-                    <div class="col-md-3"></div>
-                     <div class="col-md-6 col-xs-6 sec_title text-center">
-                        <h2 class="f_p f_size_15 f_600 t_color2 mb-0">Time Left: 02:00:00</h2>
+                    @{
+                        var DailyQuizId = Model.DailyQuizId;
 
-                    </div> -->
-                    <!-- <div class="col-md-3 col-xs-6 language text-right">
-                            <span>Select Language </span>
-                            <select>
-                                <option>English</option>
-                                <option>Hindi</option>
+                        var AnswerStatus = ViewBag.AnswerStatus;
+                        var FirstSubjectName = string.Empty;
+                    }
 
-                            </select>
-                            </div>
-                    </div>-->
                     <div class="row mb_15 test_response">
                         <div class="col-md-9">
                             <div class="row m0">
 
                                 <div class="">
-                                    <div class="">
+
+                                    @*<div class="dropdown">*@
+
+                                    @*<div class="mb_15 hidden-md hidden-lg"> </div>*@
+
+                                    @*<ul class="nav nav-tabs dropdown-menu develor_tab mb_15" id="myTab2" role="tablist">
+                                        @if (AppInfo.GetSubjects != null && AppInfo.GetSubjects.Count() > 0)
+                                        {
+                                            var Subjects = AppInfo.GetSubjects.Where(m => m.TestId == TestId).ToList();
+                                            foreach (var item in Subjects.Select((x, y) => new { Data = x, Index = y }))
+                                            {
+
+                                                var divSubjectId = "divSubjectId" + item.Index;
+                                                var idTab = "Btn" + item.Index;
+                                                if (item.Index == 0)
+                                                {
+                                                    <li class="nav-item">
+                                                        <button id="@idTab" class="tablinks nav-link SUBJECTBUTTON @divSubjectId active" onclick="openSubject(event, '@divSubjectId')">@item.Data.SubjectName</button>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+
+                                                    <li class="nav-item">
+                                                        <button id="@idTab" class="tablinks nav-link SUBJECTBUTTON @divSubjectId" onclick="openSubject(event, '@divSubjectId')">@item.Data.SubjectName</button>
+                                                    </li>
+                                                }
+
+                                            }
+                                        }
 
 
-                                        <button class="btn btn-info hidden-md hidden-lg" id="question" style="border-radius: 0;width: 50%;background: #007bff;border: 1px solid #007bff;border-left: 1px solid #fff;">Questions</button>
+                                    </ul>*@
+                                    <div class="tab-content developer_tab_content">
+                                        @{
+                                            <div class="tabcontent" id="" style="display:block">
 
-                                        <div class="tab-content developer_tab_content">
-                                            <div class="tab-pane fade active show" id="ruby" role="tabpanel" aria-labelledby="ruby-tab">
+                                                @if (Model.dailyQuizAttemptVMDetail != null && Model.dailyQuizAttemptVMDetail.Count() > 0)
+                                                {
+                                                    var QuestionBasedOnTestAndSubjects = Model.dailyQuizAttemptVMDetail.ToList();
+                                                    foreach (var Q in QuestionBasedOnTestAndSubjects.OrderBy(m => m.QuestionNumber).Select((x, y) => new { Data = x, Index = y }))
+                                                    {
+                                                        var classActive = string.Empty;
+                                                        var QuestionDiv = "QuestionDiv" + Q.Index;
 
+                                                        if (Q.Index == 0)
+                                                        {
+                                                            classActive = "active";
+                                                        }
+                                                        else { classActive = string.Empty; }
 
+                                                        <div class="tabcontentQuestions tab-pane fade @classActive show" id="@QuestionDiv" role="tabpanel" aria-labelledby="ruby-tab">
+                                                            <h6 class="mb_15">
+                                                                <span class="f_500">
+                                                                    Directions (1-8): Read the following passage and answer the questions that follow it.<span class="hidden-xs hidden-sm">
+                                                                        Some words are highlighted to help you to answer some of the questions.
+                                                                    </span>
+                                                                </span>
+                                                            </h6>
 
-                                                <div class="row">
+                                                            <div class="row">
+                                                                <div class="col-md-6 fix_height overflow_auto SearchParameters collapse" id="SearchParameters">
+                                                                    <p class="text-justify" style="word-wrap: break-word;">
+                                                                        @Q.Data.QuizTest.Description
+                                                                        @*Today, on Universal Health Coverage (UHC) Day, I wonder how many readers are aware of what UHC is. According to the World Health Organisation, UHC means “ensuring that everyone, everywhere can access essential quality health services without facing financial hardship”. It sounds basic, yet the basics often pose a major challenge. Japan has been leading the international efforts towards UHC, including its inclusion in the sustainable development goals and G20 agenda under our chairmanship next year, because health is one of our fundamental rights.
+                                                                        India has taken the vital first step towards UHC through Ayushman Bharat. This challenge is reminiscent of the path that Japan took more than half a century ago. Japan created national health insurance coverage in 1961, when it was yet to take off economically. A major political decision was required to expand national health insurance and establish medical schools all over Japan. The implementation of UHC could only have been possible through an early and vast national investment, and through a comprehensive government effort, with the Ministries of Health, Finance and Education, as well as local governments, working together.
+                                                                        This investment has paid off. UHC has increased the number of healthy people and healthy workers in Japan. It has contributed to the economic miracle of Japan. Moreover, UHC has ensured social equity by functioning as a mechanism for redistribution of incomes. Even in the remotest of places in Japan, you do not have to worry about healthcare. The peace of mind which UHC ensures to the Japanese is an indispensable ingredient of our overall well-being.
+                                                                        We are also partnering with India in wide-ranging projects for better healthcare. Japan has previously worked with India to eradicate polio in India. Today, Japanese and Indian doctors are exchanging ideas and expertise at a research and control centre on diarrhoea established by Japan in Kolkata, and precious lives of newborns are being saved daily in a children’s hospital constructed in Chennai. In 17 cities across Tamil Nadu, urban healthcare systems are being strengthened with our cooperation.
+                                                                        When Prime Minister Narendra Modi visited Japan at the end of October, India and Japan signed a new Memorandum of Cooperation on healthcare to pursue the synergies between Ayushman Bharat and Japan’s Asia Health and Wellbeing Initiative. We aim to pursue our cooperation in various fields, such as honing skills of doctors in surgery of trauma as well as providing technical training for Indian nurses studying in Japanese caregiving facilities. We hope these efforts will lead to a better health ecosystem and the promotion of UHC in India. Japan is also willing to learn from India. For instance, Ayurveda can bring a new dimension to Japan’s healthcare system. The path towards UHC is not short. But India has taken the first bold step, and Japan will march along with India on this path, sharing its lessons, as a friend.*@
+                                                                    </p>
+                                                                </div>
 
+                                                                <div class="col-md-6 fix_height overflow_auto">
+                                                                    <div>
+                                                                        <h6 class="f_size_15 f_500 ml_30">
+                                                                            <span class="qSpan">Q.@Q.Data.QuestionNumber</span>
+                                                                            @Q.Data.QuizTest.Question ?
+                                                                        </h6>
+                                                                        @if (Q.Data.QuizTest?.QuestionPoint != null && Q.Data.QuizTest?.QuestionPoint.Count() > 0)
+                                                                        {
+                                                                            foreach (var QP in Q.Data.QuizTest?.QuestionPoint.Select((x, y) => new { Data = x, Index = y }))
+                                                                            {
+                                                                                <p>(@(QP.Index + 1)) @QP.Data.QPoint .</p>
+                                                                            }
+                                                                        }
 
+                                                                        <ul class="list-unstyled payment_list">
+                                                                            @if (Q.Data.QuizTest?.QuestionAnswerChoice != null && Q.Data.QuizTest?.QuestionAnswerChoice.Count() > 0)
+                                                                            {
+                                                                                var RadioButtonName = "Answer" + QuestionDiv;
 
-
-
-                                                    <div class="col-md-12 fix_height overflow_auto mt_20">
-                                                        <div>
-                                                            <h6 class="f_size_15 f_500 ml_30">
-                                                                <span class="qSpan">Q.1 </span>In the sentence ‘the basics often pose a major challenge’, what could be inferred?
-                                                            </h6>	<p>(I) Facing financial hardship is a major challenge.</p>
-                                                            <p>(II) Not everyone, everywhere has access to essential quality health services.</p>
-                                                            <p>(III) Accessing quality health services without facing financial hardship is difficult.</p>
-
-
-                                                            <ul class="list-unstyled payment_list">
-                                                                <li>
-                                                                    <label class="containerCheck">
-                                                                        Only (II)
-                                                                        <input type="radio" name="radio">
-                                                                        <span class="checkmark"></span>
-                                                                    </label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <label class="containerCheck">
-                                                                        Both (II) and (III)
-                                                                        <input type="radio" name="radio">
-                                                                        <span class="checkmark"></span>
-                                                                    </label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <label class="containerCheck">
-                                                                        Both (I) and (III)
-                                                                        <input type="radio" name="radio">
-                                                                        <span class="checkmark"></span>
-                                                                    </label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <label class="containerCheck">
-                                                                        Only (I)
-                                                                        <input type="radio" name="radio">
-                                                                        <span class="checkmark"></span>
-                                                                    </label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <label class="containerCheck">
-                                                                        Only (III)
-                                                                        <input type="radio" name="radio">
-                                                                        <span class="checkmark"></span>
-                                                                    </label>
-                                                                </li>
-
-                                                            </ul>
-
+                                                                                foreach (var QA in Q.Data.QuizTest?.QuestionAnswerChoice)
+                                                                                {
+                                                                                    <li>
+                                                                                        <label class="containerCheck">
+                                                                                            @QA.QuestionAnswer
+                                                                                            <input type="radio" data-questionanswerchoiceid="@QA.QuestionAnswerChoiceId" data-choiceid="@QA.ChoiceId" name="@RadioButtonName">
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+                                                                                    </li>
+                                                                                }
+                                                                            }
+                                                                        </ul>
+                                                                        @if (Q.Data.QuizTest.QuizImageFileId != null)
+                                                                        {
+                                                                            <p> <img class="" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(Q.Data.QuizTest.QuizImageFileId.ToString())})' alt="" width="300"></p>
+                                                                        }
+                                                                        <br />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
 
-                                                    </div>
+                                                    }
 
 
-                                                </div>
-
-
-
-
-
-
-
+                                                }
 
                                             </div>
-                                            <div class="tab-pane fade" id="curl" role="tabpanel" aria-labelledby="curl-tab">
-                                                <h4>Take control of your <br> inventory</h4>
-                                                <p>I blower he nicked it you mug pukka only a quid barmy Har?ry young delinquent knees up amongst such a fibber, daft gosh cracking goal wind up pardon me up the duff nice one he lost his bottle are you taking the piss is David, the BBC horse play.!</p>
-                                            </div>
-                                            <div class="tab-pane fade" id="resize" role="tabpanel" aria-labelledby="resize-tab">
-                                                <h4>Take control of your <br> inventory</h4>
-                                                <p>I blower he nicked it you mug pukka only a quid barmy Harry young delinquent knees up amongst such a fibber, daft gosh cracking goal wind up pardon me up the duff nice one he lost his bottle are you taking the piss is David, the BBC horse play.!</p>
-                                            </div>
-                                            <div class="tab-pane fade" id="doctl" role="tabpanel" aria-labelledby="doctl-tab">
-                                                <h4>Take control of your <br> inventory</h4>
-                                                <p>I blower he nicked it you mug pukka only a quid barmy Harry young delinquent knees up amongst such a fibber, daft gosh cracking goal wind up pardon me up the duff nice one he lost his bottle are you taking the piss is David, the BBC horse play.!</p>
-                                            </div>
-                                        </div>
+
+                                        }
+
                                     </div>
+                                    @*</div>*@
                                 </div>
                             </div>
-
-
-
-
-
-
-
 
 
                         </div>
@@ -500,68 +602,104 @@
                                     <li class="mb_20"><a class="page-numbers marked_review" href="#"> </a><span>Marked</span></li>
 
                                 </ul>
-                                <div class="">
-                                    <div>
-                                        <h6 class="text-center l_height40 mb-0" style="    font-size: 14px;
-    line-height: inherit;">
-                                            Choose a Question
-                                        </h6>
-                                        <span class="hide_questions">X</span>
-                                    </div>
-                                    <ul class="question_list list-unstyled page-numbers shop_page_number text-left ml-0 pt_20 border_t pl_15">
 
-                                        <li><a class="page-numbers answered">1</a></li>
-                                        <li><a class="page-numbers" href="#">2</a></li>
-                                        <li><a class="next page-numbers not_visited" href="#">3</a></li>
-                                        <li><a class="next page-numbers" href="#">4</a></li>
-                                        <li><a class="next page-numbers" href="#">5</a></li>
-                                        <li><a class="page-numbers not_answered">6</a></li>
-                                        <li><a class="page-numbers" href="#">7</a></li>
-                                        <li><a class="next page-numbers" href="#">8</a></li>
-                                        <li><a class="next page-numbers" href="#">9</a></li>
-                                        <li><a class="next page-numbers" href="#">10</a></li>
-                                        <li><a class="page-numbers">11</a></li>
-                                        <li><a class="page-numbers" href="#">12</a></li>
-                                        <li><a class="next page-numbers" href="#">13</a></li>
-                                        <li><a class="next page-numbers" href="#">14</a></li>
-                                        <li><a class="next page-numbers" href="#">15</a></li>
-                                        <li><a class="page-numbers">16</a></li>
-                                        <li><a class="page-numbers" href="#">17</a></li>
-                                        <li><a class="next page-numbers" href="#">18</a></li>
-                                        <li><a class="next page-numbers" href="#">19</a></li>
-                                        <li><a class="next page-numbers" href="#">20</a></li>
-                                        <li><a class="page-numbers marked_review">21</a></li>
-                                        <li><a class="page-numbers" href="#">22</a></li>
-                                        <li><a class="next page-numbers" href="#">23</a></li>
-                                        <li><a class="next page-numbers" href="#">24</a></li>
-                                        <li><a class="next page-numbers" href="#">25</a></li>
+                                <div>
+                                    <h6 class="text-center l_height40 mb-0" style="    font-size: 14px; line-height: inherit;">
+                                        Choose a Question
+                                    </h6>
+                                    <span class="hide_questions">X</span>
+                                </div>
+                                <ul class="question_list list-unstyled page-numbers shop_page_number text-left ml-0 pt_20 border_t pl_15">
 
-                                    </ul>
+                                    @if (Model.dailyQuizAttemptVMDetail != null && Model.dailyQuizAttemptVMDetail.Count() > 0)
+                                    {
+                                        var QuestionBasedOnTestAndSubjects = Model.dailyQuizAttemptVMDetail.ToList();
+                                        var FinalQuestionAttemptDetailId = QuestionBasedOnTestAndSubjects.OrderByDescending(m => m.AttemptDetailId).FirstOrDefault().AttemptDetailId;
+
+                                        foreach (var Q in QuestionBasedOnTestAndSubjects.OrderBy(m => m.QuestionNumber).Select((x, y) => new { Data = x, Index = y }))
+                                        {
+                                            var classnot_answered = "not_visited";
+                                            var QuestionDiv = "QuestionDiv" + Q.Index;
+                                            var QBtn = "QBtn" + Q.Index;
+                                            var classIsFirst = "cls" + Q.Index;
+                                            var QuestionNumnber = "Qnumber" + "_" + Q.Data.QuizTest.QuestionNumber;
+
+                                            var IsLastQ = Q.Data.AttemptDetailId == FinalQuestionAttemptDetailId ? true : false;
+
+                                            if (Q.Index == 0)
+                                            {
+                                                classnot_answered = "not_visited";
+
+                                                <li>
+                                                    <button id="@QBtn" disabled data-questionnumber="@QuestionNumnber" data-subjectid="@Q.Data.DailyQuizSubjectId" data-finalq="@IsLastQ" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered @QuestionNumnber" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuizTest.QuestionNumber">@Q.Data.QuizTest.QuestionNumber</button>
+                                                    <input type="hidden" id="QDiv" value="@QuestionDiv" />
+                                                    @*<input type="hidden" id="QAnswerStatus" value="NOTATTEMPTED" />*@
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    <button id="@QBtn" disabled data-questionnumber="@QuestionNumnber" data-subjectid="@Q.Data.DailyQuizSubjectId" data-finalq="@IsLastQ" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered @QuestionNumnber" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuizTest.QuestionNumber">@Q.Data.QuizTest.QuestionNumber</button>
+                                                    <input type="hidden" id="QDiv" value="@QuestionDiv" />
+                                                    @*<input type="hidden" id="QAnswerStatus" value="NOTATTEMPTED" />*@
+                                                </li>
+
+                                            }
+
+                                        }
+                                    }
+
+
+                                </ul>
+
+
+                                <div class="hidden-md hidden-lg">
+                                    <a href="#" class="btn_hover agency_banner_btn" data-toggle="modal" data-target="#instructionModal">Instructions</a>
+                                    <!-- <a href="#" class="btn_hover agency_banner_btn btn_clear" data-toggle="modal" data-target="#reportModal">Report</a> -->
+                                    <!-- <a href="#" class="btn_hover agency_banner_btn answered hidden-xs"> Prev</a> -->
+                                    <a href="#" class="btn_hover agency_banner_btn report " onclick="fnPauseGetCurrentAnsweredDetails();" data-toggle="modal" data-target="#pauseModal1">Pause</a>
 
                                 </div>
-
                             </div>
 
 
                         </div>
                     </div>
+                    <div id="MarkingDiv" style="display:none">
+                        <form id="frmAnswerForm" method="post" action="@Url.Action("StudentFromAnswerSubmit","Examination")">
+                            @if (Model.dailyQuizAttemptVMDetail != null && Model.dailyQuizAttemptVMDetail.Count() > 0)
+                            {
+                                <input type="hidden" id="HfDailyQuizId" name="DailyQuizId" value='@Model.DailyQuizId'>
+                                <input type="hidden" id="hfIsPaused" name="IsPaused" value='@Model.IsPaused'>
+                                <input type="hidden" id="hfIsCompleted" name="IsCompleted" value='@Model.IsCompleted'>
+                                <input type="hidden" id="hfTimeLeftInMinutes" name="TimeLeftInMinutes" value='@Model.TimeLeftInMinutes'>
+
+                                foreach (var item in Model.dailyQuizAttemptVMDetail.OrderBy(m => m.AttemptDetailId).Select((x, y) => new { Data = x, Index = y }))
+                                {
+                                    var QuestionNumnber = "Qnumber" + "_" + item.Data.QuestionNumber;
+                                    <div id="@QuestionNumnber">
+                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].AttemptId" value='@item.Data.AttemptId'>
+                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].QuestionsMockTestId" value='@item.Data.QuizTestId'>
+                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].QuestionNumber" value='@item.Data.QuestionNumber'>
+                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].SubjectId" value='@item.Data.DailyQuizSubjectId'>
+                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].ChoosenAnswerChoiceId" value='@item.Data.QuizQuestionAnswerChoiceId'>
+                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].ChoiceId" value='@item.Data.AnswerChoiceId'>
+                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].AnswerStatus" value='@item.Data.AnswerStatus'>
+                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].AttemptDetailId" value='@item.Data.AttemptDetailId'>
+                                    </div>
+                                }
+                            }
+                        </form>
+                    </div>
                     <div class="instructionFoot row">
                         <div class="col-md-6 col-8">
-
                             <a href="#" class="btn_hover agency_banner_btn report">Clear</a>
-                            <a href="#" class="btn_hover agency_banner_btn answered">Save &amp; Next</a>
+                            <a href="#" class="btn_hover agency_banner_btn answered" onclick="fnNextAndSave(this)">Save &amp; Next</a>
                         </div>
                         <div class="col-md-6 col-4 text-right">
-
-
-                            <a href="#" class="btn_hover agency_banner_btn answered" data-toggle="modal" data-target="#finishModal">Finish</a>
-
+                            <a href="#" class="btn_hover agency_banner_btn answered" data-toggle="modal" data-target="#finishModal" onclick="fnSaveAndSubmitForm();">Finish</a>
                         </div>
                     </div>
-                    <!--
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
-
-
 
                     <div class="modal fade" id="finishModal" role="dialog" backdrop="static">
                         <div class="modal-dialog">
@@ -570,8 +708,8 @@
                             <div class="modal-content">
                                 <!--  <div class="modal-header">
 
-                                  <h4 class="modal-title text-center">Instructions</h4>
-                                </div> -->
+                              <h4 class="modal-title text-center">Instructions</h4>
+                            </div> -->
                                 <div class="modal-body responsive_modal">
 
                                     <div class="container custom_container p0 m_p0">
@@ -582,10 +720,10 @@
                                                     <h2 class="f_p f_size_20 f_500 t_color2 mb-10">Remaining Time : <span class="answered">00:00:15</span> </h2>
                                                 </div>
                                                 <!--
-                                                                        <div class="col-md-3 language text-right">
-                                                                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                            </div>
-                                                -->
+                                                                    <div class="col-md-3 language text-right">
+                                                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                        </div>
+                                            -->
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="">
@@ -665,6 +803,531 @@
             $(".hide_questions").click(function () {
                 $(".choose_question").hide();
             });
+        </script>
+        <script type="text/javascript">
+            var Clock = {
+                totalSeconds: 0,
+
+                start: function () {
+                    var self = this;
+
+                    this.interval = setInterval(function () {
+                        self.totalSeconds += 1;
+
+                        $("#hours").text(Math.floor(self.totalSeconds / 3600).toLocaleString(undefined, { minimumIntegerDigits: 2 }));
+                        $("#minutes").text(Math.floor(self.totalSeconds / 60 % 60).toLocaleString(undefined, { minimumIntegerDigits: 2 }));
+                        $("#seconds").text(parseInt(self.totalSeconds % 60).toLocaleString(undefined, { minimumIntegerDigits: 2 }));
+                    }, 1000);
+                },
+
+                pause: function () {
+                    clearInterval(this.interval);
+                    delete this.interval;
+                },
+
+                resume: function () {
+                    if (!this.interval) this.start();
+                }
+            };
+
+            Clock.start();
+
+            $(document).ready(function () {
+
+               
+                $("#QBtn0").click();
+
+                $('.SUBJECTBUTTON').click(function (e) {
+                    var currentBtnthis = this;
+
+                    setTimeout(
+                        function () {
+                            var currentBtn = currentBtnthis.attributes.id.value;
+                            var currentBtnId = "#" + currentBtn;
+                            var activeArraySub = SubjectsTimers.filter(checkCurrentPausedOrNot);
+                            var activeBtnTab = activeArraySub[0].divTabId;
+                            var activeBtnTabId = "#" + activeBtnTab;
+                            if (currentBtnthis.className.endsWith('active')) {
+
+                                if ($(currentBtnId).hasClass('active') && activeBtnTabId != currentBtnId) {
+
+                                    // setting remaining time before pausing to the active subject
+                                    var hours = $("#hours").text();
+                                    var minutes = $("#minutes").text();
+                                    var seconds = $("#seconds").text();
+                                    var remainingSeconds = ((Math.floor(hours) * 3600) + (Math.floor(minutes) * 60) + (Math.floor(seconds)));
+
+                                    SubjectsTimers.find(v => v.divTabId == activeBtnTab).IsPaused = true;
+                                    SubjectsTimers.find(v => v.divTabId == activeBtnTab).TotalSeconds = remainingSeconds;
+                                    Clock.pause();
+
+                                    SubjectsTimers.find(v => v.divTabId == currentBtn).IsPaused = false;
+                                    var currentArraySub = SubjectsTimers.filter(checkCurrentPausedOrNot);
+                                    Clock.totalSeconds = currentArraySub[0].TotalSeconds;
+
+                                    $("#subjectIdNameTimer").text("");
+                                    var CurrentSubject = currentArraySub[0].divSubjectName;
+                                    $("#subjectIdNameTimer").text(CurrentSubject);
+                                    Clock.resume();
+                                }
+                                else if ($(currentBtnId).hasClass('active') && activeBtnTabId == currentBtnId) {
+                                    // setting remaining time before pausing to the active subject
+                                    var hours = $("#hours").text();
+                                    var minutes = $("#minutes").text();
+                                    var seconds = $("#seconds").text();
+                                    var remainingSeconds = ((Math.floor(hours) * 3600) + (Math.floor(minutes) * 60) + (Math.floor(seconds)));
+
+                                    SubjectsTimers.find(v => v.divTabId == activeBtnTab).IsPaused = false;
+                                    SubjectsTimers.find(v => v.divTabId == activeBtnTab).TotalSeconds = remainingSeconds;
+                                }
+                            }
+                        },
+                        0);
+                });
+            });
+
+            function checkCurrentPausedOrNot(timer) {
+                if (timer.IsPaused == false) {
+                    return timer;
+                }
+            }
+
+            function openQuestion(evt, className) {
+
+                var i, tabcontent, tablinks;
+               
+                // Clearing All Questions
+                tabcontent = document.getElementsByClassName("tabcontentQuestions");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinksQuestions");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" CurrentSelected", "");
+                }
+                
+                // Adding current selected
+                document.getElementById(className).style.display = "block";
+                evt.target.className += " CurrentSelected";
+                debugger
+
+                var SubjectQuestionId = "#" + className;
+
+                //var SubjectDivId = $(SubjectQuestionId).parent().attr('id');
+                //document.getElementById(SubjectDivId).style.display = "block";
+
+                //var findNavLinkByDivIdClassName = $('.' + SubjectDivId + '').attr('id');
+                //document.getElementById(findNavLinkByDivIdClassName).className += " active";
+
+                // Mark -Un Mark
+                var currentBtnId = "#" + evt.target.id;
+                if ($(currentBtnId).hasClass('MarkedImportant')) {
+                    $("#markUnmarkButton").text('Un-Mark');
+                }
+                else {
+                    $("#markUnmarkButton").text('Mark');
+                }
+                // Marking as Visited
+                if (!$(currentBtnId).hasClass('VISITED')) {
+                    $(currentBtnId).addClass('VISITED');
+                }
+                var AllVisitedQuestions = $('.VISITED');
+
+                $.each(AllVisitedQuestions, function (i, e) {
+                    var IsAnyChecked = false;
+                    var QuestionDiv = "#" + $(e).next('input[type="hidden"]').val();
+                    var QAnswerStatusId = "#" + $(e).next().next('input[type="hidden"]').attr('id');
+
+                    IsAnyChecked = $(QuestionDiv).find('.containerCheck').find("input:radio:checked").length > 0 ? true : false;
+                    if (!IsAnyChecked) {
+                        if (!$(e).hasClass('CurrentSelected') && !$(e).hasClass('NotAnsweredImportant') && !$(e).hasClass('MarkedImportant')) {
+                            if ($(e).hasClass('AnsweredImportant')) {
+                                $(e).removeClass('AnsweredImportant');
+                            }
+                            $(e).addClass('NotAnsweredImportant');
+                            //    $(QAnswerStatusId).val('NOTANSWERED');
+                        }
+                    }
+                    /// here, marked will also considered as answered if they selected
+                    else if (!$(e).hasClass('CurrentSelected') && !$(e).hasClass('MarkedImportant')) {
+                        if ($(e).hasClass('NotAnsweredImportant')) {
+                            $(e).removeClass('NotAnsweredImportant');
+                        }
+                        $(e).addClass('AnsweredImportant');
+                        // $(QAnswerStatusId).val('ANSWERED');
+                    }
+
+                });
+
+                var isFinal = $(currentBtnId).data('finalq');
+                //if ($(currentBtnId).hasClass('CurrentSelected') && $(currentBtnId).hasClass('NotAnsweredImportant') && isFinal == "False") {
+                //    $(currentBtnId).removeClass('NotAnsweredImportant');
+                //}
+                if ($(currentBtnId).hasClass('CurrentSelected') && $(currentBtnId).hasClass('NotAnsweredImportant') && isFinal == "True") {
+                    // changing order for priority
+                    $(currentBtnId).removeClass('NotAnsweredImportant');
+                    $(currentBtnId).removeClass('CurrentSelected');
+                    $(currentBtnId).addClass('NotAnsweredImportant');
+                    $(currentBtnId).addClass('CurrentSelected');
+                }
+
+                //if ($(currentBtnId).hasClass('AnsweredImportant') && $(currentBtnId).hasClass('CurrentSelected') && isFinal == "False") {
+                //    $(currentBtnId).removeClass('AnsweredImportant');
+                //}
+                if ($(currentBtnId).hasClass('AnsweredImportant') && $(currentBtnId).hasClass('CurrentSelected') && isFinal == "True") {
+                    // changing order for priority
+                    $(currentBtnId).removeClass('AnsweredImportant');
+                    $(currentBtnId).removeClass('CurrentSelected');
+                    $(currentBtnId).addClass('AnsweredImportant');
+                    $(currentBtnId).addClass('CurrentSelected');
+                }
+
+                //// finding and setting in submit forms
+
+                $.each(AllVisitedQuestions, function (i, e) {
+
+                    var IsAnyAnswer = false;
+                    var Questionanswerchoiceid;
+                    var Questionchoiceid;
+                    var QuestionDiv = "#" + $(e).next('input[type="hidden"]').val();
+                    var QuestionNumber = $(e).data('questionnumber');
+
+                    IsAnyAnswer = $(QuestionDiv).find('.containerCheck').find("input:radio:checked").length > 0 ? true : false;
+                    var Answerstatus = "NOTATTEMPTED";
+                    if ($(e).hasClass('AnsweredImportant')) {
+                        Answerstatus = "ANSWERED";
+                    }
+                    else if ($(e).hasClass('NotAnsweredImportant')) {
+                        Answerstatus = "NOTANSWERED";
+                    }
+                    else if ($(e).hasClass('MarkedImportant')) {
+                        Answerstatus = "MARKED";
+                    }
+
+                    if (IsAnyAnswer) {
+                        Questionanswerchoiceid = $(QuestionDiv).find('.containerCheck').find("input:radio:checked").data('questionanswerchoiceid');
+                        Questionchoiceid = $(QuestionDiv).find('.containerCheck').find("input:radio:checked").data('choiceid');
+                    }
+
+                    var formQuestionDiv = "#" + QuestionNumber;
+                    var formValuesCurrentQuestion = $("#MarkingDiv").find("form").children().next("" + formQuestionDiv + "").find('input:hidden');
+
+                    $.each(formValuesCurrentQuestion, function (a, b) {
+
+                        if ($(b).attr('name').endsWith("ChoosenAnswerChoiceId")) {
+                            $(b).val(Questionanswerchoiceid);
+                        }
+                        else if ($(b).attr('name').endsWith("ChoiceId")) {
+                            $(b).val(Questionchoiceid);
+                        }
+                        else if ($(b).attr('name').endsWith("AnswerStatus")) {
+                            $(b).val(Answerstatus);
+                        }
+
+                    });
+
+                });
+
+            };
+
+            function fnClearRadioButtons() {
+                var ActiveQuestionDiv = "#" + $('.CurrentSelected').next("input:hidden[id='QDiv']").val();
+                $(ActiveQuestionDiv).find('.containerCheck').find("input:radio").each(function (i) {
+                    this.checked = false;
+                });
+                return false;
+            }
+
+            function fnPrevious() {
+                var PreviousQButton = "#" + $('.CurrentSelected').parent().prev().children().attr('id');
+                $(PreviousQButton).click();
+            }
+            function fnNextAndSave() {
+                var NextQButton = "#" + $('.CurrentSelected').parent().next().children().attr('id');
+                $(NextQButton).click();
+            }
+            function fnMarkUnmark() {
+
+                var currentButton = "#" + $('.CurrentSelected').attr('id');
+                if ($(currentButton).hasClass('MarkedImportant')) {
+                    $(currentButton).removeClass('MarkedImportant');
+                    $("#markUnmarkButton").text('Mark');
+                    //  $(currentBtnId).next().next('input[type="hidden"]').val('NOTATTEMPTED');
+                }
+                else {
+                    $(currentButton).addClass('MarkedImportant');
+                    $("#markUnmarkButton").text('Un-Mark');
+                    //   $(currentBtnId).next().next('input[type="hidden"]').val('MARKED');
+
+                }
+            }
+
+            function fnSetQuestionProblems() {
+
+                funclearAllProblemsCheckBoxes();
+                setCheckBoxes();
+            }
+
+            function fnSubmitAndReportProblems() {
+
+                var currentButton = "#" + $('.CurrentSelected').attr('id');
+                var QuestionNumber = $(currentButton).data('questionnumber');
+                var formQuestionDiv = "#" + QuestionNumber;
+                var formValuesCurrentQuestion = $("#MarkingDiv").find("form").children().next("" + formQuestionDiv + "").find('input:hidden');
+                $.each(formValuesCurrentQuestion, function (a, b) {
+
+                    if ($(b).data('problemid') == 1 && $("#ProblemId1").is(":checked")) {
+                        $(b).val(true);
+                    }
+                    else if ($(b).data('problemid') == 2 && $("#ProblemId2").is(":checked")) {
+                        $(b).val(true);
+                    }
+                    else if ($(b).data('problemid') == 3 && $("#ProblemId3").is(":checked")) {
+                        $(b).val(true);
+                    }
+                    else if ($(b).data('problemid') == 4 && $("#ProblemId4").is(":checked")) {
+                        $(b).val(true);
+                    }
+                    else if ($(b).data('problemid') == 5 && $("#ProblemId5").is(":checked")) {
+                        $(b).val(true);
+                    }
+                    else if ($(b).data('problemid') == 6 && $("#ProblemId6").is(":checked")) {
+                        $(b).val(true);
+                    }
+                    else if ($(b).data('problemid') == 7 && $("#ProblemId7").is(":checked")) {
+                        $(b).val(true);
+                    }
+                    else if ($(b).data('problemid') == 8 && $("#ProblemId8").is(":checked")) {
+                        $(b).val(true);
+                    }
+                    else if ($(b).data('problemid') == 8 && $("#ProblemId8").is(":checked")) {
+
+                        $(b).val(true);
+                        $(b).next().val($("#issuebox").val());
+                    }
+
+                });
+            }
+            function funclearAllProblemsCheckBoxes() {
+
+                $("#ProblemId1").prop('checked', false);
+                $("#ProblemId2").prop('checked', false);
+                $("#ProblemId3").prop('checked', false);
+                $("#ProblemId4").prop('checked', false);
+                $("#ProblemId5").prop('checked', false);
+                $("#ProblemId6").prop('checked', false);
+                $("#ProblemId7").prop('checked', false);
+                $("#ProblemId8").prop('checked', false);
+                $("#issuebox").val('');
+
+            }
+            function setCheckBoxes() {
+                var currentButton = "#" + $('.CurrentSelected').attr('id');
+                var QuestionNumber = $(currentButton).data('questionnumber');
+                var formQuestionDiv = "#" + QuestionNumber;
+                var formValuesCurrentQuestion = $("#MarkingDiv").find("form").children().next("" + formQuestionDiv + "").find('input:hidden');
+                $.each(formValuesCurrentQuestion, function (a, b) {
+
+                    if ($(b).data('problemid') == 1 && $(b).val() == "true") {
+                        $("#ProblemId1").prop('checked', true);
+                    }
+                    else if ($(b).data('problemid') == 2 && $(b).val() == "true") {
+                        $("#ProblemId2").prop('checked', true);
+                    }
+                    else if ($(b).data('problemid') == 3 && $(b).val() == "true") {
+                        $("#ProblemId3").prop('checked', true);
+                    }
+                    else if ($(b).data('problemid') == 4 && $(b).val() == "true") {
+                        $("#ProblemId4").prop('checked', true);
+                    }
+                    else if ($(b).data('problemid') == 5 && $(b).val() == "true") {
+                        $("#ProblemId5").prop('checked', true);
+                    }
+                    else if ($(b).data('problemid') == 6 && $(b).val() == "true") {
+                        $("#ProblemId6").prop('checked', true);
+                    }
+                    else if ($(b).data('problemid') == 7 && $(b).val() == "true") {
+                        $("#ProblemId7").prop('checked', true);
+                    }
+                    else if ($(b).data('problemid') == 8 && $(b).val() == "true") {
+                        $("#ProblemId8").prop('checked', true);
+                        $("#issuebox").val($(b).next().val());
+
+                    }
+                });
+            }
+            function fnSaveAndSubmitForm() {
+
+                // for setting updated values in array
+                $('.SUBJECTBUTTON').click();
+
+                setTimeout(function () {
+                    FinalSettingWithCurrentData();
+                }, 2);
+                setTimeout(function () {
+                    fnBeforeSumbit();
+                }, 6);
+                fnResumeComplete();
+            };
+
+            function fnSaveAndPauseForm() {
+                // for setting updated values in array
+                $('.SUBJECTBUTTON').click();
+
+                setTimeout(function () {
+                    FinalSettingWithCurrentData();
+                }, 2);
+
+                setTimeout(function () {
+                    fnBeforePause();
+                }, 6);
+            };
+
+            function FinalSettingWithCurrentData() {
+                var AllQuestionDiv = $("#MarkingDiv").find("form").children().filter('div');
+                $.each(AllQuestionDiv, function (i, e) {
+                    var AllInputsInDiv = $(e).find('input:hidden');
+                    $.each(AllInputsInDiv, function (a, b) {
+                        if ($(b).attr('name').endsWith("SubjectTimeUsed")) {
+                            var prevsubjectid = $(b).prev().val();
+                            var seconds = SubjectsTimers.find(v => v.SubjectId == prevsubjectid).TotalSeconds;
+                            var timeleftforSubject = 0.00;
+                            timeleftforSubject = (seconds / 60).toFixed(2);
+                            $(b).val(timeleftforSubject);
+                        }
+                    });
+                });
+
+
+            };
+            function fnBeforeSumbit() {
+                $("#tableSummary tbody").empty();
+                SubjectsTimers.forEach(setTbody);
+            }
+            function fnBeforePause() {
+                $("#hfIsPaused").val(true);
+                $("#tblPause tbody").empty();
+                SubjectsTimers.forEach(setTbodyPause);
+            }
+            function setTbody(value, index, array) {
+
+                var subjectId = value.SubjectId;
+                var subjectName = value.divSubjectName;
+                var numberOfQuestions = 0;
+                var answered = 0;
+                var notAnswered = 0;
+                var markedforReview = 0;
+                var notVisited = 0;
+
+                var AllQuestionDiv = $("#MarkingDiv").find("form").children().filter('div');
+
+
+                $.each(AllQuestionDiv, function (i, e) {
+
+                    var AllInputsInDiv = $(e).find('input:hidden');
+                    var divSubjectId;
+                    $.each(AllInputsInDiv, function (a, b) {
+                        if ($(b).attr('name').endsWith("SubjectId")) {
+
+                            if ($(b).val() == subjectId) {
+                                divSubjectId = $(b).val();
+                                numberOfQuestions++;
+                            }
+                        }
+                        if ($(b).attr('name').endsWith("AnswerStatus") && divSubjectId == subjectId) {
+
+                            if ($(b).val() == "ANSWERED") {
+                                answered++;
+                            }
+                            else if ($(b).val() == "NOTANSWERED") {
+                                notAnswered++;
+                            }
+                            else if ($(b).val() == "MARKED") {
+                                markedforReview++;
+                            }
+                            else if ($(b).val() == "NOTATTEMPTED") {
+                                notVisited++;
+                            }
+                        }
+                    });
+                });
+
+
+                var newRowContent = '<tr><td>' + subjectName + '</td><td>' + numberOfQuestions + '</td><td>' + answered + '</td><td>' + notAnswered + '</td><td>' + markedforReview + '</td><td>' + notVisited + '</td></tr>';
+
+                $("#tableSummary tbody").append(newRowContent);
+
+            }
+            function setTbodyPause(value, index, array) {
+
+                var subjectId = value.SubjectId;
+                var subjectName = value.divSubjectName;
+                var numberOfQuestions = 0;
+                var answered = 0;
+
+                var AllQuestionDiv = $("#MarkingDiv").find("form").children().filter('div');
+
+                $.each(AllQuestionDiv, function (i, e) {
+
+                    var AllInputsInDiv = $(e).find('input:hidden');
+                    var divSubjectId;
+                    $.each(AllInputsInDiv, function (a, b) {
+                        if ($(b).attr('name').endsWith("SubjectId")) {
+
+                            if ($(b).val() == subjectId) {
+                                divSubjectId = $(b).val();
+                                numberOfQuestions++;
+                            }
+                        }
+                        if ($(b).attr('name').endsWith("AnswerStatus") && divSubjectId == subjectId) {
+
+                            if ($(b).val() == "ANSWERED") {
+                                answered++;
+                            }
+
+                        }
+                    });
+                });
+
+
+                var newRowContent = '<tr><td>' + subjectName + '</td><td>' + numberOfQuestions + '</td><td>' + answered + '</td></tr>';
+
+                $("#tblPause tbody").append(newRowContent);
+
+            }
+            function fnResumePause() {
+                $("#hfIsPaused").val(false);
+            }
+            function fnResumeComplete() {
+                $("#hfIsCompleted").val(false);
+            }
+            function fnPause() {
+                $("#hfIsPaused").val(true);
+            }
+            function fnComplete() {
+                $("#hfIsCompleted").val(true);
+            }
+            function fnSetTimeLeft() {
+
+                // setting remaining time before pausing to the active subject
+                var hours = $("#time-lefthours").text();
+                var minutes = $("#time-leftminutes").text();
+                var seconds = $("#time-leftseconds").text();
+                var remainingSeconds = ((Math.floor(hours) * 3600) + (Math.floor(minutes) * 60) + (Math.floor(seconds)));
+                var Inminutes = 0.00;
+                Inminutes = (remainingSeconds / 60);
+                $("#hfTimeLeftInMinutes").val(Inminutes);
+
+            }
+            function LastAndFinalSubmitFrom() {
+                fnComplete();
+                fnSetTimeLeft();
+                setTimeout(function () {
+                    @*$("#frmAnswerForm").ajaxForm({url: '@Url.Action("","")', type: 'post'})*@
+                    $("#frmAnswerForm").submit();
+                }, 6);
+            }
+
         </script>
     </div>
 

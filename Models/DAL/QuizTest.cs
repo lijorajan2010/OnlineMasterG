@@ -19,6 +19,7 @@ namespace OnlineMasterG.Models.DAL
         {
             this.QuizQuestionAnswerChoices = new HashSet<QuizQuestionAnswerChoice>();
             this.QuizQuestionPoints = new HashSet<QuizQuestionPoint>();
+            this.DailyQuizAttemptDetails = new HashSet<DailyQuizAttemptDetail>();
         }
     
         public int QuizTestId { get; set; }
@@ -40,5 +41,7 @@ namespace OnlineMasterG.Models.DAL
         public virtual ICollection<QuizQuestionAnswerChoice> QuizQuestionAnswerChoices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuizQuestionPoint> QuizQuestionPoints { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DailyQuizAttemptDetail> DailyQuizAttemptDetails { get; set; }
     }
 }

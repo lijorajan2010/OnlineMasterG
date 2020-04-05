@@ -88,7 +88,7 @@
 
                                 }
 
-                                <h4 id="selectedCategoryName" style="margin-top:20px;" class="f_p f_700 t_color2 mt_20">@firstItem</h4>
+                                <h4 id="selectedCategoryName" class="selectedCategoryName" style="margin-top:20px;" class="f_p f_700 t_color2 mt_20">@firstItem</h4>
                             }
 
                         </div>
@@ -327,8 +327,8 @@
         document.getElementById(subDivId).style.display = "block";
         evt.target.className.replace(" btn_get", " agency_banner_btn");
 
-        closesthdfval = $(evt.target).text();
-        $("#selectedCategoryName").text(closesthdfval);
+       
+        $(".selectedCategoryName").text($(evt.target).text());
 
 
         // claring section

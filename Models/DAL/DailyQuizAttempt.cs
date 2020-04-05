@@ -12,22 +12,30 @@ namespace OnlineMasterG.Models.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class QuizQuestionAnswerChoice
+    public partial class DailyQuizAttempt
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public QuizQuestionAnswerChoice()
+        public DailyQuizAttempt()
         {
             this.DailyQuizAttemptDetails = new HashSet<DailyQuizAttemptDetail>();
         }
     
-        public int QuizQuestionAnswerChoiceId { get; set; }
-        public string QuizQuestionAnswer { get; set; }
-        public bool IsCorrect { get; set; }
-        public Nullable<int> QuizTestId { get; set; }
-        public int ChoiceId { get; set; }
+        public int AttemptId { get; set; }
+        public string Login { get; set; }
+        public bool IsPaused { get; set; }
+        public Nullable<decimal> TimeLeftInMinutes { get; set; }
+        public bool IsCompleted { get; set; }
+        public string CreateBy { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public string EditBy { get; set; }
+        public Nullable<System.DateTime> EditDate { get; set; }
+        public Nullable<int> DailyQuizId { get; set; }
+        public Nullable<decimal> FinalMarksScoredForRank { get; set; }
+        public Nullable<int> Rating { get; set; }
     
-        public virtual QuizTest QuizTest { get; set; }
+        public virtual DailyQuiz DailyQuiz { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DailyQuizAttemptDetail> DailyQuizAttemptDetails { get; set; }
+        public virtual User User { get; set; }
     }
 }

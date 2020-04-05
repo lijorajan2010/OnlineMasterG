@@ -65,5 +65,7 @@ namespace OnlineMasterG.Models.DAL
         public virtual DbSet<QuizQuestionPoint> QuizQuestionPoints { get; set; }
         public virtual DbSet<QuizTest> QuizTests { get; set; }
         public virtual DbSet<LatestUpdate> LatestUpdates { get; set; }
+        public virtual DbSet<DailyQuizAttemptDetail> DailyQuizAttemptDetails { get; set; }
+        public virtual DbSet<DailyQuizAttempt> DailyQuizAttempts { get; set; }
     }
 }

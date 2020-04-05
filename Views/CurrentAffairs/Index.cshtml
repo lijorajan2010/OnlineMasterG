@@ -1,0 +1,138 @@
+﻿@using OnlineMasterG.CommonFramework
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/PublicLayout.cshtml";
+}
+
+<section class="service_area sec_pad s_service_section breadcrumb_area typography_breacrumb">
+    <img class="breadcrumb_shap" alt="" src="img/breadcrumb/banner_bg.png">
+    <div class="container custom_container test_details">
+        <div class="row m_0">
+            <div class="col-md-12 mb_20">
+                <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Current Affairs</h4>
+                @if (AppInfo.GetCurrentAffairsCategories != null)
+                {
+                    var firstItem = string.Empty;
+                    foreach (var item in AppInfo.GetCurrentAffairsCategories.Select((x, y) => new { Data = x, Index = y }))
+                    {
+                        var btnId = "btn" + item.Index;
+                        var dvId = "dvId" + item.Index;
+                        if (item.Index == 0)
+                        {
+                            firstItem = item.Data.CurrentAffairsCategoryName;
+                        }
+
+                    }
+                    <h5 id="selectedCategoryName" style="margin-top:20px;" class="f_p f_700 t_color2 mt_20">@firstItem</h5>
+                }
+
+
+            </div>
+            <div class="col-md-12 mb_20">
+                <div class="sec_title">
+                    @if (AppInfo.GetCurrentAffairsCategories != null)
+                    {
+
+                        foreach (var item in AppInfo.GetCurrentAffairsCategories.Select((x, y) => new { Data = x, Index = y }))
+                        {
+                            var btnId = "btn" + item.Index;
+                            var dvId = "dvId" + item.Index;
+                            if (item.Index == 0)
+                            {
+
+                                <a class="btn_get btn_hover tablinksSections" id="@btnId" onclick="openSection(event, '@dvId')">@item.Data.CurrentAffairsCategoryName</a>
+                            }
+                            else
+                            {
+                                <a class="btn_get btn_hover tablinksSections" id="@btnId" onclick="openSection(event, '@dvId')">@item.Data.CurrentAffairsCategoryName</a>
+                            }
+
+                        }
+                    }
+                </div>
+            </div>
+            @if (AppInfo.GetCurrentAffairsCategories != null)
+            {
+                var firstItem = string.Empty;
+                foreach (var item in AppInfo.GetCurrentAffairsCategories.Select((x, y) => new { Data = x, Index = y }))
+                {
+                    var btnId = "btn" + item.Index;
+                    var dvId = "dvId" + item.Index;
+                    var hrefTabclass = string.Empty;
+                    var style = string.Empty;
+                    if (item.Index == 0)
+                    {
+                        hrefTabclass = " active";
+                        style = "block";
+                    }
+                    else
+                    {
+                        hrefTabclass = "";
+                        style = "none";
+                    }
+                    @*<div id="@dvId" class="Section" style="display:@style">*@
+                    if (AppInfo.GetCurrentAffairsUploads != null)
+                    {
+                        foreach (var upload in AppInfo.GetCurrentAffairsUploads.Where(m => m.CurrentAffairsCategoryId == item.Data.CurrentAffairsCategoryId).Select((x, y) => new { Data = x, Index = y }))
+                        {
+                            <div class="col-md-2 col-4 text-center Section @dvId" style="display:@style">
+                                <a href="@Url.Action("View", "DataFile" , new {p=CustomEncrypt.Encrypt(upload.Data.DataFileId.Value.ToString())})" target="_blank">
+                                    <div class="affairs_div">
+                                        <div class="service_info">
+                                            <div class="service_item  mb-0">
+                                                <!-- <a class="btn_get btn_hover" href="#">Quiz</a> -->
+                                                <div class="mb_10">
+                                                    <div class="row m-0">
+                                                        <div class="sec_title text-center">
+
+                                                            <img src="img/pdf.png" alt="logo" class="img-responsive" style="width:100%">
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <p>Date : @(upload.Data.UploadDate.HasValue ? upload.Data.UploadDate.Value.ToShortDateString() : "")</p>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    }
+
+                    @*</div>*@
+
+
+                }
+
+            }
+
+
+
+        </div>
+    </div>
+</section>
+
+<script>
+    function openSection(evt, className) {
+        debugger
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("Section");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinksSections");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        $("#selectedCategoryName").text($(evt.target).text());
+
+        tabcontent = document.getElementsByClassName(className);
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "block";
+        }
+
+    }
+</script>

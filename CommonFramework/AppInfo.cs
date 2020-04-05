@@ -128,6 +128,16 @@ namespace OnlineMasterG.CommonFramework
             set { }
 
         }
+        public static List<QuizTest> GetQuizTests
+        {
+            get
+            {
+                return DailyQuizService.GetQuizTestsList("en-US", true).Distinct().ToList();
+
+            }
+            set { }
+
+        }
         public static List<MockTest> GetMockTests
         {
             get
@@ -164,6 +174,26 @@ namespace OnlineMasterG.CommonFramework
             get
             {
                 return DailyQuizService.DailyQuizCourseList("en-US", true).OrderBy(m => m.Sequence).Distinct().ToList();
+
+            }
+            set { }
+
+        }
+        public static List<CurrentAffairsCategory> GetCurrentAffairsCategories
+        {
+            get
+            {
+                return CurrentAffairsService.CurrentAffairsCategoryList("en-US", true).OrderBy(m => m.Sequence).Distinct().ToList();
+
+            }
+            set { }
+
+        }
+        public static List<CurrentAffairsUpload> GetCurrentAffairsUploads
+        {
+            get
+            {
+                return CurrentAffairsService.CurrentAffairsUploadsList("en-US", true).Distinct().ToList();
 
             }
             set { }

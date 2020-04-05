@@ -77,14 +77,14 @@ namespace OnlineMasterG.Controllers
         [HttpPost]
         public JsonResult ApproveQuizUpload(int dailyQuizUploadId)
         {
-            var sr = QuestionUploadService.ApproveQuestionUpload(dailyQuizUploadId);
+            var sr = DailyQuizService.ApproveQuizUpload(dailyQuizUploadId);
 
             return GetJsonValidation(sr, "Quiz Upload has been successfully approved.");
         }
         [HttpPost]
         public JsonResult DenyQuizUpload(int dailyQuizUploadId)
         {
-            var sr = QuestionUploadService.DenyQuestionUpload(dailyQuizUploadId);
+            var sr = DailyQuizService.DenyQuizUpload(dailyQuizUploadId);
 
             return GetJsonValidation(sr, "Quiz Upload has been successfully denied.");
         }

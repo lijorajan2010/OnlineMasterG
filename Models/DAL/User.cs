@@ -18,6 +18,7 @@ namespace OnlineMasterG.Models.DAL
         public User()
         {
             this.MockTestAttempts = new HashSet<MockTestAttempt>();
+            this.DailyQuizAttempts = new HashSet<DailyQuizAttempt>();
         }
     
         public string Login { get; set; }
@@ -37,5 +38,7 @@ namespace OnlineMasterG.Models.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MockTestAttempt> MockTestAttempts { get; set; }
         public virtual UserType UserType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DailyQuizAttempt> DailyQuizAttempts { get; set; }
     }
 }
