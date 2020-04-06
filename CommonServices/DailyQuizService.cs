@@ -31,6 +31,7 @@ namespace OnlineMasterG.CommonServices
         {
             return DB.DailyQuizs.Where(m => m.DailyQuizId == (DailyQuizId.HasValue ? DailyQuizId.Value : 0)).FirstOrDefault();
         }
+
         internal static DailyQuizUpload FetchDailyQuizUpload(int? DailyQuizUploadId)
         {
             return DB.DailyQuizUploads.Where(m => m.DailyQuizUploadId == (DailyQuizUploadId.HasValue ? DailyQuizUploadId.Value : 0)).FirstOrDefault();
@@ -50,6 +51,10 @@ namespace OnlineMasterG.CommonServices
         public static DailyQuizAttempt GetDailyQuizAttempt(int? AttemptId)
         {
             return DB.DailyQuizAttempts.Where(m => m.AttemptId == (AttemptId.HasValue? AttemptId.Value:0)).FirstOrDefault();
+        }
+        public static List<DailyQuizAttempt> GetDailyQuizAttemptList(int? AttemptId)
+        {
+            return DB.DailyQuizAttempts.Where(m => m.AttemptId == (AttemptId.HasValue ? AttemptId.Value : 0)).ToList();
         }
         public static List<QuizTest> GetQuizQuestionsBasedOnTestAndSubject(int? DailyQuizId, int? SubjectId)
         {

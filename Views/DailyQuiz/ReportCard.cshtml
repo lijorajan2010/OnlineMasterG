@@ -1,4 +1,5 @@
-﻿@model OnlineMasterG.Models.ViewModels.ReportCardVM
+﻿
+@model OnlineMasterG.Models.ViewModels.ReportCardVM
 @{
     Layout = null;
 }
@@ -235,7 +236,7 @@
                                 <p class=" f_700 w_color l_height50">Rate Us</p>
                                 <!-- <h1 class="f_p f_700 w_color l_height50" style="font-size:20px;">Rat</h1> -->
                             </div>
-                            <div class="col-md-7">
+                            @*<div class="col-md-7">
                                 <div class="rating">
                                     <input type="radio" name="Rating" value="1" @(Model.CurrentRating == 1 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
                                     <input type="radio" name="Rating" value="2" @(Model.CurrentRating == 2 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
@@ -243,14 +244,14 @@
                                     <input type="radio" name="Rating" value="4" @(Model.CurrentRating == 4 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
                                     <input type="radio" name="Rating" value="5" @(Model.CurrentRating == 5 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
                                 </div>
-                            </div>
+                            </div>*@
                         </div>
                     </div>
 
 
 
                     <div class="col-md-3 text-right">
-                        <a class="btn_get btn_hover" href="@Url.Action("Index","MockTests")">Tests</a>
+                        <a class="btn_get btn_hover" href="@Url.Action("DailyQuiz","DailyQuiz")">Quizes</a>
 
                     </div>
                 </div>
@@ -299,8 +300,8 @@
                     </div>
                     <div class="row mb_15 border-t">
                         <div class="col-md-12 text-right">
-                            @Html.ActionLink(" Reattempt", "Index", "Instruction", new { p = CustomEncrypt.SafeUrlEncrypt(Model.TestId.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
-                            @Html.ActionLink(" Solution", "Solution", "Examination", new { p = CustomEncrypt.SafeUrlEncrypt(Model.AttemptId.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
+                           
+                            @Html.ActionLink(" Solution", "Solution", "DailyQuiz", new { p = CustomEncrypt.SafeUrlEncrypt(Model.AttemptId.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
 
                         </div>
                     </div>

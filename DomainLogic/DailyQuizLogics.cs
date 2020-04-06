@@ -564,7 +564,7 @@ namespace OnlineMasterG.DomainLogic
             dailyQuizAttempt.CreateDate = DateTime.Now;
             dailyQuizAttempt.TimeLeftInMinutes = Quiz != null ? Quiz.TimeInMinutes : 0;
 
-           
+
             if (AppInfo.GetQuizTests != null && AppInfo.GetQuizTests.Count() > 0)
             {
                 var QuestionBasedOnQuiz = AppInfo.GetQuizTests.Where(m => m.DailyQuizUpload?.DailyQuizId == DailyQuizId).ToList();
@@ -572,7 +572,7 @@ namespace OnlineMasterG.DomainLogic
                 foreach (var Q in QuestionBasedOnQuiz.OrderBy(m => m.QuestionNumber).Select((x, y) => new { Data = x, Index = y }))
                 {
                     DailyQuizAttemptDetail detail = new DailyQuizAttemptDetail();
-                    
+
                     detail.QuizTestId = Q.Data.QuizTestId;
                     detail.DailyQuizCourseId = Q.Data.DailyQuizUpload?.DailyQuizCourseId;
                     detail.DailyQuizSubjectId = Q.Data.DailyQuizUpload?.DailyQuizSubjectId;
@@ -606,7 +606,7 @@ namespace OnlineMasterG.DomainLogic
                     List<DailyQuizAttemptVMDetailVM> mockTestAttemptDetails = new List<DailyQuizAttemptVMDetailVM>();
                     foreach (var item in firstNotCompletedAttempt.DailyQuizAttemptDetails)
                     {
-                        var OriginalQuestion = DailyQuizService.GetQuizQuestionsBasedOnTestAndSubject(DailyQuizId, item.DailyQuizSubjectId).Where(m => m.QuestionNumber == item.QuestionNumber && m.DailyQuizUpload.QuestionStatus=="VAL").FirstOrDefault();
+                        var OriginalQuestion = DailyQuizService.GetQuizQuestionsBasedOnTestAndSubject(DailyQuizId, item.DailyQuizSubjectId).Where(m => m.QuestionNumber == item.QuestionNumber && m.DailyQuizUpload.QuestionStatus == "VAL").FirstOrDefault();
                         List<QuestionAnswerChoiceVM> questionAnswerChoiceVMs = new List<QuestionAnswerChoiceVM>();
                         List<QuestionPointVM> QuestionPointVMs = new List<QuestionPointVM>();
 
@@ -674,6 +674,90 @@ namespace OnlineMasterG.DomainLogic
             }
 
             return model;
+        }
+
+        internal static ServiceResponse SaveDailyQuizAttempts(DailyQuizAttemptVM model, string auditLogin)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            try
+            {
+                if (model != null)
+                {
+                    DailyQuizAttempt dailyQuizAttempt = new DailyQuizAttempt();
+
+                    int? AttemptId = model.dailyQuizAttemptVMDetail?.FirstOrDefault()?.AttemptId;
+                    dailyQuizAttempt.AttemptId = AttemptId.Value;
+                    dailyQuizAttempt.IsPaused = model.IsPaused;
+                    dailyQuizAttempt.IsCompleted = model.IsCompleted;
+                    dailyQuizAttempt.TimeLeftInMinutes = model.TimeLeftInMinutes;
+
+                    List<DailyQuizAttemptDetail> dailyQuizAttemptDetailList = new List<DailyQuizAttemptDetail>();
+
+                    if (model.dailyQuizAttemptVMDetail != null && model.dailyQuizAttemptVMDetail.Count() > 0)
+                    {
+                        foreach (var item in model.dailyQuizAttemptVMDetail)
+                        {
+                            DailyQuizAttemptDetail dailyQuizAttemptDetail = new DailyQuizAttemptDetail();
+                            dailyQuizAttemptDetail.QuizQuestionAnswerChoiceId = item.QuizQuestionAnswerChoiceId;
+                            dailyQuizAttemptDetail.AnswerChoiceId = item.AnswerChoiceId;
+                            dailyQuizAttemptDetail.QuestionNumber = item.QuestionNumber;
+                            dailyQuizAttemptDetail.AnswerStatus = item.AnswerStatus;
+                            dailyQuizAttemptDetail.QuizTestId = item.QuizTestId;
+                            dailyQuizAttemptDetail.AttemptDetailId = item.AttemptDetailId;
+                            dailyQuizAttemptDetail.IsAnswerCorrect = GetIsCorrectAnswer(item.QuizTestId, item.QuizQuestionAnswerChoiceId);
+                            dailyQuizAttemptDetail.MarksScored = GetMarksScored(dailyQuizAttemptDetail.IsAnswerCorrect, model.TestId, item.DailyQuizSubjectId);
+
+                            dailyQuizAttemptDetailList.Add(dailyQuizAttemptDetail);
+                        }
+                    }
+
+                    dailyQuizAttempt.DailyQuizAttemptDetails = dailyQuizAttemptDetailList;
+                    dailyQuizAttempt.FinalMarksScoredForRank = dailyQuizAttemptDetailList.Sum(m => m.MarksScored);
+                    sr = DailyQuizService.SaveDailyQuizAttempt(dailyQuizAttempt, auditLogin);
+
+                }
+                else
+                {
+                    sr.AddError("Sorry. There is a problem in processing your request.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                sr.AddError(ex.Message);
+            }
+
+
+
+            return sr;
+        }
+        private static bool GetIsCorrectAnswer(int? QuizTestId, int? choosenAnswerChoiceId)
+        {
+            bool isCorrect = false;
+            if (QuizTestId.HasValue && choosenAnswerChoiceId.HasValue)
+            {
+                var QuestionCorrectAnswerId = DailyQuizService.FetchQuizTest(QuizTestId).QuizQuestionAnswerChoices.Where(m => m.IsCorrect == true).FirstOrDefault().QuizQuestionAnswerChoiceId;
+                isCorrect = QuestionCorrectAnswerId == choosenAnswerChoiceId ? true : false;
+            }
+            return isCorrect;
+        }
+        private static decimal GetMarksScored(bool isAnswerCorrect, int? testId, int? subjectId)
+        {
+            decimal markScored = 0;
+            decimal? CorrectMark = 1;
+            decimal? NegetiveMark = 0;
+
+            if (isAnswerCorrect)
+            {
+                markScored = CorrectMark.HasValue ? CorrectMark.Value : 1;
+            }
+            else
+            {
+                markScored = NegetiveMark.HasValue ? Decimal.Negate(NegetiveMark.Value) : 0;
+            }
+
+            return markScored;
         }
         #endregion
     }
