@@ -107,13 +107,24 @@ namespace OnlineMasterG.Controllers
                     //TimeSpan spWorkMin = TimeSpan.FromMinutes(MinutesNotNull);
                     //subjectWiseScoreVM.SubjectTimeSpent = string.Format("{0:00} Hours {1:00} Minutes {2:00} Seconds", (int)spWorkMin.TotalHours, spWorkMin.Minutes, spWorkMin.Seconds);
                     subjectWiseScoreVM.Accuracy = (subjectWiseScoreVM.YourScore / subjectWiseScoreVM.OriginalScore.Value) * 100;
-
+                    decimal? Mnutes = (TestDetails.TimeInMinutes.HasValue ? TestDetails.TimeInMinutes.Value : 0) - AttempDetails.TimeLeftInMinutes;
+                    double Mnutesnotnl = Convert.ToDouble(Mnutes.HasValue ? Mnutes.Value : 0);
+                    TimeSpan WorkMin = TimeSpan.FromMinutes(Mnutesnotnl);
+                    subjectWiseScoreVM.SubjectTimeSpent = string.Format("{0:00} Hours {1:00} Minutes {2:00} Seconds", (int)WorkMin.TotalHours, WorkMin.Minutes, WorkMin.Seconds);
 
                     subjectWiseScoreVMs.Add(subjectWiseScoreVM);
                 }
 
             }
+
             model.subjectWiseScoreVMs = subjectWiseScoreVMs;
+            model.TotalNumberQuestions = subjectWiseScoreVMs.Sum(m => m.TotalQuestions);
+            model.TotalAnswered = subjectWiseScoreVMs.Sum(m => m.NumberAnswered);
+
+            decimal? Minutes = (TestDetails.TimeInMinutes.HasValue ? TestDetails.TimeInMinutes.Value : 0) - AttempDetails.TimeLeftInMinutes;
+            double MinutesNotNull = Convert.ToDouble(Minutes.HasValue ? Minutes.Value : 0);
+            TimeSpan spWorkMin = TimeSpan.FromMinutes(MinutesNotNull);
+            model.TotalTimeTaken = string.Format("{0:00} Hours {1:00} Minutes {2:00} Seconds", (int)spWorkMin.TotalHours, spWorkMin.Minutes, spWorkMin.Seconds);
             model.topPerformersVMs = GetTopPerformers(AttempDetails);
             model.TotalOriginalMarks = subjectWiseScoreVMs.Sum(m => m.OriginalScore);
             model.TotalTestAccuracy = (model.TotalMarksScored / model.TotalOriginalMarks.Value) * 100;
@@ -171,5 +182,10 @@ namespace OnlineMasterG.Controllers
             return rank;
         }
 
+        [HttpPost]
+        public ActionResult Solution()
+        {
+            return View();
+        }
     }
 }

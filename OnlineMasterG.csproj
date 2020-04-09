@@ -1842,6 +1842,7 @@
     <Content Include="Views\DailyQuiz\DailyQuiz.cshtml" />
     <Content Include="Views\CurrentAffairs\Index.cshtml" />
     <Content Include="Views\DailyQuiz\ReportCard.cshtml" />
+    <Content Include="Views\DailyQuiz\Solution.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

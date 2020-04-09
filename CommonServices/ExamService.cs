@@ -109,9 +109,14 @@ namespace OnlineMasterG.CommonServices
 
         }
 
-        internal static void AddRatingOfTest(int attemptId, int? rating)
+        internal static void AddRatingOfTest(int attemptId, int? rating, string Review)
         {
-            var Attempt = DB.MockTestAttempts.Where(m => m.AttemptId == attemptId).FirstOrDefault().Rating = rating.HasValue ? rating.Value : 0;
+            var Attempt = DB.MockTestAttempts.Where(m => m.AttemptId == attemptId).FirstOrDefault();
+            if (Attempt!=null)
+            {
+                Attempt.Rating = rating.HasValue ? rating.Value : 0;
+                Attempt.Review = Review;
+            }
             DB.SaveChanges();
         }
     }

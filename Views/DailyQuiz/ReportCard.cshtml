@@ -237,14 +237,14 @@
                                 <!-- <h1 class="f_p f_700 w_color l_height50" style="font-size:20px;">Rat</h1> -->
                             </div>
                             @*<div class="col-md-7">
-                                <div class="rating">
-                                    <input type="radio" name="Rating" value="1" @(Model.CurrentRating == 1 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
-                                    <input type="radio" name="Rating" value="2" @(Model.CurrentRating == 2 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
-                                    <input type="radio" name="Rating" value="3" @(Model.CurrentRating == 3 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
-                                    <input type="radio" name="Rating" value="4" @(Model.CurrentRating == 4 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
-                                    <input type="radio" name="Rating" value="5" @(Model.CurrentRating == 5 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
-                                </div>
-                            </div>*@
+                                    <div class="rating">
+                                        <input type="radio" name="Rating" value="1" @(Model.CurrentRating == 1 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
+                                        <input type="radio" name="Rating" value="2" @(Model.CurrentRating == 2 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
+                                        <input type="radio" name="Rating" value="3" @(Model.CurrentRating == 3 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
+                                        <input type="radio" name="Rating" value="4" @(Model.CurrentRating == 4 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
+                                        <input type="radio" name="Rating" value="5" @(Model.CurrentRating == 5 ? "checked" : "") class="giv_feedback"><span class="star RatingStar"> </span>
+                                    </div>
+                                </div>*@
                         </div>
                     </div>
 
@@ -275,32 +275,32 @@
                     <div class="row mb_15">
                         <div class="col-md-3">
                             <div class="border_r">
-                                <h6>Your Score</h6>
-                                <h5>@Model.TotalMarksScored.ToString("0.00")/@(Model.TotalOriginalMarks?.ToString("0.00"))</h5>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="border_r">
                                 <h6>Rank</h6>
-                                <h5>@Model.Rank/@Model.TotalTestAttempts</h5>
+                                <h5>@Model.Rank/@(Model.TotalTestAttempts)</h5>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="border_r">
-                                <h6>Percentage</h6>
-                                <h5>@Model.Percentage.ToString("0.00") %</h5>
+                                <h6>Incorrect</h6>
+                                <h5>@(Model.TotalNumberQuestions - Model.TotalAnswered)</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border_r">
+                                <h6>Correct</h6>
+                                <h5>@Model.TotalAnswered </h5>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="text-center">
-                                <h6>Accuracy</h6>
-                                <h5>@Model.TotalTestAccuracy.ToString("0.00") %</h5>
+                                <h6>Time Taken</h6>
+                                <h5>@Model.TotalTimeTaken </ h5 >
                             </div>
                         </div>
                     </div>
                     <div class="row mb_15 border-t">
                         <div class="col-md-12 text-right">
-                           
+
                             @Html.ActionLink(" Solution", "Solution", "DailyQuiz", new { p = CustomEncrypt.SafeUrlEncrypt(Model.AttemptId.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
 
                         </div>
@@ -325,7 +325,7 @@
                                                 <th>No. of questions</th>
                                                 <th>Answered</th>
                                                 <th>Not Answered</th>
-                                                <th>Marked for Review</th>
+                                                @*<th>Marked for Review</th>*@
                                                 <th>Not Visited</th>
                                             </tr>
                                         </thead>
@@ -339,7 +339,7 @@
                                                         <td>@item.TotalQuestions</td>
                                                         <td>@item.NumberAnswered</td>
                                                         <td>@item.NumberNotAnswered</td>
-                                                        <td>@item.NumberReview</td>
+                                                        @*<td>@item.NumberReview</td>*@
                                                         <td>@item.NumberNotVisited</td>
                                                     </tr>
 

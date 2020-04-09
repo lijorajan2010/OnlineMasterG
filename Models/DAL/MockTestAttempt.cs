@@ -32,6 +32,7 @@ namespace OnlineMasterG.Models.DAL
         public Nullable<System.DateTime> EditDate { get; set; }
         public Nullable<decimal> FinalMarksScoredForRank { get; set; }
         public Nullable<int> Rating { get; set; }
+        public string Review { get; set; }
     
         public virtual MockTest MockTest { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

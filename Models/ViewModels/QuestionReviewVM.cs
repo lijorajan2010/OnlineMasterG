@@ -51,6 +51,7 @@ namespace OnlineMasterG.Models.ViewModels
         public string QuestionSet { get; set; }
         public string Solution { get; set; }
         public string CorrectAnswer { get; set; }
+        public string AnswerStatus { get; set; }
         public List<int> OptionList { get; set; }
         public virtual ICollection<QuestionAnswerChoiceVM> QuestionAnswerChoices { get; set; }
         public virtual ICollection<QuestionPointVM> QuestionPoints { get; set; }

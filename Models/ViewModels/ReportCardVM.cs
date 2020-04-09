@@ -18,6 +18,9 @@ namespace OnlineMasterG.Models.ViewModels
         public decimal? TotalOriginalMarks { get; set; }
         public int? TotalTestAttempts { get; set; }
         public int Rank { get; set; }
+        public int TotalNumberQuestions { get; set; }
+        public int TotalAnswered { get; set; }
+        public string TotalTimeTaken { get; set; }
         public decimal TotalTestAccuracy { get; set; }
         public int TestId { get; set; }
         public string TestName { get; set; }

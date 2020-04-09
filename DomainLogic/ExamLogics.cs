@@ -70,6 +70,17 @@ namespace OnlineMasterG.DomainLogic
             return model;
         }
 
+        public static MockTestAttemptVM GetMockTestAttemptDetailsByAttemptId(int AttemptId)
+        {
+            MockTestAttemptVM model = new MockTestAttemptVM();
+            var Attempt = ExamService.Fetch(AttemptId);
+            if (Attempt != null)
+            {
+                model = SetAttemptVMModel(Attempt, Attempt.TestId);
+            }
+            return model;
+
+        }
         internal static ServiceResponse SaveExamAttempts(MockTestAttemptVM model, string auditLogin)
         {
             ServiceResponse sr = new ServiceResponse();
@@ -140,7 +151,7 @@ namespace OnlineMasterG.DomainLogic
 
                 sr.AddError(ex.Message);
             }
-           
+
 
 
             return sr;
@@ -161,7 +172,7 @@ namespace OnlineMasterG.DomainLogic
                 }
                 else
                 {
-                    markScored = NegetiveMark.HasValue ?  Decimal.Negate(NegetiveMark.Value) : 0;
+                    markScored = NegetiveMark.HasValue ? Decimal.Negate(NegetiveMark.Value) : 0;
                 }
             }
             return markScored;
@@ -341,7 +352,7 @@ namespace OnlineMasterG.DomainLogic
                             Question.QuestionPoints = QuestionPointVMs;
                             Question.QuestionAnswerChoices = questionAnswerChoiceVMs;
                         }
-
+                      
                         mockTestAttemptDetails.Add(new MockTestAttemptDetailVM()
                         {
                             AttemptDetailId = item.AttemptDetailId,
@@ -358,16 +369,16 @@ namespace OnlineMasterG.DomainLogic
                             AnswerStatus = item.AnswerStatus,
                             MarksScored = item.MarksScored,
                             ProblemsReporteds = problemsReporteds,
-                            QuestionsMockTests = Question
-
+                            QuestionsMockTests = Question,
+                            IsAnswerCorrect = item.IsAnswerCorrect,
                         });
-                    }
-                    model.MockTestAttemptDetails = mockTestAttemptDetails;
                 }
-
+                model.MockTestAttemptDetails = mockTestAttemptDetails;
             }
+
+        }
 
             return model;
         }
-    }
+}
 }

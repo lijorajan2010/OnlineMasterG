@@ -24,6 +24,12 @@ namespace OnlineMasterG.Models.ViewModels
         public Nullable<System.DateTime> EditDate { get; set; }
         public virtual TestVM Tests { get; set; }
         public virtual List<MockTestAttemptDetailVM> MockTestAttemptDetails { get; set; }
+        public decimal TotalMarksScored { get; set; }
+        public decimal? TotalOriginalMarks { get; set; }
+        public int Rank { get; set; }
+        public decimal TotalTestAccuracy { get; set; }
+        public int? TotalTestAttempts { get; set; }
+        public decimal Percentage { get; set; }
     }
     public  class MockTestAttemptDetailVM
     {
@@ -53,6 +59,10 @@ namespace OnlineMasterG.Models.ViewModels
         public virtual SubjectVM Subject { get; set; }
       
         public virtual List<ProblemsReportedVM> ProblemsReporteds { get; set; }
+
+        public bool IsAnswerCorrect { get; set; }
+        public decimal? OriginalScore { get; set; }
+        public int TotalQuestions { get; set; }
     }
 
     public class ProblemsReportedVM

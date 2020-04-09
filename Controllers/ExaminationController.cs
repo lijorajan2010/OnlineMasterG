@@ -163,14 +163,62 @@ namespace OnlineMasterG.Controllers
             return rank;
         }
 
-        public ActionResult Solution()
+        [HttpGet]
+        public ActionResult Solution(string p)
         {
-            return View();
+            int AttemptId = 0;
+            if (!string.IsNullOrEmpty(p))
+            {
+                AttemptId = int.Parse(CustomEncrypt.SafeUrlDecrypt(p));
+            }
+
+            MockTestAttemptVM model = new MockTestAttemptVM();
+            var AttempDetails = ExamService.Fetch(AttemptId);
+            var TestDetails = TestService.Fetch(AttempDetails.TestId);
+            model = ExamLogics.GetMockTestAttemptDetailsByAttemptId(AttemptId);
+
+            model.Rank = GetRankOftheStudent(AttempDetails);
+            model.TotalMarksScored = AttempDetails.MockTestAttemptDetails.Where(m => m.IsAnswerCorrect == true).Sum(m => m.MarksScored);
+            model.TotalTestAttempts = ExamService.GetAttemptListByTestId(AttempDetails?.TestId).Count();
+            model.Percentage = (model.Rank / model.TotalTestAttempts.Value) * 100;
+
+            List<SubjectWiseScoreVM> subjectWiseScoreVMs = new List<SubjectWiseScoreVM>();
+            List<int?> loopCount = AttempDetails.MockTestAttemptDetails.Select(m => m.SubjectId).Distinct().ToList();
+            if (loopCount != null && loopCount.Count() > 0)
+            {
+                foreach (var item in loopCount)
+                {
+                    var MockDetails = AttempDetails.MockTestAttemptDetails.Where(m => m.SubjectId == item).FirstOrDefault();
+                    SubjectWiseScoreVM subjectWiseScoreVM = new SubjectWiseScoreVM();
+
+                    subjectWiseScoreVM.SubjectName = SubjectService.Fetch(item).SubjectName;
+                    subjectWiseScoreVM.TotalQuestions = AttempDetails.MockTestAttemptDetails.Where(m => m.SubjectId == item).Count();
+                    subjectWiseScoreVM.NumberAnswered = AttempDetails.MockTestAttemptDetails.Where(m => m.SubjectId == item && m.AnswerStatus == ExamLogics.AnswerStatus.ANSWERED.ToString()).Count();
+                    subjectWiseScoreVM.NumberNotAnswered = AttempDetails.MockTestAttemptDetails.Where(m => m.SubjectId == item && m.AnswerStatus == ExamLogics.AnswerStatus.NOTANSWERED.ToString()).Count();
+                    subjectWiseScoreVM.NumberNotVisited = AttempDetails.MockTestAttemptDetails.Where(m => m.SubjectId == item && m.AnswerStatus == ExamLogics.AnswerStatus.NOTATTEMPTED.ToString()).Count();
+                    subjectWiseScoreVM.NumberReview = AttempDetails.MockTestAttemptDetails.Where(m => m.SubjectId == item && m.AnswerStatus == ExamLogics.AnswerStatus.MARKED.ToString()).Count();
+                    subjectWiseScoreVM.OriginalScore = TestDetails.GeneralInstructions.Where(m => m.TestId == AttempDetails.TestId && m.SubjectId == item).Sum(m => m.CorrectMarks) * subjectWiseScoreVM.TotalQuestions;
+                    subjectWiseScoreVM.YourScore = AttempDetails.MockTestAttemptDetails.Where(m => m.IsAnswerCorrect == true && m.SubjectId == item).Sum(m => m.MarksScored);
+                    decimal? Minutes = AttempDetails.MockTestAttemptDetails.Where(m => m.SubjectId == item).FirstOrDefault().SubjectTimeUsed;
+                    double MinutesNotNull = Convert.ToDouble(Minutes.HasValue ? Minutes.Value : 0);
+                    TimeSpan spWorkMin = TimeSpan.FromMinutes(MinutesNotNull);
+                    subjectWiseScoreVM.SubjectTimeSpent = string.Format("{0:00} Hours {1:00} Minutes {2:00} Seconds", (int)spWorkMin.TotalHours, spWorkMin.Minutes, spWorkMin.Seconds);
+                    subjectWiseScoreVM.Accuracy = (subjectWiseScoreVM.YourScore / subjectWiseScoreVM.OriginalScore.Value) * 100;
+                    subjectWiseScoreVMs.Add(subjectWiseScoreVM);
+                }
+
+            }
+
+            model.TotalOriginalMarks = subjectWiseScoreVMs.Sum(m => m.OriginalScore);
+            model.TotalTestAccuracy = (model.TotalMarksScored / model.TotalOriginalMarks.Value) * 100;
+
+            return View(model);
         }
+
         [HttpPost]
-        public JsonResult AddRating(int AttemptId, int? Rating)
+        public JsonResult AddRating(int AttemptId, int? Rating, string Review)
         {
-            ExamService.AddRatingOfTest(AttemptId, Rating);
+            ExamService.AddRatingOfTest(AttemptId, Rating, Review);
             return Json("");
         }
     }

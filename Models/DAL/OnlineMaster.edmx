@@ -348,6 +348,7 @@
           <Property Name="EditDate" Type="datetime" />
           <Property Name="FinalMarksScoredForRank" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Rating" Type="int" />
+          <Property Name="Review" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="ProblemMaster">
           <Key>
@@ -2306,6 +2307,7 @@
           <NavigationProperty Name="User" Relationship="OnlinemasterjiModel.FK__MockTestA__Login__318258D2" FromRole="MockTestAttempt" ToRole="User" />
           <Property Name="FinalMarksScoredForRank" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Rating" Type="Int32" />
+          <Property Name="Review" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ProblemMaster">
           <Key>
@@ -3815,6 +3817,7 @@
           <EntitySetMapping Name="MockTestAttempts">
             <EntityTypeMapping TypeName="OnlinemasterjiModel.MockTestAttempt">
               <MappingFragment StoreEntitySet="MockTestAttempts">
+                <ScalarProperty Name="Review" ColumnName="Review" />
                 <ScalarProperty Name="Rating" ColumnName="Rating" />
                 <ScalarProperty Name="FinalMarksScoredForRank" ColumnName="FinalMarksScoredForRank" />
                 <ScalarProperty Name="EditDate" ColumnName="EditDate" />

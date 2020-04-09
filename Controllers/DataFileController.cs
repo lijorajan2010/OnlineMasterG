@@ -186,6 +186,14 @@ namespace OnlineMasterG.Controllers
             {
                 contentType = "image/jpeg";
             }
+            else if (dataFile.Extension.StartsWith("JPEG"))
+            {
+                contentType = "image/jpeg";
+            }
+            else if (dataFile.Extension.StartsWith("PNG"))
+            {
+                contentType = "image/png";
+            }
             else if (dataFile.Extension.StartsWith("DOC"))
             {
                 contentType = "application/msword";
