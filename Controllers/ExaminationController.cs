@@ -100,6 +100,8 @@ namespace OnlineMasterG.Controllers
                     TimeSpan spWorkMin = TimeSpan.FromMinutes(MinutesNotNull);
                     subjectWiseScoreVM.SubjectTimeSpent = string.Format("{0:00} Hours {1:00} Minutes {2:00} Seconds", (int)spWorkMin.TotalHours, spWorkMin.Minutes , spWorkMin.Seconds);
                     subjectWiseScoreVM.Accuracy = (subjectWiseScoreVM.YourScore / subjectWiseScoreVM.OriginalScore.Value) *100;
+                    subjectWiseScoreVM.TotalCorrectAnswers = AttempDetails.MockTestAttemptDetails.Where(m => m.SubjectId == item && m.IsAnswerCorrect == true).Count();
+                    subjectWiseScoreVM.TotalWrongAnswers = (subjectWiseScoreVM.TotalQuestions - AttempDetails.MockTestAttemptDetails.Where(m => m.SubjectId == item && m.IsAnswerCorrect == true).Count());
 
 
                     subjectWiseScoreVMs.Add(subjectWiseScoreVM);

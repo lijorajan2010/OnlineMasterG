@@ -239,6 +239,16 @@ namespace OnlineMasterG.CommonFramework
             set { }
 
         }
+        public static List<LatestUpdate> GetLatestUpdates
+        {
+            get
+            {
+                return GeneralService.LatestUpdatesList("en-US", true).OrderBy(m => m.Sequence).Distinct().ToList();
+
+            }
+            set { }
+
+        }
 
         public static ActiveUser ActiveUser
         {

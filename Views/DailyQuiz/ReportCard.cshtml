@@ -226,14 +226,15 @@
                     </div>
                     <div class="col-md-3 breadcrumb_content text-center">
                         <!-- <span class="w_color f_600">SSC CGL</span> -->
-                        <h1 class="f_p f_700 w_color l_height50" style="font-size:20px;">@Model.TestName</h1>
+                      
                     </div>
 
                     <div class="col-md-3 breadcrumb_content text-center">
                         <input type="hidden" id="hdfAttemptId" value="@Model.AttemptId" />
                         <div class="row">
                             <div class="col-md-5">
-                                <p class=" f_700 w_color l_height50">Rate Us</p>
+                                <h1 class="f_p f_700 w_color l_height50" style="font-size:20px;">@Model.TestName</h1>
+                                @*<p class=" f_700 w_color l_height50">Rate Us</p>*@
                                 <!-- <h1 class="f_p f_700 w_color l_height50" style="font-size:20px;">Rat</h1> -->
                             </div>
                             @*<div class="col-md-7">
@@ -251,7 +252,7 @@
 
 
                     <div class="col-md-3 text-right">
-                        <a class="btn_get btn_hover" href="@Url.Action("DailyQuiz","DailyQuiz")">Quizes</a>
+                        <a class="btn_get btn_hover" href="@Url.Action("Index","DailyQuiz")">Quizes</a>
 
                     </div>
                 </div>
@@ -282,13 +283,13 @@
                         <div class="col-md-3">
                             <div class="border_r">
                                 <h6>Incorrect</h6>
-                                <h5>@(Model.TotalNumberQuestions - Model.TotalAnswered)</h5>
+                                <h5>@(Model.TotalWrongAnswers)</h5>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="border_r">
                                 <h6>Correct</h6>
-                                <h5>@Model.TotalAnswered </h5>
+                                <h5>@Model.TotalCorrectAnswers </h5>
                             </div>
                         </div>
                         <div class="col-md-3">

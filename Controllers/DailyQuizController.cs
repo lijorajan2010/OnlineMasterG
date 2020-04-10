@@ -111,6 +111,8 @@ namespace OnlineMasterG.Controllers
                     double Mnutesnotnl = Convert.ToDouble(Mnutes.HasValue ? Mnutes.Value : 0);
                     TimeSpan WorkMin = TimeSpan.FromMinutes(Mnutesnotnl);
                     subjectWiseScoreVM.SubjectTimeSpent = string.Format("{0:00} Hours {1:00} Minutes {2:00} Seconds", (int)WorkMin.TotalHours, WorkMin.Minutes, WorkMin.Seconds);
+                    subjectWiseScoreVM.TotalCorrectAnswers = AttempDetails.DailyQuizAttemptDetails.Where(m => m.DailyQuizSubjectId == item && m.IsAnswerCorrect == true).Count();
+                    subjectWiseScoreVM.TotalWrongAnswers = (subjectWiseScoreVM.TotalQuestions - AttempDetails.DailyQuizAttemptDetails.Where(m => m.DailyQuizSubjectId == item && m.IsAnswerCorrect == true).Count());
 
                     subjectWiseScoreVMs.Add(subjectWiseScoreVM);
                 }
@@ -120,6 +122,8 @@ namespace OnlineMasterG.Controllers
             model.subjectWiseScoreVMs = subjectWiseScoreVMs;
             model.TotalNumberQuestions = subjectWiseScoreVMs.Sum(m => m.TotalQuestions);
             model.TotalAnswered = subjectWiseScoreVMs.Sum(m => m.NumberAnswered);
+            model.TotalCorrectAnswers = subjectWiseScoreVMs.Sum(m => m.TotalCorrectAnswers);
+            model.TotalWrongAnswers = subjectWiseScoreVMs.Sum(m => m.TotalWrongAnswers);
 
             decimal? Minutes = (TestDetails.TimeInMinutes.HasValue ? TestDetails.TimeInMinutes.Value : 0) - AttempDetails.TimeLeftInMinutes;
             double MinutesNotNull = Convert.ToDouble(Minutes.HasValue ? Minutes.Value : 0);
@@ -182,7 +186,6 @@ namespace OnlineMasterG.Controllers
             return rank;
         }
 
-        [HttpPost]
         public ActionResult Solution()
         {
             return View();

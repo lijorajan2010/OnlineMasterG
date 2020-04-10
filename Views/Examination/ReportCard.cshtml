@@ -458,7 +458,7 @@
 
         </div>
     </section>
-    <div class="modal fade" id="feedback_Modal1" role="dialog" backdrop="static" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="feedback_Modal1" role="dialog" data-keyboard="false" data-backdrop="static" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -476,20 +476,13 @@
                                 <div class="col-md-12 sec_title text-center pb_10">
                                     <h2 class="f_p f_size_20 f_500 t_color2 mb-10"> Review</h2>
                                 </div>
+                                <form id="formreview">
+                                    <div class="col-md-12">
+                                        <textarea class="form-control" id="txtReview" style="width:465px;" required placeholder="Write Your Review Here" cols="30" rows="5"></textarea>
+                                    </div>
 
-                                <!-- 	<div class="col-md-12">
-                                        <div class="rating text-center">
-                                          <input type="radio" name="star" class="giv_feedback"><span class="star"> </span>
-                                          <input type="radio" name="star" class="giv_feedback"><span class="star"> </span>
-                                          <input type="radio" name="star" class="giv_feedback"><span class="star"> </span>
-                                          <input type="radio" name="star" class="giv_feedback"><span class="star"> </span>
-                                          <input type="radio" name="star" class="giv_feedback"><span class="star"> </span>
-                                        </div>
-                                    </div> -->
-                                <div class="col-md-12">
-                                    <textarea class="form-control" id="txtReview" placeholder="Write Your Review Here" cols="30" rows="5"></textarea>
-                                </div>
-
+                                </form>
+                                
                             </div>
 
                         </div>
@@ -503,7 +496,7 @@
                         </div>
 
                         <div class="col-md-6 col-xs-6 text-right">
-                            <a href="#" class="btn_hover agency_banner_btn m-0" data-toggle="modal" onclick="fnSubmitReview()" data-target="#pauseModal2">Submit</a>
+                            <a href="#" class="btn_hover agency_banner_btn m-0" data-toggle="modal" onclick="fnSubmitReview();" >Submit</a>
                         </div>
                     </div>
                 </div>
@@ -546,7 +539,19 @@
         function fnSubmitReview() {
             var ReviewText = $("#txtReview").val();
             var RatingGiven = $("input[name='Rating']:checked").val();
-             $.post('/Examination/AddRating', { AttemptId: $("#hdfAttemptId").val(), Rating: RatingGiven, Review = ReviewText  }, function () { });
+
+            if (ReviewText != null && ReviewText != undefined && ReviewText != "") {
+
+                $.post('/Examination/AddRating', { AttemptId: $("#hdfAttemptId").val(), Rating: RatingGiven, Review: ReviewText }, function () {
+                    $("#feedback_Modal1").modal('hide');
+                });
+            }
+            else {
+                $("#txtReview").focus();
+            }
+            
+
+            
         };
 
         //$('input[type=radio][name=Rating]').change(function () {
