@@ -12,6 +12,7 @@
             <th>Test Name</th>
             <th>Subject Name</th>
             <th>Sequence</th>
+            @*<th>Is Active</th>*@
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -29,6 +30,7 @@
                     <td>@item.Data.TestName</td>
                     <td>@item.Data.SubjectName</td>
                     <td>@item.Data.Sequence</td>
+                    @*<td>@(item.Data.IsActive == true? "Active":"Inactive")</td>*@
                     <td><button class="btn btn-info" onclick='editSubject(@Html.Raw(Json.Encode(new { id=item.Data.SubjectId,courseId= item.Data.CourseId,categoryId= item.Data.CategoryId,sectionId = item.Data.SectionId, testId = item.Data.TestId,subjectName = item.Data.SubjectName, languagecode = item.Data.LanguageCode,sequence =item.Data.Sequence })));'><i class="fa fa-pencil-alt"></i></button></td>
                     <td><button class="btn btn-danger" onclick='deleteSubject(@Html.Raw(Json.Encode(new { id=item.Data.SubjectId,subjectName = item.Data.SubjectName})))'><i class="fa fa-trash"></i></button></td>
                 </tr>

@@ -14,6 +14,7 @@
             <th style="width:30px;">Sl No.</th>
             <th>Class Name</th>
             <th style="width:50px;">Sequence</th>
+            <th style="width:50px;">Is Active</th>
             <th style="width:50px;">Edit</th>
             <th style="width:50px;">Delete</th>
         </tr>
@@ -26,7 +27,8 @@
                 <tr>
                     <td>@(item.Index + 1)</td>
                     <td>@item.Data.ClassName</td>
-                    <td>@item.Data.Sequence</td>
+                    <td>@item.Data.Sequence)</td>
+                    <td>@(item.Data.Isactive == true ? "Active":"Inactive")</td>
                     <td><button class="btn btn-info" onclick='editClass(@Html.Raw(Json.Encode(new { id=item.Data.ClassId,className = item.Data.ClassName,sequence = item.Data.Sequence, isActive = item.Data.Isactive,languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt"></i></button></td>
                     <td><button class="btn btn-danger" onclick='deleteClass(@Html.Raw(Json.Encode(new { id=item.Data.ClassId,className = item.Data.ClassName})))'><i class="fa fa-trash"></i></button></td>
                 </tr>

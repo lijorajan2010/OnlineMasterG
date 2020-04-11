@@ -26,7 +26,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult SubjectList()
         {
-            var model = SubjectLogics.SubjectList("en-US", true);
+            var model = SubjectLogics.SubjectList("en-US");
 
             return PartialView(model);
         }

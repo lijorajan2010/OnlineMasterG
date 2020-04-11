@@ -63,6 +63,12 @@ namespace OnlineMasterG.CommonServices
                   .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
                   .ToList();
         }
+        public static List<MockTest> TestAllList(string Lang)
+        {
+            return DB.MockTests
+                  .Where(m => m.LanguageCode == Lang)
+                  .ToList();
+        }
         public static ServiceResponse DeleteTest(int TestId)
         {
             var sr = new ServiceResponse();

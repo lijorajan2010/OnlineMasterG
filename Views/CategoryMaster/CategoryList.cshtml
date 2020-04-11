@@ -9,6 +9,7 @@
             <th>Course Name</th>
             <th>Category Name</th>
             <th>Sequence</th>
+            <th>Is Active</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -18,14 +19,15 @@
         {
             foreach (var item in Model.Select((x, y) => new { Data = x, Index = y }))
             {
-                <tr>
-                    <td>@(item.Index + 1)</td>
-                    <td>@(item.Data.CourseName)</td>
-                    <td>@item.Data.CategoryName</td>
-                    <td>@item.Data.Sequence</td>
-                    <td><button class="btn btn-info" onclick='editCourse(@Html.Raw(Json.Encode(new { id=item.Data.CategoryId,courseId= item.Data.CourseId,categoryName = item.Data.CategoryName,sequence = item.Data.Sequence, isActive = item.Data.IsActive,languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt"></i></button></td>
-                    <td><button class="btn btn-danger" onclick='deleteCourse(@Html.Raw(Json.Encode(new { id=item.Data.CategoryId,categoryName = item.Data.CategoryName})))'><i class="fa fa-trash"></i></button></td>
-                </tr>
+        <tr>
+            <td>@(item.Index + 1)</td>
+            <td>@(item.Data.CourseName)</td>
+            <td>@item.Data.CategoryName</td>
+            <td>@item.Data.Sequence</td>
+            <td>@(item.Data.IsActive == true ? "Active" : "Inactive")</td>
+            <td><button class="btn btn-info" onclick='editCourse(@Html.Raw(Json.Encode(new { id=item.Data.CategoryId,courseId= item.Data.CourseId,categoryName = item.Data.CategoryName,sequence = item.Data.Sequence, isActive = item.Data.IsActive,languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt"></i></button></td>
+            <td><button class="btn btn-danger" onclick='deleteCourse(@Html.Raw(Json.Encode(new { id=item.Data.CategoryId,categoryName = item.Data.CategoryName})))'><i class="fa fa-trash"></i></button></td>
+        </tr>
 
             }
 

@@ -152,6 +152,12 @@ namespace OnlineMasterG.CommonServices
                   .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
                   .ToList();
         }
+        public static List<Subject> SubjectAllList(string Lang)
+        {
+            return DB.Subjects
+                  .Where(m => m.LanguageCode == Lang )
+                  .ToList();
+        }
         public static List<GeneralInstruction> GeneralInstructionList(string Lang, bool IsActive)
         {
             return DB.GeneralInstructions
@@ -164,10 +170,22 @@ namespace OnlineMasterG.CommonServices
                   .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
                   .ToList();
         }
+        public static List<CollegeSubject> CollegeAllSubjectList(string Lang)
+        {
+            return DB.CollegeSubjects
+                  .Where(m => m.LanguageCode == Lang)
+                  .ToList();
+        }
         public static List<SchoolSubject> SchoolSubjectList(string Lang, bool IsActive)
         {
             return DB.SchoolSubjects
                   .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
+                  .ToList();
+        }
+        public static List<SchoolSubject> SchoolAllSubjectList(string Lang)
+        {
+            return DB.SchoolSubjects
+                  .Where(m => m.LanguageCode == Lang )
                   .ToList();
         }
         public static ServiceResponse DeleteSubject(int SubjectId)

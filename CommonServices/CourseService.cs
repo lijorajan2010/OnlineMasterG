@@ -101,10 +101,22 @@ namespace OnlineMasterG.CommonServices
                   .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
                   .ToList();
         }
+        public static List<Course> CourseAllList(string Lang)
+        {
+            return DB.Courses
+                  .Where(m => m.LanguageCode == Lang)
+                  .ToList();
+        }
         public static List<ColleageCourse> CollegeCourseList(string Lang, bool IsActive)
         {
             return DB.ColleageCourses
                   .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
+                  .ToList();
+        }
+        public static List<ColleageCourse> CollegeAllCourseList(string Lang)
+        {
+            return DB.ColleageCourses
+                  .Where(m => m.LanguageCode == Lang)
                   .ToList();
         }
         public static ServiceResponse DeleteCourse(int courseId)

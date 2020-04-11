@@ -20,7 +20,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult LatestUpdatesList()
         {
-            var model = GeneralService.LatestUpdatesList("en-US", true);
+            var model = GeneralService.LatestAllUpdatesList("en-US");
             return PartialView(model);
         }
 

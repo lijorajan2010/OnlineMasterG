@@ -61,7 +61,13 @@ namespace OnlineMasterG.CommonServices
                   .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
                   .ToList();
         }
-        
+        public static List<SchoolClass> SchoolAllClassList(string Lang)
+        {
+            return DB.SchoolClasses
+                  .Where(m => m.LanguageCode == Lang)
+                  .ToList();
+        }
+
         public static ServiceResponse DeleteSchoolClass(int classId)
         {
             var sr = new ServiceResponse();

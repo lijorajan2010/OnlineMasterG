@@ -43,10 +43,10 @@ namespace OnlineMasterG.DomainLogic
 
             return sr;
         }
-        public static List<TestVM> TestList(string Lang, bool IsActive)
+        public static List<TestVM> TestList(string Lang)
         {
             List<TestVM> model = new List<TestVM>();
-            var tests = TestService.TestList(Lang, IsActive);
+            var tests = TestService.TestAllList(Lang);
             if (tests != null && tests.Count()>0)
             {
                 foreach (var item in tests)

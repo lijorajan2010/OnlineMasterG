@@ -79,10 +79,10 @@ namespace OnlineMasterG.DomainLogic
 
             return sr;
         }
-        public static List<SubjectVM> SubjectList(string Lang, bool IsActive)
+        public static List<SubjectVM> SubjectList(string Lang )
         {
             List<SubjectVM> model = new List<SubjectVM>();
-            var subjects = SubjectService.SubjectList(Lang, IsActive);
+            var subjects = SubjectService.SubjectAllList(Lang);
             if (subjects != null && subjects.Count()>0)
             {
                 foreach (var item in subjects)
@@ -107,10 +107,10 @@ namespace OnlineMasterG.DomainLogic
             }
             return model;
         }
-        public static List<SubjectVM> CollegeSubjectList(string Lang, bool IsActive)
+        public static List<SubjectVM> CollegeSubjectList(string Lang)
         {
             List<SubjectVM> model = new List<SubjectVM>();
-            var subjects = SubjectService.CollegeSubjectList(Lang, IsActive);
+            var subjects = SubjectService.CollegeAllSubjectList(Lang);
             if (subjects != null && subjects.Count() > 0)
             {
                 foreach (var item in subjects)
@@ -130,10 +130,10 @@ namespace OnlineMasterG.DomainLogic
             }
             return model;
         }
-        public static List<SubjectVM> SchoolSubjectList(string Lang, bool IsActive)
+        public static List<SubjectVM> SchoolSubjectList(string Lang)
         {
             List<SubjectVM> model = new List<SubjectVM>();
-            var subjects = SubjectService.SchoolSubjectList(Lang, IsActive);
+            var subjects = SubjectService.SchoolAllSubjectList(Lang);
             if (subjects != null && subjects.Count() > 0)
             {
                 foreach (var item in subjects)

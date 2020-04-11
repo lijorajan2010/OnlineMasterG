@@ -23,7 +23,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult CollegeSubjectList()
         {
-            var model = SubjectLogics.CollegeSubjectList("en-US", true);
+            var model = SubjectLogics.CollegeSubjectList("en-US");
 
             return PartialView(model);
         }

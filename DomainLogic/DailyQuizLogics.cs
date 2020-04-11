@@ -428,10 +428,10 @@ namespace OnlineMasterG.DomainLogic
 
             return sr;
         }
-        public static List<DailyQuizSubjectVM> SubjectList(string Lang, bool IsActive)
+        public static List<DailyQuizSubjectVM> SubjectList(string Lang)
         {
             List<DailyQuizSubjectVM> model = new List<DailyQuizSubjectVM>();
-            var courses = DailyQuizService.DailyQuizSubjectList(Lang, IsActive);
+            var courses = DailyQuizService.DailyQuizAllSubjectList(Lang);
             if (courses != null && courses.Count() > 0)
             {
                 foreach (var item in courses)

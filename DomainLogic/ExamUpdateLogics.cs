@@ -50,10 +50,10 @@ namespace OnlineMasterG.DomainLogic
             return sr;
         }
 
-        public static List<ExamUpdateSectionVM> ExamSectionLinkList(string Lang, bool IsActive)
+        public static List<ExamUpdateSectionVM> ExamSectionLinkList(string Lang)
         {
             List<ExamUpdateSectionVM> model = new List<ExamUpdateSectionVM>();
-            var links = ExamUpdateService.ExamLinksList(Lang, IsActive);
+            var links = ExamUpdateService.ExamAllLinksList(Lang);
             if (links != null && links.Count() > 0)
             {
                 foreach (var item in links)

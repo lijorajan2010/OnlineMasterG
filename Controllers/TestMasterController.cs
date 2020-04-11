@@ -25,7 +25,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult TestList()
         {
-            var model = TestLogics.TestList("en-US", true);
+            var model = TestLogics.TestList("en-US");
 
             return PartialView(model);
         }

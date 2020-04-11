@@ -58,7 +58,7 @@ namespace OnlineMasterG.Controllers
                     DataFileId = dataFile.DataFileId,
                     FileName = dataFile.FileName,
                     Extension = dataFile.Extension,
-                    Status=true
+                    Status = true
                 };
 
                 return GetJsonResult(response);
@@ -101,7 +101,7 @@ namespace OnlineMasterG.Controllers
                     FileName = dataFile.FileName,
                     Extension = dataFile.Extension,
                     Status = true,
-                    Preview = "" + Url.Action("View", "DataFile", new { p = CustomEncrypt.SafeUrlEncrypt(dataFile.DataFileId.ToString()) })+""
+                    Preview = "" + Url.Action("View", "DataFile", new { p = CustomEncrypt.SafeUrlEncrypt(dataFile.DataFileId.ToString()) }) + ""
                 };
 
                 return GetJsonResult(response);
@@ -152,7 +152,7 @@ namespace OnlineMasterG.Controllers
 
             return Json(response);
         }
-              public ActionResult Download(string dataFileKey)
+        public ActionResult Download(string dataFileKey)
         {
             // Get DataFileId from encrypted key
             int dataFileId = CustomEncrypt.Decrypt(HttpHelper.SafeUrlDecode(dataFileKey)).ToInt();
@@ -165,6 +165,59 @@ namespace OnlineMasterG.Controllers
 
             // Return file
             return File(dataFile.DataContent.RawData, MediaTypeNames.Application.Octet, dataFile.FileName);
+        }
+
+        public ActionResult ViewInTab(string p)
+        {
+            int dataFileId = CustomEncrypt.SafeUrlDecrypt(p).ToInt();
+
+            if (dataFileId < 0)
+                return null;
+
+            DataFile dataFile = DataFileService.LoadData(dataFileId);
+
+            string contentType = "";
+
+            if (dataFile.Extension.StartsWith("PDF"))
+            {
+                contentType = "application/pdf";
+            }
+            else if (dataFile.Extension.StartsWith("JPG"))
+            {
+                contentType = "image/jpeg";
+            }
+            else if (dataFile.Extension.StartsWith("JPEG"))
+            {
+                contentType = "image/jpeg";
+            }
+            else if (dataFile.Extension.StartsWith("PNG"))
+            {
+                contentType = "image/png";
+            }
+            else if (dataFile.Extension.StartsWith("DOC"))
+            {
+                contentType = "application/msword";
+            }
+            else if (dataFile.Extension.StartsWith("XLS"))
+            {
+                contentType = "application/msexcel";
+            }
+            else if (dataFile.Extension.StartsWith("TXT"))
+            {
+                contentType = "text/plain";
+            }
+            else if (dataFile.Extension.StartsWith("CSV"))
+            {
+                contentType = "text/plain";
+            }
+
+            if (string.IsNullOrEmpty(contentType))
+            {
+                return File(dataFile.DataContent.RawData, System.Net.Mime.MediaTypeNames.Application.Octet, dataFile.FileName);
+            }
+
+            Response.AppendHeader("Content-Disposition", "inline; filename=" + dataFile.FileName);
+            return File(dataFile.DataContent.RawData, contentType);
         }
 
         public new FileContentResult View(string p)

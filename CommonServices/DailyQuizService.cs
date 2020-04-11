@@ -16,6 +16,10 @@ namespace OnlineMasterG.CommonServices
         {
             return DB.DailyQuizCourses.Where(m => m.LanguageCode == Lang && m.Isactive == isActive).ToList();
         }
+        internal static List<DailyQuizCourse> DailyQuizAllCourseList(string Lang)
+        {
+            return DB.DailyQuizCourses.Where(m => m.LanguageCode == Lang).ToList();
+        }
 
         internal static DailyQuizCourse Fetch(int? DailyQuizCourseId)
         {
@@ -273,6 +277,12 @@ namespace OnlineMasterG.CommonServices
         {
             return DB.DailyQuizSubjects
                   .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
+                  .ToList();
+        }
+        public static List<DailyQuizSubject> DailyQuizAllSubjectList(string Lang)
+        {
+            return DB.DailyQuizSubjects
+                  .Where(m => m.LanguageCode == Lang)
                   .ToList();
         }
 

@@ -103,6 +103,12 @@ namespace OnlineMasterG.CommonServices
                   .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
                   .ToList();
         }
+        public static List<Section> SectionAllList(string Lang)
+        {
+            return DB.Sections
+                  .Where(m => m.LanguageCode == Lang)
+                  .ToList();
+        }
         public static List<SchoolSection> SchoolSectionList(string Lang, bool IsActive)
         {
             return DB.SchoolSections

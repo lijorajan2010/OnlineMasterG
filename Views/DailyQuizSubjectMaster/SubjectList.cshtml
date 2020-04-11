@@ -8,6 +8,7 @@
             <th>Sl No.</th>
             <th>Course Name</th>
             <th>Subject Name</th>
+            <th>Is Active</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -21,6 +22,7 @@
                     <td>@(item.Index + 1)</td>
                     <td>@(item.Data.DailyQuizCourseName)</td>
                     <td>@item.Data.DailyQuizSubjectName</td>
+                    <td>@(item.Data.IsActive == true ? "Active" : "Inactive")</td>
                 
                     <td><button class="btn btn-info" onclick='editSubject(@Html.Raw(Json.Encode(new { id=item.Data.DailyQuizSubjectId,courseId= item.Data.DailyQuizCourseId,subjectName = item.Data.DailyQuizCourseName,sequence = item.Data.Sequence, isActive = item.Data.IsActive,languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt"></i></button></td>
                     <td><button class="btn btn-danger" onclick='deleteSubject(@Html.Raw(Json.Encode(new { id=item.Data.DailyQuizSubjectId,subjectName = item.Data.DailyQuizSubjectName})))'><i class="fa fa-trash"></i></button></td>

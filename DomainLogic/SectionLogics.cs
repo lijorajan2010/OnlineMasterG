@@ -60,10 +60,10 @@ namespace OnlineMasterG.DomainLogic
 
             return sr;
         }
-        public static List<SectionVM> SectionList(string Lang, bool IsActive)
+        public static List<SectionVM> SectionList(string Lang)
         {
             List<SectionVM> model = new List<SectionVM>();
-            var sections = SectionService.SectionList(Lang, IsActive);
+            var sections = SectionService.SectionAllList(Lang);
             if (sections != null && sections.Count()>0)
             {
                 foreach (var item in sections)

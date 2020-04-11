@@ -22,7 +22,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult DailyQuizCourseList()
         {
-            var model = DailyQuizService.DailyQuizCourseList("en-US", true);
+            var model = DailyQuizService.DailyQuizAllCourseList("en-US");
             return PartialView(model);
         }
 

@@ -22,7 +22,7 @@ namespace OnlineMasterG.Controllers
           [HttpGet]
         public PartialViewResult SchoolClassList()
         {
-            var model = ClassService.SchoolClassList("en-US", true);
+            var model = ClassService.SchoolAllClassList("en-US");
             return PartialView(model);
         }
 

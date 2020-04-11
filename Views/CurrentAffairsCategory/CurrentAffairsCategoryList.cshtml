@@ -14,6 +14,7 @@
             <th style="width:30px;">Sl No.</th>
             <th>Category Name</th>
             <th style="width:50px;">Sequence</th>
+            <th style="width:50px;">Is Active</th>
             <th style="width:50px;">Edit</th>
             <th style="width:50px;">Delete</th>
         </tr>
@@ -27,6 +28,7 @@
                     <td>@(item.Index + 1)</td>
                     <td>@item.Data.CurrentAffairsCategoryName</td>
                     <td>@item.Data.Sequence</td>
+                    <td>@(item.Data.Isactive == true?"Active":"Inactive")</td>
                     <td><button class="btn btn-info" onclick='editCategory(@Html.Raw(Json.Encode(new { id=item.Data.CurrentAffairsCategoryId,categoryName = item.Data.CurrentAffairsCategoryName,sequence = item.Data.Sequence, isActive = item.Data.Isactive,languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt"></i></button></td>
                     <td><button class="btn btn-danger" onclick='deleteCategory(@Html.Raw(Json.Encode(new { id=item.Data.CurrentAffairsCategoryId,categoryName = item.Data.CurrentAffairsCategoryName})))'><i class="fa fa-trash"></i></button></td>
                 </tr>

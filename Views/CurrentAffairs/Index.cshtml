@@ -76,7 +76,7 @@
                         foreach (var upload in AppInfo.GetCurrentAffairsUploads.Where(m => m.CurrentAffairsCategoryId == item.Data.CurrentAffairsCategoryId).Select((x, y) => new { Data = x, Index = y }))
                         {
                             <div class="col-md-2 col-4 text-center Section @dvId" style="display:@style">
-                                <a href="@Url.Action("View", "DataFile" , new {p=CustomEncrypt.Encrypt(upload.Data.DataFileId.Value.ToString())})" target="_blank">
+                                <a href="@Url.Action("ViewInTab", "DataFile" , new {p=CustomEncrypt.Encrypt(upload.Data.DataFileId.Value.ToString())})" target="_blank">
                                     <div class="affairs_div">
                                         <div class="service_info">
                                             <div class="service_item  mb-0">

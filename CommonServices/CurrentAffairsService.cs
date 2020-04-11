@@ -15,6 +15,10 @@ namespace OnlineMasterG.CommonServices
         {
             return DB.CurrentAffairsCategories.Where(m => m.LanguageCode == Lang && m.Isactive == IsActive).ToList();
         }
+        internal static List<CurrentAffairsCategory> CurrentAffairsAllCategoryList(string Lang)
+        {
+            return DB.CurrentAffairsCategories.Where(m => m.LanguageCode == Lang ).ToList();
+        }
         internal static List<CurrentAffairsUpload> CurrentAffairsUploadsList(string Lang, bool IsActive)
         {
             return DB.CurrentAffairsUploads.Where(m => m.LanguageCode == Lang && m.Isactive == IsActive).ToList();

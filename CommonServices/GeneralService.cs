@@ -28,6 +28,12 @@ namespace OnlineMasterG.CommonServices
                  .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
                  .ToList();
         }
+        internal static List<LatestUpdate> LatestAllUpdatesList(string Lang)
+        {
+            return DB.LatestUpdates
+                 .Where(m => m.LanguageCode == Lang)
+                 .ToList();
+        }
 
 
         public static ServiceResponse DeleteRangeInstructions(List<GeneralInstruction> instruction)

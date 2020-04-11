@@ -79,11 +79,11 @@ namespace OnlineMasterG.Controllers
             var QuestionUpload = QuestionUploadService.Fetch(id);
             if (QuestionUpload!=null)
             {
-                questionReviewVM.CourseName = QuestionUpload.Course?.CourseName;
-                questionReviewVM.CategoryName = QuestionUpload.Category?.CategoryName;
-                questionReviewVM.SectionName = QuestionUpload.Section?.SectionName;
-                questionReviewVM.TestName = QuestionUpload.MockTest?.TestName;
-                questionReviewVM.SubjectName = QuestionUpload.Subject?.SubjectName;
+                questionReviewVM.CourseName = CourseService.Fetch(QuestionUpload.CourseId)?.CourseName;
+                questionReviewVM.CategoryName = CategoryService.Fetch(QuestionUpload.CategoryId)?.CategoryName;
+                questionReviewVM.SectionName = SectionService.Fetch(QuestionUpload.SectionId)?.SectionName;
+                questionReviewVM.TestName = TestService.Fetch(QuestionUpload.TestId)?.TestName;
+                questionReviewVM.SubjectName = SubjectService.Fetch(QuestionUpload.SubjectId)?.SubjectName;
 
                 if (QuestionUpload.QuestionsMockTests !=null && QuestionUpload.QuestionsMockTests.Count()>0)
                 {

@@ -60,6 +60,12 @@ namespace OnlineMasterG.CommonServices
                   .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
                   .ToList();
         }
+        public static List<Category> CategoryAllList(string Lang)
+        {
+            return DB.Categories
+                  .Where(m => m.LanguageCode == Lang)
+                  .ToList();
+        }
         public static ServiceResponse DeleteCategory(int CategoryId)
         {
             var sr = new ServiceResponse();

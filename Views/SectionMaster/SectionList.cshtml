@@ -10,6 +10,7 @@
             <th>Category Name</th>
             <th>Section Name</th>
             <th>Description</th>
+            <th>Is Active</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -25,6 +26,7 @@
                     <td>@item.Data.CategoryName</td>
                     <td>@item.Data.SectionName</td>
                     <td>@item.Data.Description</td>
+                    <td>@(item.Data.IsActive== true ? "Active":"Inactive")</td>
                     <td><button class="btn btn-info" onclick='editSection(@Html.Raw(Json.Encode(new { id=item.Data.SectionId,courseId= item.Data.CourseId,categoryId= item.Data.CategoryId,sectionName = item.Data.SectionName,description = item.Data.Description, languagecode = item.Data.LanguageCode })));'><i class="fa fa-pencil-alt"></i></button></td>
                     <td><button class="btn btn-danger" onclick='deleteSection(@Html.Raw(Json.Encode(new { id=item.Data.SectionId,sectionName = item.Data.SectionName})))'><i class="fa fa-trash"></i></button></td>
                 </tr>

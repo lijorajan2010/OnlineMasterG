@@ -40,10 +40,10 @@ namespace OnlineMasterG.DomainLogic
 
             return sr;
         }
-        public static List<CategoryVM> CategoryList(string Lang, bool IsActive)
+        public static List<CategoryVM> CategoryList(string Lang)
         {
             List<CategoryVM> model = new List<CategoryVM>();
-            var categories = CategoryService.CategoryList(Lang, IsActive);
+            var categories = CategoryService.CategoryAllList(Lang);
             if (categories!=null && categories.Count()>0)
             {
                 foreach (var item in categories)
