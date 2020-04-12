@@ -14,6 +14,14 @@ namespace OnlineMasterG.CommonServices
         {
             return DB.MockTestAttempts.Where(m => m.Login == Login && m.TestId == TestId).ToList();
         }
+        public static List<MockTestAttempt> GetAttemptListByLogin(string Login)
+        {
+            return DB.MockTestAttempts.Where(m => m.Login == Login).ToList();
+        }
+        public static List<MockTestAttempt> GetAttemptListReviews()
+        {
+            return DB.MockTestAttempts.Where(m => !string.IsNullOrEmpty(m.Review)).ToList();
+        }
         public static List<MockTestAttempt> GetAttemptListByTestId(int? TestId)
         {
             return DB.MockTestAttempts.Where(m =>  m.TestId == (TestId.HasValue? TestId : 0)).ToList();

@@ -20,7 +20,7 @@ namespace OnlineMasterG.CommonServices
         {
             return DB.DailyQuizCourses.Where(m => m.LanguageCode == Lang).ToList();
         }
-
+       
         internal static DailyQuizCourse Fetch(int? DailyQuizCourseId)
         {
             return DB.DailyQuizCourses.Where(m => m.DailyQuizCourseId == (DailyQuizCourseId.HasValue ? DailyQuizCourseId.Value : 0)).FirstOrDefault();
@@ -51,6 +51,10 @@ namespace OnlineMasterG.CommonServices
         public static List<DailyQuizAttempt> GetDailyQuizAttemptListByLoginAndTestId(string Login, int DailyQuizId)
         {
             return DB.DailyQuizAttempts.Where(m => m.Login == Login && m.DailyQuizId == DailyQuizId).ToList();
+        }
+        public static List<DailyQuizAttempt> GetDailyQuizAttemptListByLogin(string Login)
+        {
+            return DB.DailyQuizAttempts.Where(m => m.Login == Login).ToList();
         }
         public static DailyQuizAttempt GetDailyQuizAttempt(int? AttemptId)
         {

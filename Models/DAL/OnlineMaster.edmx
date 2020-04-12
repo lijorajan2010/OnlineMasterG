@@ -272,6 +272,19 @@
           <Property Name="TotalQuestions" Type="int" />
           <Property Name="SubjectId" Type="int" />
         </EntityType>
+        <EntityType Name="Greetings">
+          <Key>
+            <PropertyRef Name="GreetingsId" />
+          </Key>
+          <Property Name="GreetingsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="EditBy" Type="varchar" MaxLength="50" />
+          <Property Name="EditOn" Type="datetime" />
+          <Property Name="DataFileId" Type="int" />
+        </EntityType>
         <EntityType Name="Language">
           <Key>
             <PropertyRef Name="LanguageId" />
@@ -921,6 +934,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Greetings__DataF__075714DC">
+          <End Role="DataFile" Type="Self.DataFile" Multiplicity="0..1" />
+          <End Role="Greetings" Type="Self.Greetings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataFile">
+              <PropertyRef Name="DataFileId" />
+            </Principal>
+            <Dependent Role="Greetings">
+              <PropertyRef Name="DataFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__MockTest__Catego__6754599E">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="MockTest" Type="Self.MockTest" Multiplicity="*" />
@@ -1444,6 +1469,7 @@
           <EntitySet Name="ExamSection" EntityType="Self.ExamSection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExamSectionLink" EntityType="Self.ExamSectionLink" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeneralInstruction" EntityType="Self.GeneralInstruction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Greetings" EntityType="Self.Greetings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Language" EntityType="Self.Language" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LatestUpdates" EntityType="Self.LatestUpdates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MockTest" EntityType="Self.MockTest" Schema="dbo" store:Type="Tables" />
@@ -1567,6 +1593,10 @@
           <AssociationSet Name="FK__GeneralIn__TestI__7FEAFD3E" Association="Self.FK__GeneralIn__TestI__7FEAFD3E">
             <End Role="MockTest" EntitySet="MockTest" />
             <End Role="GeneralInstruction" EntitySet="GeneralInstruction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Greetings__DataF__075714DC" Association="Self.FK__Greetings__DataF__075714DC">
+            <End Role="DataFile" EntitySet="DataFile" />
+            <End Role="Greetings" EntitySet="Greetings" />
           </AssociationSet>
           <AssociationSet Name="FK__MockTest__Catego__6754599E" Association="Self.FK__MockTest__Catego__6754599E">
             <End Role="Category" EntitySet="Category" />
@@ -2052,6 +2082,11 @@
             <End Role="User" EntitySet="Users" />
             <End Role="DailyQuizAttempt" EntitySet="DailyQuizAttempts" />
           </AssociationSet>
+          <EntitySet Name="Greetings" EntityType="OnlinemasterjiModel.Greeting" />
+          <AssociationSet Name="FK__Greetings__DataF__075714DC" Association="OnlinemasterjiModel.FK__Greetings__DataF__075714DC">
+            <End Role="DataFile" EntitySet="DataFiles" />
+            <End Role="Greeting" EntitySet="Greetings" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Category">
           <Key>
@@ -2174,6 +2209,7 @@
           <NavigationProperty Name="CurrentAffairsUploads" Relationship="OnlinemasterjiModel.FK__CurrentAf__DataF__4A4E069C" FromRole="DataFile" ToRole="CurrentAffairsUpload" />
           <NavigationProperty Name="DailyQuizUploads" Relationship="OnlinemasterjiModel.FK__DailyQuiz__DataF__6225902D" FromRole="DataFile" ToRole="DailyQuizUpload" />
           <NavigationProperty Name="QuizTests" Relationship="OnlinemasterjiModel.FK__QuizTest__QuizIm__66EA454A" FromRole="DataFile" ToRole="QuizTest" />
+          <NavigationProperty Name="Greetings" Relationship="OnlinemasterjiModel.FK__Greetings__DataF__075714DC" FromRole="DataFile" ToRole="Greeting" />
         </EntityType>
         <EntityType Name="ExamSection">
           <Key>
@@ -3607,6 +3643,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Greeting">
+          <Key>
+            <PropertyRef Name="GreetingsId" />
+          </Key>
+          <Property Name="GreetingsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditOn" Type="DateTime" Precision="3" />
+          <Property Name="DataFileId" Type="Int32" />
+          <NavigationProperty Name="DataFile" Relationship="OnlinemasterjiModel.FK__Greetings__DataF__075714DC" FromRole="Greeting" ToRole="DataFile" />
+        </EntityType>
+        <Association Name="FK__Greetings__DataF__075714DC">
+          <End Type="OnlinemasterjiModel.DataFile" Role="DataFile" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.Greeting" Role="Greeting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataFile">
+              <PropertyRef Name="DataFileId" />
+            </Principal>
+            <Dependent Role="Greeting">
+              <PropertyRef Name="DataFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4268,6 +4330,20 @@
                 <ScalarProperty Name="IsPaused" ColumnName="IsPaused" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="AttemptId" ColumnName="AttemptId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Greetings">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.Greeting">
+              <MappingFragment StoreEntitySet="Greetings">
+                <ScalarProperty Name="DataFileId" ColumnName="DataFileId" />
+                <ScalarProperty Name="EditOn" ColumnName="EditOn" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="GreetingsId" ColumnName="GreetingsId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

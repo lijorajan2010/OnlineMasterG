@@ -1,0 +1,37 @@
+﻿@model IEnumerable<OnlineMasterG.Models.DAL.Greeting>
+
+@using OnlineMasterG.CommonFramework
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#tblGreetings").DataTable();
+    });
+</script>
+
+<table id="tblGreetings" class="dataTables_wrapper dt-bootstrap4 no-footer">
+    <thead>
+        <tr>
+            <th style="width:30px;">Sl No.</th>
+            <th> Greeting</th>
+            <th style="width:50px;">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model.Select((x, y) => new { Data = x, Index = y }))
+            {
+                <tr>
+                    <td>@(item.Index + 1)</td>
+                    <td><img src="@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(item.Data.DataFileId.Value.ToString())})" style="max-width:300px;"></td>
+                    <td><button class="btn btn-danger" onclick='deleteGreeting(@Html.Raw(Json.Encode(new { id=item.Data.GreetingsId})))'><i class="fa fa-trash"></i></button></td>
+                </tr>
+
+            }
+
+        }
+
+    </tbody>
+</table>
+

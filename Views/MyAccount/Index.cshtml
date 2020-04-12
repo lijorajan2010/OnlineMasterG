@@ -1,53 +1,204 @@
-﻿@using OnlineMasterG.CommonFramework
+﻿@model OnlineMasterG.Models.ViewModels.MyDashboardVM
+@using OnlineMasterG.CommonFramework
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/PublicLayout.cshtml";
 }
 
-
-<div class="hidden-xs hidden-sm">
+<div>
     <section class="breadcrumb_area test_detail">
-        <img class="breadcrumb_shap" src="~/img/breadcrumb/banner_bg.png" alt="">
+        <img class="breadcrumb_shap" src="img/breadcrumb/banner_bg.png" alt="">
         <div class="container">
 
         </div>
     </section>
-    @{
-        var ActiveUser = AppInfo.ActiveUser;
-        var ImgId = ActiveUser != null && ActiveUser.LogoDataFileId != null ? ActiveUser.LogoDataFileId.Value.ToString() : "0";
-    }
-
     <section class="typography_breacrumb pt_20 pb_10">
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
-                    @if (ImgId != "0")
+                    @if (Model.profile.ImgDataFileId.HasValue)
                     {
-                        <img src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(ImgId)})' style="width:120px; border-radius:50%;">
+                        <img src="@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(Model.profile.ImgDataFileId.Value.ToString())})" style="width:120px; border-radius:50%;">
                     }
-
+                    else
+                    {
+                        <img src="img/profile.jpg" style="width:120px; border-radius:50%;">
+                    }
 
                 </div>
                 <div class="col-md-10">
                     <div class="row">
                         <div class="col-md-3">
-                            <h2 class="f_size_30 f_600 t_color2">@ActiveUser.FullName</h2>
-                            <p class="p-0">@ActiveUser.Login</p>
+                            <h2 class="f_size_30 f_600 t_color2">@(Model.profile.FullName)</h2>
+                            <p class="p-0">@(Model.profile.Email)</p>
+                            <input type="hidden" id="hdfLogin" value="@Model.profile.Login" />
                         </div>
                         <div class="col-md-6">
-                            <a class="btn_hover agency_banner_btn" href="#">Edit Profile</a>
+                            <!-- <a class="btn_hover agency_banner_btn" href="#">Edit Profile</a> -->
+                            <a href="javascript:void(0)" class="btn_hover agency_banner_btn" data-toggle="modal" data-target="#editProfile">Edit Profile</a>
 
                         </div>
+                        <div class="modal fade" id="editProfile" role="dialog" backdrop="static" style="display: none;" aria-hidden="true">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content" style="background:#fbfbfd;">
+                                    <div class="modal-body responsive_modal">
+
+                                        <div class="container custom_container p0 m_p0">
+
+                                            <div class="service_info">
+                                                <section class="result_section">
+
+                                                    <div class="row instructionHead">
+                                                        <!-- <div class="col-md-3"></div> -->
+                                                        <div class="col-md-12 sec_title border_bottom pb_10 mb_15">
+                                                            <h2 class="f_p f_size_20 f_500 mb-10 text-center">Edit Profile</h2>
+                                                            <!-- <p class="f_400 f_size_12 l_height30">Please Read all the Instructions Carefully.</p> -->
+                                                        </div>
+                                                    </div>
+                                                    <form id="editProfilefrm" method="post" action="/MyAccount/EditProfile" enctype="multipart/form-data">
+                                                        <div class="row mb_15">
+                                                            <div class="col-md-12">
+                                                                <div class="text-center">
+                                                                    <div class="avatar-upload">
+                                                                        <div class="avatar-edit">
+                                                                            <input type="file" id="imageUpload" name="postedFile" accept=".png, .jpg, .jpeg">
+                                                                            <input type="hidden" value="" id="NewImgFieldId">
+                                                                            <label for="imageUpload"></label>
+                                                                        </div>
+                                                                        <div class="avatar-preview">
+                                                                            @{
+                                                                                var Image = "url(img/profile.jpg);";
+
+                                                                            }
+                                                                            @if (Model.profile.ImgDataFileId.HasValue)
+                                                                            {
+                                                                                Image = "url("+ Url.Action("View", "DataFile", new { p = CustomEncrypt.Encrypt(Model.profile.ImgDataFileId.Value.ToString()) }) +");";
+                                                                            }
+
+                                                                            <div id="imagePreview" style="background-image:@Image ">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb_15">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group text_box">
+                                                                    <label class="f_p text_c f_400">First Name</label>
+                                                                    <input type="text" placeholder="Firt Name" autocomplete="off" id="txtFirstName" name="FirstName" value="@Model.profile.FirstName">
+                                                                    <label class="f_p text_c f_400">Last Name</label>
+                                                                    <input type="text" placeholder="Last Name" autocomplete="off" id="txtLastName" name="LastName" value="@Model.profile.LastName">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row border_t pt_10 pb_10 m-0">
+                                                            <div class="col-md-12">
+                                                                <div class="row">
+                                                                    <div class="col-md-6 col-xs-6 text-center">
+                                                                        <!-- <a href="reportcard.html" class="btn_hover agency_banner_btn m-0">Submit</a> -->
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                    </div>
+                                                                    <div class="col-md-6 col-xs-6 text-center">
+                                                                        <button class="btn_hover agency_banner_btn answered" type="submit">Save</button>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                        </div>
+                                                    </form>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        @*<div class="modal fade" id="resetPassword" role="dialog" backdrop="static" style="display: none;" aria-hidden="true">
+                            <div class="modal-dialog">
+
+                                 Modal content
+                                <div class="modal-content" style="background:#fbfbfd;">
+                                    <div class="modal-body responsive_modal">
+
+                                        <div class="container custom_container p0 m_p0">
+
+                                            <div class="service_info">
+                                                <section class="result_section">
+
+                                                    <div class="row instructionHead">
+                                                         <div class="col-md-3"></div> 
+                                                        <div class="col-md-12 sec_title border_bottom pb_10 mb_15">
+                                                            <h2 class="f_p f_size_20 f_500 mb-10 text-center">Reset Password</h2>
+                                                             <p class="f_400 f_size_12 l_height30">Please Read all the Instructions Carefully.</p> 
+                                                        </div>
+                                                    </div>
+                                                    <form method="post" action="/MyAccount/ResetPassword">
+
+                                                        <div class="row mb_15">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group text_box m-0">
+                                                                     <label class="f_p text_c f_400">Username</label> 
+                                                                    <input type="password" name="OldPassword" placeholder="Old Password">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group text_box">
+                                                                     <label class="f_p text_c f_400">Username</label> 
+                                                                    <input type="password" name="NewPassword" placeholder="New Password">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-xs-6 text-center">
+                                                                <button type="submit" class="btn_hover agency_banner_btn answered"> Save </button>
+                                                            
+                                                            </div>
+                                                            <div class="col-md-6 col-xs-6 text-center">
+                                                                 <a href="reportcard.html" class="btn_hover agency_banner_btn m-0">Submit</a> 
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                    </form>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>*@
+
                     </div>
 
                     <div class="row">
                         <div class="col-md-12">
 
-                            <p>
-                                <a href="#">Reset Password</a>
-                            </p>
+                            @*<p>
+                                <a href="javascript:void(0)" class="" data-toggle="modal" data-target="#resetPassword">Reset Password</a>
+
+
+                            </p>*@
                         </div>
+
+
+
                     </div>
+
+
+
 
                 </div>
                 <div class="col-md-4">
@@ -64,16 +215,13 @@
                 <div class="col-md-12">
                     <ul class="nav nav-tabs develor_tab mb_15" id="myTab2" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active show" data-tab="tab_one" id="ruby-tab" data-toggle="tab" href="#ruby" role="tab" aria-controls="ruby" aria-selected="true">Given Tests (02)</a>
+                            <a class="f_600 nav-link active show" data-tab="tab_one" id="ruby-tab" data-toggle="tab" href="#ruby" role="tab" aria-controls="ruby" aria-selected="true">Given Tests @(Model.GivenMockTests.Count()>0? "("+Model.GivenMockTests.Count()+")": "")</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-tab="tab_two" id="curl-tab" data-toggle="tab" href="#curl" role="tab" aria-controls="curl" aria-selected="false">Given Quizes (05)</a>
+                            <a class="nav-link f_600" data-tab="tab_two" id="curl-tab" data-toggle="tab" href="#curl" role="tab" aria-controls="curl" aria-selected="false">Given Quizes @(Model.GivenQuizes.Count() > 0 ? "(" + Model.GivenQuizes.Count() + ")" : "")</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-tab="tab_three" data-toggle="tab" href="#resize" role="tab" aria-controls="resize" aria-selected="false">Subscription</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-tab="tab_four" id="doctl-tab" data-toggle="tab" href="#doctl" role="tab" aria-controls="doctl" aria-selected="false">Profile</a>
+                            <a class="nav-link f_600" data-tab="tab_three" data-toggle="tab" href="#resize" role="tab" aria-controls="resize" aria-selected="false">Subscription</a>
                         </li>
                     </ul>
                     <div class="tab-content developer_tab_content">
@@ -81,69 +229,116 @@
                             <div class="accordion">
                                 <div class="service_info">
                                     <div class=" mb-0">
+                                        @if (Model.GivenMockTests != null && Model.GivenMockTests.Count() > 0)
+                                        {
+                                            foreach (var item in Model.GivenMockTests)
+                                            {
+                                                <div class="mb_10">
+                                                    <div class="row m-0 border_b">
+                                                        <div class="col-md-7 col-md-7 col-xs-7">
+                                                            <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">@item.TestName</h4>
+                                                        </div>
+                                                        <div class="col-md-5 col-md-5 col-xs-5">
+                                                            <div>
+                                                                <a href="@Url.Action("Solution", "Examination", new { p = CustomEncrypt.SafeUrlEncrypt(item.AttemptId.ToString()) })" class="btn_get btn_hover">Solution</a>
+                                                                <a href="@Url.Action("ReportCard", "Examination", new { p = CustomEncrypt.SafeUrlEncrypt(item.AttemptId.ToString()) })" class="btn_hover agency_banner_btn ml_15">Analysis</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
 
-                                        <div class="mb_10">
-                                            <div class="row m-0 border_b">
 
-                                                <div class="col-md-4 col-md-4 col-xs-4">
-                                                    <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">SSC CGL Test-1</h4>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="curl" role="tabpanel" aria-labelledby="curl-tab">
+                            <div class="accordion">
+                                <div class="service_info">
+                                    <div class=" mb-0">
+
+                                        @if (Model.GivenQuizes != null && Model.GivenQuizes.Count() > 0)
+                                        {
+                                            foreach (var item in Model.GivenQuizes)
+                                            {
+                                                <div class="mb_10">
+                                                    <div class="row m-0 border_b">
+                                                        <div class="col-md-4 col-xs-6">
+                                                            <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">@item.QuizName</h4>
+                                                        </div>
+                                                        <div class="col-md-4 col-xs-6">
+                                                            @*<h4 class="f_600 f_size_18 l_height28 t_color2 m-0">Score : 08/10</h4>*@
+                                                        </div>
+
+                                                        <div class="col-md-4 col-xs-12">
+                                                            <div>
+                                                                <a href="@Url.Action("Solution", "DailyQuiz", new { p = CustomEncrypt.SafeUrlEncrypt(item.AttemptId.ToString()) })" class="btn_get btn_hover">Solution</a>
+                                                                <a href="@Url.Action("ReportCard", "DailyQuiz", new { p = CustomEncrypt.SafeUrlEncrypt(item.AttemptId.ToString()) })" class="btn_hover agency_banner_btn ml_15">Analysis</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-4 col-md-4 col-xs-4">
-                                                    <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">(Time: 2 hrs)</h4>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="resize" role="tabpanel" aria-labelledby="resize-tab">
+                            <section class="s_pricing_area">
+                                <div class="container custom_container">
+
+                                    <div class="row mb_30">
+                                        <div class="col-lg-4 col-sm-6">
+                                            <div class="s_pricing-item">
+                                                <img class="shape_img" src="img/saas/price_line1.png" alt="">
+                                                <div class="s_price_icon p_icon1">
+                                                    <i class="flaticon-mortarboard"></i>
                                                 </div>
-                                                <div class="col-md-4 col-md-4 col-xs-4">
-                                                    <a href="" target="_blank" class="">View Details</a>
-                                                </div>
+                                                <h5 class="f_p f_600 f_size_20 t_color mb-0 mt_30">Basic</h5>
+                                                <p class="f_p f_400">Create your first online course</p>
+                                                <div class="price f_size_30 f_p f_700">Free<!-- <sub class="f_400 f_size_16">/ mo</sub> --></div>
+                                                <ul class="list-unstyled mt_10">
+                                                    <li>Few Mock Tests</li>
+                                                    <li>Few Quizzes </li>
+                                                    <li>Exam Updates </li>
+                                                    <li>Current Affairs</li>
+                                                    <li>Landing Pages</li>
+                                                </ul>
+                                                <a href="#" class="price_btn btn_hover mt_30">Activated Plan</a>
                                             </div>
                                         </div>
-
-
-                                        <div class="mb_10">
-                                            <div class="row m-0 border_b">
-
-                                                <div class="col-md-4 col-md-4 col-xs-4">
-                                                    <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">SSC MTS Tier I</h4>
+                                        <div class="col-lg-4 col-sm-6">
+                                            <div class="s_pricing-item">
+                                                <img class="shape_img" src="img/saas/price_line2.png" alt="">
+                                                <div class="tag_label">Premium</div>
+                                                <div class="s_price_icon p_icon2">
+                                                    <i class="flaticon-lightbulb"></i>
                                                 </div>
-                                                <div class="col-md-4 col-md-4 col-xs-4">
-                                                    <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">(Time: 2 hrs)</h4>
-                                                </div>
-                                                <div class="col-md-4 col-md-4 col-xs-4">
-                                                    <a href="" target="_blank" class="">View Details</a>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="">
-                                            <div class="row m-0">
-                                                <div class="col-md-4 col-md-4 col-xs-4">
-                                                    <h4 class="f_600 f_size_18 l_height28 t_color2 m-0">IBPS RRB OS-1 Prelims 2019</h4>
-                                                </div>
-                                                <div class="col-md-4 col-md-4 col-xs-4">
-                                                    <p>Available on March 7, 2019</p>
-                                                </div>
-                                                <div class="col-md-4 col-md-4 col-xs-4">
-                                                    <a href="" target="_blank" class="">View Details</a>
-                                                </div>
+                                                <h5 class="f_p f_600 f_size_20 t_color mb-0 mt_30">Premium</h5>
+                                                <p class="f_p f_400">Our most popular plan</p>
+                                                <div class="price f_size_30 f_p f_700">Rs. 149.00<sub class="f_400 f_size_16">/ mo</sub></div>
+                                                <ul class="list-unstyled mt_10">
+                                                    <li>All Mock Tests Free</li>
+                                                    <li>All Quizzes Free </li>
+                                                    <li>Exam Updates </li>
+                                                    <li>Current Affairs</li>
+                                                    <li>Landing Pages</li>
+                                                </ul>
+                                                <a href="#" class="price_btn btn_hover mt_30">Choose This Plan</a>
                                             </div>
                                         </div>
 
                                     </div>
                                 </div>
-
-                            </div>
+                            </section>
                         </div>
-                        <div class="tab-pane fade" id="curl" role="tabpanel" aria-labelledby="curl-tab">
-                            <h4>Take control of your <br> inventory</h4>
-                            <p>I blower he nicked it you mug pukka only a quid barmy Har?ry young delinquent knees up amongst such a fibber, daft gosh cracking goal wind up pardon me up the duff nice one he lost his bottle are you taking the piss is David, the BBC horse play.!</p>
-                        </div>
-                        <div class="tab-pane fade" id="resize" role="tabpanel" aria-labelledby="resize-tab">
+                        <!--  <div class="tab-pane fade" id="doctl" role="tabpanel" aria-labelledby="doctl-tab">
                             <h4>Take control of your <br> inventory</h4>
                             <p>I blower he nicked it you mug pukka only a quid barmy Harry young delinquent knees up amongst such a fibber, daft gosh cracking goal wind up pardon me up the duff nice one he lost his bottle are you taking the piss is David, the BBC horse play.!</p>
-                        </div>
-                        <div class="tab-pane fade" id="doctl" role="tabpanel" aria-labelledby="doctl-tab">
-                            <h4>Take control of your <br> inventory</h4>
-                            <p>I blower he nicked it you mug pukka only a quid barmy Harry young delinquent knees up amongst such a fibber, daft gosh cracking goal wind up pardon me up the duff nice one he lost his bottle are you taking the piss is David, the BBC horse play.!</p>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -151,7 +346,204 @@
         </div>
     </div>
 
+
 </div>
 <br />
 <br />
-<br />
+<style>
+    .mobile_navi .service_item {
+        padding: 0;
+    }
+
+    .mobile_navi .col-3 {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .responsive_bread {
+        padding: 60px 0 94px !important;
+    }
+
+    .payment_service_area {
+        padding-top: 165px;
+        padding-bottom: 80px;
+    }
+
+    .payment_clients_area {
+        padding: 30px 0 100px;
+    }
+
+    .mobile_navi a {
+        font-weight: 600;
+        font-size: 13px;
+    }
+
+    .mobile_navi h5::after {
+        content: " ";
+        border-bottom: 1px solid #ddd;
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        z-index: -1;
+    }
+
+    .mobile_navi h5 span {
+        background: white;
+        padding: 10px;
+    }
+
+    .mobile_navi h5 {
+        position: relative;
+    }
+
+    .mobile_navi a img {
+        background: white;
+        padding: 10px;
+        box-shadow: 4px 0 14px 3px #e6e6e6;
+        border-radius: 15px;
+    }
+
+    .mobile_navi a span {
+        display: block;
+        margin-top: 5px;
+    }
+
+    a.profile:before {
+        display: none;
+    }
+
+    .btn_hover {
+        line-height: inherit;
+        padding: 10px 15px;
+        box-shadow: none;
+        margin-bottom: 10px;
+        margin-top: 5px;
+        min-width: auto;
+    }
+
+    .ml_15 {
+        margin-left: 15px;
+    }
+
+    .border_bottom {
+        border-bottom: 1px solid #ddd;
+    }
+
+
+    h1 small {
+        display: block;
+        font-size: 15px;
+        padding-top: 8px;
+        color: gray;
+    }
+
+    .avatar-upload {
+        position: relative;
+        max-width: 145px;
+        margin: auto;
+    }
+
+        .avatar-upload .avatar-edit {
+            position: absolute;
+            right: 12px;
+            z-index: 1;
+            top: 10px;
+        }
+
+            .avatar-upload .avatar-edit input {
+                display: none;
+            }
+
+                .avatar-upload .avatar-edit input + label {
+                    display: inline-block;
+                    width: 34px;
+                    height: 34px;
+                    margin-bottom: 0;
+                    border-radius: 100%;
+                    background: #ffffff;
+                    border: 1px solid transparent;
+                    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+                    cursor: pointer;
+                    font-weight: normal;
+                    transition: all 0.2s ease-in-out;
+                }
+
+                    .avatar-upload .avatar-edit input + label:hover {
+                        background: #f1f1f1;
+                        border-color: #d6d6d6;
+                    }
+
+                    .avatar-upload .avatar-edit input + label:after {
+                        content: "\f040";
+                        font-family: "FontAwesome";
+                        color: #757575;
+                        position: absolute;
+                        top: 4px;
+                        left: 0;
+                        right: 0;
+                        text-align: center;
+                        margin: auto;
+                    }
+
+        .avatar-upload .avatar-preview {
+            width: 140px;
+            height: 140px;
+            position: relative;
+            border-radius: 100%;
+            border: 6px solid #f8f8f8;
+            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+        }
+
+            .avatar-upload .avatar-preview > div {
+                width: 100%;
+                height: 100%;
+                border-radius: 100%;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+
+
+    @@media(max-width:768px) {
+        .breadcrumb_area.test_detail {
+            padding: 70px 0px 30px;
+        }
+    }
+</style>
+<script>
+    //function fnSubmitEditProfile() {
+
+    //    var model = {
+    //        Login: $("#hdfLogin").val(),
+    //        ImgDataFileBase64String: $("#NewImgFieldId").val(),
+    //        FirstName: $("#txtFirstName").val(),
+    //        LastName: $("#txtLastName").val()
+    //    }
+
+    //    $.post('/MyAccount/EditProfile', model, function (data) {
+    //        $("#editProfile").modal('hide');
+    //    });
+
+    //}
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+                //$('#imagePreview').prop('src', '+e.target.result');
+                $('#imagePreview').hide();
+                $('#imagePreview').fadeIn(650);
+            }
+            reader.readAsDataURL(input.files[0]);
+            $('#NewImgFieldId').val(input.files[0]);
+        }
+    }
+    $("#imageUpload").change(function () {
+        readURL(this);
+    });
+
+
+</script>

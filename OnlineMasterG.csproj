@@ -271,6 +271,7 @@
     <Compile Include="Controllers\ExamUpdatesController.cs" />
     <Compile Include="Controllers\ExamUpdateSectionController.cs" />
     <Compile Include="Controllers\GeneralInstructionMasterController.cs" />
+    <Compile Include="Controllers\GreetingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstructionController.cs" />
     <Compile Include="Controllers\LatestUpdatesController.cs" />
@@ -354,6 +355,9 @@
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\GeneralInstruction.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\Greeting.cs">
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\Language.cs">
@@ -462,12 +466,14 @@
     <Compile Include="Models\ViewModels\DataFileVM.cs" />
     <Compile Include="Models\ViewModels\ExcelQuestions.cs" />
     <Compile Include="Models\ViewModels\GenneralInstructionVM.cs" />
+    <Compile Include="Models\ViewModels\MyDashboardVM.cs" />
     <Compile Include="Models\ViewModels\QuestionReviewEdit.cs" />
     <Compile Include="Models\ViewModels\QuestionReviewVM.cs" />
     <Compile Include="Models\ViewModels\QuestionUploadVM.cs" />
     <Compile Include="Models\ViewModels\PaperVM.cs" />
     <Compile Include="Models\ViewModels\ReportCardVM.cs" />
     <Compile Include="Models\ViewModels\SubjectVM.cs" />
+    <Compile Include="Models\ViewModels\TestimonialsVM.cs" />
     <Compile Include="Models\ViewModels\TestVM.cs" />
     <Compile Include="Models\ViewModels\SectionVM.cs" />
     <Compile Include="Models\ViewModels\CategoryVM.cs" />
@@ -1527,6 +1533,7 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CustomScript\Greetings.js" />
     <Content Include="Scripts\CustomScript\LatestUpdates.js" />
     <Content Include="Scripts\CustomScript\DailyQuiz.js" />
     <Content Include="Scripts\CustomScript\DailyQuizSubject.js" />
@@ -1843,6 +1850,8 @@
     <Content Include="Views\CurrentAffairs\Index.cshtml" />
     <Content Include="Views\DailyQuiz\ReportCard.cshtml" />
     <Content Include="Views\DailyQuiz\Solution.cshtml" />
+    <Content Include="Views\Greetings\Index.cshtml" />
+    <Content Include="Views\Greetings\GreetingsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

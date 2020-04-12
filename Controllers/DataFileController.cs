@@ -177,47 +177,53 @@ namespace OnlineMasterG.Controllers
             DataFile dataFile = DataFileService.LoadData(dataFileId);
 
             string contentType = "";
+            if (dataFile == null)
+            {
+                return null;
+            }
+            else
+            {
+                if (dataFile.Extension.StartsWith("PDF"))
+                {
+                    contentType = "application/pdf";
+                }
+                else if (dataFile.Extension.StartsWith("JPG"))
+                {
+                    contentType = "image/jpeg";
+                }
+                else if (dataFile.Extension.StartsWith("JPEG"))
+                {
+                    contentType = "image/jpeg";
+                }
+                else if (dataFile.Extension.StartsWith("PNG"))
+                {
+                    contentType = "image/png";
+                }
+                else if (dataFile.Extension.StartsWith("DOC"))
+                {
+                    contentType = "application/msword";
+                }
+                else if (dataFile.Extension.StartsWith("XLS"))
+                {
+                    contentType = "application/msexcel";
+                }
+                else if (dataFile.Extension.StartsWith("TXT"))
+                {
+                    contentType = "text/plain";
+                }
+                else if (dataFile.Extension.StartsWith("CSV"))
+                {
+                    contentType = "text/plain";
+                }
 
-            if (dataFile.Extension.StartsWith("PDF"))
-            {
-                contentType = "application/pdf";
-            }
-            else if (dataFile.Extension.StartsWith("JPG"))
-            {
-                contentType = "image/jpeg";
-            }
-            else if (dataFile.Extension.StartsWith("JPEG"))
-            {
-                contentType = "image/jpeg";
-            }
-            else if (dataFile.Extension.StartsWith("PNG"))
-            {
-                contentType = "image/png";
-            }
-            else if (dataFile.Extension.StartsWith("DOC"))
-            {
-                contentType = "application/msword";
-            }
-            else if (dataFile.Extension.StartsWith("XLS"))
-            {
-                contentType = "application/msexcel";
-            }
-            else if (dataFile.Extension.StartsWith("TXT"))
-            {
-                contentType = "text/plain";
-            }
-            else if (dataFile.Extension.StartsWith("CSV"))
-            {
-                contentType = "text/plain";
-            }
+                if (string.IsNullOrEmpty(contentType))
+                {
+                    return File(dataFile.DataContent.RawData, System.Net.Mime.MediaTypeNames.Application.Octet, dataFile.FileName);
+                }
 
-            if (string.IsNullOrEmpty(contentType))
-            {
-                return File(dataFile.DataContent.RawData, System.Net.Mime.MediaTypeNames.Application.Octet, dataFile.FileName);
+                Response.AppendHeader("Content-Disposition", "inline; filename=" + dataFile.FileName);
+                return File(dataFile.DataContent.RawData, contentType);
             }
-
-            Response.AppendHeader("Content-Disposition", "inline; filename=" + dataFile.FileName);
-            return File(dataFile.DataContent.RawData, contentType);
         }
 
         public new FileContentResult View(string p)
@@ -230,47 +236,54 @@ namespace OnlineMasterG.Controllers
             DataFile dataFile = DataFileService.LoadData(dataFileId);
 
             string contentType = "";
+            if (dataFile == null)
+            {
+                return null;
+            }
+            else
+            {
+                if (dataFile.Extension.StartsWith("PDF"))
+                {
+                    contentType = "application/pdf";
+                }
+                else if (dataFile.Extension.StartsWith("JPG"))
+                {
+                    contentType = "image/jpeg";
+                }
+                else if (dataFile.Extension.StartsWith("JPEG"))
+                {
+                    contentType = "image/jpeg";
+                }
+                else if (dataFile.Extension.StartsWith("PNG"))
+                {
+                    contentType = "image/png";
+                }
+                else if (dataFile.Extension.StartsWith("DOC"))
+                {
+                    contentType = "application/msword";
+                }
+                else if (dataFile.Extension.StartsWith("XLS"))
+                {
+                    contentType = "application/msexcel";
+                }
+                else if (dataFile.Extension.StartsWith("TXT"))
+                {
+                    contentType = "text/plain";
+                }
+                else if (dataFile.Extension.StartsWith("CSV"))
+                {
+                    contentType = "text/plain";
+                }
 
-            if (dataFile.Extension.StartsWith("PDF"))
-            {
-                contentType = "application/pdf";
-            }
-            else if (dataFile.Extension.StartsWith("JPG"))
-            {
-                contentType = "image/jpeg";
-            }
-            else if (dataFile.Extension.StartsWith("JPEG"))
-            {
-                contentType = "image/jpeg";
-            }
-            else if (dataFile.Extension.StartsWith("PNG"))
-            {
-                contentType = "image/png";
-            }
-            else if (dataFile.Extension.StartsWith("DOC"))
-            {
-                contentType = "application/msword";
-            }
-            else if (dataFile.Extension.StartsWith("XLS"))
-            {
-                contentType = "application/msexcel";
-            }
-            else if (dataFile.Extension.StartsWith("TXT"))
-            {
-                contentType = "text/plain";
-            }
-            else if (dataFile.Extension.StartsWith("CSV"))
-            {
-                contentType = "text/plain";
+                if (string.IsNullOrEmpty(contentType))
+                {
+                    return File(dataFile.DataContent.RawData, System.Net.Mime.MediaTypeNames.Application.Octet, dataFile.FileName);
+                }
+
+                Response.AppendHeader("Content-Disposition", "inline; filename=" + dataFile.FileName);
+                return File(dataFile.DataContent.RawData, contentType);
             }
 
-            if (string.IsNullOrEmpty(contentType))
-            {
-                return File(dataFile.DataContent.RawData, System.Net.Mime.MediaTypeNames.Application.Octet, dataFile.FileName);
-            }
-
-            Response.AppendHeader("Content-Disposition", "inline; filename=" + dataFile.FileName);
-            return File(dataFile.DataContent.RawData, contentType);
         }
         #endregion
     }

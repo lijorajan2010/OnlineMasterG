@@ -4,6 +4,7 @@ using OnlineMasterG.Models.DAL;
 using OnlineMasterG.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -31,8 +32,43 @@ namespace OnlineMasterG.DomainLogic
 
             return sr;
         }
+        public static ServiceResponse ValidateGreetings(HttpPostedFileBase postedFile)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            // Verify that the user selected a file
+            if (postedFile != null && postedFile.ContentLength > 0)
+            {
+                // extract only the fielname
+                DataContent dataContent = new DataContent();
+                DataFile dataFile = new DataFile();
 
-    
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    postedFile.InputStream.CopyTo(ms);
+                    dataContent.RawData = ms.GetBuffer();
+                }
+
+                dataFile.FileName = Path.GetFileName(postedFile.FileName);
+                dataFile.Extension = Path.GetExtension(postedFile.FileName);
+                dataFile.SourceCode = "GREETINGS";
+                dataFile.DataContent = dataContent;
+
+                if (!sr.Status)
+                    return sr;
+                sr = DataFileService.ValidateDataFileSetup(dataFile);
+
+                return sr;
+            }
+            else
+            {
+                sr.AddError("The [Upload File] cannot be empty.");
+            }
+
+
+
+            return sr;
+        }
+
         public static ServiceResponse ValidateLatestUpdate(LatestUpdatesVM model)
         {
             ServiceResponse sr = new ServiceResponse();
@@ -46,7 +82,7 @@ namespace OnlineMasterG.DomainLogic
         public static ServiceResponse SaveLatestUpdate(LatestUpdatesVM model, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();
-            LatestUpdate course = new  LatestUpdate()
+            LatestUpdate course = new LatestUpdate()
             {
                 UpdateId = model.UpdateId,
                 UpdateDescription = model.UpdateDescription,
@@ -60,17 +96,57 @@ namespace OnlineMasterG.DomainLogic
 
             return sr;
         }
+
+        public static ServiceResponse SaveGreetings(HttpPostedFileBase postedFile, byte[] file, string auditlogin)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            int DataFileId;
+            // Verify that the user selected a file
+            if (postedFile == null || postedFile.ContentLength == 0)
+            {
+                sr.AddError("Please upload a file");
+                return sr;
+            }
+
+            // extract only the fielname
+            DataContent dataContent = new DataContent();
+            DataFile dataFile = new DataFile();
+            dataContent.RawData = file;
+            dataFile.FileName = Path.GetFileName(postedFile.FileName);
+            dataFile.Extension = Path.GetExtension(postedFile.FileName);
+            dataFile.SourceCode = "GREETING";
+            dataFile.DataContent = dataContent;
+            dataFile.CreateBy = auditlogin;
+            dataFile.CreateDate = DateTime.Now;
+            // Add file
+            sr = DataFileService.AddDataFile(dataFile);
+
+            if (!sr.Status)
+                return sr;
+            DataFileId = sr.ReturnId;
+            Greeting greeting = new Greeting()
+            {
+                DataFileId = DataFileId,
+                CreateBy = auditlogin,
+                CreateOn = DateTime.Now,
+                LanguageCode = "en-US",
+                Isactive = true
+            };
+            sr = GeneralService.SaveGreetings(greeting, auditlogin);
+
+            return sr;
+        }
         public static ServiceResponse SaveGeneralInstructions(List<GenneralInstructionVM> model, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();
 
             List<GeneralInstruction> generalInstructions = new List<GeneralInstruction>();
             var instructions = GeneralService.GeneralInstructionList("en-US", true);
-         //   var instructionsToremove = instructions.Where(x => !model.Select(y => y.TestId).Contains(x.DataFileId)).ToList();
+            //   var instructionsToremove = instructions.Where(x => !model.Select(y => y.TestId).Contains(x.DataFileId)).ToList();
             var instructionsToremove = instructions.Where(x => model.Select(y => y.TestId).Contains(x.TestId)
                                        && model.Select(y => y.SubjectId).Contains(x.SubjectId)).ToList();
             // delete existing with same testid and subjectid
-            if (instructionsToremove!=null && instructionsToremove.Count()>0)
+            if (instructionsToremove != null && instructionsToremove.Count() > 0)
             {
                 GeneralService.DeleteRangeInstructions(instructionsToremove);
             }
@@ -109,7 +185,7 @@ namespace OnlineMasterG.DomainLogic
                 var QuestionUpload = QuestionUploadService.QuestionUploadList("en-US", true);
                 foreach (var item in subjects)
                 {
-                   
+
                     genneralInstructionVMs.Add(new GenneralInstructionVM()
                     {
                         TestId = TestId,
@@ -119,7 +195,7 @@ namespace OnlineMasterG.DomainLogic
                         CategoryName = item.Category?.CategoryName,
                         SectionName = item.Section?.SectionName,
                         TestName = item.MockTest?.TestName,
-                        QuestionCount = QuestionUploadService.GetQuestionsBasedOnTestAndSubject(item.TestId,item.SubjectId).Count(),
+                        QuestionCount = QuestionUploadService.GetQuestionsBasedOnTestAndSubject(item.TestId, item.SubjectId).Count(),
                         CorrectMarks = 1,
                         NegativeMarks = 0
 
@@ -130,10 +206,10 @@ namespace OnlineMasterG.DomainLogic
             return genneralInstructionVMs;
         }
 
-        public static List<GenneralInstructionVM> LoadDBGeneralInstruction(string Lang, bool isActive,int? TestId)
+        public static List<GenneralInstructionVM> LoadDBGeneralInstruction(string Lang, bool isActive, int? TestId)
         {
             List<GenneralInstructionVM> genneralInstructionVMs = new List<GenneralInstructionVM>();
-            var instructions = GeneralService.GeneralInstructionList(Lang, isActive).Where(m=>m.TestId== TestId);
+            var instructions = GeneralService.GeneralInstructionList(Lang, isActive).Where(m => m.TestId == TestId);
             if (instructions != null && instructions.Count() > 0)
             {
                 foreach (var item in instructions)
@@ -155,7 +231,7 @@ namespace OnlineMasterG.DomainLogic
 
             return genneralInstructionVMs;
         }
-        public static List<GenneralInstructionVM> GeneralInstructionList(string Lang,bool isActive)
+        public static List<GenneralInstructionVM> GeneralInstructionList(string Lang, bool isActive)
         {
             List<GenneralInstructionVM> genneralInstructionVMs = new List<GenneralInstructionVM>();
             var instructions = GeneralService.GeneralInstructionList(Lang, isActive);
@@ -185,7 +261,7 @@ namespace OnlineMasterG.DomainLogic
             return genneralInstructionVMs;
         }
 
-        
+
 
         #endregion
     }

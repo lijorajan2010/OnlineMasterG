@@ -24,6 +24,7 @@ namespace OnlineMasterG.Models.DAL
             this.CurrentAffairsUploads = new HashSet<CurrentAffairsUpload>();
             this.DailyQuizUploads = new HashSet<DailyQuizUpload>();
             this.QuizTests = new HashSet<QuizTest>();
+            this.Greetings = new HashSet<Greeting>();
         }
     
         public int DataFileId { get; set; }
@@ -49,5 +50,7 @@ namespace OnlineMasterG.Models.DAL
         public virtual ICollection<DailyQuizUpload> DailyQuizUploads { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuizTest> QuizTests { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Greeting> Greetings { get; set; }
     }
 }

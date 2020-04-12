@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using OnlineMasterG.Code;
+using OnlineMasterG.Models.ViewModels;
 
 namespace OnlineMasterG.CommonFramework
 {
@@ -249,7 +250,26 @@ namespace OnlineMasterG.CommonFramework
             set { }
 
         }
+        public static List<TestimonialsVM> GetTestimonials
+        {
+            get
+            {
+                return GeneralService.TestimonialsVMLis().Distinct().ToList();
 
+            }
+            set { }
+
+        }
+        public static List<Greeting> GetGreetings
+        {
+            get
+            {
+                return GeneralService.GreetingsList("en-US", true).OrderByDescending(m=>m.GreetingsId).Distinct().ToList();
+
+            }
+            set { }
+
+        }
         public static ActiveUser ActiveUser
         {
             get

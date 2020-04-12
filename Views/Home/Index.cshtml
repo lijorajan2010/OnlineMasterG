@@ -1,132 +1,186 @@
-﻿
+﻿@using OnlineMasterG.CommonFramework
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/PublicLayout.cshtml";
 }
- 
 
+<!-- Modal -->
+<div class="modal" id="greeting" role="dialog" backdrop="static">
+    <div class="modal-dialog modal-lg">
 
-        <section class="payment_banner_area">
-            <div class="shape one"></div>
-            <div class="shape two"></div>
-            <div class="container">
-                <div class="payment_banner_content wow fadeInLeft" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInLeft;">
-                    <h1 class="f_p f_700 f_size_50 w_color">The simpler, quicker way to learn and get your aim.</h1>
-                    <p class="w_color f_p f_size_18">Those who want to learn, they will find a way. And those who don't, they  <br> will find an excuse.</p>
-                    <div class="action_btn d-flex align-items-center mt_60">
-                        @*<a href="#" class="btn_hover agency_banner_btn">Sign Up Now</a>*@
-                        @Html.ActionLink("Sign Up Now", "Signup", "Login",new { }, new {  @class = "btn_hover agency_banner_btn" })
-                        <!--  <a href="#" class="agency_banner_btn_two">Find Out More<i class="ti-arrow-right"></i></a> -->
+        <!-- Modal content-->
+        <div class="modal-content">
+            <!--  <div class="modal-header">
+
+               <h4 class="modal-title text-center">Instructions</h4>
+             </div> -->
+            <div class="modal-body" style="padding:0;">
+
+                <div class="container custom_container p0">
+
+                    <div class="service_info">
+
+                        <div class="">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            @if (AppInfo.GetGreetings != null && AppInfo.GetGreetings.Count() > 0)
+                            {
+                                var FirstGreeting = AppInfo.GetGreetings.FirstOrDefault();
+                                var Img = FirstGreeting?.DataFileId;
+                                if (Img != null)
+                                {
+                                    <img src="@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(Img.ToString())})" style="max-width:100%;">
+                                }
+                            }
+
+                        </div>
+
                     </div>
+
+
+
                 </div>
             </div>
-            <div class="animation_img_two wow fadeInRight" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
-                <img src="/img/home9/mac.png" alt="">
+            <!--  <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+             </div> -->
+        </div>
+
+    </div>
+</div>
+<!-- Modal -->
+<script>
+        debugger
+        var IsGreeting = '@AppInfo.GetGreetings.Count()';
+        $(window).on('load', function () {
+            if (IsGreeting != null && IsGreeting != undefined && IsGreeting != "" && IsGreeting != '0') {
+                if (this.parseInt(IsGreeting) > 0) {
+                      $('#greeting').modal('show', 3000);
+                }
+            }
+  });
+</script>
+
+<section class="payment_banner_area">
+    <div class="shape one"></div>
+    <div class="shape two"></div>
+    <div class="container">
+        <div class="payment_banner_content wow fadeInLeft" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInLeft;">
+            <h1 class="f_p f_700 f_size_50 w_color">The simpler, quicker way to learn and get your aim.</h1>
+            <p class="w_color f_p f_size_18">Those who want to learn, they will find a way. And those who don't, they  <br> will find an excuse.</p>
+            <div class="action_btn d-flex align-items-center mt_60">
+                @*<a href="#" class="btn_hover agency_banner_btn">Sign Up Now</a>*@
+                @Html.ActionLink("Sign Up Now", "Signup", "Login", new { }, new { @class = "btn_hover agency_banner_btn" })
+                <!--  <a href="#" class="agency_banner_btn_two">Find Out More<i class="ti-arrow-right"></i></a> -->
             </div>
-            <img class="svg_intro_bottom" src="/img/home9/shape.png" alt="">
-        </section>
+        </div>
+    </div>
+    <div class="animation_img_two wow fadeInRight" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+        <img src="/img/home9/mac.png" alt="">
+    </div>
+    <img class="svg_intro_bottom" src="/img/home9/shape.png" alt="">
+</section>
 
 
 
-        <section class="service_area sec_pad">
+<section class="service_area sec_pad">
 
-            <div class="container custom_container p0">
-                <div class="sec_title text-center">
-                    <h2 class="f_p f_size_30 l_height50 f_700 t_color2">Latest Updates</h2>
-                    <p class="f_400 f_size_16 l_height30">Here you can check all the updates!!</p>
-                </div>
-                <div class="row service_info mt_70 mb_30">
-                    <div class="col-lg-4 col-sm-6 mb-30">
-                        <div class="service_item">
-                            <div class="icon s_icon_one"><i class="ti-check"></i></div>
-                            <h4 class="f_600 f_size_20 l_height28 t_color2 mb_20"> Admit Cards</h4>
-                            <p><a href="#">Get your admit card for diffrent types of exams just in few steps. </a></p>
-                            <img class="float-right" src="/img/home2/undraw.png" alt="">
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 mb-30">
-                        <div class="service_item">
-                            <div class="icon s_icon_four"><i class="ti-bar-chart"></i></div>
-                            <h4 class="f_600 f_size_20 l_height28 t_color2 mb_20">Results<br> </h4>
-                            <p><a href="#">Check your results here, just in seconds.</a></p>
-                            <img class="float-right" src="/img/home2/report.png" alt="">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-sm-6 mb-30">
-                        <div class="service_item">
-                            <div class="icon s_icon_three"><i class="ti-search"></i></div>
-                            <h4 class="f_600 f_size_20 l_height28 t_color2 mb_20">Online Forms</h4>
-                            <p><a href="#">Check links for all online form.</a></p>
-                            <img class="float-right" src="/img/home2/file.png" alt="">
-                        </div>
-                    </div>
-
-                    <!--   <div class="col-lg-4 col-sm-6 mb-30">
-                      <div class="service_item">
-                          <div class="icon s_icon_two"><i class="ti-location-arrow"></i></div>
-                          <h4 class="f_600 f_size_20 l_height28 t_color2 mb_20">Online Result<br> Links</h4>
-                          <p><a href="#"> Brolly off his nut A bit of how's your father chancer in my flat chinwag bog skive.</a></p>
-                          <img class="float-right" src="../Content/img/home2/inbox.png" alt="">
-                      </div>
-                  </div> -->
+    <div class="container custom_container p0">
+        <div class="sec_title text-center">
+            <h2 class="f_p f_size_30 l_height50 f_700 t_color2">Latest Updates</h2>
+            <p class="f_400 f_size_16 l_height30">Here you can check all the updates!!</p>
+        </div>
+        <div class="row service_info mt_70 mb_30">
+            <div class="col-lg-4 col-sm-6 mb-30">
+                <div class="service_item">
+                    <div class="icon s_icon_one"><i class="ti-check"></i></div>
+                    <h4 class="f_600 f_size_20 l_height28 t_color2 mb_20"> Admit Cards</h4>
+                    <p><a href="#">Get your admit card for diffrent types of exams just in few steps. </a></p>
+                    <img class="float-right" src="/img/home2/undraw.png" alt="">
                 </div>
             </div>
-        </section>
+            <div class="col-lg-4 col-sm-6 mb-30">
+                <div class="service_item">
+                    <div class="icon s_icon_four"><i class="ti-bar-chart"></i></div>
+                    <h4 class="f_600 f_size_20 l_height28 t_color2 mb_20">Results<br> </h4>
+                    <p><a href="#">Check your results here, just in seconds.</a></p>
+                    <img class="float-right" src="/img/home2/report.png" alt="">
+                </div>
+            </div>
 
-        <div class="s_service_section breadcrumb_area typography_breacrumb">
-            <img class="breadcrumb_shap" alt="" src="/img/breadcrumb/banner_bg.png">
-            <div class="container custom_container">
-                <h2 class="f_p f_size_30 l_height50 f_600 t_color text-center wow fadeInUp" style="visibility: visible; animation-name: fadeInUp; animation-delay: 0.3s;" data-wow-delay="0.3s">If you are a learner, then you are at the right place.</h2>
-                <div class="row s_service_info mt_70">
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="s_service_item wow fadeInLeft" style="visibility: visible; animation-name: fadeInLeft; animation-delay: 0.8s;" data-wow-delay="0.8s">
-                            <div class="solid_overlay"></div>
-                            <div class="icon icon_4">
-                                <i class="ti-bookmark-alt"></i>
-                            </div>
-                            <h5 class="f_p f_size_20 f_600 t_color">Government Exam</h5>
-                            <p class="l_height28">Preparing for govt. job, we provide full study material for govt. job's exams.</p>
-                            <a class="learn_btn_two" href="#">View More <i class="ti-arrow-right"></i></a>
-                        </div>
-                    </div>
+            <div class="col-lg-4 col-sm-6 mb-30">
+                <div class="service_item">
+                    <div class="icon s_icon_three"><i class="ti-search"></i></div>
+                    <h4 class="f_600 f_size_20 l_height28 t_color2 mb_20">Online Forms</h4>
+                    <p><a href="#">Check links for all online form.</a></p>
+                    <img class="float-right" src="/img/home2/file.png" alt="">
+                </div>
+            </div>
 
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="s_service_item wow fadeInLeft" style="visibility: visible; animation-name: fadeInLeft; animation-delay: 0.7s;" data-wow-delay="0.7s">
-                            <div class="solid_overlay"></div>
-                            <div class="icon icon_3">
-                                <i class="ti-bag"></i>
-                            </div>
-                            <h5 class="f_p f_size_20 f_600 t_color">Professional Courses</h5>
-                            <p class="l_height28">Nothing to worry here you can find all the study material of your course.</p>
-                            <a class="learn_btn_two" href="#">View More <i class="ti-arrow-right"></i></a>
-                        </div>
-                    </div>
+            <!--   <div class="col-lg-4 col-sm-6 mb-30">
+                <div class="service_item">
+                    <div class="icon s_icon_two"><i class="ti-location-arrow"></i></div>
+                    <h4 class="f_600 f_size_20 l_height28 t_color2 mb_20">Online Result<br> Links</h4>
+                    <p><a href="#"> Brolly off his nut A bit of how's your father chancer in my flat chinwag bog skive.</a></p>
+                    <img class="float-right" src="../Content/img/home2/inbox.png" alt="">
+                </div>
+            </div> -->
+        </div>
+    </div>
+</section>
 
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="s_service_item wow fadeInLeft" style="visibility: visible; animation-name: fadeInLeft; animation-delay: 0.5s;" data-wow-delay="0.5s">
-                            <div class="solid_overlay"></div>
-                            <div class="icon icon_2">
-                                <i class="ti-user"></i>
-                            </div>
-                            <h5 class="f_p f_size_20 f_600 t_color">College</h5>
-                            <p class="l_height28">Pursuing your college, Here you can find the study material of your course.</p>
-                            <a class="learn_btn_two" href="#">View More <i class="ti-arrow-right"></i></a>
-                        </div>
+<div class="s_service_section breadcrumb_area typography_breacrumb">
+    <img class="breadcrumb_shap" alt="" src="/img/breadcrumb/banner_bg.png">
+    <div class="container custom_container">
+        <h2 class="f_p f_size_30 l_height50 f_600 t_color text-center wow fadeInUp" style="visibility: visible; animation-name: fadeInUp; animation-delay: 0.3s;" data-wow-delay="0.3s">If you are a learner, then you are at the right place.</h2>
+        <div class="row s_service_info mt_70">
+            <div class="col-lg-3 col-sm-6">
+                <div class="s_service_item wow fadeInLeft" style="visibility: visible; animation-name: fadeInLeft; animation-delay: 0.8s;" data-wow-delay="0.8s">
+                    <div class="solid_overlay"></div>
+                    <div class="icon icon_4">
+                        <i class="ti-bookmark-alt"></i>
                     </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="s_service_item wow fadeInLeft" style="visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;" data-wow-delay="0.3s">
-                            <div class="solid_overlay"></div>
-                            <div class="icon icon_1">
-                                <i class="ti-pencil-alt2"></i>
-                            </div>
-                            <h5 class="f_p f_size_20 f_600 t_color">School</h5>
-                            <p class="l_height28">Searching for syllabus, Here you can find the full study material of your subjects.</p>
-                            <a class="learn_btn_two" href="#">View More <i class="ti-arrow-right"></i></a>
-                        </div>
+                    <h5 class="f_p f_size_20 f_600 t_color">Government Exam</h5>
+                    <p class="l_height28">Preparing for govt. job, we provide full study material for govt. job's exams.</p>
+                    <a class="learn_btn_two" href="#">View More <i class="ti-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="s_service_item wow fadeInLeft" style="visibility: visible; animation-name: fadeInLeft; animation-delay: 0.7s;" data-wow-delay="0.7s">
+                    <div class="solid_overlay"></div>
+                    <div class="icon icon_3">
+                        <i class="ti-bag"></i>
                     </div>
+                    <h5 class="f_p f_size_20 f_600 t_color">Professional Courses</h5>
+                    <p class="l_height28">Nothing to worry here you can find all the study material of your course.</p>
+                    <a class="learn_btn_two" href="#">View More <i class="ti-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="s_service_item wow fadeInLeft" style="visibility: visible; animation-name: fadeInLeft; animation-delay: 0.5s;" data-wow-delay="0.5s">
+                    <div class="solid_overlay"></div>
+                    <div class="icon icon_2">
+                        <i class="ti-user"></i>
+                    </div>
+                    <h5 class="f_p f_size_20 f_600 t_color">College</h5>
+                    <p class="l_height28">Pursuing your college, Here you can find the study material of your course.</p>
+                    <a class="learn_btn_two" href="#">View More <i class="ti-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="s_service_item wow fadeInLeft" style="visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;" data-wow-delay="0.3s">
+                    <div class="solid_overlay"></div>
+                    <div class="icon icon_1">
+                        <i class="ti-pencil-alt2"></i>
+                    </div>
+                    <h5 class="f_p f_size_20 f_600 t_color">School</h5>
+                    <p class="l_height28">Searching for syllabus, Here you can find the full study material of your subjects.</p>
+                    <a class="learn_btn_two" href="#">View More <i class="ti-arrow-right"></i></a>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
 

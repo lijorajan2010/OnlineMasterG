@@ -114,6 +114,8 @@
         <AssociationConnector Association="OnlinemasterjiModel.FK__DailyQuiz__QuizQ__019E3B86" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__DailyQuiz__QuizT__00AA174D" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__DailyQuiz__Login__7720AD13" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.Greeting" Width="1.5" PointX="9.75" PointY="24.125" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__Greetings__DataF__075714DC" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

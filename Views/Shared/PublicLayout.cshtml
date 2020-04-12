@@ -86,6 +86,98 @@
             }
         }
     </style>
+    <style>
+        .mobile_navi .service_item {
+            padding: 0;
+        }
+
+        .mobile_navi .col-3 {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .responsive_bread {
+            padding: 60px 0 94px !important;
+        }
+
+        .payment_service_area {
+            padding-top: 165px;
+            padding-bottom: 80px;
+        }
+
+        .payment_clients_area {
+            padding: 30px 0 100px;
+        }
+
+        .mobile_navi a {
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .mobile_navi h5::after {
+            content: " ";
+            border-bottom: 1px solid #ddd;
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            z-index: -1;
+        }
+
+        .mobile_navi h5 span {
+            background: white;
+            padding: 10px;
+        }
+
+        .mobile_navi h5 {
+            position: relative;
+        }
+
+        .mobile_navi a img {
+            background: white;
+            padding: 10px;
+            box-shadow: 4px 0 14px 3px #e6e6e6;
+            border-radius: 15px;
+        }
+
+        .modal-body .service_info
+        .close {
+            position: absolute;
+            right: 0;
+            background: #fff;
+            /* padding: 10px; */
+            /* line-height: 0; */
+            width: 30px;
+            height: 30px;
+            /* border-radius: 50%; */
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .mobile_navi a span {
+            display: block;
+            margin-top: 5px;
+        }
+
+        .rating .star {
+            display: inline-block;
+            font-family: FontAwesome;
+            font-size: 23px;
+            color: #ffd401;
+            cursor: pointer;
+            margin: 1px;
+        }
+
+            .rating .star:after {
+                content: '\f005';
+            }
+
+        @@media(max-width:768px) {
+            .breadcrumb_area.test_detail {
+                padding: 70px 0px 30px;
+            }
+        }
+    </style>
 
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
@@ -110,7 +202,77 @@
 
 </head>
 
-<body>
+<body oncontextmenu="return false" onkeydown="return false" onmousedown="return false">
+    <div id="preloader">
+        <div id="ctn-preloader" class="ctn-preloader">
+            <div class="animation-preloader">
+                <div class="spinner"></div>
+                <div class="txt-loading">
+                    <span data-text-preloader="O" class="letters-loading">
+                        O
+                    </span>
+                    <span data-text-preloader="N" class="letters-loading">
+                        N
+                    </span>
+                    <span data-text-preloader="L" class="letters-loading">
+                        L
+                    </span>
+                    <span data-text-preloader="I" class="letters-loading">
+                        I
+                    </span>
+                    <span data-text-preloader="N" class="letters-loading">
+                        N
+                    </span>
+                    <span data-text-preloader="E" class="letters-loading">
+                        E
+                    </span>
+                    <span data-text-preloader="M" class="letters-loading">
+                        M
+                    </span>
+                    <span data-text-preloader="A" class="letters-loading">
+                        A
+                    </span>
+                    <span data-text-preloader="S" class="letters-loading">
+                        S
+                    </span>
+                    <span data-text-preloader="T" class="letters-loading">
+                        T
+                    </span>
+                    <span data-text-preloader="E" class="letters-loading">
+                        E
+                    </span>
+                    <span data-text-preloader="R" class="letters-loading">
+                        R
+                    </span>
+                    <span data-text-preloader="J" class="letters-loading">
+                        J
+                    </span>
+                    <span data-text-preloader="I" class="letters-loading">
+                        I
+                    </span>
+                </div>
+                <p class="text-center">Loading</p>
+            </div>
+            <div class="loader">
+                <div class="row">
+                    <div class="col-3 loader-section section-left">
+                        <div class="bg"></div>
+                    </div>
+                    <div class="col-3 loader-section section-left">
+                        <div class="bg"></div>
+                    </div>
+                    <div class="col-3 loader-section section-right">
+                        <div class="bg"></div>
+                    </div>
+                    <div class="col-3 loader-section section-right">
+                        <div class="bg"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     <div class="body_wrapper">
 
@@ -221,7 +383,7 @@
                                 <li class="nav-item dropdown submenu">
                                     <a class="nav-link dropdown-toggle profile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <img class="student_img" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(ImgId)})' alt="" width="50">
-                                        Welcome @ActiveUser.FullName;
+                                        Welcome @ActiveUser.FirstName
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li class="nav-item"><a href="@Url.Action("Index","MyAccount")" class="nav-link">Profile</a></li>
@@ -419,7 +581,94 @@
             </div>
         </div>
 
+        <section class="feedback_area_two">
+            <div class="container custom_container">
+                <div class="sec_title mb-30 wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
+                    <h2 class="f_p f_size_40 l_height50 f_500 w_color pt_20">Our Students</h2>
+                    <p class="f_400 f_size_18 mb-0">Look what our students have to say to about us.</p>
+                </div>
+                <div id="fslider_three" class="feedback_slider_two owl-carousel owl-loaded owl-drag">
 
+                    <div class="owl-stage-outer">
+                        <div class="owl-stage" style="transform: translate3d(-1140px, 0px, 0px); transition: all 0s ease 0s; width: 3800px;">
+
+                            @if (AppInfo.GetTestimonials != null && AppInfo.GetTestimonials.Count() > 0)
+                            {
+                                foreach (var item in AppInfo.GetTestimonials)
+                                {
+                                    <div class="owl-item active" style="width: 380px;">
+                                        <div class="item">
+                                            <div class="feedback_item feedback_item_two">
+                                                <div class="feed_back_author">
+                                                    <div class="media">
+                                                        <div class="img">
+                                                            @if (item.ImageDataFileId.HasValue)
+                                                            {
+                                                                <img src="@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(item.ImageDataFileId.Value.ToString())})" alt="">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img src="img/home6/feedback_img_two.png" alt="">
+                                                            }
+
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <h5 class="t_color f_size_15 f_p f_500" style="margin: 0;">@item.FirstName  @item.LastName</h5>
+                                                            <div class="rating">
+
+
+                                                                @if (item.Rating == 1)
+                                                                {
+                                                                    <span class="star"> </span>
+                                                                }
+                                                                else if (item.Rating == 2)
+                                                                {
+                                                                    <span class="star"> </span>
+                                                                    <span class="star"> </span>
+                                                                }
+                                                                else if (item.Rating == 3)
+                                                                {
+                                                                    <span class="star"> </span>
+                                                                    <span class="star"> </span>
+                                                                    <span class="star"> </span>
+                                                                }
+                                                                else if (item.Rating == 4)
+                                                                {
+                                                                    <span class="star"> </span>
+                                                                    <span class="star"> </span>
+                                                                    <span class="star"> </span>
+                                                                    <span class="star"> </span>
+                                                                }
+                                                                else if (item.Rating == 5)
+                                                                {
+                                                                    <span class="star"> </span>
+                                                                    <span class="star"> </span>
+                                                                    <span class="star"> </span>
+                                                                    <span class="star"> </span>
+                                                                    <span class="star"> </span>
+                                                                }
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <p class="f_size_15"> @item.Review</p>
+                                                <div class="shap_one"></div>
+                                                <div class="shap_two"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+
+
+                        </div>
+                    </div><div class="owl-nav"><button type="button" role="presentation" class="owl-prev"><i class="ti-angle-left"></i></button><button type="button" role="presentation" class="owl-next"><i class="ti-angle-right"></i></button></div><div class="owl-dots"><button role="button" class="owl-dot active"><span></span></button><button role="button" class="owl-dot"><span></span></button></div>
+                </div>
+            </div>
+        </section>
 
         <footer class="footer_nine_area">
             <div class="footer_nine_top">

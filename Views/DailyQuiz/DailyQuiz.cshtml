@@ -392,8 +392,7 @@
     </script>
 </head>
 
-<body onload="startCountdown('@(Model.TimeLeftInMinutes*60)');">
-
+<body onload="startCountdown('@(Model.TimeLeftInMinutes*60)');" oncontextmenu="return false" onkeydown="return false" onmousedown="return false">
     <div class="body_wrapper small_fonts" id="mytest">
 
         <header class="breadcrumb_area p-0">
@@ -547,7 +546,7 @@
                                         }
 
                                     </div>
-                                  
+
                                 </div>
                             </div>
 
@@ -560,7 +559,7 @@
                                     <li class="mb_20"><a class="page-numbers answered" href="#"> </a> <span>Answered </span></li>
                                     <li class="mb_20"><a class="page-numbers not_answered" href="#"> </a><span>Not Answered</span></li>
                                     <li class="mb_20"><a class="page-numbers not_visited" href="#"> </a><span>Not Visited</span></li>
-                                
+
 
                                 </ul>
 
@@ -615,12 +614,12 @@
 
 
                                 @*<div class="hidden-md hidden-lg">
-                                    <a href="#" class="btn_hover agency_banner_btn" data-toggle="modal" data-target="#instructionModal">Instructions</a>
-                                     <a href="#" class="btn_hover agency_banner_btn btn_clear" data-toggle="modal" data-target="#reportModal">Report</a> 
-                                     <a href="#" class="btn_hover agency_banner_btn answered hidden-xs"> Prev</a> 
-                                    <a href="#" class="btn_hover agency_banner_btn report " onclick="fnPauseGetCurrentAnsweredDetails();" data-toggle="modal" data-target="#pauseModal1">Pause</a>
+                                        <a href="#" class="btn_hover agency_banner_btn" data-toggle="modal" data-target="#instructionModal">Instructions</a>
+                                         <a href="#" class="btn_hover agency_banner_btn btn_clear" data-toggle="modal" data-target="#reportModal">Report</a>
+                                         <a href="#" class="btn_hover agency_banner_btn answered hidden-xs"> Prev</a>
+                                        <a href="#" class="btn_hover agency_banner_btn report " onclick="fnPauseGetCurrentAnsweredDetails();" data-toggle="modal" data-target="#pauseModal1">Pause</a>
 
-                                </div>*@
+                                    </div>*@
                             </div>
 
 
@@ -667,7 +666,7 @@
 
                             <!-- Modal content-->
                             <div class="modal-content">
-                         
+
                                 <div class="modal-body responsive_modal">
 
                                     <div class="container custom_container p0 m_p0">
@@ -675,14 +674,14 @@
                                         <div class="service_info">
                                             <div class="row instructionHead mb_15">
                                                 <div class="col-md-12 sec_title text-center">
-                                             
+
                                                     <h2 class="f_p f_size_20 f_500 t_color2 mb-10">@Model.QuizName</h2>
                                                 </div>
-                                             
+
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="">
-                                                  
+
                                                     <ul class="row question_list list-unstyled page-numbers shop_page_number text-left ml-0 pt_20 pl_15">
 
                                                         <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers answered" id="popupAnswered">05 </a> <span>Answered </span></li>
@@ -690,7 +689,7 @@
                                                         <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers not_visited" id="popupNotVisited">15   </a>Not Visited</li>
 
                                                     </ul>
-                                                    
+
                                                 </div>
 
                                             </div>
@@ -889,7 +888,7 @@
             }
             function fnSaveAndSubmitForm() {
                 LastButtonSet();
-              
+
                 // for setting updated values in array
                 setTimeout(function () {
                     fnBeforeSumbit();

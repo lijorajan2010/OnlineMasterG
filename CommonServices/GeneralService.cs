@@ -21,13 +21,53 @@ namespace OnlineMasterG.CommonServices
 
             return sr;
         }
+        public static ServiceResponse SaveGreetings(Greeting greeting, string auditlogin)
+        {
+            ServiceResponse sr = new ServiceResponse();
 
+            DB.Greetings.Add(greeting);
+            DB.SaveChanges();
+
+            return sr;
+        }
+
+        internal static List<TestimonialsVM> TestimonialsVMLis()
+        {
+            List<TestimonialsVM> list = new List<TestimonialsVM>();
+
+            var MockTestAttemptsRatings = ExamService.GetAttemptListReviews();
+
+            if (MockTestAttemptsRatings != null && MockTestAttemptsRatings.Count() > 0)
+            {
+                foreach (var item in MockTestAttemptsRatings)
+                {
+                    var UserDetails = UserService.Fetch(item.Login);
+                    list.Add(new TestimonialsVM()
+                    {
+                        FirstName = UserDetails?.FirstName,
+                        LastName = UserDetails?.LastName,
+                        ImageDataFileId = UserDetails?.LogoDataFileId,
+                        Rating = item.Rating,
+                        Review = item.Review
+                    });
+                }
+            }
+
+            return list;
+        }
         internal static List<LatestUpdate> LatestUpdatesList(string Lang, bool IsActive)
         {
             return DB.LatestUpdates
                  .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
                  .ToList();
         }
+        internal static List<Greeting> GreetingsList(string Lang, bool IsActive)
+        {
+            return DB.Greetings
+                 .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
+                 .ToList();
+        }
+        
         internal static List<LatestUpdate> LatestAllUpdatesList(string Lang)
         {
             return DB.LatestUpdates
@@ -69,12 +109,36 @@ namespace OnlineMasterG.CommonServices
 
             return sr;
         }
+        internal static ServiceResponse DeleteGreetings(int? greetingId)
+        {
+            var sr = new ServiceResponse();
+
+            try
+            {
+                var Greeting = FetchGreeting(greetingId);
+
+                DB.Entry(Greeting).State = EntityState.Deleted;
+                DB.SaveChanges();
+            }
+            catch (Exception exception)
+            {
+                sr.AddError(exception.Message);
+            }
+
+            return sr;
+        }
 
 
         public static LatestUpdate FetchLatestUpdate(int? UpdateId)
         {
             return DB.LatestUpdates
                      .Where(m => m.UpdateId == (UpdateId.HasValue ? UpdateId.Value : 0))
+                     .FirstOrDefault();
+        }
+        public static Greeting FetchGreeting(int? GreetingId)
+        {
+            return DB.Greetings
+                     .Where(m => m.GreetingsId == (GreetingId.HasValue ? GreetingId.Value : 0))
                      .FirstOrDefault();
         }
         public static GeneralInstruction FetchByTestIdAndSubjectId(int? TestId, int? SubjectId)
