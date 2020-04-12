@@ -26,6 +26,13 @@ namespace OnlineMasterG.Models.ViewModels
         public Nullable<System.DateTime> EditDate { get; set; }
         public virtual TestVM Tests { get; set; }
         public virtual List<DailyQuizAttemptVMDetailVM> dailyQuizAttemptVMDetail { get; set; }
+
+        public decimal TotalMarksScored { get; set; }
+        public decimal? TotalOriginalMarks { get; set; }
+        public int Rank { get; set; }
+        public decimal TotalTestAccuracy { get; set; }
+        public int? TotalTestAttempts { get; set; }
+        public decimal Percentage { get; set; }
     }
     public class DailyQuizAttemptVMDetailVM
     {
@@ -40,6 +47,7 @@ namespace OnlineMasterG.Models.ViewModels
         public Nullable<int> AnswerChoiceId { get; set; }
         public string AnswerStatus { get; set; }
         public decimal MarksScored { get; set; }
+        public bool IsAnswerCorrect { get; set; }
         public virtual DailyQuizVM DailyQuiz { get; set; }
         public virtual DailyQuizAttemptVM DailyQuizAttempt { get; set; }
         public virtual DailyQuizCourseVM DailyQuizCourse { get; set; }

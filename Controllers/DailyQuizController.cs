@@ -186,9 +186,55 @@ namespace OnlineMasterG.Controllers
             return rank;
         }
 
-        public ActionResult Solution()
+        public ActionResult Solution(string p)
         {
-            return View();
+            int AttemptId = 0;
+            if (!string.IsNullOrEmpty(p))
+            {
+                AttemptId = int.Parse(CustomEncrypt.SafeUrlDecrypt(p));
+            }
+
+            DailyQuizAttemptVM model = new DailyQuizAttemptVM();
+            var AttempDetails = DailyQuizService.GetDailyQuizAttempt(AttemptId);
+            var TestDetails = DailyQuizService.FetchDailyQuiz(AttempDetails.DailyQuizId);
+            model = DailyQuizLogics.GetDailyQuizAttemptDetailsByAttemptId(AttemptId);
+
+            model.Rank = GetRankOftheStudent(AttempDetails);
+            model.TotalMarksScored = AttempDetails.DailyQuizAttemptDetails.Where(m => m.IsAnswerCorrect == true).Sum(m => m.MarksScored);
+            model.TotalTestAttempts = DailyQuizService.GetDailyQuizAttemptListByDailyQuizId(AttempDetails?.DailyQuizId).Count();
+            model.Percentage = (model.Rank / model.TotalTestAttempts.Value) * 100;
+
+            List<SubjectWiseScoreVM> subjectWiseScoreVMs = new List<SubjectWiseScoreVM>();
+            List<int?> loopCount = AttempDetails.DailyQuizAttemptDetails.Select(m => m.DailyQuizSubjectId).Distinct().ToList();
+            if (loopCount != null && loopCount.Count() > 0)
+            {
+                foreach (var item in loopCount)
+                {
+                    var MockDetails = AttempDetails.DailyQuizAttemptDetails.Where(m => m.DailyQuizSubjectId == item).FirstOrDefault();
+                    SubjectWiseScoreVM subjectWiseScoreVM = new SubjectWiseScoreVM();
+
+                    subjectWiseScoreVM.SubjectName = DailyQuizService.FetchDailyQuizSubject(item).DailyQuizSubjectName;
+                    subjectWiseScoreVM.TotalQuestions = AttempDetails.DailyQuizAttemptDetails.Where(m => m.DailyQuizSubjectId == item).Count();
+                    subjectWiseScoreVM.NumberAnswered = AttempDetails.DailyQuizAttemptDetails.Where(m => m.DailyQuizSubjectId == item && m.AnswerStatus == ExamLogics.AnswerStatus.ANSWERED.ToString()).Count();
+                    subjectWiseScoreVM.NumberNotAnswered = AttempDetails.DailyQuizAttemptDetails.Where(m => m.DailyQuizSubjectId == item && m.AnswerStatus == ExamLogics.AnswerStatus.NOTANSWERED.ToString()).Count();
+                    subjectWiseScoreVM.NumberNotVisited = AttempDetails.DailyQuizAttemptDetails.Where(m => m.DailyQuizSubjectId == item && m.AnswerStatus == ExamLogics.AnswerStatus.NOTATTEMPTED.ToString()).Count();
+                    subjectWiseScoreVM.NumberReview = AttempDetails.DailyQuizAttemptDetails.Where(m => m.DailyQuizSubjectId == item && m.AnswerStatus == ExamLogics.AnswerStatus.MARKED.ToString()).Count();
+                    subjectWiseScoreVM.OriginalScore = (1 * subjectWiseScoreVM.TotalQuestions);
+                    subjectWiseScoreVM.YourScore = AttempDetails.DailyQuizAttemptDetails.Where(m => m.IsAnswerCorrect == true && m.DailyQuizSubjectId == item).Sum(m => m.MarksScored);
+                    decimal? Mnutes = (TestDetails.TimeInMinutes.HasValue ? TestDetails.TimeInMinutes.Value : 0) - AttempDetails.TimeLeftInMinutes;
+                    double Mnutesnotnl = Convert.ToDouble(Mnutes.HasValue ? Mnutes.Value : 0);
+                    TimeSpan WorkMin = TimeSpan.FromMinutes(Mnutesnotnl);
+                    subjectWiseScoreVM.SubjectTimeSpent = string.Format("{0:00} Hours {1:00} Minutes {2:00} Seconds", (int)WorkMin.TotalHours, WorkMin.Minutes, WorkMin.Seconds);
+                    subjectWiseScoreVM.Accuracy = (subjectWiseScoreVM.YourScore / subjectWiseScoreVM.OriginalScore.Value) * 100;
+                    subjectWiseScoreVMs.Add(subjectWiseScoreVM);
+                }
+
+            }
+
+            model.TotalOriginalMarks = subjectWiseScoreVMs.Sum(m => m.OriginalScore);
+            model.TotalTestAccuracy = (model.TotalMarksScored / model.TotalOriginalMarks.Value) * 100;
+
+            return View(model);
         }
     }
 }

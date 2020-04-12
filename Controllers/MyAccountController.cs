@@ -55,6 +55,7 @@ namespace OnlineMasterG.Controllers
 
                     givenQuizes.Add(new GivenQuizes()
                     {
+                        AttemptId = item.AttemptId,
                         QuizName = DailyQuizService.FetchDailyQuiz(item.DailyQuizId)?.DailyQuizName,
                         TimeUsed = string.Format("{0:00} Hours {1:00} Minutes {2:00} Seconds", (int)spWorkMin.TotalHours, spWorkMin.Minutes, spWorkMin.Seconds)
                     });

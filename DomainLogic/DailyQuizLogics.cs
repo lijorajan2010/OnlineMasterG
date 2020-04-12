@@ -401,7 +401,17 @@ namespace OnlineMasterG.DomainLogic
 
             return sr;
         }
+        public static DailyQuizAttemptVM GetDailyQuizAttemptDetailsByAttemptId(int AttemptId)
+        {
+            DailyQuizAttemptVM model = new DailyQuizAttemptVM();
+            var Attempt = DailyQuizService.GetDailyQuizAttempt(AttemptId);
+            if (Attempt != null)
+            {
+                model = SetAttemptVMModel(Attempt, Attempt.DailyQuizId);
+            }
+            return model;
 
+        }
         public static ServiceResponse ValidateDailyQuizSubject(DailyQuizSubjectVM model)
         {
             ServiceResponse sr = new ServiceResponse();
@@ -664,7 +674,8 @@ namespace OnlineMasterG.DomainLogic
                             AnswerChoiceId = item.AnswerChoiceId,
                             AnswerStatus = item.AnswerStatus,
                             MarksScored = item.MarksScored,
-                            QuizTest = Question
+                            QuizTest = Question,
+                            IsAnswerCorrect = item.IsAnswerCorrect
 
                         });
                     }
@@ -688,7 +699,8 @@ namespace OnlineMasterG.DomainLogic
                     int? AttemptId = model.dailyQuizAttemptVMDetail?.FirstOrDefault()?.AttemptId;
                     dailyQuizAttempt.AttemptId = AttemptId.Value;
                     dailyQuizAttempt.IsPaused = model.IsPaused;
-                    dailyQuizAttempt.IsCompleted = model.IsCompleted;
+                    // daily quiz can have only one attempt, so every time we have to complete the test
+                    dailyQuizAttempt.IsCompleted = true;
                     dailyQuizAttempt.TimeLeftInMinutes = model.TimeLeftInMinutes;
 
                     List<DailyQuizAttemptDetail> dailyQuizAttemptDetailList = new List<DailyQuizAttemptDetail>();

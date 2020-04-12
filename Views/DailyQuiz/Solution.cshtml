@@ -1,7 +1,922 @@
-﻿@{
+﻿@model OnlineMasterG.Models.ViewModels.DailyQuizAttemptVM
+
+@using OnlineMasterG.CommonFramework
+@using OnlineMasterG.Models.DAL;
+@{
+    ViewBag.Title = "Index";
     Layout = null;
 }
+@{
 
-<h1>
-    Under construction
-</h1>
+    Layout = null;
+}
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="~/img/favicon.png" type="image/x-icon">
+    <title>Online Master JI</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/vendors/bootstrap-selector/css/bootstrap-select.min.css">
+    <!--icon font css-->
+    <link rel="stylesheet" href="~/vendors/themify-icon/themify-icons.css">
+    <link rel="stylesheet" href="~/vendors/flaticon/flaticon.css">
+    <link rel="stylesheet" href="~/vendors/animation/animate.css">
+    <link rel="stylesheet" href="~/vendors/owl-carousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/vendors/magnify-pop/magnific-popup.css">
+    <link rel="stylesheet" href="~/vendors/nice-select/nice-select.css">
+    <link rel="stylesheet" href="~/vendors/elagent/style.css">
+    <link rel="stylesheet" href="~/vendors/scroll/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+
+    <style>
+        section.service_area.sec_pad.s_service_section.breadcrumb_area.typography_breacrumb {
+            padding: 40px 0px 75px;
+        }
+
+        @@media (max-width: 1550px) {
+            .service_item {
+                padding: 10px 30px;
+            }
+        }
+
+        .pay_btn.pay_btn_two {
+            margin-left: 0;
+        }
+
+        .navbar-brand {
+            margin-left: 0;
+        }
+
+        section.service_area.sec_pad.s_service_section.breadcrumb_area.typography_breacrumb {
+            padding: 16px 0px 75px;
+        }
+
+        p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .instructionHead {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .instructionFoot {
+            border-top: 1px solid #ddd;
+            padding-top: 9px;
+        }
+
+        .modal-backdrop {
+            display: none;
+        }
+
+        .modal-header {
+            display: block;
+        }
+
+        .modal-open .modal {
+            background: rgba(0, 0, 0, 0.72);
+        }
+
+        .typography_breacrumb p, .containerCheck {
+            color: #000;
+            font-weight: 400;
+            font-size: 15px;
+        }
+
+        .dropdown-menu {
+            border: none;
+            border-bottom: 1px solid #ddd;
+            padding: 0;
+        }
+
+        @@media(max-width:768px) {
+            .nav-tabs .nav-link {
+                font-size: 12px;
+            }
+
+            .dropdown-menu {
+                display: none
+            }
+        }
+
+        @@media(min-width:768px) {
+            .hidden-md, .hidden-lg {
+                display: none;
+            }
+
+            .dropdown-menu {
+                position: relative;
+                display: block;
+                float: none;
+                width: 100%;
+            }
+
+            li.nav-item {
+                display: inline-block;
+            }
+
+            #question, .hide_questions {
+                display: none
+            }
+
+            #SearchParameters {
+                display: block;
+            }
+
+            .visible-xs {
+                display: none;
+            }
+            <!-- #myTab2 .nav-tabs .nav-item {
+                display: inline-block;
+            }
+            --> <!-- -->
+        }
+
+        .read {
+            color: #000 !important;
+        }
+
+            .read::after {
+                display: inline-block;
+                width: 0;
+                height: 0;
+                margin-left: .255em;
+                vertical-align: .255em;
+                content: "";
+                border-top: .3em solid;
+                border-right: .3em solid transparent;
+                border-bottom: 0;
+                border-left: .3em solid transparent;
+            }
+
+        .instructionFoot {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #fff;
+        }
+
+        .test_response .fix_height {
+            // max-height: inherit;
+            height: calc(75vh - 50px);
+        }
+
+        @@media (max-width: 768px) {
+            .test_response .fix_height {
+                height: calc(75vh - 90px);
+            }
+        }
+
+        //.test_response {
+            margin-bottom: 50px;
+        }
+
+        @@media(max-width:768px) {
+            .test_page .max_h420 {
+                max-height: inherit;
+            }
+
+            .read {
+                display: block
+            }
+
+            .choose_question {
+                display: none;
+                position: fixed;
+                top: 0;
+                background: #fff;
+                z-index: 9;
+                left: 0;
+                bottom: 0;
+                transition: all ease 0.2s;
+                padding: 10px 0px 0px 0;
+            }
+
+            span.hide_questions {
+                position: absolute;
+                top: 6px;
+                right: 10px;
+                font-family: monospace;
+                font-size: 11px;
+                background: gray;
+                color: #fff;
+                padding: 5px;
+                border-radius: 50%;
+                line-height: 11px;
+                width: 21px;
+                height: 22px;
+                text-align: center;
+                font-weight: bold;
+            }
+        }
+
+        #SearchParameters.in,
+        #SearchParameters.collapsing {
+            display: block !important;
+        }
+
+        .small_fonts .h6, .small_fonts h6, .small_fonts p, .small_fonts a, .small_fonts ul li, .small_fonts label, .small_fonts span, .small_fonts select {
+            font-size: 14px !important;
+        }
+
+        //.overflow_auto p {
+            margin-bottom: 0 !important;
+        }
+
+        .language {
+            font-size: 13px;
+        }
+
+        .navbar-brand {
+            margin: 0;
+            padding: 5px 0px;
+        }
+
+        .shop_page_number li span {
+            font-size: 12px !important;
+        }
+
+        ul.list-unstyled.payment_list {
+            padding-left: 15px;
+        }
+
+        .body_wrapper {
+            background: #fff;
+        }
+
+        .full_screen_btn, .close_full_screen {
+            color: #ffffff;
+            border: solid #fff 1px;
+            padding: 7px 5px 6px 5px;
+            margin-top: 6px;
+            color: #fff !important;
+        }
+
+        .agency_banner_btn {
+            font: 400 12px "inherit", sans-serif;
+        }
+
+        .font_18 {
+            font-size: 18px;
+        }
+
+        .checkmark {
+            display: none;
+        }
+
+        .list-unstyled {
+            list-style: decimal;
+        }
+
+        .containerCheck {
+            padding: 10px 15px;
+            line-height: normal;
+            margin-bottom: 14px;
+            background: #eee;
+        }
+
+        .list-unstyled .bg_red {
+            background: #bb0606;
+            color: #fff;
+        }
+
+        .list-unstyled .bg_green {
+            background: green;
+            color: #fff;
+        }
+
+        ul.list-unstyled.payment_list {
+            padding: 20px;
+        }
+
+        @@media (max-width: 768px) {
+            .small_fonts .h6, .small_fonts h6, .small_fonts p, .small_fonts a, .small_fonts ul li, .small_fonts label, .small_fonts span, .small_fonts select, .btn {
+                font-size: 14px !important;
+            }
+
+            .shop_page_number li span {
+                margin-right: 20px;
+            }
+
+            .container_test .agency_banner_btn {
+                padding: 7px 7px;
+                margin-left: 0;
+            }
+
+            .containerCheck input:checked:parent li {
+                padding: 15px 10px;
+                line-height: 2px;
+                margin-bottom: 15px;
+                background: blue;
+            }
+
+            .responsive_modal div, .responsive_modal ul, .responsive_modal ul li {
+                padding-left: 0;
+                padding-right: 0;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .m_p0 {
+                padding: 0;
+            }
+
+            .report_responsive {
+                position: absolute;
+                top: -38px;
+                color: #007bff;
+                background: transparent;
+                border: none;
+                right: -188px;
+            }
+
+            .m_p0 {
+                padding: 0;
+            }
+        }
+
+        @@media (min-width: 768px) {
+            .test_response .col-md-9 {
+                padding-right: 0;
+                -ms-flex: 0 0 84%;
+                flex: 0 0 84%;
+                max-width: 84%;
+            }
+
+            .test_response .col-md-3 {
+                -ms-flex: 0 0 16%;
+                padding: 0;
+                flex: 0 0 16%;
+                max-width: 16%;
+            }
+        }
+
+        @@media (max-width: 768px) {
+            #mytest .table thead th, #mytest .table tbody td {
+                white-space: nowrap;
+            }
+        }
+    </style>
+
+    <style>
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            /*border: 1px solid #ccc;*/
+            border-top: none;
+        }
+        /* Style the tab content */
+        .tabcontentQuestions {
+            display: none;
+            padding: 6px 12px;
+            /*border: 1px solid #ccc;*/
+            border-top: none;
+        }
+
+        .CurrentSelected {
+            /*background-color: #663cff !important;
+                /*cursive !important;*/ */
+        }
+
+        .MarkedImportant {
+            background-color: #8a63c0 !important;
+            border: #8a63c0 !important;
+            color: #fff;
+        }
+
+        .NotAnsweredImportant {
+            background-color: #d63c08 !important;
+            border: #d63c08 !important;
+            color: #fff;
+        }
+
+        .AnsweredImportant {
+            background-color: #64b31a !important;
+            border: #64b31a !important;
+            color: #fff;
+        }
+    </style>
+
+</head>
+@*oncontextmenu="return false" onkeydown="return false" onmousedown="return false"*@
+<body>
+    <div class="body_wrapper small_fonts" id="mytest">
+
+        <header class="breadcrumb_area p-0">
+            <img class="breadcrumb_shap" src="~/img/breadcrumb/banner_bg.png" alt="">
+            <nav class="navbar navbar-expand-lg menu_one menu_four">
+                <div class="container-fluid">
+
+                    <a class="navbar-brand col-md-2 hidden-xs" href="@Url.Action("Index","Home")"><img src="~/img/WhiteLogo.png" alt="logo"></a>
+
+                    <div class="col-md-2 breadcrumb_content hidden-xs">
+                        <span class="w_color f_600">@Model.QuizName</span>
+                        <!-- <h1 class="f_p f_700 f_size_30 w_color l_height50">SSC CGL</h1> -->
+                    </div>
+
+                    <div class="col-md-3 col-xs-6 breadcrumb_content text-center">
+                        <span class="w_color f_700 ">Your Rank : @Model.Rank/@Model.TotalTestAttempts</span>
+                       
+                    </div>
+
+
+
+                    <div class="col-md-3 col-xs-6 text-right" style="display:none">
+                        <span class="w_color f_600 hidden-xs">Select Language </span>
+                        <select>
+                            <option>English</option>
+                            <option>Hindi</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-2 text-center hidden-xs">
+                        @{
+                            var ActiveUser = AppInfo.ActiveUser;
+                            var ImgId = ActiveUser != null && ActiveUser.LogoDataFileId != null ? ActiveUser.LogoDataFileId.Value.ToString() : "0";
+                        }
+                        @if (ImgId != "0" && ImgId!=null)
+                        {
+                            <img class="student_img" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(ImgId)})' alt="" width="50">
+                        }
+
+                        <span class="w_color f_600">@(ActiveUser?.Email)</span>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+
+        <section class="service_area sec_pad s_service_section breadcrumb_area typography_breacrumb test_page" style="background:#fff;padding-bottom:0;padding-top:10px;">
+            <div class="container-fluid container_test">
+
+                <div class="service_info">
+
+                    @{
+                        var DailyQuizId = Model.DailyQuizId;
+
+                        var AnswerStatus = ViewBag.AnswerStatus;
+                        var FirstSubjectName = string.Empty;
+                    }
+
+                    <div class="row mb_15 test_response">
+                        <div class="col-md-9">
+                            <div class="row m0">
+
+                                <div class="">
+
+
+                                    <div class="tab-content developer_tab_content">
+                                        @{
+                                            <div class="tabcontent" id="" style="display:block">
+
+                                                @if (Model.dailyQuizAttemptVMDetail != null && Model.dailyQuizAttemptVMDetail.Count() > 0)
+                                                {
+                                                    var QuestionBasedOnTestAndSubjects = Model.dailyQuizAttemptVMDetail.ToList();
+                                                    foreach (var Q in QuestionBasedOnTestAndSubjects.OrderBy(m => m.QuestionNumber).Select((x, y) => new { Data = x, Index = y }))
+                                                    {
+                                                        var classActive = string.Empty;
+                                                        var QuestionDiv = "QuestionDiv" + Q.Index;
+
+                                                        if (Q.Index == 0)
+                                                        {
+                                                            classActive = "active";
+                                                        }
+                                                        else { classActive = string.Empty; }
+
+                                                        <div class="tabcontentQuestions tab-pane fade @classActive show" id="@QuestionDiv" role="tabpanel" aria-labelledby="ruby-tab">
+                                                            <h6 class="mb_15">
+                                                                <span class="f_500">
+                                                                    Directions (1-8): Read the following passage and answer the questions that follow it.<span class="hidden-xs hidden-sm">
+                                                                        Some words are highlighted to help you to answer some of the questions.
+                                                                    </span>
+                                                                </span>
+                                                            </h6>
+
+                                                            <div class="row">
+                                                                <div class="col-md-6 fix_height overflow_auto SearchParameters collapse" id="SearchParameters">
+                                                                    <p class="text-justify" style="word-wrap: break-word;">
+                                                                        @Q.Data.QuizTest.Description
+                                                                    </p>
+                                                                </div>
+
+                                                                <div class="col-md-6 fix_height overflow_auto">
+                                                                    <div>
+                                                                        <h6 class="f_size_15 f_500 ml_30">
+                                                                            <span class="qSpan">Q.@Q.Data.QuestionNumber</span>
+                                                                            @Q.Data.QuizTest.Question ?
+                                                                        </h6>
+                                                                        @if (Q.Data.QuizTest?.QuestionPoint != null && Q.Data.QuizTest?.QuestionPoint.Count() > 0)
+                                                                        {
+                                                                            foreach (var QP in Q.Data.QuizTest?.QuestionPoint.Select((x, y) => new { Data = x, Index = y }))
+                                                                            {
+                                                                                <p>(@(QP.Index + 1)) @QP.Data.QPoint .</p>
+                                                                            }
+                                                                        }
+
+                                                                        <ul class="list-unstyled payment_list">
+                                                                            @if (Q.Data.QuizTest?.QuestionAnswerChoice != null && Q.Data.QuizTest?.QuestionAnswerChoice.Count() > 0)
+                                                                            {
+                                                                                var RadioButtonName = "Answer" + QuestionDiv;
+
+                                                                                foreach (var QA in Q.Data.QuizTest?.QuestionAnswerChoice)
+                                                                                {
+                                                                                    var CorrectAnswer = QA.IsCorrect == true ? "bg_green" : "";
+                                                                                    var AnsweredStatus = ((Q.Data.AnswerStatus == "ANSWERED" || Q.Data.AnswerStatus == "MARKED") && !Q.Data.IsAnswerCorrect && Q.Data.QuizQuestionAnswerChoiceId == QA.QuestionAnswerChoiceId) ? "bg_red" : "";
+
+                                                                                    <li>
+                                                                                        <label class="containerCheck @CorrectAnswer @AnsweredStatus">
+                                                                                            @QA.QuestionAnswer
+                                                                                            <input type="radio" data-questionanswerchoiceid="@QA.QuestionAnswerChoiceId" data-choiceid="@QA.ChoiceId" name="@RadioButtonName">
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+                                                                                    </li>
+                                                                                }
+                                                                            }
+                                                                        </ul>
+                                                                        @if (Q.Data.QuizTest.QuizImageFileId != null)
+                                                                        {
+                                                                            <p> <img class="" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(Q.Data.QuizTest.QuizImageFileId.ToString())})' alt="" width="300"></p>
+                                                                        }
+                                                                        <br />
+                                                                        @if (!string.IsNullOrEmpty(Q.Data.QuizTest.Solution))
+                                                                        {
+                                                                            <div id="Solution">
+                                                                                <h6>Explanation</h6>
+                                                                                <p>
+                                                                                    @Q.Data.QuizTest.Solution
+                                                                                </p>
+                                                                            </div>
+                                                                        }
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    }
+
+
+                                                }
+
+                                            </div>
+
+                                        }
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-3 choose_question">
+                            <div class="border_l">
+                                <ul class="list-unstyled page-numbers shop_page_number text-left border_b col-md-12">
+
+                                    <li class="mb_20"><a class="page-numbers answered" href="#"> </a> <span>Answered </span></li>
+                                    <li class="mb_20"><a class="page-numbers not_answered" href="#"> </a><span>Not Answered</span></li>
+                                    <li class="mb_20"><a class="page-numbers not_visited" href="#"> </a><span>Not Visited</span></li>
+
+
+                                </ul>
+
+                                <div>
+                                    <h6 class="text-center l_height40 mb-0" style="    font-size: 14px; line-height: inherit;">
+                                        Choose a Question
+                                    </h6>
+                                    <span class="hide_questions">X</span>
+                                </div>
+                                <ul class="question_list list-unstyled page-numbers shop_page_number text-left ml-0 pt_20 border_t pl_15">
+
+                                    @if (Model.dailyQuizAttemptVMDetail != null && Model.dailyQuizAttemptVMDetail.Count() > 0)
+                                    {
+                                        var QuestionBasedOnTestAndSubjects = Model.dailyQuizAttemptVMDetail.ToList();
+                                        var FinalQuestionAttemptDetailId = QuestionBasedOnTestAndSubjects.OrderByDescending(m => m.AttemptDetailId).FirstOrDefault().AttemptDetailId;
+
+                                        foreach (var Q in QuestionBasedOnTestAndSubjects.OrderBy(m => m.QuestionNumber).Select((x, y) => new { Data = x, Index = y }))
+                                        {
+                                            var classnot_answered = string.Empty;
+                                            if (Q.Data.AnswerStatus == "ANSWERED")
+                                            {
+                                                classnot_answered = "answered";
+                                            }
+                                            else if (Q.Data.AnswerStatus == "NOTANSWERED")
+                                            {
+                                                classnot_answered = "not_answered";
+                                            }
+                                            else if (Q.Data.AnswerStatus == "MARKED")
+                                            {
+                                                classnot_answered = "marked_review";
+                                            }
+                                            else if (Q.Data.AnswerStatus == "NOTATTEMPTED")
+                                            {
+                                                classnot_answered = "not_visited";
+                                            }
+
+
+                                            var QuestionDiv = "QuestionDiv" + Q.Index;
+                                            var QBtn = "QBtn" + Q.Index;
+                                            var classIsFirst = "cls" + Q.Index;
+                                            var QuestionNumnber = "Qnumber" + "_" + Q.Data.QuizTest.QuestionNumber;
+
+                                            var IsLastQ = Q.Data.AttemptDetailId == FinalQuestionAttemptDetailId ? true : false;
+
+                                            if (Q.Index == 0)
+                                            {
+                                                classnot_answered = "not_visited";
+
+                                                <li>
+                                                    <button id="@QBtn" disabled data-questionnumber="@QuestionNumnber" data-subjectid="@Q.Data.DailyQuizSubjectId" data-finalq="@IsLastQ" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered @QuestionNumnber" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuizTest.QuestionNumber">@Q.Data.QuizTest.QuestionNumber</button>
+                                                    <input type="hidden" id="QDiv" value="@QuestionDiv" />
+                                                    @*<input type="hidden" id="QAnswerStatus" value="NOTATTEMPTED" />*@
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    <button id="@QBtn" disabled data-questionnumber="@QuestionNumnber" data-subjectid="@Q.Data.DailyQuizSubjectId" data-finalq="@IsLastQ" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered @QuestionNumnber" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuizTest.QuestionNumber">@Q.Data.QuizTest.QuestionNumber</button>
+                                                    <input type="hidden" id="QDiv" value="@QuestionDiv" />
+                                                    @*<input type="hidden" id="QAnswerStatus" value="NOTATTEMPTED" />*@
+                                                </li>
+
+                                            }
+
+                                        }
+                                    }
+
+
+                                </ul>
+
+
+                                @*<div class="hidden-md hidden-lg">
+                                        <a href="#" class="btn_hover agency_banner_btn" data-toggle="modal" data-target="#instructionModal">Instructions</a>
+                                         <a href="#" class="btn_hover agency_banner_btn btn_clear" data-toggle="modal" data-target="#reportModal">Report</a>
+                                         <a href="#" class="btn_hover agency_banner_btn answered hidden-xs"> Prev</a>
+                                        <a href="#" class="btn_hover agency_banner_btn report " onclick="fnPauseGetCurrentAnsweredDetails();" data-toggle="modal" data-target="#pauseModal1">Pause</a>
+
+                                    </div>*@
+                            </div>
+
+
+                        </div>
+                    </div>
+                    @*<div id="MarkingDiv" style="display:none">
+                            <form id="frmAnswerForm" method="post" action="@Url.Action("DailyQuizAnswerSubmit","DailyQuiz")">
+                                @if (Model.dailyQuizAttemptVMDetail != null && Model.dailyQuizAttemptVMDetail.Count() > 0)
+                                {
+                                    <input type="hidden" id="HfDailyQuizId" name="DailyQuizId" value='@Model.DailyQuizId'>
+                                    <input type="hidden" id="hfIsPaused" name="IsPaused" value='@Model.IsPaused'>
+                                    <input type="hidden" id="hfIsCompleted" name="IsCompleted" value='@Model.IsCompleted'>
+                                    <input type="hidden" id="hfTimeLeftInMinutes" name="TimeLeftInMinutes" value='@Model.TimeLeftInMinutes'>
+
+                                    foreach (var item in Model.dailyQuizAttemptVMDetail.OrderBy(m => m.AttemptDetailId).Select((x, y) => new { Data = x, Index = y }))
+                                    {
+                                        var QuestionNumnber = "Qnumber" + "_" + item.Data.QuestionNumber;
+                                        <div id="@QuestionNumnber">
+                                            <input type="hidden" name="dailyQuizAttemptVMDetail[@item.Index].AttemptId" value='@item.Data.AttemptId'>
+                                            <input type="hidden" name="dailyQuizAttemptVMDetail[@item.Index].QuestionsMockTestId" value='@item.Data.QuizTestId'>
+                                            <input type="hidden" name="dailyQuizAttemptVMDetail[@item.Index].QuestionNumber" value='@item.Data.QuestionNumber'>
+                                            <input type="hidden" name="dailyQuizAttemptVMDetail[@item.Index].SubjectId" value='@item.Data.DailyQuizSubjectId'>
+                                            <input type="hidden" name="dailyQuizAttemptVMDetail[@item.Index].ChoosenAnswerChoiceId" value='@item.Data.QuizQuestionAnswerChoiceId'>
+                                            <input type="hidden" name="dailyQuizAttemptVMDetail[@item.Index].ChoiceId" value='@item.Data.AnswerChoiceId'>
+                                            <input type="hidden" name="dailyQuizAttemptVMDetail[@item.Index].AnswerStatus" value='@item.Data.AnswerStatus'>
+                                            <input type="hidden" name="dailyQuizAttemptVMDetail[@item.Index].AttemptDetailId" value='@item.Data.AttemptDetailId'>
+                                        </div>
+                                    }
+                                }
+                            </form>
+                        </div>*@
+                    <div class="instructionFoot row">
+                        <div class="col-md-6 col-8">
+                            <a href="#" class="btn_hover agency_banner_btn report" onclick="fnPrevious(this);">Prev</a>
+                            <a href="#" class="btn_hover agency_banner_btn answered" onclick="fnNextAndSave(this)"> Next</a>
+                        </div>
+                        <div class="col-md-6 col-4 text-right">
+                            <a href="@Url.Action("Index","DailyQuiz")" class="btn_hover agency_banner_btn answered">Go to Quizes</a>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="finishModal" role="dialog" backdrop="static">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+
+                                <div class="modal-body responsive_modal">
+
+                                    <div class="container custom_container p0 m_p0">
+
+                                        <div class="service_info">
+                                            <div class="row instructionHead mb_15">
+                                                <div class="col-md-12 sec_title text-center">
+
+                                                    <h2 class="f_p f_size_20 f_500 t_color2 mb-10">@Model.QuizName</h2>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="">
+
+                                                    <ul class="row question_list list-unstyled page-numbers shop_page_number text-left ml-0 pt_20 pl_15">
+
+                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers answered" id="popupAnswered">05 </a> <span>Answered </span></li>
+                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers not_answered" id="popupNotAnswered">08 </a>Not Answered</li>
+                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers not_visited" id="popupNotVisited">15   </a>Not Visited</li>
+
+                                                    </ul>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                                <div class="row border_t pt_10 pb_10 m-0">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-xs-6 text-center">
+                                                <a onclick="fnResumeComplete();" class="btn_hover agency_banner_btn answered">Resume</a>
+                                            </div>
+
+                                            <div class="col-md-6 col-xs-6 text-center">
+                                                <a onclick="LastAndFinalSubmitFrom();" class="btn_hover agency_banner_btn m-0">Submit</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+        <script src="~/js/jquery-3.2.1.min.js"></script>
+        <script src="~/js/propper.js"></script>
+        <script src="~/js/bootstrap.min.js"></script>
+        <script src="~/vendors/wow/wow.min.js"></script>
+        <script src="~/vendors/sckroller/jquery.parallax-scroll.js"></script>
+        <script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
+        <script src="~/vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
+        <script src="~/vendors/isotope/isotope-min.js"></script>
+        <script src="~/vendors/magnify-pop/jquery.magnific-popup.min.js"></script>
+        <script src="~/vendors/bootstrap-selector/js/bootstrap-select.min.js"></script>
+        <script src="~/vendors/nice-select/jquery.nice-select.min.js"></script>
+        <script src="~/vendors/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="~/js/plugins.js"></script>
+        <script src="~/js/main.js"></script>
+
+        <script>
+            $("#question").click(function () {
+                $(".choose_question").show();
+            });
+            $(".hide_questions").click(function () {
+                $(".choose_question").hide();
+            });
+        </script>
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                $("#QBtn0").click();
+            });
+
+            function openQuestion(evt, className) {
+
+                var i, tabcontent, tablinks;
+
+                // Clearing All Questions
+                tabcontent = document.getElementsByClassName("tabcontentQuestions");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinksQuestions");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" CurrentSelected", "");
+                }
+
+                // Adding current selected
+                document.getElementById(className).style.display = "block";
+                evt.target.className += " CurrentSelected";
+
+            };
+
+            function fnClearRadioButtons() {
+                var ActiveQuestionDiv = "#" + $('.CurrentSelected').next("input:hidden[id='QDiv']").val();
+                $(ActiveQuestionDiv).find('.containerCheck').find("input:radio").each(function (i) {
+                    this.checked = false;
+                });
+                return false;
+            }
+
+            function fnNextAndSave() {
+                var NextQButton = "#" + $('.CurrentSelected').parent().next().children().attr('id');
+                $(NextQButton).click();
+            }
+            function fnPrevious() {
+                var PreviousQButton = "#" + $('.CurrentSelected').parent().prev().children().attr('id');
+                $(PreviousQButton).click();
+            }
+            function LastButtonSet() {
+                var NextQButton = "#" + $('.CurrentSelected').attr('id');
+                $(NextQButton).click();
+            }
+            function fnSaveAndSubmitForm() {
+                LastButtonSet();
+
+                // for setting updated values in array
+                setTimeout(function () {
+                    fnBeforeSumbit();
+                }, 60);
+                fnResumeComplete();
+            };
+
+            function fnBeforeSumbit() {
+                $("#popupAnswered").text('');
+                $("#popupNotAnswered").text('');
+                $("#popupNotVisited").text('');
+                setTbody();
+            }
+
+            function setTbody() {
+
+                var numberOfQuestions = 0;
+                var answered = 0;
+                var notAnswered = 0;
+                var markedforReview = 0;
+                var notVisited = 0;
+
+                var AllQuestionDiv = $("#MarkingDiv").find("form").children().filter('div');
+                $.each(AllQuestionDiv, function (i, e) {
+
+                    var AllInputsInDiv = $(e).find('input:hidden');
+                    $.each(AllInputsInDiv, function (a, b) {
+
+                        if ($(b).attr('name').endsWith("AnswerStatus")) {
+
+                            if ($(b).val() == "ANSWERED") {
+                                answered++;
+                            }
+                            else if ($(b).val() == "NOTANSWERED") {
+                                notAnswered++;
+                            }
+                            else if ($(b).val() == "NOTATTEMPTED") {
+                                notVisited++;
+                            }
+                        }
+                    });
+                });
+
+                $("#popupAnswered").text(answered);
+                $("#popupNotAnswered").text(notAnswered);
+                $("#popupNotVisited").text(notVisited);
+            }
+
+
+            function fnResumeComplete() {
+                $("#hfIsCompleted").val(false);
+            }
+
+            function fnComplete() {
+                $("#hfIsCompleted").val(true);
+            }
+            function fnSetTimeLeft() {
+
+                // setting remaining time before pausing to the active subject
+                var hours = $("#time-lefthours").text();
+                var minutes = $("#time-leftminutes").text();
+                var seconds = $("#time-leftseconds").text();
+                var remainingSeconds = ((Math.floor(hours) * 3600) + (Math.floor(minutes) * 60) + (Math.floor(seconds)));
+                var Inminutes = 0.00;
+                Inminutes = (remainingSeconds / 60);
+                $("#hfTimeLeftInMinutes").val(Inminutes);
+
+            }
+            function LastAndFinalSubmitFrom() {
+                fnComplete();
+                fnSetTimeLeft();
+                setTimeout(function () {
+                    $("#frmAnswerForm").submit();
+                }, 6);
+            }
+
+        </script>
+    </div>
+
+</body>
+</html>

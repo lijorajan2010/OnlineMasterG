@@ -64,6 +64,10 @@ namespace OnlineMasterG.CommonServices
         {
             return DB.DailyQuizAttempts.Where(m => m.AttemptId == (AttemptId.HasValue ? AttemptId.Value : 0)).ToList();
         }
+        public static List<DailyQuizAttempt> GetDailyQuizAttemptListByDailyQuizId(int? DailyQuizId)
+        {
+            return DB.DailyQuizAttempts.Where(m => m.DailyQuizId == (DailyQuizId.HasValue ? DailyQuizId.Value : 0)).ToList();
+        }
         public static List<QuizTest> GetQuizQuestionsBasedOnTestAndSubject(int? DailyQuizId, int? SubjectId)
         {
             return DB.QuizTests
