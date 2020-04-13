@@ -131,6 +131,8 @@ namespace OnlineMasterG.Controllers
                     user.Login = loginVM.Login;
                     user.Password = PasswordUtilities.CreateHash(loginVM.Password);
                     user.Isactive = true;
+                    user.FirstName = loginVM.FirstName;
+                    user.LastName = loginVM.LastName;
                     user.CreateBy = loginVM.Login;
                     user.CreateOn = DateTime.Now;
                     user.UserTypeCode = UserService.UserTypes.STUDENT.ToString();

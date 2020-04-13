@@ -1,0 +1,627 @@
+﻿@using OnlineMasterG.CommonFramework
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+    <title>Online Masterji</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/vendors/bootstrap-selector/css/bootstrap-select.min.css">
+    <!--icon font css-->
+    <link rel="stylesheet" href="~/vendors/themify-icon/themify-icons.css">
+    <link rel="stylesheet" href="~/vendors/flaticon/flaticon.css">
+    <link rel="stylesheet" href="~/vendors/animation/animate.css">
+    <link rel="stylesheet" href="~/vendors/owl-carousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/vendors/magnify-pop/magnific-popup.css">
+    <link rel="stylesheet" href="~/vendors/nice-select/nice-select.css">
+    <link rel="stylesheet" href="~/vendors/elagent/style.css">
+    <link rel="stylesheet" href="~/vendors/scroll/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <style>
+        .mobile_navi .service_item {
+            padding: 0;
+        }
+
+        .mobile_navi .col-3 {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .responsive_bread {
+            padding: 60px 0 94px !important;
+        }
+
+        .payment_service_area {
+            padding-top: 165px;
+            padding-bottom: 80px;
+        }
+
+        .payment_clients_area {
+            padding: 30px 0 100px;
+        }
+
+        .mobile_navi a {
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .mobile_navi h5::after {
+            content: " ";
+            border-bottom: 1px solid #ddd;
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            z-index: -1;
+        }
+
+        .mobile_navi h5 span {
+            background: white;
+            padding: 10px;
+        }
+
+        .mobile_navi h5 {
+            position: relative;
+        }
+
+        .mobile_navi a img {
+            background: white;
+            padding: 10px;
+            box-shadow: 4px 0 14px 3px #e6e6e6;
+            border-radius: 15px;
+        }
+
+        .mobile_navi a span {
+            display: block;
+            margin-top: 5px;
+        }
+
+        @@media(max-width:768px) {
+            .breadcrumb_area.test_detail {
+                padding: 70px 0px 30px;
+            }
+        }
+    </style>
+    <style>
+        .mobile_navi .service_item {
+            padding: 0;
+        }
+
+        .mobile_navi .col-3 {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .responsive_bread {
+            padding: 60px 0 94px !important;
+        }
+
+        .payment_service_area {
+            padding-top: 165px;
+            padding-bottom: 80px;
+        }
+
+        .payment_clients_area {
+            padding: 30px 0 100px;
+        }
+
+        .mobile_navi a {
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .mobile_navi h5::after {
+            content: " ";
+            border-bottom: 1px solid #ddd;
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            z-index: -1;
+        }
+
+        .mobile_navi h5 span {
+            background: white;
+            padding: 10px;
+        }
+
+        .mobile_navi h5 {
+            position: relative;
+        }
+
+        .mobile_navi a img {
+            background: white;
+            padding: 10px;
+            box-shadow: 4px 0 14px 3px #e6e6e6;
+            border-radius: 15px;
+        }
+
+        .modal-body .service_info
+        .close {
+            position: absolute;
+            right: 0;
+            background: #fff;
+            /* padding: 10px; */
+            /* line-height: 0; */
+            width: 30px;
+            height: 30px;
+            /* border-radius: 50%; */
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .mobile_navi a span {
+            display: block;
+            margin-top: 5px;
+        }
+
+        .rating .star {
+            display: inline-block;
+            font-family: FontAwesome;
+            font-size: 23px;
+            color: #ffd401;
+            cursor: pointer;
+            margin: 1px;
+        }
+
+            .rating .star:after {
+                content: '\f005';
+            }
+
+        @@media(max-width:768px) {
+            .breadcrumb_area.test_detail {
+                padding: 70px 0px 30px;
+            }
+        }
+    </style>
+
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.blockUI.js"></script>
+
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    @*<script src="~/Scripts/jquery.form.min.js"></script>*@
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Content/DataTables/datatables.js"></script>
+    <link href="~/Content/DataTables/datatables.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/DataTables-1.10.20/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/DataTables-1.10.20/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/DataTables-1.10.20/css/dataTables.foundation.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/DataTables-1.10.20/css/dataTables.jqueryui.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/DataTables-1.10.20/css/dataTables.semanticui.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/DataTables-1.10.20/css/jquery.dataTables.css" rel="stylesheet" />
+    <script src="~/Scripts/Shared/Ajax.js"></script>
+    <script src="~/Scripts/Shared/Shared.js"></script>
+    <script src="~/Scripts/Shared/Utilities.js"></script>
+
+</head>
+
+<body oncontextmenu="return false">
+    <div id="preloader">
+        <div id="ctn-preloader" class="ctn-preloader">
+            <div class="animation-preloader">
+                <div class="spinner"></div>
+                <div class="txt-loading">
+                    <span data-text-preloader="O" class="letters-loading">
+                        O
+                    </span>
+                    <span data-text-preloader="N" class="letters-loading">
+                        N
+                    </span>
+                    <span data-text-preloader="L" class="letters-loading">
+                        L
+                    </span>
+                    <span data-text-preloader="I" class="letters-loading">
+                        I
+                    </span>
+                    <span data-text-preloader="N" class="letters-loading">
+                        N
+                    </span>
+                    <span data-text-preloader="E" class="letters-loading">
+                        E
+                    </span>
+                    <span data-text-preloader="M" class="letters-loading">
+                        M
+                    </span>
+                    <span data-text-preloader="A" class="letters-loading">
+                        A
+                    </span>
+                    <span data-text-preloader="S" class="letters-loading">
+                        S
+                    </span>
+                    <span data-text-preloader="T" class="letters-loading">
+                        T
+                    </span>
+                    <span data-text-preloader="E" class="letters-loading">
+                        E
+                    </span>
+                    <span data-text-preloader="R" class="letters-loading">
+                        R
+                    </span>
+                    <span data-text-preloader="J" class="letters-loading">
+                        J
+                    </span>
+                    <span data-text-preloader="I" class="letters-loading">
+                        I
+                    </span>
+                </div>
+                <p class="text-center">Loading</p>
+            </div>
+            <div class="loader">
+                <div class="row">
+                    <div class="col-3 loader-section section-left">
+                        <div class="bg"></div>
+                    </div>
+                    <div class="col-3 loader-section section-left">
+                        <div class="bg"></div>
+                    </div>
+                    <div class="col-3 loader-section section-right">
+                        <div class="bg"></div>
+                    </div>
+                    <div class="col-3 loader-section section-right">
+                        <div class="bg"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="body_wrapper">
+
+
+        <header class="header_area navbar_fixed">
+            <div class="LatestUpdate">
+                @if (AppInfo.GetLatestUpdates != null && AppInfo.GetLatestUpdates.Count() > 0)
+                {
+                    foreach (var item in AppInfo.GetLatestUpdates)
+                    {
+                        <marquee> @item.UpdateDescription </marquee> <br />
+                    }
+                }
+
+
+            </div>
+            <nav class="navbar navbar-expand-lg menu_one menu_four">
+                <div class="container">
+
+                    <a class="navbar-brand sticky_logo" href="@Url.Action("Index","Home")"><img src="img/WhiteLogo.png" alt="logo"><img src="~/img/BlackLogo.png" alt=""></a>
+                    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="menu_toggle">
+                            <span class="hamburger">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </span>
+                            <span class="hamburger-cross">
+                                <span></span>
+                                <span></span>
+                            </span>
+                        </span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                        <ul class="navbar-nav menu w_menu ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index","Home")">
+                                    Home
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown submenu">
+                                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Mock Tests
+                                </a>
+                                <ul class="dropdown-menu">
+                                    @if (AppInfo.GetCourses != null)
+                                    {
+                                        foreach (var item in AppInfo.GetCourses)
+                                        {
+                                            <li class="nav-item"><a href="@Url.Action("Index","MockTests")" class="nav-link">@item</a></li>
+                                        }
+
+                                    }
+
+
+                                </ul>
+                            </li>
+
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index","DailyQuiz")">
+                                    Daily Quiz
+                                </a>
+                            </li>
+                            <!--  <li class="nav-item">
+                               <a class="nav-link" href="mock-test.html">
+                                  CA
+                               </a>
+
+                               </li>
+                            -->
+
+
+                            <li class="nav-item dropdown submenu">
+                                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Current Affairs
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item"><a href="@Url.Action("Index","CurrentAffairs")" class="nav-link">Weekly</a></li>
+                                    <li class="nav-item"><a href="@Url.Action("Index","CurrentAffairs")" class="nav-link">Monthly</a></li>
+                                    <li class="nav-item"><a href="@Url.Action("Index","CurrentAffairs")" class="nav-link">Static</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index","ExamUpdates")">
+                                    Exam Updates
+                                </a>
+                            </li>
+
+
+                            <li class="nav-item dropdown submenu">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    School &amp; College
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item"><a href="@Url.Action("Index","Schools")" class="nav-link">School</a></li>
+                                    <li class="nav-item"><a href="@Url.Action("Index","Colleges")" class="nav-link">College</a></li>
+                                </ul>
+                            </li>
+                            @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                            {
+                                var ActiveUser = AppInfo.ActiveUser;
+                                var ImgId = ActiveUser != null && ActiveUser.LogoDataFileId != null ? ActiveUser.LogoDataFileId.Value.ToString() : "0";
+
+                                <li class="nav-item dropdown submenu">
+                                    <a class="nav-link dropdown-toggle profile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        @if (ImgId != null && ImgId != "0")
+                                        {
+                                            <img class="student_img" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(ImgId)})' alt="" width="50">
+                                        }
+                                        else
+                                        {
+                                            <img class="student_img" src='img/profile.jpg' alt="" width="50">
+                                        }
+
+
+                                        Welcome @ActiveUser.FirstName
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a href="@Url.Action("Index","MyAccount")" class="nav-link">Profile</a></li>
+                                        <li class="nav-item"><a href="@Url.Action("Logout","Login")" class="nav-link">Logout</a></li>
+                                    </ul>
+                                </li>
+
+                            }
+                            else
+                            {
+                                <li class="hidden-lg hidden-md">
+                                    @Html.ActionLink("Log in", "Index", "Login", new { }, new { @class = "btn_hover agency_banner_btn pay_btn pay_btn_two" })
+                                    @Html.ActionLink("Register", "Signup", "Login", new { }, new { @class = "btn_hover agency_banner_btn pay_btn" })
+                                </li>
+                            }
+
+                        </ul>
+                        @if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                        {
+                            @Html.ActionLink("Log in", "Index", "Login", new { }, new { @class = "btn_get btn_hover hidden-sm hidden-xs" })
+                        }
+
+                        @*<a class="btn_get btn_hover hidden-sm hidden-xs" href="login.html">Log In</a>*@
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <section class="breadcrumb_area test_detail hidden-md hidden-lg">
+            <img class="breadcrumb_shap" src="~/img/breadcrumb/banner_bg.png" alt="">
+            <div class="container">
+
+            </div>
+        </section>
+        <div class="">
+            <div class="body_wrapper">
+                @RenderBody()
+
+                <section class="payment_service_area">
+                    <div class="container">
+                        <div class="row flex-row-reverse">
+                            <div class="col-lg-4">
+                                <div class="service-content wow fadeInRight" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInRight;">
+                                    <!--   <div class="pay_icon">
+                                        <div class="icon_shape"></div>
+                                        <img src="../Content/img/home9/icon7.png" alt="">
+                                    </div> -->
+                                    <div class="popular icon">
+                                        <i class="ti-book"></i>
+                                        <!-- <img src="../Content/img/home9/icon7.png" alt=""> -->
+                                    </div>
+                                    <h2 class="f_p w_color f_700">Popular Test Series</h2>
+                                    <p class="f_p w_color">Here are some popular test series to choose from! You can easily access and go ahead.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+
+                                        <!--  <div class="icon">
+                                            <img src="../Content/img/home9/icon4.png" alt="">
+                                        </div> -->
+                                        <a href="@Url.Action("Index","MockTests")">
+                                            <div class="media-body">
+                                                <h3 class="f_size_20 f_p w_color f_600">SBI</h3>
+                                                <p class="f_400 f_size_15 w_color">Prepare for SBI Entrance Exam!</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                                        <!-- <div class="icon">
+                                            <img src="../Content/img/home9/icon7.png" alt="">
+                                        </div> -->
+                                        <a href="@Url.Action("Index","MockTests")">
+                                            <div class="media-body">
+                                                <h3 class="f_size_20 f_p w_color f_600">SSC</h3>
+                                                <p class="f_400 f_size_15 w_color">Prepare for SSC Entrance Exam!</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
+                                        <!-- <div class="icon">
+                                            <img src="../Content/img/home9/icon5.png" alt="">
+                                        </div> -->
+                                        <a href="@Url.Action("Index","MockTests")">
+                                            <div class="media-body">
+                                                <h3 class="f_size_20 f_p w_color f_600">IBPS</h3>
+                                                <p class="f_400 f_size_15 w_color">Prepare for IBPS Exam!</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+                                        <!--  <div class="icon">
+                                            <img src="../Content/img/home9/icon8.png" alt="">
+                                        </div> -->
+                                        <a href="@Url.Action("Index","MockTests")">
+                                            <div class="media-body">
+                                                <h3 class="f_size_20 f_p w_color f_600">Railways</h3>
+                                                <p class="f_400 f_size_15 w_color">Prepare for Railways Entrance Exam!</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
+                                        <!--   <div class="icon">
+                                            <img src="../Content/img/home9/icon6.png" alt="">
+                                        </div> -->
+                                        <a href="@Url.Action("Index","MockTests")">
+                                            <div class="media-body">
+                                                <h3 class="f_size_20 f_p w_color f_600">UPSSSC</h3>
+                                                <p class="f_400 f_size_15 w_color">Prepare for UPSSSC Entrance Exam!</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
+                                        <!--  <div class="icon">
+                                            <img src="../Content/img/home9/icon6.png" alt="">
+                                        </div> -->
+                                        <a href="@Url.Action("Index","MockTests")">
+                                            <div class="media-body">
+                                                <h3 class="f_size_20 f_p w_color f_600">LIC</h3>
+                                                <p class="f_400 f_size_15 w_color">Prepare for LIC Exam!</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
+                                        <!-- <div class="icon">
+                                            <img src="../Content/img/home9/icon6.png" alt="">
+                                        </div> -->
+                                        <a href="@Url.Action("Index","MockTests")">
+                                            <div class="media-body">
+                                                <h3 class="f_size_20 f_p w_color f_600">CA</h3>
+                                                <p class="f_400 f_size_15 w_color">Prepare for CA Exam!</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+        <footer class="footer_nine_area">
+            <div class="footer_nine_top">
+                <div class="footer_shap left"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-6">
+                            <div class="f_widget company_widget pr_100">
+                                <a href="@Url.Action("Index","Home")" class="f-logo"><img src="~/img/BlackLogo.png" alt=""></a>
+                                <p class="f_400 f_p f_size_16 mb-0 l_height28 mt_40">Tickety-boo victoria sponge only a quid I don't want no agro morish bum bag gutted mate up the duff, bloke blag cup of char super bugger all mate.!</p>
+                                <div class="f_social_icon_two mt_30">
+                                    <a href="#"><i class="ti-facebook"></i></a>
+                                    <a href="#"><i class="ti-twitter-alt"></i></a>
+                                    <a href="#"><i class="ti-vimeo-alt"></i></a>
+                                    <a href="#"><i class="ti-pinterest"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-6 col-xs-6">
+                            <div class="f_widget about-widget">
+                                <h3 class="f-title f_500 f_size_16 mb-30">About Us</h3>
+                                <ul class="list-unstyled f_list">
+                                    <li><a href="#">Developer</a></li>
+                                    <li><a href="#">Blog</a></li>
+                                    <li><a href="#">Investor</a></li>
+                                    <li><a href="#">Sitemap</a></li>
+                                    <li><a href="#">Jobs</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-6 col-xs-6">
+                            <div class="f_widget about-widget">
+                                <h3 class="f-title f_500 f_size_16 mb-30">Help &amp; Suport</h3>
+                                <ul class="list-unstyled f_list">
+                                    <li><a href="#">Help and Contact</a></li>
+                                    <li><a href="#">Fees</a></li>
+                                    <li><a href="#">Security</a></li>
+                                    <li><a href="#">App</a></li>
+                                    <li><a href="#">Shop</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 pl_100">
+                            <div class="f_widget about-widget">
+                                <h3 class="f-title f_500 f_size_16 mb-30">Privacy Contact</h3>
+                                <ul class="list-unstyled f_list">
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Legal Agreement</a></li>
+                                    <li><a href="#">Feedback</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer_nine_bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-7 align-self-center">
+                            <p class="mb-0 f_400">Copyright © 2019 <a href="">All rights Reserved </a></p>
+                        </div>
+                        <div class="col-sm-5 text-right">
+                            <p class="mb-0 f_400">Desing by <a href="#">Anjali Rawat</a></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/js/propper.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/vendors/wow/wow.min.js"></script>
+    <script src="~/vendors/sckroller/jquery.parallax-scroll.js"></script>
+    <script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="~/vendors/isotope/isotope-min.js"></script>
+    <script src="~/vendors/magnify-pop/jquery.magnific-popup.min.js"></script>
+    <script src="~/vendors/bootstrap-selector/js/bootstrap-select.min.js"></script>
+    <script src="~/vendors/nice-select/jquery.nice-select.min.js"></script>
+    <script src="~/vendors/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/js/plugins.js"></script>
+    <script src="~/js/main.js"></script>
+
+</body>
+</html>

@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="~/img/favicon.png" type="image/x-icon">
-    <title>Online Master JI</title>
+    <title>Online Master Ji</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/vendors/bootstrap-selector/css/bootstrap-select.min.css">
@@ -340,7 +340,7 @@
         .tab {
             overflow: hidden;
             /*border: 1px solid #ccc;
-        background-color: #f1f1f1;*/
+            background-color: #f1f1f1;*/
         }
 
             /* Style the buttons inside the tab */
@@ -380,11 +380,6 @@
             border-top: none;
         }
 
-        .CurrentSelected {
-            background-color: #663cff !important;
-            ;
-            /*cursive !important;*/
-        }
 
         .MarkedImportant {
             background-color: #8a63c0 !important;
@@ -402,6 +397,11 @@
             background-color: #64b31a !important;
             border: #64b31a !important;
             color: #fff;
+        }
+
+        .CurrentSelected {
+            background-color: #663cff !important;
+            /*cursive  !important;*/
         }
     </style>
 
@@ -441,8 +441,8 @@
 
 
 </head>
-
-<body onload="startCountdown('@(Model.TimeLeftInMinutes*60)');" oncontextmenu="return false" onkeydown="return false" onmousedown="return false">
+@*oncontextmenu="return false"*@
+<body onload="startCountdown('@(Model.TimeLeftInMinutes*60)');">
 
     <div class="body_wrapper small_fonts" id="mytest">
 
@@ -468,7 +468,7 @@
                     </div>
                     <div class="col-md-2 hidden-xs text-center">
                         <a class="btn_hover agency_banner_btn full_screen_btn" href="javascript:void();" onclick="openFullscreen();" style="">Full Screen</a>
-                        <a class="btn_hover agency_banner_btn close_full_screen" href="javascript:void();" onclick="closeFullscreen();" style="display: none;">Exit Full Screen</a>
+                        <a class="btn_hover agency_banner_btn close_full_screen" href="javascript:void();" id="exitId" onclick="closeFullscreen();" style="display: none;">Exit Full Screen</a>
                     </div>
 
 
@@ -494,7 +494,7 @@
                             <img class="student_img" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(ImgId)})' alt="" width="50">
                         }
 
-                        <span class="w_color f_600">@(ActiveUser?.Email)</span>
+                        <span class="w_color f_600">@(AppInfo.ActiveUser.Email)</span>
                     </div>
                 </div>
             </nav>
@@ -637,20 +637,23 @@
                                                                                     <span class="qSpan">Q.@Q.Data.QuestionNumber</span>
                                                                                     @Q.Data.QuestionsMockTests.Question ?
                                                                                 </h6>
-                                                                                @if (Q.Data.QuestionsMockTests?.QuestionPoints != null && Q.Data.QuestionsMockTests?.QuestionPoints.Count() > 0)
+                                                                                @if (Q.Data.QuestionsMockTests != null && Q.Data.QuestionsMockTests.QuestionPoints != null && Q.Data.QuestionsMockTests.QuestionPoints.Count() > 0)
                                                                                 {
-                                                                                    foreach (var QP in Q.Data.QuestionsMockTests?.QuestionPoints.Select((x, y) => new { Data = x, Index = y }))
+                                                                                    foreach (var QP in Q.Data.QuestionsMockTests.QuestionPoints.Select((x, y) => new { Data = x, Index = y }))
                                                                                     {
                                                                                         <p>(@(QP.Index + 1)) @QP.Data.QPoint .</p>
                                                                                     }
                                                                                 }
-
+                                                                                @if (Q.Data.QuestionsMockTests.QuestionImageFileId != null)
+                                                                                {
+                                                                                    <p> <img class="" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(Q.Data.QuestionsMockTests.QuestionImageFileId.ToString())})' alt="" width="300"></p>
+                                                                                }
                                                                                 <ul class="list-unstyled payment_list">
-                                                                                    @if (Q.Data.QuestionsMockTests?.QuestionAnswerChoices != null && Q.Data.QuestionsMockTests?.QuestionAnswerChoices.Count() > 0)
+                                                                                    @if (Q.Data.QuestionsMockTests != null && Q.Data.QuestionsMockTests.QuestionAnswerChoices != null && Q.Data.QuestionsMockTests.QuestionAnswerChoices.Count() > 0)
                                                                                     {
                                                                                         var RadioButtonName = "Answer" + QuestionDiv;
 
-                                                                                        foreach (var QA in Q.Data.QuestionsMockTests?.QuestionAnswerChoices)
+                                                                                        foreach (var QA in Q.Data.QuestionsMockTests.QuestionAnswerChoices)
                                                                                         {
                                                                                             <li>
                                                                                                 <label class="containerCheck">
@@ -662,10 +665,7 @@
                                                                                         }
                                                                                     }
                                                                                 </ul>
-                                                                                @if (Q.Data.QuestionsMockTests.QuestionImageFileId != null)
-                                                                                {
-                                                                                    <p> <img class="" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(Q.Data.QuestionsMockTests.QuestionImageFileId.ToString())})' alt="" width="300"></p>
-                                                                                }
+
                                                                                 <br />
                                                                                 @*@if (true)
                                                                                     {
@@ -742,7 +742,7 @@
                                                         classnot_answered = "not_visited";
 
                                                         <li>
-                                                            <button id="@QBtn" disabled data-questionnumber="@QuestionNumnber" data-subjectid="@item.Data.SubjectId" data-finalq="@IsLastQ" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered @QuestionNumnber" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuestionsMockTests.QuestionNumber">@Q.Data.QuestionsMockTests.QuestionNumber</button>
+                                                            <button id="@QBtn" data-questionnumber="@QuestionNumnber" data-subjectid="@item.Data.SubjectId" data-finalq="@IsLastQ" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered @QuestionNumnber" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuestionsMockTests.QuestionNumber">@Q.Data.QuestionsMockTests.QuestionNumber</button>
                                                             <input type="hidden" id="QDiv" value="@QuestionDiv" />
                                                             @*<input type="hidden" id="QAnswerStatus" value="NOTATTEMPTED" />*@
                                                         </li>
@@ -750,7 +750,7 @@
                                                     else
                                                     {
                                                         <li>
-                                                            <button id="@QBtn" disabled data-questionnumber="@QuestionNumnber" data-subjectid="@item.Data.SubjectId" data-finalq="@IsLastQ" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered @QuestionNumnber" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuestionsMockTests.QuestionNumber">@Q.Data.QuestionsMockTests.QuestionNumber</button>
+                                                            <button id="@QBtn" data-questionnumber="@QuestionNumnber" data-subjectid="@item.Data.SubjectId" data-finalq="@IsLastQ" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered @QuestionNumnber" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuestionsMockTests.QuestionNumber">@Q.Data.QuestionsMockTests.QuestionNumber</button>
                                                             <input type="hidden" id="QDiv" value="@QuestionDiv" />
                                                             @*<input type="hidden" id="QAnswerStatus" value="NOTATTEMPTED" />*@
                                                         </li>
@@ -1256,7 +1256,12 @@
         </script>
 
         <script>
-
+            $(document).on('keydown', function (event) {
+                if (event.key == "Escape") {
+                    $(".full_screen_btn").show();
+                    $(".close_full_screen").hide();
+                }
+            });
 
             function issues() {
                 if ($(".issue").prop("checked") == true) {
@@ -1430,6 +1435,7 @@
 
             function openQuestion(evt, className) {
 
+                debugger
                 var i, tabcontent, tablinks;
                 // Clearing All Subjects
                 tabcontent = document.getElementsByClassName("tabcontent");

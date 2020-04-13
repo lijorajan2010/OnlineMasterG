@@ -268,6 +268,10 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
   margin-top: 60px;
 }
 
+.mt_10 {
+  margin-top: 10px;
+}
+
 .mt_30 {
   margin-top: 30px;
 }
@@ -1126,13 +1130,13 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
   display: block;
   width: 100%;
   margin-right: 0px;
-  padding: 0px 40px;
+  padding: 0px;
   background: #fff;
   position: relative;
 }
 
 .menu > .nav-item.submenu .dropdown-menu .nav-item .nav-link {
-  padding: 0px;
+  padding: 0px 40px;
   white-space: nowrap;
   font: 400 14px/34px "Poppins", sans-serif;
   color: #051441;
@@ -8172,7 +8176,7 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
   text-align: center;
   background: #f6f7fa;
   border: 1px solid #f6f7fa;
-  padding: 55px;
+  padding: 15px;
   cursor: pointer;
   -webkit-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
@@ -8225,21 +8229,21 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
 }
 
 .s_pricing-item .s_price_icon {
-  width: 110px;
-  height: 110px;
-  text-align: center;
-  line-height: 110px;
-  background: #f0f2f8;
-  border-radius: 50%;
-  margin: 0 auto;
-  position: relative;
+     width: 90px;
+    height: 90px;
+    text-align: center;
+    line-height: 88px;
+    background: #f0f2f8;
+    border-radius: 50%;
+    margin: 0 auto;
+    position: relative;
   -webkit-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
 
 .s_pricing-item .s_price_icon i:before {
-  font-size: 48px;
+  font-size: 40px;
 }
 
 .s_pricing-item .s_price_icon.p_icon1 {
@@ -8259,8 +8263,8 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
 }
 
 .s_pricing-item .price {
-  color: #051441;
-  padding: 24px 0px 40px;
+  color: #5f2eed;
+  padding: 0px 0px 10px;
   border-bottom: 1px solid #e9e9f4;
 }
 
@@ -8270,7 +8274,7 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
 }
 
 .s_pricing-item ul li {
-  line-height: 40px;
+  line-height: 30px;
   color: #505975;
   font-weight: 300;
 }
@@ -9841,14 +9845,14 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
 }
 
 .feedback_item {
-  border: 1px solid #131430;
-  border-radius: 4px;
-  background-color: #0f1029;
-  -webkit-box-shadow: 0px 30px 50px 0px rgba(12, 0, 46, 0.3);
-  box-shadow: 0px 30px 50px 0px rgba(12, 0, 46, 0.3);
-  padding: 45px;
-  position: relative;
-  overflow: hidden;
+     border: 1px solid #131430;
+    border-radius: 4px;
+    background-color: #0f1029;
+    -webkit-box-shadow: 0px 30px 50px 0px rgba(12, 0, 46, 0.3);
+    box-shadow: 0px 30px 50px 0px rgba(12, 0, 46, 0.3);
+    padding: 25px 25px 6px;
+    position: relative;
+    overflow: hidden;
 }
 
 .feedback_item .feed_back_author {
@@ -9885,7 +9889,7 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
 
 .feedback_item p {
   font-weight: 300;
-  margin-top: 34px;
+  margin-top: 20px;
   margin-bottom: 25px;
 }
 
@@ -9961,7 +9965,8 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
   background-image: -moz-linear-gradient(30deg, #5f51fb 0%, #8ca7ff 100%);
   background-image: -webkit-linear-gradient(30deg, #5f51fb 0%, #8ca7ff 100%);
   background-image: -ms-linear-gradient(30deg, #5f51fb 0%, #8ca7ff 100%);
-  height: 550px;
+  height: auto;
+  //height: 550px;
   position: relative;
   z-index: 1;
 }
@@ -21549,16 +21554,16 @@ a .h_head:hover {
 .LatestUpdate marquee{
 	line-height:normal;
 }
-.popular.icon{
-	    width: 90px;
+.popular.icon {
+    width: 90px;
     height: 90px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.1);
     text-align: center;
-    line-height: 2.3;
-    font-size: 42px;
+    line-height: 1 !important;
+    font-size: 36px;
     color: #fff;
-	margin-bottom:10px;
+    margin-bottom: 10px;
 }
 /* .navbar-brand {
     margin-left: 50px;
@@ -21816,3 +21821,7 @@ div#accordion {
     padding: 70px 0px 30px ;
 }
 	}
+[class^="ti-"], [class*=" ti-"] {
+    line-height: 2.5;
+    !important
+}

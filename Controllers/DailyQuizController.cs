@@ -236,8 +236,12 @@ namespace OnlineMasterG.Controllers
             }
 
             model.TotalOriginalMarks = subjectWiseScoreVMs.Sum(m => m.OriginalScore);
-            model.TotalTestAccuracy = (model.TotalMarksScored / model.TotalOriginalMarks.Value) * 100;
 
+            if (model.TotalMarksScored!=0 && model.TotalOriginalMarks.Value!=0)
+            {
+                model.TotalTestAccuracy = (model.TotalMarksScored / model.TotalOriginalMarks.Value) * 100;
+            }
+          
             return View(model);
         }
     }
