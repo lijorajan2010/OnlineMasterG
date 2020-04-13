@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace OnlineMasterG.Controllers
 {
-    [ActionAuthorization()]
+    [ActionAuthorization("ADMINACTION")]
     public class QuestionUploadController : BaseController
     {
         // GET: UploadMaster

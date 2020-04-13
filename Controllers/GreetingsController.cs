@@ -1,4 +1,5 @@
 ﻿using OnlineMasterG.Base;
+using OnlineMasterG.Code;
 using OnlineMasterG.CommonServices;
 using OnlineMasterG.DomainLogic;
 using System;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace OnlineMasterG.Controllers
 {
+    [ActionAuthorization("ADMINACTION")]
     public class GreetingsController : BaseController
     {
         // GET: Greetings

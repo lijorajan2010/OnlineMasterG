@@ -202,7 +202,7 @@
 
 </head>
 
-<body oncontextmenu="return false" onkeydown="return false" onmousedown="return false">
+<body oncontextmenu="return false">
     <div id="preloader">
         <div id="ctn-preloader" class="ctn-preloader">
             <div class="animation-preloader">
@@ -382,7 +382,16 @@
 
                                 <li class="nav-item dropdown submenu">
                                     <a class="nav-link dropdown-toggle profile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img class="student_img" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(ImgId)})' alt="" width="50">
+                                        @if (ImgId != null && ImgId != "0")
+                                        {
+                                            <img class="student_img" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(ImgId)})' alt="" width="50">
+                                        }
+                                        else
+                                        {
+                                            <img class="student_img" src='img/profile.jpg' alt="" width="50">
+                                        }
+                                        
+
                                         Welcome @ActiveUser.FirstName
                                     </a>
                                     <ul class="dropdown-menu">

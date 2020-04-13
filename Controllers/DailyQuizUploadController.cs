@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace OnlineMasterG.Controllers
 {
-    [ActionAuthorization()]
+    [ActionAuthorization("ADMINACTION")]
     public class DailyQuizUploadController : BaseController
     {
         // GET: DailyQuizUpload

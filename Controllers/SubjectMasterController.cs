@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace OnlineMasterG.Controllers
 {
-    [ActionAuthorization()]
+    [ActionAuthorization("ADMINACTION")]
     public class SubjectMasterController : BaseController
     {
         // GET: SubjectMaster

@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace OnlineMasterG.Controllers
 {
-    [ActionAuthorization()]
+    [ActionAuthorization("ADMINACTION")]
     public class DashboardController : Controller
     {
         // GET: Dashboard

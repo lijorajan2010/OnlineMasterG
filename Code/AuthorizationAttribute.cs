@@ -11,7 +11,7 @@ namespace OnlineMasterG.Code
     {
         public string action { get; set; }
 
-        public ActionAuthorizationAttribute()
+        public ActionAuthorizationAttribute(string action)
         {
             this.action = action;
         }
@@ -30,11 +30,11 @@ namespace OnlineMasterG.Code
                 return;
             }
 
-            //if (!ActionAuthorization.Authorize(this.action))
-            //{
-            //    filterContext.Result = CreateUnauthorizedResult(filterContext);
-            //    return;
-            //}
+            if (!ActionAuthorization.Authorize(this.action))
+            {
+                filterContext.Result = CreateUnauthorizedResult(filterContext);
+                return;
+            }
         }
 
         protected ActionResult CreateUnauthorizedResult(AuthorizationContext filterContext)

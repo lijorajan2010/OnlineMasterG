@@ -220,6 +220,7 @@
     <Compile Include="Base\ServiceError.cs" />
     <Compile Include="Base\ServiceResponse.cs" />
     <Compile Include="Base\ViewRendering.cs" />
+    <Compile Include="Code\ActionAuthorization.cs" />
     <Compile Include="Code\ActiveUser.cs" />
     <Compile Include="Code\AuthorizationAttribute.cs" />
     <Compile Include="Code\SerializablePrincipal.cs" />

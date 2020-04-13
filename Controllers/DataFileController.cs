@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace OnlineMasterG.Controllers
 {
-    [ActionAuthorization()]
+    [ActionAuthorization("PUBLICACTION")]
     public class FileInputResponseModel
     {
         public string error { get; set; }

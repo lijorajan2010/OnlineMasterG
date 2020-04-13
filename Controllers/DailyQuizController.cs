@@ -12,14 +12,16 @@ using System.Web.Mvc;
 
 namespace OnlineMasterG.Controllers
 {
-    [ActionAuthorization()]
+  
     public class DailyQuizController : Controller
     {
         // GET: DailyQuiz
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
+        [ActionAuthorization("PUBLICACTION")]
         public ActionResult DailyQuiz(string p)
         {
             int DailyQuizId = 0;
@@ -43,6 +45,7 @@ namespace OnlineMasterG.Controllers
             ViewBag.AnswerStatus = ExamLogics.getAnswerStatuses();
             return View(model);
         }
+        [ActionAuthorization("PUBLICACTION")]
         [HttpPost]
         public ActionResult DailyQuizAnswerSubmit(DailyQuizAttemptVM model)
         {
@@ -57,6 +60,7 @@ namespace OnlineMasterG.Controllers
             }
 
         }
+        [ActionAuthorization("PUBLICACTION")]
         public ActionResult ReportCard(string p)
         {
 
@@ -185,7 +189,7 @@ namespace OnlineMasterG.Controllers
 
             return rank;
         }
-
+        [ActionAuthorization("PUBLICACTION")]
         public ActionResult Solution(string p)
         {
             int AttemptId = 0;

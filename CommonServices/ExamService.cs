@@ -100,6 +100,7 @@ namespace OnlineMasterG.CommonServices
 
                         DB.SaveChanges();
                         sr.ReturnId = dbMockTestAttempt.AttemptId;
+                        sr.Data = dbMockTestAttempt.IsPaused;
                     }
                 }
                 catch (Exception ex)

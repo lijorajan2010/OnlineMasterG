@@ -21,6 +21,7 @@ namespace OnlineMasterG.Code
         public int? LogoDataFileId { get; set; }
         public string DefaultLanguageCode { get; set; }
         public bool AllowWebsiteDefaultCulture { get; set; }
+        public List<UserAction> UserActions { get; set; }
 
         public bool IsSuperAdmin
         {
@@ -42,6 +43,7 @@ namespace OnlineMasterG.Code
 
         public ActiveUser(string login)
         {
+            List<UserAction> listAction = new List<UserAction>();
             User user = UserService.Fetch(login);
             var logoId = UserService.GetUserCompanyLogoDataFileId(user.Login);
             Login = user.Login;
@@ -53,8 +55,28 @@ namespace OnlineMasterG.Code
             FirstName = user.FirstName;
             LastName = user.LastName;
             FullName = user.FirstName + " " + user.LastName;
+            if (UserTypeCode == "STUDENT")
+            {
+                listAction.Add(new UserAction()
+                {
+                    Action = "PUBLICACTION"
+                });
+                UserActions = listAction;
+            }
+            else if (UserTypeCode == "ADMIN")
+            {
+                listAction.Add(new UserAction()
+                {
+                    Action = "ADMINACTION"
+                });
+                UserActions = listAction;
+            }
         }
-       
+
+        public class UserAction
+        {
+            public string Action { get; set; }
+        }
 
         #endregion
     }

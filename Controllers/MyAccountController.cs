@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 namespace OnlineMasterG.Controllers
 {
-    [ActionAuthorization()]
+    [ActionAuthorization("PUBLICACTION")]
     public class MyAccountController : BaseController
     {
         // GET: MyAccount

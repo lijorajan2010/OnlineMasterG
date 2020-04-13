@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace OnlineMasterG.Controllers
 {
-    [ActionAuthorization()]
+    [ActionAuthorization("PUBLICACTION")]
     public class GeneralInstructionMasterController : BaseController
     {
         // GET: GeneralInstructionMaster

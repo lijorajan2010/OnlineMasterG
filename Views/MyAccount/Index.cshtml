@@ -215,10 +215,10 @@
                 <div class="col-md-12">
                     <ul class="nav nav-tabs develor_tab mb_15" id="myTab2" role="tablist">
                         <li class="nav-item">
-                            <a class="f_600 nav-link active show" data-tab="tab_one" id="ruby-tab" data-toggle="tab" href="#ruby" role="tab" aria-controls="ruby" aria-selected="true">Given Tests @(Model.GivenMockTests.Count()>0? "("+Model.GivenMockTests.Count()+")": "")</a>
+                            <a class="f_600 nav-link active show" data-tab="tab_one" id="ruby-tab" data-toggle="tab" href="#ruby" role="tab" aria-controls="ruby" aria-selected="true">Given Tests @(Model.GivenMockTests != null && Model.GivenMockTests.Count()>0? "("+Model.GivenMockTests.Count()+")": "")</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link f_600" data-tab="tab_two" id="curl-tab" data-toggle="tab" href="#curl" role="tab" aria-controls="curl" aria-selected="false">Given Quizes @(Model.GivenQuizes.Count() > 0 ? "(" + Model.GivenQuizes.Count() + ")" : "")</a>
+                            <a class="nav-link f_600" data-tab="tab_two" id="curl-tab" data-toggle="tab" href="#curl" role="tab" aria-controls="curl" aria-selected="false">Given Quizes @(Model.GivenQuizes != null && Model.GivenQuizes.Count() > 0 ? "(" + Model.GivenQuizes.Count() + ")" : "")</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link f_600" data-tab="tab_three" data-toggle="tab" href="#resize" role="tab" aria-controls="resize" aria-selected="false">Subscription</a>
@@ -240,8 +240,8 @@
                                                         </div>
                                                         <div class="col-md-5 col-md-5 col-xs-5">
                                                             <div>
-                                                                <a href="@Url.Action("Solution", "Examination", new { p = CustomEncrypt.SafeUrlEncrypt(item.AttemptId.ToString()) })" class="btn_get btn_hover">Solution</a>
-                                                                <a href="@Url.Action("ReportCard", "Examination", new { p = CustomEncrypt.SafeUrlEncrypt(item.AttemptId.ToString()) })" class="btn_hover agency_banner_btn ml_15">Analysis</a>
+                                                                <a href="@Url.Action("Solution", "Examination", new { p = CustomEncrypt.SafeUrlEncrypt(item.AttemptId.ToString()) })" target="_blank" class="btn_get btn_hover">Solution</a>
+                                                                <a href="@Url.Action("ReportCard", "Examination", new { p = CustomEncrypt.SafeUrlEncrypt(item.AttemptId.ToString()) })" target="_blank" class="btn_hover agency_banner_btn ml_15">Analysis</a>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -13,7 +13,7 @@ using OnlineMasterG.Models.ViewModels;
 
 namespace OnlineMasterG.Controllers
 {
-    [ActionAuthorization()]
+    [ActionAuthorization("PUBLICACTION")]
     public class ExaminationController : BaseController
     {
         // GET: Examination
@@ -42,6 +42,10 @@ namespace OnlineMasterG.Controllers
             var AttemptSaved = ExamLogics.SaveExamAttempts(model, HttpContext.User.Identity.Name);
             if (AttemptSaved.Status)
             {
+                if ((Convert.ToBoolean(AttemptSaved.Data) == true))
+                {
+                    return RedirectToAction("Index", "MockTests");
+                }
                 return RedirectToAction("ReportCard", new { p = CustomEncrypt.Encrypt(AttemptSaved.ReturnId.ToString()) } );
             }
             else
