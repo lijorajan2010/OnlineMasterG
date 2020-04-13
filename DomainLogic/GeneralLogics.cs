@@ -32,7 +32,7 @@ namespace OnlineMasterG.DomainLogic
 
             return sr;
         }
-        public static ServiceResponse ValidateGreetings(HttpPostedFileBase postedFile)
+        public static ServiceResponse ValidateGreetings(HttpPostedFileBase postedFile, byte[] bytes)
         {
             ServiceResponse sr = new ServiceResponse();
             // Verify that the user selected a file
@@ -42,12 +42,8 @@ namespace OnlineMasterG.DomainLogic
                 DataContent dataContent = new DataContent();
                 DataFile dataFile = new DataFile();
 
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    postedFile.InputStream.CopyTo(ms);
-                    dataContent.RawData = ms.GetBuffer();
-                }
-
+                dataContent.RawData = bytes;
+              
                 dataFile.FileName = Path.GetFileName(postedFile.FileName);
                 dataFile.Extension = Path.GetExtension(postedFile.FileName);
                 dataFile.SourceCode = "GREETINGS";

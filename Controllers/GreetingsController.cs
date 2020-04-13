@@ -35,7 +35,7 @@ namespace OnlineMasterG.Controllers
             byte[] bytes = br.ReadBytes((Int32)fs.Length);
             // Validate & Save
             var sr = new ServiceResponse();
-            sr = GeneralLogics.ValidateGreetings(postedFile);
+            sr = GeneralLogics.ValidateGreetings(postedFile,bytes);
             if (!sr.Status)
                 return GetJsonValidation(sr);
             sr = GeneralLogics.SaveGreetings(postedFile, bytes, HttpContext.User.Identity.Name);

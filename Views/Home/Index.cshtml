@@ -25,8 +25,8 @@
                             @if (AppInfo.GetGreetings != null && AppInfo.GetGreetings.Count() > 0)
                             {
                                 var FirstGreeting = AppInfo.GetGreetings.FirstOrDefault();
-                                var Img = FirstGreeting?.DataFileId;
-                                if (Img != null)
+                                var Img = FirstGreeting!=null?FirstGreeting.DataFileId:null;
+                                if (Img != null && Img != 0)
                                 {
                                     <img src="@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(Img.ToString())})" style="max-width:100%;">
                                 }
