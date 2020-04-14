@@ -312,7 +312,8 @@ namespace OnlineMasterG.DomainLogic
                         SubjectName = SubjectService.Fetch(item.SubjectId)?.SubjectName,
                         QuestionStatus = item.QuestionStatus,
                         IsActive = item.Isactive,
-                        LanguageCode = item.LanguageCode
+                        LanguageCode = item.LanguageCode,
+                        CreateOn = item.CreateDate
 
                     });
                 }

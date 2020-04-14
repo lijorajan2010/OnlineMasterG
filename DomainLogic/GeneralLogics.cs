@@ -249,6 +249,7 @@ namespace OnlineMasterG.DomainLogic
                         QuestionCount = QuestionUploadService.GetQuestionsBasedOnTestAndSubject(item.TestId, item.SubjectId).Count(),
                         CorrectMarks = item.CorrectMarks,
                         NegativeMarks = item.NegativeMarks,
+                        CreateOn = item.CreateOn
 
                     });
                 }

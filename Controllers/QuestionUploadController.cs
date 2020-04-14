@@ -29,7 +29,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult QuestionUploadList()
         {
-            var model = QuestionUploadLogics.QuestionUploadList("en-US", true);
+            var model = QuestionUploadLogics.QuestionUploadList("en-US", true).OrderByDescending(m=>m.CreateOn);
 
             return PartialView(model);
         }

@@ -25,7 +25,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult SchoolUploadPaperList()
         {
-            var model = PaperLogics.SchoolPaperList("en-US", true);
+            var model = PaperLogics.SchoolPaperList("en-US", true).OrderByDescending(m=>m.CreateOn);
 
             return PartialView(model);
         }

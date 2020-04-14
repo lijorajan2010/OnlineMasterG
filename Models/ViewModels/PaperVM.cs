@@ -22,5 +22,6 @@ namespace OnlineMasterG.Models.ViewModels
         public int? DataFileId { get; set; }
         public bool IsActive { get; set; }
         public virtual DataFileVM DataFile { get; set; }
+        public System.DateTime CreateOn { get; set; }
     }
 }

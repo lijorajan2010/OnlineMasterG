@@ -22,7 +22,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult GreetingsList()
         {
-            var model = GeneralService.GreetingsList("en-US", true);
+            var model = GeneralService.GreetingsList("en-US", true).OrderByDescending(m=>m.CreateOn);
 
             return PartialView(model);
         }

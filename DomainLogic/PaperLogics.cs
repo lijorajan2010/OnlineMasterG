@@ -94,7 +94,8 @@ namespace OnlineMasterG.DomainLogic
                         Description = item.Description,
                         LanguageCode = item.LanguageCode,
                         DataFileId = item.DataFileId,
-                        DataFile = datafile
+                        DataFile = datafile,
+                        CreateOn = item.CreateOn
 
                     });
                 }
@@ -132,7 +133,8 @@ namespace OnlineMasterG.DomainLogic
                         Description = item.Description,
                         LanguageCode = item.LanguageCode,
                         DataFileId = item.DataFileId,
-                        DataFile = datafile
+                        DataFile = datafile,
+                        CreateOn = item.CreateOn
 
                     });
                 }

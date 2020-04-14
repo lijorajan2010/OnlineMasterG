@@ -25,7 +25,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult TestList()
         {
-            var model = TestLogics.TestList("en-US");
+            var model = TestLogics.TestList("en-US").OrderByDescending(m=>m.CreateOn);
 
             return PartialView(model);
         }

@@ -24,7 +24,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult SectionList()
         {
-            var model = SectionLogics.SectionList("en-US");
+            var model = SectionLogics.SectionList("en-US").OrderByDescending(m=>m.CreateOn);
 
             return PartialView(model);
         }

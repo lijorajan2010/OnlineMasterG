@@ -453,8 +453,9 @@ namespace OnlineMasterG.DomainLogic
                         DailyQuizCourseName = DailyQuizService.Fetch(item.DailyQuizCourseId)?.DailyQuizCourseName,
                         DailyQuizCourseId = item.DailyQuizCourseId,
                         IsActive = item.Isactive,
-                        LanguageCode = item.LanguageCode
-
+                        LanguageCode = item.LanguageCode,
+                        CreateOn = item.CreateOn
+                        
                     });
                 }
             }
@@ -480,7 +481,8 @@ namespace OnlineMasterG.DomainLogic
                         TimeInMinutes = item.TimeInMinutes,
                         Description = item.Description,
                         Isactive = item.Isactive,
-                        LanguageCode = item.LanguageCode
+                        LanguageCode = item.LanguageCode,
+                        CreateOn = item.CreateOn
                     });
                 }
             }
@@ -505,7 +507,8 @@ namespace OnlineMasterG.DomainLogic
                         DailyQuizCourseId = item.DailyQuizCourseId,
                         Isactive = item.Isactive,
                         DataFileId = item.DataFileId,
-                        QuestionStatus = item.QuestionStatus
+                        QuestionStatus = item.QuestionStatus,
+                        CreateOn = item.CreateOn
                     }); ;
                 }
             }

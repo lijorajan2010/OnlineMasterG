@@ -25,5 +25,6 @@ namespace OnlineMasterG.Models.ViewModels
         public string Question { get; set; }
         public string QuestionSet { get; set; }
         public HttpPostedFileBase postedFile { get; set; }
+        public System.DateTime CreateOn { get; set; }
     }
 }

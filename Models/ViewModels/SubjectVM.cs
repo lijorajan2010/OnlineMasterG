@@ -24,5 +24,6 @@ namespace OnlineMasterG.Models.ViewModels
         public int Sequence { get; set; }
         public int? SequenceSub { get; set; }
         public bool IsActive { get; set; }
+        public System.DateTime CreateOn { get; set; }
     }
 }

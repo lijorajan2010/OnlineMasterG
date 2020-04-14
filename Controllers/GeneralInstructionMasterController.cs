@@ -23,7 +23,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult InstructionList()
         {
-            var model = GeneralLogics.GeneralInstructionList("en-US", true);
+            var model = GeneralLogics.GeneralInstructionList("en-US", true).OrderByDescending(m=>m.CreateOn);
             return PartialView(model);
         }
 

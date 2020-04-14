@@ -100,7 +100,8 @@ namespace OnlineMasterG.DomainLogic
                         CategoryName = CategoryService.Fetch(item.CategoryId)?.CategoryName,
                         TestName = TestService.Fetch(item.TestId)?.TestName,
                         Sequence=item.Sequence,
-                        LanguageCode =item.LanguageCode
+                        LanguageCode =item.LanguageCode,
+                        CreateOn= item.CreateOn
 
                     });
                 }
@@ -123,7 +124,8 @@ namespace OnlineMasterG.DomainLogic
                         CourseName = CourseService.FetchCollegeCourse(item.CourseId)?.CourseName,
                         SequenceSub = item.Sequence,
                         LanguageCode = item.LanguageCode,
-                        IsActive = item.Isactive
+                        IsActive = item.Isactive,
+                        CreateOn = item.CreateOn
 
                     });
                 }
@@ -146,7 +148,8 @@ namespace OnlineMasterG.DomainLogic
                         ClassName = ClassService.Fetch(item.ClassId)?.ClassName,
                         SequenceSub = item.Sequence,
                         LanguageCode = item.LanguageCode,
-                        IsActive = item.Isactive
+                        IsActive = item.Isactive,
+                        CreateOn = item.CreateOn
 
                     });
                 }

@@ -56,7 +56,8 @@ namespace OnlineMasterG.DomainLogic
                         CourseId = item.CourseId,
                         IsActive = item.Isactive,
                         Sequence=item.Sequence,
-                        LanguageCode =item.LanguageCode
+                        LanguageCode =item.LanguageCode,
+                        CreateOn = item.CreateOn
 
                     });
                 }

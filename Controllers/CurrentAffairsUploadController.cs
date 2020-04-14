@@ -23,7 +23,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult CurrentAffairsUploadList()
         {
-            var model = CurrentAffairsLogics.CurrentAffairsUploadList("en-US", true);
+            var model = CurrentAffairsLogics.CurrentAffairsUploadList("en-US", true).OrderByDescending(m=>m.CreateOn);
             return PartialView(model);
         }
 

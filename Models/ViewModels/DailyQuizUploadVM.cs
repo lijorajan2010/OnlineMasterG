@@ -22,5 +22,6 @@ namespace OnlineMasterG.Models.ViewModels
         public DataFileVM DataFile { get; set; }
         public bool Isactive { get; set; }
         public HttpPostedFileBase postedFile { get; set; }
+        public System.DateTime CreateOn { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult LatestUpdatesList()
         {
-            var model = GeneralService.LatestAllUpdatesList("en-US");
+            var model = GeneralService.LatestAllUpdatesList("en-US").OrderByDescending(m=>m.CreateOn);
             return PartialView(model);
         }
 

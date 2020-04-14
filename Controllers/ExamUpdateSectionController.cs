@@ -22,7 +22,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult ExamSectionList()
         {
-            var model = ExamUpdateService.ExamAllSectionList("en-US");
+            var model = ExamUpdateService.ExamAllSectionList("en-US").OrderByDescending(m=>m.CreateOn);
             return PartialView(model);
         }
 

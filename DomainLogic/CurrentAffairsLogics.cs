@@ -92,7 +92,8 @@ namespace OnlineMasterG.DomainLogic
                         UploadDate = item.UploadDate,
                         LanguageCode = item.LanguageCode,
                         DataFileId = item.DataFileId,
-                        DataFile = datafile
+                        DataFile = datafile,
+                        CreateOn = item.CreateOn
 
                     });
                 }

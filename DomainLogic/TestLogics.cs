@@ -63,7 +63,8 @@ namespace OnlineMasterG.DomainLogic
                         CategoryName = CategoryService.Fetch(item.CategoryId)?.CategoryName,
                         Description=item.Description,
                         TimeInMinutes=item.TimeInMinutes,
-                        LanguageCode =item.LanguageCode
+                        LanguageCode =item.LanguageCode,
+                        CreateOn = item.CreateOn
 
                     });
                 }

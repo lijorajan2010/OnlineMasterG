@@ -77,7 +77,8 @@ namespace OnlineMasterG.DomainLogic
                         CourseName = CourseService.Fetch(item.CourseId)?.CourseName,
                         CategoryName = CategoryService.Fetch(item.CategoryId)?.CategoryName,
                         Description=item.Description,
-                        LanguageCode =item.LanguageCode
+                        LanguageCode =item.LanguageCode,
+                        CreateOn = item.CreateOn
 
                     });
                 }
@@ -101,7 +102,8 @@ namespace OnlineMasterG.DomainLogic
                         SubjectName = SubjectService.FetchSchoolSubject(item.SubjectId)?.SubjectName,
                         ClassName = ClassService.Fetch(item.ClassId)?.ClassName,
                         Description = item.Description,
-                        LanguageCode = item.LanguageCode
+                        LanguageCode = item.LanguageCode,
+                        CreateOn = item.CreateOn
 
                     });
                 }

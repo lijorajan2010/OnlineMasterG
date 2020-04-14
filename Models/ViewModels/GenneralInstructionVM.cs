@@ -20,5 +20,6 @@ namespace OnlineMasterG.Models.ViewModels
         public int QuestionCount { get; set; }
         public string LanguageCode { get; set; }
         public bool IsActive { get; set; }
+        public System.DateTime CreateOn { get; set; }
     }
 }

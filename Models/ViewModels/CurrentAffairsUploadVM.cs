@@ -15,5 +15,6 @@ namespace OnlineMasterG.Models.ViewModels
         public string LanguageCode { get; set; }
         public bool Isactive { get; set; }
         public DataFileVM DataFile { get; set; }
+        public System.DateTime CreateOn { get; set; }
     }
 }

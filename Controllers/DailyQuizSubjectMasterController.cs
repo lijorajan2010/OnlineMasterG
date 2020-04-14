@@ -23,7 +23,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult SubjectList()
         {
-            var model = DailyQuizLogics.SubjectList("en-US");
+            var model = DailyQuizLogics.SubjectList("en-US").OrderByDescending(m=>m.CreateOn);
 
             return PartialView(model);
         }

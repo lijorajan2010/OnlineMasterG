@@ -14,5 +14,6 @@ namespace OnlineMasterG.Models.ViewModels
         public int? Sequence { get; set; }
         public string LanguageCode { get; set; }
         public bool IsActive { get; set; }
+        public System.DateTime CreateOn { get; set; }
     }
 }
