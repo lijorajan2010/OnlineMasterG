@@ -2,6 +2,7 @@
 using OnlineMasterG.Models.DAL;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -22,6 +23,10 @@ namespace OnlineMasterG.CommonServices
         {
             return DB.MockTestAttempts.Where(m => !string.IsNullOrEmpty(m.Review)).ToList();
         }
+        public static List<MockTestAttempt> GetAttemptListApprovedReviews()
+        {
+            return DB.MockTestAttempts.Where(m => !string.IsNullOrEmpty(m.Review) && m.IsReviewApproved == true).ToList();
+        }
         public static List<MockTestAttempt> GetAttemptListByTestId(int? TestId)
         {
             return DB.MockTestAttempts.Where(m =>  m.TestId == (TestId.HasValue? TestId : 0)).ToList();
@@ -30,8 +35,56 @@ namespace OnlineMasterG.CommonServices
         {
             return DB.MockTestAttempts.Where(m => m.AttemptId == attemptId).FirstOrDefault();
         }
-
-    
+        public static MockTestAttempt FetchUpdate(int attemptId)
+        {
+            return DB.MockTestAttempts.Where(m => m.AttemptId == attemptId).FirstOrDefault();
+        }
+        internal static ServiceResponse ApproveRating(int attemptId)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            try
+            {
+                var Attempt = ExamService.FetchUpdate(attemptId);
+                if (Attempt != null)
+                {    
+                    Attempt.IsReviewApproved = true;
+                    DB.SaveChanges();
+                }
+                else
+                {
+                    sr.AddError("There is some technical problems to approval ");
+                }
+            }
+            catch (Exception ex)
+            {
+                sr.AddError(ex.Message);
+            }
+            return sr;
+        }
+        internal static ServiceResponse DenyRating(int attemptId)
+        {
+            ServiceResponse sr = new ServiceResponse();
+            try
+            {
+                var Attempt = ExamService.FetchUpdate(attemptId);
+                if (Attempt != null)
+                {
+                    
+                    Attempt.IsReviewApproved = false;
+                    DB.Entry(Attempt).State = EntityState.Modified;
+                    DB.SaveChanges();
+                }
+                else
+                {
+                    sr.AddError("There is some technical problems to denial ");
+                }
+            }
+            catch (Exception ex)
+            {
+                sr.AddError(ex.Message);
+            }
+            return sr;
+        }
 
         internal static ServiceResponse SaveMockTestAttempt(MockTestAttempt firstTimeAttempt, string audiLogin)
         {

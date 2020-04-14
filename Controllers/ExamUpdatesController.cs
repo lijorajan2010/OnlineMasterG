@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace OnlineMasterG.Controllers
 {
-    [ActionAuthorization("PUBLICACTION")]
+    [AllowAnonymous]
     public class ExamUpdatesController : Controller
     {
         // GET: ExamUpdates

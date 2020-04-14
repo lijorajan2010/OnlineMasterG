@@ -254,7 +254,7 @@ namespace OnlineMasterG.CommonFramework
         {
             get
             {
-                return GeneralService.TestimonialsVMLis().Distinct().ToList();
+                return GeneralService.TestimonialsVMApprovedList().Distinct().ToList();
 
             }
             set { }

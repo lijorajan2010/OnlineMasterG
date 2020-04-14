@@ -1898,6 +1898,7 @@
     <Content Include="Views\Greetings\Index.cshtml" />
     <Content Include="Views\Greetings\GreetingsList.cshtml" />
     <Content Include="Views\Shared\Public2Layout.cshtml" />
+    <Content Include="Views\Dashboard\getTestimonailasList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -31,11 +31,41 @@ namespace OnlineMasterG.CommonServices
             return sr;
         }
 
-        internal static List<TestimonialsVM> TestimonialsVMLis()
+        
+       
+        
+        internal static List<TestimonialsVM> TestimonialsVMList()
         {
             List<TestimonialsVM> list = new List<TestimonialsVM>();
 
             var MockTestAttemptsRatings = ExamService.GetAttemptListReviews();
+
+            if (MockTestAttemptsRatings != null && MockTestAttemptsRatings.Count() > 0)
+            {
+                foreach (var item in MockTestAttemptsRatings)
+                {
+                    var UserDetails = UserService.Fetch(item.Login);
+                    list.Add(new TestimonialsVM()
+                    {
+                        FirstName = UserDetails?.FirstName,
+                        LastName = UserDetails?.LastName,
+                        ImageDataFileId = UserDetails?.LogoDataFileId,
+                        Rating = item.Rating,
+                        Review = item.Review,
+                        IsApproved = item.IsReviewApproved,
+                        AttemptId = item.AttemptId,
+                        TestName = TestService.Fetch(item.TestId)?.TestName
+                    });
+                }
+            }
+
+            return list;
+        }
+        internal static List<TestimonialsVM> TestimonialsVMApprovedList()
+        {
+            List<TestimonialsVM> list = new List<TestimonialsVM>();
+
+            var MockTestAttemptsRatings = ExamService.GetAttemptListApprovedReviews();
 
             if (MockTestAttemptsRatings != null && MockTestAttemptsRatings.Count() > 0)
             {

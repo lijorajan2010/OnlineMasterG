@@ -12,5 +12,8 @@ namespace OnlineMasterG.Models.ViewModels
         public int? ImageDataFileId { get; set; }
         public int? Rating { get; set; }
         public string Review { get; set; }
+        public string TestName { get; set; }
+        public bool IsApproved { get; set; }
+        public int AttemptId { get; set; }
     }
 }

@@ -362,6 +362,7 @@
           <Property Name="FinalMarksScoredForRank" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Rating" Type="int" />
           <Property Name="Review" Type="nvarchar(max)" />
+          <Property Name="IsReviewApproved" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ProblemMaster">
           <Key>
@@ -2344,6 +2345,7 @@
           <Property Name="FinalMarksScoredForRank" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Rating" Type="Int32" />
           <Property Name="Review" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsReviewApproved" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="ProblemMaster">
           <Key>
@@ -3879,6 +3881,7 @@
           <EntitySetMapping Name="MockTestAttempts">
             <EntityTypeMapping TypeName="OnlinemasterjiModel.MockTestAttempt">
               <MappingFragment StoreEntitySet="MockTestAttempts">
+                <ScalarProperty Name="IsReviewApproved" ColumnName="IsReviewApproved" />
                 <ScalarProperty Name="Review" ColumnName="Review" />
                 <ScalarProperty Name="Rating" ColumnName="Rating" />
                 <ScalarProperty Name="FinalMarksScoredForRank" ColumnName="FinalMarksScoredForRank" />
