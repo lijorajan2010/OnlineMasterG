@@ -11,7 +11,11 @@ namespace OnlineMasterG.CommonServices
 {
     public static class DailyQuizService
     {
-        private static OnlinemasterjiEntities DB = new OnlinemasterjiEntities();
+        public static OnlinemasterjiEntities DB { get; private set; }
+        static DailyQuizService()
+        {
+            DB = new OnlinemasterjiEntities();
+        }
         internal static List<DailyQuizCourse> DailyQuizCourseList(string Lang, bool isActive)
         {
             return DB.DailyQuizCourses.Where(m => m.LanguageCode == Lang && m.Isactive == isActive).ToList();

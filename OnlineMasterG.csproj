@@ -367,6 +367,9 @@
     <Compile Include="Models\DAL\LatestUpdate.cs">
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DAL\MockExamType.cs">
+      <DependentUpon>OnlineMaster.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DAL\MockTest.cs">
       <DependentUpon>OnlineMaster.tt</DependentUpon>
     </Compile>
@@ -1899,6 +1902,7 @@
     <Content Include="Views\Greetings\GreetingsList.cshtml" />
     <Content Include="Views\Shared\Public2Layout.cshtml" />
     <Content Include="Views\Dashboard\getTestimonailasList.cshtml" />
+    <Content Include="Views\Examination\Index2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

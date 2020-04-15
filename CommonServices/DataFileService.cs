@@ -10,7 +10,11 @@ namespace OnlineMasterG.CommonServices
 {
     public static class DataFileService
     {
-        private static OnlinemasterjiEntities DB = new OnlinemasterjiEntities();
+        public static OnlinemasterjiEntities DB { get; private set; }
+        static DataFileService()
+        {
+            DB = new OnlinemasterjiEntities();
+        }
         #region Lists & Fetchs
 
         public static DataFile Fetch(int dataFileId)

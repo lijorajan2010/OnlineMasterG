@@ -23,7 +23,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult CategoryList()
         {
-           var model = CategoryLogics.CategoryList("en-US").OrderByDescending(m=>m.CreateOn);
+           var model = CategoryLogics.CategoryList("en-US").OrderByDescending(m=>m.CreateOn).ToList();
 
             return PartialView(model);
         }

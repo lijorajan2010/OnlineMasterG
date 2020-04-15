@@ -754,7 +754,7 @@
 
                     </div>
                     <div class="col-md-2 col-xs-6 breadcrumb_content text-center">
-                        <span class="w_color f_600">Your Score : @Model.TotalMarksScored.ToString("0.00")/@(Model.TotalOriginalMarks?.ToString("0.00"))</span>
+                        <span class="w_color f_600">Your Score : @Model.TotalMarksScored.ToString("0.00")/@(Model.TotalOriginalMarks.HasValue ? Model.TotalOriginalMarks.Value.ToString("0.00") :"")</span>
 
                     </div>
                     <div class="col-md-2 col-xs-6 breadcrumb_content text-center">
@@ -873,20 +873,20 @@
                                                                                     <span class="qSpan">Q.@Q.Data.QuestionNumber</span>
                                                                                     @Q.Data.QuestionsMockTests.Question ?
                                                                                 </h6>
-                                                                                @if (Q.Data.QuestionsMockTests?.QuestionPoints != null && Q.Data.QuestionsMockTests?.QuestionPoints.Count() > 0)
+                                                                                @if (Q.Data.QuestionsMockTests!=null && Q.Data.QuestionsMockTests.QuestionPoints != null && Q.Data.QuestionsMockTests.QuestionPoints.Count() > 0)
                                                                                 {
-                                                                                    foreach (var QP in Q.Data.QuestionsMockTests?.QuestionPoints.Select((x, y) => new { Data = x, Index = y }))
+                                                                                    foreach (var QP in Q.Data.QuestionsMockTests.QuestionPoints.Select((x, y) => new { Data = x, Index = y }))
                                                                                     {
                                                                                         <p>(@(QP.Index + 1)) @QP.Data.QPoint .</p>
                                                                                     }
                                                                                 }
 
                                                                                 <ul class="list-unstyled payment_list">
-                                                                                    @if (Q.Data.QuestionsMockTests?.QuestionAnswerChoices != null && Q.Data.QuestionsMockTests?.QuestionAnswerChoices.Count() > 0)
+                                                                                    @if (Q.Data.QuestionsMockTests!=null && Q.Data.QuestionsMockTests.QuestionAnswerChoices != null && Q.Data.QuestionsMockTests.QuestionAnswerChoices.Count() > 0)
                                                                                     {
                                                                                         var RadioButtonName = "Answer" + QuestionDiv;
 
-                                                                                        foreach (var QA in Q.Data.QuestionsMockTests?.QuestionAnswerChoices)
+                                                                                        foreach (var QA in Q.Data.QuestionsMockTests.QuestionAnswerChoices)
                                                                                         {
                                                                                             var CorrectAnswer = QA.IsCorrect == true ? "bg_green" : "";
                                                                                             var AnsweredStatus = ((Q.Data.AnswerStatus == "ANSWERED" || Q.Data.AnswerStatus == "MARKED") &&  !Q.Data.IsAnswerCorrect && Q.Data.ChoosenAnswerChoiceId == QA.QuestionAnswerChoiceId) ? "bg_red" : "";

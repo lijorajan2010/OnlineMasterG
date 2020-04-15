@@ -18,14 +18,13 @@ namespace OnlineMasterG.Controllers
         public ActionResult Index()
         {
             ViewBag.CourseList = new SelectList(CourseService.CourseList("en-US", true), "CourseId", "CourseName");
-            //ViewBag.CategoryList = new SelectList(CategoryService.CategoryList("en-US", true), "CategoryId", "CategoryName");
-            //ViewBag.SectionList = new SelectList(SectionService.SectionList("en-US", true), "SectionId", "SectionName");
+            ViewBag.ExamType = new SelectList(TestService.MockExamTypeList(), "MockExamTypeId", "MockExamTypeName");
             return View();
         }
         [HttpGet]
         public PartialViewResult TestList()
         {
-            var model = TestLogics.TestList("en-US").OrderByDescending(m=>m.CreateOn);
+            var model = TestLogics.TestList("en-US").OrderByDescending(m=>m.CreateOn).ToList();
 
             return PartialView(model);
         }

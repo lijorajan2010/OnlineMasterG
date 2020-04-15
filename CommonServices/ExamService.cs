@@ -10,7 +10,11 @@ namespace OnlineMasterG.CommonServices
 {
     public static class ExamService
     {
-        private static OnlinemasterjiEntities DB = new OnlinemasterjiEntities();
+        public static OnlinemasterjiEntities DB { get; private set; }
+        static ExamService()
+        {
+            DB = new OnlinemasterjiEntities();
+        }
         public static List<MockTestAttempt> GetAttemptListByLoginAndTestId(string Login, int TestId)
         {
             return DB.MockTestAttempts.Where(m => m.Login == Login && m.TestId == TestId).ToList();

@@ -102,8 +102,10 @@
                                         foreach (var qset in QuestionSetGroup.Select((x, y) => new { Data = x, Index = y }))
                                         {
                                             string FirstDescription = string.Empty;
+                                            string FirstDirection = string.Empty;
                                             int? QuestionUploadId;
                                             FirstDescription = qset.Data.QsetG.FirstOrDefault().Description;
+                                            FirstDirection = qset.Data.QsetG.FirstOrDefault().Direction;
                                             QuestionUploadId = qset.Data.QsetG.FirstOrDefault().QuestionUploadId;
                                             @*Grouping Question set Loop*@
                                             <tr style="width:100%;background:  #f6f7f5; border-bottom:1pt solid grey ;">
@@ -115,7 +117,8 @@
                                             <tr style="width:100%;background: #f6f7f9; border-bottom:1pt solid grey ;">
                                                 <td>
                                                     <input type="hidden" name="EditQuestionSet[@qset.Index].QuestionUploadId" value='@QuestionUploadId'>
-                                                    <textarea rows="130" cols="50" name="EditQuestionSet[@qset.Index].Description" form="frmReviewedQuestions" class="form-control">@FirstDescription</textarea>
+                                                    <textarea rows="50" cols="50" name="EditQuestionSet[@qset.Index].Description" form="frmReviewedQuestions" class="form-control">@FirstDirection</textarea>
+                                                    <textarea rows="100" cols="50" name="EditQuestionSet[@qset.Index].Description" form="frmReviewedQuestions" class="form-control">@FirstDescription</textarea>
                                                     @*Description for the first question*@
                                                 </td>
                                                 <td>

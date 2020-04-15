@@ -341,6 +341,7 @@ namespace OnlineMasterG.DomainLogic
                         if (OriginalQuestion != null)
                         {
                             Question.Description = OriginalQuestion.Description;
+                            Question.Direction = OriginalQuestion.Direction;
                             Question.Isactive = OriginalQuestion.Isactive;
                             Question.Question = OriginalQuestion.Question;
                             Question.LanguageCode = OriginalQuestion?.LanguageCode;

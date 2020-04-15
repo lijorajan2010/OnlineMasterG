@@ -183,35 +183,35 @@ namespace OnlineMasterG.Controllers
             }
             else
             {
-                if (dataFile.Extension.StartsWith("PDF"))
+                if (dataFile.Extension.StartsWith("PDF", StringComparison.OrdinalIgnoreCase))
                 {
                     contentType = "application/pdf";
                 }
-                else if (dataFile.Extension.StartsWith("JPG"))
+                else if (dataFile.Extension.StartsWith("JPG", StringComparison.OrdinalIgnoreCase))
                 {
                     contentType = "image/jpeg";
                 }
-                else if (dataFile.Extension.StartsWith("JPEG"))
+                else if (dataFile.Extension.StartsWith("JPEG", StringComparison.OrdinalIgnoreCase))
                 {
                     contentType = "image/jpeg";
                 }
-                else if (dataFile.Extension.StartsWith("PNG"))
+                else if (dataFile.Extension.StartsWith("PNG", StringComparison.OrdinalIgnoreCase))
                 {
                     contentType = "image/png";
                 }
-                else if (dataFile.Extension.StartsWith("DOC"))
+                else if (dataFile.Extension.StartsWith("DOC", StringComparison.OrdinalIgnoreCase))
                 {
                     contentType = "application/msword";
                 }
-                else if (dataFile.Extension.StartsWith("XLS"))
+                else if (dataFile.Extension.StartsWith("XLS", StringComparison.OrdinalIgnoreCase))
                 {
                     contentType = "application/msexcel";
                 }
-                else if (dataFile.Extension.StartsWith("TXT"))
+                else if (dataFile.Extension.StartsWith("TXT", StringComparison.OrdinalIgnoreCase))
                 {
                     contentType = "text/plain";
                 }
-                else if (dataFile.Extension.StartsWith("CSV"))
+                else if (dataFile.Extension.StartsWith("CSV", StringComparison.OrdinalIgnoreCase))
                 {
                     contentType = "text/plain";
                 }
@@ -242,35 +242,35 @@ namespace OnlineMasterG.Controllers
             }
             else
             {
-                if (dataFile.Extension.StartsWith("PDF"))
+                if (dataFile.Extension.StartsWith("PDF",StringComparison.OrdinalIgnoreCase))
                 {
                     contentType = "application/pdf";
                 }
-                else if (dataFile.Extension.StartsWith("JPG"))
+                else if (dataFile.Extension.StartsWith("JPG", StringComparison.OrdinalIgnoreCase))
                 {
                     contentType = "image/jpeg";
                 }
-                else if (dataFile.Extension.StartsWith("JPEG"))
+                else if (dataFile.Extension.StartsWith("JPEG", StringComparison.OrdinalIgnoreCase))
                 {
                     contentType = "image/jpeg";
                 }
-                else if (dataFile.Extension.StartsWith("PNG"))
+                else if (dataFile.Extension.StartsWith("PNG", StringComparison.OrdinalIgnoreCase))
                 {
                     contentType = "image/png";
                 }
-                else if (dataFile.Extension.StartsWith("DOC"))
+                else if (dataFile.Extension.StartsWith("DOC", StringComparison.OrdinalIgnoreCase))
                 {
                     contentType = "application/msword";
                 }
-                else if (dataFile.Extension.StartsWith("XLS"))
+                else if (dataFile.Extension.StartsWith("XLS", StringComparison.OrdinalIgnoreCase))
                 {
                     contentType = "application/msexcel";
                 }
-                else if (dataFile.Extension.StartsWith("TXT"))
+                else if (dataFile.Extension.StartsWith("TXT", StringComparison.OrdinalIgnoreCase))
                 {
                     contentType = "text/plain";
                 }
-                else if (dataFile.Extension.StartsWith("CSV"))
+                else if (dataFile.Extension.StartsWith("CSV", StringComparison.OrdinalIgnoreCase))
                 {
                     contentType = "text/plain";
                 }

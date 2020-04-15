@@ -8,8 +8,12 @@ namespace OnlineMasterG.CommonServices
 {
     public static class LanguageService
     {
-       
-        private static OnlinemasterjiEntities DB = new OnlinemasterjiEntities();
+
+        public static OnlinemasterjiEntities DB { get; private set; }
+        static LanguageService()
+        {
+            DB = new OnlinemasterjiEntities();
+        }
         public static List<Language> FetchList()
         {
             return DB

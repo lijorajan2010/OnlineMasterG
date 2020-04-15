@@ -49,6 +49,7 @@ namespace OnlineMasterG.Models.ViewModels
         public Nullable<int> QuestionImageFileId { get; set; }
         public int QuestionNumber { get; set; }
         public string QuestionSet { get; set; }
+        public string Direction { get; set; }
         public string Solution { get; set; }
         public string CorrectAnswer { get; set; }
         public string AnswerStatus { get; set; }

@@ -308,6 +308,14 @@
           <Property Name="EditBy" Type="varchar" MaxLength="50" />
           <Property Name="EditOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="MockExamTypes">
+          <Key>
+            <PropertyRef Name="MockExamTypeId" />
+          </Key>
+          <Property Name="MockExamTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MockExamTypeName" Type="varchar" MaxLength="500" />
+          <Property Name="MockExamTypeCode" Type="varchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="MockTest">
           <Key>
             <PropertyRef Name="TestId" />
@@ -325,6 +333,7 @@
           <Property Name="CategoryId" Type="int" />
           <Property Name="SectionId" Type="int" />
           <Property Name="TimeInMinutes" Type="int" Nullable="false" />
+          <Property Name="ExamTypeId" Type="int" />
         </EntityType>
         <EntityType Name="MockTestAttemptDetails">
           <Key>
@@ -445,6 +454,7 @@
           <Property Name="QuestionNumber" Type="int" Nullable="false" />
           <Property Name="QuestionSet" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Solution" Type="varchar" MaxLength="100" />
+          <Property Name="Direction" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="QuestionUpload">
           <Key>
@@ -971,6 +981,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__MockTest__ExamTy__10E07F16">
+          <End Role="MockExamTypes" Type="Self.MockExamTypes" Multiplicity="0..1" />
+          <End Role="MockTest" Type="Self.MockTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MockExamTypes">
+              <PropertyRef Name="MockExamTypeId" />
+            </Principal>
+            <Dependent Role="MockTest">
+              <PropertyRef Name="ExamTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__MockTest__Sectio__68487DD7">
           <End Role="Section" Type="Self.Section" Multiplicity="0..1" />
           <End Role="MockTest" Type="Self.MockTest" Multiplicity="*" />
@@ -1473,6 +1495,7 @@
           <EntitySet Name="Greetings" EntityType="Self.Greetings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Language" EntityType="Self.Language" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LatestUpdates" EntityType="Self.LatestUpdates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MockExamTypes" EntityType="Self.MockExamTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MockTest" EntityType="Self.MockTest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MockTestAttemptDetails" EntityType="Self.MockTestAttemptDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MockTestAttempts" EntityType="Self.MockTestAttempts" Schema="dbo" store:Type="Tables" />
@@ -1605,6 +1628,10 @@
           </AssociationSet>
           <AssociationSet Name="FK__MockTest__Course__66603565" Association="Self.FK__MockTest__Course__66603565">
             <End Role="Course" EntitySet="Course" />
+            <End Role="MockTest" EntitySet="MockTest" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MockTest__ExamTy__10E07F16" Association="Self.FK__MockTest__ExamTy__10E07F16">
+            <End Role="MockExamTypes" EntitySet="MockExamTypes" />
             <End Role="MockTest" EntitySet="MockTest" />
           </AssociationSet>
           <AssociationSet Name="FK__MockTest__Sectio__68487DD7" Association="Self.FK__MockTest__Sectio__68487DD7">
@@ -2088,6 +2115,11 @@
             <End Role="DataFile" EntitySet="DataFiles" />
             <End Role="Greeting" EntitySet="Greetings" />
           </AssociationSet>
+          <EntitySet Name="MockExamTypes" EntityType="OnlinemasterjiModel.MockExamType" />
+          <AssociationSet Name="FK__MockTest__ExamTy__10E07F16" Association="OnlinemasterjiModel.FK__MockTest__ExamTy__10E07F16">
+            <End Role="MockExamType" EntitySet="MockExamTypes" />
+            <End Role="MockTest" EntitySet="MockTests" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Category">
           <Key>
@@ -2297,6 +2329,8 @@
           <NavigationProperty Name="MockTestAttempts" Relationship="OnlinemasterjiModel.FK__MockTestA__TestI__32767D0B" FromRole="MockTest" ToRole="MockTestAttempt" />
           <NavigationProperty Name="QuestionUploads" Relationship="OnlinemasterjiModel.FK__QuestionU__TestI__47A6A41B" FromRole="MockTest" ToRole="QuestionUpload" />
           <NavigationProperty Name="Subjects" Relationship="OnlinemasterjiModel.FK__Subjects__TestId__6EF57B66" FromRole="MockTest" ToRole="Subject" />
+          <Property Name="ExamTypeId" Type="Int32" />
+          <NavigationProperty Name="MockExamType" Relationship="OnlinemasterjiModel.FK__MockTest__ExamTy__10E07F16" FromRole="MockTest" ToRole="MockExamType" />
         </EntityType>
         <EntityType Name="MockTestAttemptDetail">
           <Key>
@@ -2439,6 +2473,7 @@
           <NavigationProperty Name="QuestionAnswerChoices" Relationship="OnlinemasterjiModel.FK__QuestionA__Quest__4F47C5E3" FromRole="QuestionsMockTest" ToRole="QuestionAnswerChoice" />
           <NavigationProperty Name="QuestionPoints" Relationship="OnlinemasterjiModel.FK__QuestionP__Quest__5224328E" FromRole="QuestionsMockTest" ToRole="QuestionPoint" />
           <NavigationProperty Name="QuestionUpload" Relationship="OnlinemasterjiModel.FK__Questions__Quest__42E1EEFE" FromRole="QuestionsMockTest" ToRole="QuestionUpload" />
+          <Property Name="Direction" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="QuestionUpload">
           <Key>
@@ -3671,6 +3706,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="MockExamType">
+          <Key>
+            <PropertyRef Name="MockExamTypeId" />
+          </Key>
+          <Property Name="MockExamTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MockExamTypeName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MockExamTypeCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MockTests" Relationship="OnlinemasterjiModel.FK__MockTest__ExamTy__10E07F16" FromRole="MockExamType" ToRole="MockTest" />
+        </EntityType>
+        <Association Name="FK__MockTest__ExamTy__10E07F16">
+          <End Type="OnlinemasterjiModel.MockExamType" Role="MockExamType" Multiplicity="0..1" />
+          <End Type="OnlinemasterjiModel.MockTest" Role="MockTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MockExamType">
+              <PropertyRef Name="MockExamTypeId" />
+            </Principal>
+            <Dependent Role="MockTest">
+              <PropertyRef Name="ExamTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3842,6 +3898,7 @@
           <EntitySetMapping Name="MockTests">
             <EntityTypeMapping TypeName="OnlinemasterjiModel.MockTest">
               <MappingFragment StoreEntitySet="MockTest">
+                <ScalarProperty Name="ExamTypeId" ColumnName="ExamTypeId" />
                 <ScalarProperty Name="TimeInMinutes" ColumnName="TimeInMinutes" />
                 <ScalarProperty Name="SectionId" ColumnName="SectionId" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
@@ -3971,6 +4028,7 @@
           <EntitySetMapping Name="QuestionsMockTests">
             <EntityTypeMapping TypeName="OnlinemasterjiModel.QuestionsMockTest">
               <MappingFragment StoreEntitySet="QuestionsMockTest">
+                <ScalarProperty Name="Direction" ColumnName="Direction" />
                 <ScalarProperty Name="Solution" ColumnName="Solution" />
                 <ScalarProperty Name="QuestionSet" ColumnName="QuestionSet" />
                 <ScalarProperty Name="QuestionNumber" ColumnName="QuestionNumber" />
@@ -4347,6 +4405,15 @@
                 <ScalarProperty Name="Isactive" ColumnName="Isactive" />
                 <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
                 <ScalarProperty Name="GreetingsId" ColumnName="GreetingsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MockExamTypes">
+            <EntityTypeMapping TypeName="OnlinemasterjiModel.MockExamType">
+              <MappingFragment StoreEntitySet="MockExamTypes">
+                <ScalarProperty Name="MockExamTypeCode" ColumnName="MockExamTypeCode" />
+                <ScalarProperty Name="MockExamTypeName" ColumnName="MockExamTypeName" />
+                <ScalarProperty Name="MockExamTypeId" ColumnName="MockExamTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -23,7 +23,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult SchoolSubjectList()
         {
-            var model = SubjectLogics.SchoolSubjectList("en-US").OrderByDescending(m=>m.CreateOn);
+            var model = SubjectLogics.SchoolSubjectList("en-US").OrderByDescending(m=>m.CreateOn).ToList();
 
             return PartialView(model);
         }

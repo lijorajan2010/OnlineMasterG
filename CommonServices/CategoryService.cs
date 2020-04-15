@@ -10,7 +10,11 @@ namespace OnlineMasterG.CommonServices
 {
     public static class CategoryService
     {
-        private static OnlinemasterjiEntities DB = new OnlinemasterjiEntities();
+        public static OnlinemasterjiEntities DB { get; private set; }
+        static CategoryService()
+        {
+            DB = new OnlinemasterjiEntities();
+        }
         public static ServiceResponse SaveCategory(Category category, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();

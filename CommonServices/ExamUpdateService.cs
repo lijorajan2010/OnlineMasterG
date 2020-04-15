@@ -11,8 +11,11 @@ namespace OnlineMasterG.CommonServices
 
     public static class ExamUpdateService
     {
-        private static OnlinemasterjiEntities DB = new OnlinemasterjiEntities();
-
+        public static OnlinemasterjiEntities DB { get; private set; }
+        static ExamUpdateService()
+        {
+            DB = new OnlinemasterjiEntities();
+        }
         public static ServiceResponse SaveExamSection(ExamSection examSection, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();

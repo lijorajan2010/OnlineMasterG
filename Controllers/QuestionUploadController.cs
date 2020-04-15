@@ -29,7 +29,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult QuestionUploadList()
         {
-            var model = QuestionUploadLogics.QuestionUploadList("en-US", true).OrderByDescending(m=>m.CreateOn);
+            var model = QuestionUploadLogics.QuestionUploadList("en-US", true).OrderByDescending(m=>m.CreateOn).ToList();
 
             return PartialView(model);
         }
@@ -135,7 +135,8 @@ namespace OnlineMasterG.Controllers
                             Solution = item.Solution,
                             QuestionUploadId = item.QuestionUploadId,
                             CorrectAnswer = CorrectAnswerId!=null ? CorrectAnswerId.ToString() : "1",
-                            OptionList = OptionList
+                            OptionList = OptionList,
+                            Direction = item.Direction
                         }); 
                     }
                 }

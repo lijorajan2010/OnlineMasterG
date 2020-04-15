@@ -211,7 +211,7 @@
     </style>
 </head>
 
-<body oncontextmenu="return false" onkeydown="return false" onmousedown="return false">
+<body oncontextmenu="return false">
 
     <div class="body_wrapper">
 
@@ -275,7 +275,7 @@
                         <div class="col-md-3">
                             <div class="border_r">
                                 <h6>Your Score</h6>
-                                <h5>@Model.TotalMarksScored.ToString("0.00")/@(Model.TotalOriginalMarks?.ToString("0.00"))</h5>
+                                <h5>@Model.TotalMarksScored.ToString("0.00")/@(Model.TotalOriginalMarks.HasValue ? Model.TotalOriginalMarks.Value.ToString("0.00"):"")</h5>
                             </div>
                         </div>
                         <div class="col-md-3">

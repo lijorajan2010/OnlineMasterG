@@ -10,7 +10,11 @@ namespace OnlineMasterG.CommonServices
 {
     public static class SubjectService
     {
-        private static OnlinemasterjiEntities DB = new OnlinemasterjiEntities();
+        public static OnlinemasterjiEntities DB { get; private set; }
+        static SubjectService()
+        {
+            DB = new OnlinemasterjiEntities();
+        }
         public static ServiceResponse SaveSubject(Subject subject, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();

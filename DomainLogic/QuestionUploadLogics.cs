@@ -137,6 +137,9 @@ namespace OnlineMasterG.DomainLogic
             if (!questionTab.Columns.Contains("Solution"))
                 sr.AddError("Column [Solution] is missing.");
 
+            if (!questionTab.Columns.Contains("Direction"))
+                sr.AddError("Column [Direction] is missing.");
+
             //bool anyQuestionsetEmpty = questionTab.Columns.
 
             //if (anyQuestionsetEmpty)
@@ -188,6 +191,7 @@ namespace OnlineMasterG.DomainLogic
                 {// each questionset
 
                     string Description = string.Empty;
+                    string Direction = string.Empty;
 
                     foreach (var item in qset.Properties.Select((x, y) => new { Data = x, Index = y }))
                     {
@@ -216,6 +220,7 @@ namespace OnlineMasterG.DomainLogic
                         if (item.Index == 0)
                         {
                             Description = item.Data.Description;
+                            Direction = item.Data.Direction;
                         }
 
                         List<QuestionPoint> questionPoints = new List<QuestionPoint>();
@@ -247,7 +252,8 @@ namespace OnlineMasterG.DomainLogic
                             QuestionSet = QSet,
                             Solution = Solution,
                             QuestionAnswerChoices = questionAnswerChoices,
-                            QuestionPoints = questionPoints
+                            QuestionPoints = questionPoints,
+                            Direction =Direction
                         });
 
                     }
@@ -328,6 +334,7 @@ namespace OnlineMasterG.DomainLogic
             if (model != null)
             {
                 string Description = string.Empty;
+                string Direction = string.Empty;
                 int QuestionUploadId = 0;
                 if (model.EditQuestionSet != null && model.EditQuestionSet.Count() > 0)
                 {
@@ -335,6 +342,7 @@ namespace OnlineMasterG.DomainLogic
                     foreach (var Qset in model.EditQuestionSet)
                     {
                         Description = Qset.Description;
+                        Direction = Qset.Direction;
                         QuestionUploadId = Qset.QuestionUploadId;
                         SingleList.AddRange(Qset.EditQuestions);
                     }
@@ -353,6 +361,7 @@ namespace OnlineMasterG.DomainLogic
                                 ExistingMockTest.QuestionImageFileId = item.QuestionImageFileId;
                                 ExistingMockTest.Solution = item.Solution;
                                 ExistingMockTest.Description = Description;
+                                ExistingMockTest.Direction = Direction;
 
                                 // New List
                                 List<QuestionAnswerChoice> NewquestionAnswerChoices = new List<QuestionAnswerChoice>();

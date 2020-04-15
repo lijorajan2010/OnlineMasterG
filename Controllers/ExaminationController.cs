@@ -34,7 +34,25 @@ namespace OnlineMasterG.Controllers
 
             ViewBag.ProblemsList = ExamService.GetProblemMasters();
             ViewBag.AnswerStatus = ExamLogics.getAnswerStatuses();
-            return View(model);
+
+            if (model.MockTestAttemptDetails.Any(m=>m.QuestionsMockTests== null))
+            {
+                return PartialView("Error");
+            }
+            string ExamTypeCode = "WITHD";
+            if (TestDetails!=null)
+            {
+                ExamTypeCode = TestDetails.MockExamType.MockExamTypeCode;
+            }
+            if (ExamTypeCode=="WITHOUTD")
+            {
+                return View("Index2", model);
+            }
+            else
+            {
+                return View(model);
+            }
+          
         }
         [HttpPost]
         public ActionResult StudentFromAnswerSubmit(MockTestAttemptVM model)
@@ -224,7 +242,10 @@ namespace OnlineMasterG.Controllers
                 model.TotalTestAccuracy = (model.TotalMarksScored / model.TotalOriginalMarks.Value) * 100;
 
             }
-
+            if (model.MockTestAttemptDetails.Any(m => m.QuestionsMockTests == null))
+            {
+                return PartialView("Error");
+            }
             return View(model);
         }
 

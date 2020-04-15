@@ -116,6 +116,8 @@
         <AssociationConnector Association="OnlinemasterjiModel.FK__DailyQuiz__Login__7720AD13" />
         <EntityTypeShape EntityType="OnlinemasterjiModel.Greeting" Width="1.5" PointX="9.75" PointY="24.125" />
         <AssociationConnector Association="OnlinemasterjiModel.FK__Greetings__DataF__075714DC" />
+        <EntityTypeShape EntityType="OnlinemasterjiModel.MockExamType" Width="1.5" PointX="0.75" PointY="18.75" />
+        <AssociationConnector Association="OnlinemasterjiModel.FK__MockTest__ExamTy__10E07F16" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

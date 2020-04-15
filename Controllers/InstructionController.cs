@@ -28,7 +28,7 @@ namespace OnlineMasterG.Controllers
         [HttpPost]
         public PartialViewResult LoadInstructionList(int testId)
         {
-            var model = GeneralLogics.LoadDBGeneralInstruction("en-US",true,testId);
+            var model = GeneralLogics.LoadDBGeneralInstruction("en-US",true,testId).ToList();
 
             return PartialView(model);
         }

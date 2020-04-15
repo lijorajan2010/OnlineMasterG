@@ -10,7 +10,11 @@ namespace OnlineMasterG.CommonServices
 {
     public static class PaperService
     {
-        private static OnlinemasterjiEntities DB = new OnlinemasterjiEntities();
+        public static OnlinemasterjiEntities DB { get; private set; }
+        static PaperService()
+        {
+            DB = new OnlinemasterjiEntities();
+        }
         public static ServiceResponse SaveCollegePaper(CollegePaper model, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();

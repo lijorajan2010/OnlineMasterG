@@ -11,6 +11,9 @@ namespace OnlineMasterG.Models.ViewModels
         public int? CategoryId { get; set; }
         public int? CourseId { get; set; }
         public int? SectionId { get; set; }
+        public int? ExamTypeId { get; set; }
+        public string ExamTypeName { get; set; }
+        public string ExamTypeCode { get; set; }
         public string TestName { get; set; }
         public string CourseName { get; set; }
         public string CategoryName { get; set; }

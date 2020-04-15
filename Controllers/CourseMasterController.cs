@@ -22,7 +22,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult CourseList()
         {
-            var model = CourseService.CourseAllList("en-US").OrderByDescending(m=>m.CreateOn);
+            var model = CourseService.CourseAllList("en-US").OrderByDescending(m=>m.CreateOn).ToList();
             return PartialView(model);
         }
 

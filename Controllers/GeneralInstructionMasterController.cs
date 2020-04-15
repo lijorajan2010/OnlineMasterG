@@ -23,7 +23,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult InstructionList()
         {
-            var model = GeneralLogics.GeneralInstructionList("en-US", true).OrderByDescending(m=>m.CreateOn);
+            var model = GeneralLogics.GeneralInstructionList("en-US", true).OrderByDescending(m=>m.CreateOn).ToList();
             return PartialView(model);
         }
 
@@ -53,9 +53,9 @@ namespace OnlineMasterG.Controllers
         [HttpPost]
         public PartialViewResult LoadInstructionList(int testId)
         {
-            var model = GeneralLogics.LoadGeneralInstructionVM(testId);
+            var model = GeneralLogics.LoadGeneralInstructionVM(testId).ToList();
 
-          return PartialView(model);
+            return PartialView(model);
         }
     }
 }

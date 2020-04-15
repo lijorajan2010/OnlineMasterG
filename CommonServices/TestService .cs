@@ -10,7 +10,11 @@ namespace OnlineMasterG.CommonServices
 {
     public static class TestService
     {
-        private static OnlinemasterjiEntities DB = new OnlinemasterjiEntities();
+        public static OnlinemasterjiEntities DB { get; private set; }
+        static TestService()
+        {
+            DB = new OnlinemasterjiEntities();
+        }
         public static ServiceResponse SaveTest(MockTest test, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();
@@ -36,6 +40,7 @@ namespace OnlineMasterG.CommonServices
                     dbTest.LanguageCode = test.LanguageCode;
                     dbTest.Description = test.Description;
                     dbTest.TimeInMinutes = test.TimeInMinutes;
+                    dbTest.ExamTypeId = test.ExamTypeId;
                     dbTest.EditBy = auditlogin;
                     dbTest.Isactive = true;
                     dbTest.EditOn = DateTime.Now;
@@ -62,6 +67,17 @@ namespace OnlineMasterG.CommonServices
             return DB.MockTests
                   .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
                   .ToList();
+        }
+        public static List<MockExamType> MockExamTypeList()
+        {
+            return DB.MockExamTypes
+                  .ToList();
+        }
+        public static MockExamType FetchMockExamType(int? ExamTypeId)
+        {
+            return DB.MockExamTypes
+                .Where(m=>m.MockExamTypeId == (ExamTypeId.HasValue? ExamTypeId:0))
+                  .FirstOrDefault();
         }
         public static List<MockTest> TestAllList(string Lang)
         {

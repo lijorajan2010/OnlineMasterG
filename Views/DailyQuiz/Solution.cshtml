@@ -444,7 +444,7 @@
                             <img class="student_img" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(ImgId)})' alt="" width="50">
                         }
 
-                        <span class="w_color f_600">@(ActiveUser?.Email)</span>
+                        <span class="w_color f_600">@(AppInfo.ActiveUser.Email)</span>
                     </div>
                 </div>
             </nav>
@@ -510,20 +510,20 @@
                                                                             <span class="qSpan">Q.@Q.Data.QuestionNumber</span>
                                                                             @Q.Data.QuizTest.Question ?
                                                                         </h6>
-                                                                        @if (Q.Data.QuizTest?.QuestionPoint != null && Q.Data.QuizTest?.QuestionPoint.Count() > 0)
+                                                                        @if (Q.Data.QuizTest!=null && Q.Data.QuizTest.QuestionPoint != null && Q.Data.QuizTest.QuestionPoint.Count() > 0)
                                                                         {
-                                                                            foreach (var QP in Q.Data.QuizTest?.QuestionPoint.Select((x, y) => new { Data = x, Index = y }))
+                                                                            foreach (var QP in Q.Data.QuizTest.QuestionPoint.Select((x, y) => new { Data = x, Index = y }))
                                                                             {
                                                                                 <p>(@(QP.Index + 1)) @QP.Data.QPoint .</p>
                                                                             }
                                                                         }
 
                                                                         <ul class="list-unstyled payment_list">
-                                                                            @if (Q.Data.QuizTest?.QuestionAnswerChoice != null && Q.Data.QuizTest?.QuestionAnswerChoice.Count() > 0)
+                                                                            @if (Q.Data.QuizTest !=null && Q.Data.QuizTest.QuestionAnswerChoice != null && Q.Data.QuizTest.QuestionAnswerChoice.Count() > 0)
                                                                             {
                                                                                 var RadioButtonName = "Answer" + QuestionDiv;
 
-                                                                                foreach (var QA in Q.Data.QuizTest?.QuestionAnswerChoice)
+                                                                                foreach (var QA in Q.Data.QuizTest.QuestionAnswerChoice)
                                                                                 {
                                                                                     var CorrectAnswer = QA.IsCorrect == true ? "bg_green" : "";
                                                                                     var AnsweredStatus = ((Q.Data.AnswerStatus == "ANSWERED" || Q.Data.AnswerStatus == "MARKED") && !Q.Data.IsAnswerCorrect && Q.Data.QuizQuestionAnswerChoiceId == QA.QuestionAnswerChoiceId) ? "bg_red" : "";

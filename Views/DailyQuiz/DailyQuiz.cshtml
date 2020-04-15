@@ -504,7 +504,7 @@
                                                                         </h6>
                                                                         @if (Q.Data.QuizTest != null && Q.Data.QuizTest.QuestionPoint != null && Q.Data.QuizTest.QuestionPoint.Count() > 0)
                                                                         {
-                                                                            foreach (var QP in Q.Data.QuizTest?.QuestionPoint.Select((x, y) => new { Data = x, Index = y }))
+                                                                            foreach (var QP in Q.Data.QuizTest.QuestionPoint.Select((x, y) => new { Data = x, Index = y }))
                                                                             {
                                                                                 <p>(@(QP.Index + 1)) @QP.Data.QPoint .</p>
                                                                             }

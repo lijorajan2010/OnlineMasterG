@@ -36,6 +36,7 @@ namespace OnlineMasterG.Models.DAL
         public Nullable<int> CategoryId { get; set; }
         public Nullable<int> SectionId { get; set; }
         public int TimeInMinutes { get; set; }
+        public Nullable<int> ExamTypeId { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual Course Course { get; set; }
@@ -48,5 +49,6 @@ namespace OnlineMasterG.Models.DAL
         public virtual ICollection<QuestionUpload> QuestionUploads { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Subject> Subjects { get; set; }
+        public virtual MockExamType MockExamType { get; set; }
     }
 }

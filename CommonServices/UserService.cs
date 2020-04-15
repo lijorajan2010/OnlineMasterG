@@ -17,7 +17,11 @@ namespace OnlineMasterG.CommonServices
             STUDENT
         }
 
-        private static OnlinemasterjiEntities DB = new OnlinemasterjiEntities();
+        public static OnlinemasterjiEntities DB { get; private set; }
+        static UserService()
+        {
+            DB = new OnlinemasterjiEntities();
+        }
 
         public static User Fetch(string login)
         {

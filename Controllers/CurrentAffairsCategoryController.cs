@@ -22,7 +22,7 @@ namespace OnlineMasterG.Controllers
         [HttpGet]
         public PartialViewResult CurrentAffairsCategoryList()
         {
-            var model = CurrentAffairsService.CurrentAffairsAllCategoryList("en-US").OrderByDescending(m=>m.CreateOn);
+            var model = CurrentAffairsService.CurrentAffairsAllCategoryList("en-US").OrderByDescending(m=>m.CreateOn).ToList();
             return PartialView(model);
         }
 

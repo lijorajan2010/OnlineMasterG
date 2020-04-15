@@ -18,6 +18,7 @@ namespace OnlineMasterG.Models.ViewModels
     {
         public int QuestionUploadId { get; set; }
         public string Description { get; set; }
+        public string Direction { get; set; }
         public virtual List<QuestionsMockTestReview> EditQuestions { get; set; }
         public QuestionSet()
         {
