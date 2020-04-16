@@ -8,13 +8,9 @@ using System.Web;
 
 namespace OnlineMasterG.CommonServices
 {
-    public static class DataFileService
+    public class DataFileService : ServiceBase
     {
-        public static OnlinemasterjiEntities DB { get; private set; }
-        static DataFileService()
-        {
-            DB = new OnlinemasterjiEntities();
-        }
+       
         #region Lists & Fetchs
 
         public static DataFile Fetch(int dataFileId)

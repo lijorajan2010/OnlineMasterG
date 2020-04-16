@@ -1,4 +1,5 @@
-﻿using OnlineMasterG.CommonFramework;
+﻿using OnlineMasterG.Base;
+using OnlineMasterG.CommonFramework;
 using OnlineMasterG.Models.DAL;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Web;
 
 namespace OnlineMasterG.CommonServices
 {
-    public static class SecurityService
+    public  class SecurityService : ServiceBase
     {
         public static User FastLogin(string login, string password)
         {

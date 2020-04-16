@@ -8,13 +8,8 @@ using System.Web;
 
 namespace OnlineMasterG.CommonServices
 {
-    public static class ClassService
+    public class ClassService : ServiceBase
     {
-        public static OnlinemasterjiEntities DB { get; private set; }
-        static ClassService()
-        {
-            DB = new OnlinemasterjiEntities();
-        }
         public static ServiceResponse SaveSchoolClass(SchoolClass schoolClass, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();

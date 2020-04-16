@@ -166,8 +166,8 @@ namespace OnlineMasterG.Controllers
             // Return file
             return File(dataFile.DataContent.RawData, MediaTypeNames.Application.Octet, dataFile.FileName);
         }
-
-        public ActionResult ViewInTab(string p)
+        [HttpGet]
+        public FileResult ViewInTab(string p)
         {
             int dataFileId = CustomEncrypt.SafeUrlDecrypt(p).ToInt();
 
@@ -183,35 +183,35 @@ namespace OnlineMasterG.Controllers
             }
             else
             {
-                if (dataFile.Extension.StartsWith("PDF", StringComparison.OrdinalIgnoreCase))
+                if (dataFile.Extension.ToUpper().Contains("PDF"))
                 {
                     contentType = "application/pdf";
                 }
-                else if (dataFile.Extension.StartsWith("JPG", StringComparison.OrdinalIgnoreCase))
+                else if (dataFile.Extension.ToUpper().Contains("JPG"))
                 {
                     contentType = "image/jpeg";
                 }
-                else if (dataFile.Extension.StartsWith("JPEG", StringComparison.OrdinalIgnoreCase))
+                else if (dataFile.Extension.ToUpper().Contains("JPEG"))
                 {
                     contentType = "image/jpeg";
                 }
-                else if (dataFile.Extension.StartsWith("PNG", StringComparison.OrdinalIgnoreCase))
+                else if (dataFile.Extension.ToUpper().Contains("PNG"))
                 {
                     contentType = "image/png";
                 }
-                else if (dataFile.Extension.StartsWith("DOC", StringComparison.OrdinalIgnoreCase))
+                else if (dataFile.Extension.ToUpper().Contains("DOC"))
                 {
                     contentType = "application/msword";
                 }
-                else if (dataFile.Extension.StartsWith("XLS", StringComparison.OrdinalIgnoreCase))
+                else if (dataFile.Extension.ToUpper().Contains("XLS"))
                 {
                     contentType = "application/msexcel";
                 }
-                else if (dataFile.Extension.StartsWith("TXT", StringComparison.OrdinalIgnoreCase))
+                else if (dataFile.Extension.ToUpper().Contains("TXT"))
                 {
                     contentType = "text/plain";
                 }
-                else if (dataFile.Extension.StartsWith("CSV", StringComparison.OrdinalIgnoreCase))
+                else if (dataFile.Extension.ToUpper().Contains("CSV"))
                 {
                     contentType = "text/plain";
                 }
@@ -242,39 +242,38 @@ namespace OnlineMasterG.Controllers
             }
             else
             {
-                if (dataFile.Extension.StartsWith("PDF",StringComparison.OrdinalIgnoreCase))
+                if (dataFile.Extension.ToUpper().Contains("PDF"))
                 {
                     contentType = "application/pdf";
                 }
-                else if (dataFile.Extension.StartsWith("JPG", StringComparison.OrdinalIgnoreCase))
+                else if (dataFile.Extension.ToUpper().Contains("JPG"))
                 {
                     contentType = "image/jpeg";
                 }
-                else if (dataFile.Extension.StartsWith("JPEG", StringComparison.OrdinalIgnoreCase))
+                else if (dataFile.Extension.ToUpper().Contains("JPEG"))
                 {
                     contentType = "image/jpeg";
                 }
-                else if (dataFile.Extension.StartsWith("PNG", StringComparison.OrdinalIgnoreCase))
+                else if (dataFile.Extension.ToUpper().Contains("PNG"))
                 {
                     contentType = "image/png";
                 }
-                else if (dataFile.Extension.StartsWith("DOC", StringComparison.OrdinalIgnoreCase))
+                else if (dataFile.Extension.ToUpper().Contains("DOC"))
                 {
                     contentType = "application/msword";
                 }
-                else if (dataFile.Extension.StartsWith("XLS", StringComparison.OrdinalIgnoreCase))
+                else if (dataFile.Extension.ToUpper().Contains("XLS"))
                 {
                     contentType = "application/msexcel";
                 }
-                else if (dataFile.Extension.StartsWith("TXT", StringComparison.OrdinalIgnoreCase))
+                else if (dataFile.Extension.ToUpper().Contains("TXT"))
                 {
                     contentType = "text/plain";
                 }
-                else if (dataFile.Extension.StartsWith("CSV", StringComparison.OrdinalIgnoreCase))
+                else if (dataFile.Extension.ToUpper().Contains("CSV"))
                 {
                     contentType = "text/plain";
                 }
-
                 if (string.IsNullOrEmpty(contentType))
                 {
                     return File(dataFile.DataContent.RawData, System.Net.Mime.MediaTypeNames.Application.Octet, dataFile.FileName);

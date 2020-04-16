@@ -8,19 +8,13 @@ using System.Web;
 namespace OnlineMasterG.CommonServices
 {
   
-    public static class UserService
+    public class UserService : ServiceBase
     {
         public enum UserTypes
         {
             SUPERADMIN,
             ADMIN,
             STUDENT
-        }
-
-        public static OnlinemasterjiEntities DB { get; private set; }
-        static UserService()
-        {
-            DB = new OnlinemasterjiEntities();
         }
 
         public static User Fetch(string login)

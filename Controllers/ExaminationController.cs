@@ -96,8 +96,12 @@ namespace OnlineMasterG.Controllers
 
             model.TotalTestAttempts = ExamService.GetAttemptListByTestId(AttempDetails?.TestId).Count();
             model.Rank = GetRankOftheStudent(AttempDetails);
-            model.Percentage = (model.Rank / model.TotalTestAttempts.Value) * 100;
-      
+            if (model.Rank!=0 && model.TotalTestAttempts.Value!=0)
+            {
+                model.Percentage = (model.Rank / model.TotalTestAttempts.Value) * 100;
+
+            }
+
 
             List<SubjectWiseScoreVM> subjectWiseScoreVMs = new List<SubjectWiseScoreVM>();
             List<TopPerformersVM> topPerformersVMs = new List<TopPerformersVM>();
@@ -121,7 +125,11 @@ namespace OnlineMasterG.Controllers
                     double MinutesNotNull = Convert.ToDouble(Minutes.HasValue ? Minutes.Value : 0);
                     TimeSpan spWorkMin = TimeSpan.FromMinutes(MinutesNotNull);
                     subjectWiseScoreVM.SubjectTimeSpent = string.Format("{0:00} Hours {1:00} Minutes {2:00} Seconds", (int)spWorkMin.TotalHours, spWorkMin.Minutes , spWorkMin.Seconds);
-                    subjectWiseScoreVM.Accuracy = (subjectWiseScoreVM.YourScore / subjectWiseScoreVM.OriginalScore.Value) *100;
+                    if (subjectWiseScoreVM.YourScore!=0 && subjectWiseScoreVM.OriginalScore.Value!=0)
+                    {
+                        subjectWiseScoreVM.Accuracy = (subjectWiseScoreVM.YourScore / subjectWiseScoreVM.OriginalScore.Value) * 100;
+                    }
+                   
                     subjectWiseScoreVM.TotalCorrectAnswers = AttempDetails.MockTestAttemptDetails.Where(m => m.SubjectId == item && m.IsAnswerCorrect == true).Count();
                     subjectWiseScoreVM.TotalWrongAnswers = (subjectWiseScoreVM.TotalQuestions - AttempDetails.MockTestAttemptDetails.Where(m => m.SubjectId == item && m.IsAnswerCorrect == true).Count());
 
@@ -207,8 +215,11 @@ namespace OnlineMasterG.Controllers
             model.Rank = GetRankOftheStudent(AttempDetails);
             model.TotalMarksScored = AttempDetails.MockTestAttemptDetails.Where(m => m.IsAnswerCorrect == true).Sum(m => m.MarksScored);
             model.TotalTestAttempts = ExamService.GetAttemptListByTestId(AttempDetails?.TestId).Count();
-            model.Percentage = (model.Rank / model.TotalTestAttempts.Value) * 100;
-
+            if (model.Rank!=0 && model.TotalTestAttempts.Value!=0)
+            {
+                model.Percentage = (model.Rank / model.TotalTestAttempts.Value) * 100;
+            }
+           
             List<SubjectWiseScoreVM> subjectWiseScoreVMs = new List<SubjectWiseScoreVM>();
             List<int?> loopCount = AttempDetails.MockTestAttemptDetails.Select(m => m.SubjectId).Distinct().ToList();
             if (loopCount != null && loopCount.Count() > 0)
@@ -230,7 +241,11 @@ namespace OnlineMasterG.Controllers
                     double MinutesNotNull = Convert.ToDouble(Minutes.HasValue ? Minutes.Value : 0);
                     TimeSpan spWorkMin = TimeSpan.FromMinutes(MinutesNotNull);
                     subjectWiseScoreVM.SubjectTimeSpent = string.Format("{0:00} Hours {1:00} Minutes {2:00} Seconds", (int)spWorkMin.TotalHours, spWorkMin.Minutes, spWorkMin.Seconds);
-                    subjectWiseScoreVM.Accuracy = (subjectWiseScoreVM.YourScore / subjectWiseScoreVM.OriginalScore.Value) * 100;
+
+                    if (subjectWiseScoreVM.YourScore!=0 && subjectWiseScoreVM.OriginalScore.Value!=0)
+                    {
+                        subjectWiseScoreVM.Accuracy = (subjectWiseScoreVM.YourScore / subjectWiseScoreVM.OriginalScore.Value) * 100;
+                    }
                     subjectWiseScoreVMs.Add(subjectWiseScoreVM);
                 }
 

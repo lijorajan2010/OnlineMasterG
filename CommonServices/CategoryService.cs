@@ -8,13 +8,8 @@ using System.Web;
 
 namespace OnlineMasterG.CommonServices
 {
-    public static class CategoryService
+    public class CategoryService : ServiceBase
     {
-        public static OnlinemasterjiEntities DB { get; private set; }
-        static CategoryService()
-        {
-            DB = new OnlinemasterjiEntities();
-        }
         public static ServiceResponse SaveCategory(Category category, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();

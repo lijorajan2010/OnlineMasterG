@@ -8,13 +8,9 @@ using System.Web;
 
 namespace OnlineMasterG.CommonServices
 {
-    public static class PaperService
+    public class PaperService : ServiceBase
     {
-        public static OnlinemasterjiEntities DB { get; private set; }
-        static PaperService()
-        {
-            DB = new OnlinemasterjiEntities();
-        }
+      
         public static ServiceResponse SaveCollegePaper(CollegePaper model, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();

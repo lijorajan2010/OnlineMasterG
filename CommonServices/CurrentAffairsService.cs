@@ -8,13 +8,9 @@ using System.Web;
 
 namespace OnlineMasterG.CommonServices
 {
-    public static class CurrentAffairsService
+    public class CurrentAffairsService : ServiceBase
     {
-        public static OnlinemasterjiEntities DB { get; private set; }
-        static CurrentAffairsService()
-        {
-            DB = new OnlinemasterjiEntities();
-        }
+       
         internal static List<CurrentAffairsCategory> CurrentAffairsCategoryList(string Lang, bool IsActive)
         {
             return DB.CurrentAffairsCategories.Where(m => m.LanguageCode == Lang && m.Isactive == IsActive).ToList();

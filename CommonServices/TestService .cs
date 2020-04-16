@@ -8,13 +8,9 @@ using System.Web;
 
 namespace OnlineMasterG.CommonServices
 {
-    public static class TestService
+    public class TestService : ServiceBase
     {
-        public static OnlinemasterjiEntities DB { get; private set; }
-        static TestService()
-        {
-            DB = new OnlinemasterjiEntities();
-        }
+       
         public static ServiceResponse SaveTest(MockTest test, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();

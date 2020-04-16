@@ -8,13 +8,9 @@ using System.Web;
 
 namespace OnlineMasterG.CommonServices
 {
-    public static class QuestionUploadService
+    public class QuestionUploadService : ServiceBase
     {
-        public static OnlinemasterjiEntities DB { get; private set; }
-        static QuestionUploadService()
-        {
-            DB = new OnlinemasterjiEntities();
-        }
+        
         public static ServiceResponse SaveQuestionUpload(QuestionUpload question)
         {
             ServiceResponse sr = new ServiceResponse();

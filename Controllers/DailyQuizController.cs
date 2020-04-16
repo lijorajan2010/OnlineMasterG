@@ -110,7 +110,12 @@ namespace OnlineMasterG.Controllers
                     //double MinutesNotNull = Convert.ToDouble(Minutes.HasValue ? Minutes.Value : 0);
                     //TimeSpan spWorkMin = TimeSpan.FromMinutes(MinutesNotNull);
                     //subjectWiseScoreVM.SubjectTimeSpent = string.Format("{0:00} Hours {1:00} Minutes {2:00} Seconds", (int)spWorkMin.TotalHours, spWorkMin.Minutes, spWorkMin.Seconds);
-                    subjectWiseScoreVM.Accuracy = (subjectWiseScoreVM.YourScore / subjectWiseScoreVM.OriginalScore.Value) * 100;
+
+                    if (subjectWiseScoreVM.YourScore!=0 && subjectWiseScoreVM.OriginalScore.Value!=0)
+                    {
+                        subjectWiseScoreVM.Accuracy = (subjectWiseScoreVM.YourScore / subjectWiseScoreVM.OriginalScore.Value) * 100;
+                    }
+                    
                     decimal? Mnutes = (TestDetails.TimeInMinutes.HasValue ? TestDetails.TimeInMinutes.Value : 0) - AttempDetails.TimeLeftInMinutes;
                     double Mnutesnotnl = Convert.ToDouble(Mnutes.HasValue ? Mnutes.Value : 0);
                     TimeSpan WorkMin = TimeSpan.FromMinutes(Mnutesnotnl);
@@ -135,8 +140,10 @@ namespace OnlineMasterG.Controllers
             model.TotalTimeTaken = string.Format("{0:00} Hours {1:00} Minutes {2:00} Seconds", (int)spWorkMin.TotalHours, spWorkMin.Minutes, spWorkMin.Seconds);
             model.topPerformersVMs = GetTopPerformers(AttempDetails);
             model.TotalOriginalMarks = subjectWiseScoreVMs.Sum(m => m.OriginalScore);
-            model.TotalTestAccuracy = (model.TotalMarksScored / model.TotalOriginalMarks.Value) * 100;
-
+            if (model.TotalMarksScored!=0 && model.TotalOriginalMarks.Value!=0)
+            {
+                model.TotalTestAccuracy = (model.TotalMarksScored / model.TotalOriginalMarks.Value) * 100;
+            }
 
             return View(model);
         }
@@ -206,8 +213,11 @@ namespace OnlineMasterG.Controllers
             model.Rank = GetRankOftheStudent(AttempDetails);
             model.TotalMarksScored = AttempDetails.DailyQuizAttemptDetails.Where(m => m.IsAnswerCorrect == true).Sum(m => m.MarksScored);
             model.TotalTestAttempts = DailyQuizService.GetDailyQuizAttemptListByDailyQuizId(AttempDetails?.DailyQuizId).Count();
-            model.Percentage = (model.Rank / model.TotalTestAttempts.Value) * 100;
-
+            if (model.Rank!=0 && model.TotalTestAttempts.Value!=0)
+            {
+                model.Percentage = (model.Rank / model.TotalTestAttempts.Value) * 100;
+            }
+         
             List<SubjectWiseScoreVM> subjectWiseScoreVMs = new List<SubjectWiseScoreVM>();
             List<int?> loopCount = AttempDetails.DailyQuizAttemptDetails.Select(m => m.DailyQuizSubjectId).Distinct().ToList();
             if (loopCount != null && loopCount.Count() > 0)
@@ -229,7 +239,12 @@ namespace OnlineMasterG.Controllers
                     double Mnutesnotnl = Convert.ToDouble(Mnutes.HasValue ? Mnutes.Value : 0);
                     TimeSpan WorkMin = TimeSpan.FromMinutes(Mnutesnotnl);
                     subjectWiseScoreVM.SubjectTimeSpent = string.Format("{0:00} Hours {1:00} Minutes {2:00} Seconds", (int)WorkMin.TotalHours, WorkMin.Minutes, WorkMin.Seconds);
-                    subjectWiseScoreVM.Accuracy = (subjectWiseScoreVM.YourScore / subjectWiseScoreVM.OriginalScore.Value) * 100;
+
+                    if (subjectWiseScoreVM.YourScore!=0 && subjectWiseScoreVM.OriginalScore.Value!=0)
+                    {
+                        subjectWiseScoreVM.Accuracy = (subjectWiseScoreVM.YourScore / subjectWiseScoreVM.OriginalScore.Value) * 100;
+                    }
+                    
                     subjectWiseScoreVMs.Add(subjectWiseScoreVM);
                 }
 

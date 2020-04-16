@@ -9,13 +9,9 @@ using System.Web;
 namespace OnlineMasterG.CommonServices
 {
 
-    public static class ExamUpdateService
+    public class ExamUpdateService : ServiceBase
     {
-        public static OnlinemasterjiEntities DB { get; private set; }
-        static ExamUpdateService()
-        {
-            DB = new OnlinemasterjiEntities();
-        }
+      
         public static ServiceResponse SaveExamSection(ExamSection examSection, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();

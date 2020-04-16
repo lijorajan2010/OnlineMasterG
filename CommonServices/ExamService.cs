@@ -8,13 +8,9 @@ using System.Web;
 
 namespace OnlineMasterG.CommonServices
 {
-    public static class ExamService
+    public class ExamService : ServiceBase
     {
-        public static OnlinemasterjiEntities DB { get; private set; }
-        static ExamService()
-        {
-            DB = new OnlinemasterjiEntities();
-        }
+      
         public static List<MockTestAttempt> GetAttemptListByLoginAndTestId(string Login, int TestId)
         {
             return DB.MockTestAttempts.Where(m => m.Login == Login && m.TestId == TestId).ToList();

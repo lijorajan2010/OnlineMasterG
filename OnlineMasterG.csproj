@@ -217,6 +217,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Base\BaseController.cs" />
     <Compile Include="Base\JSonResponse.cs" />
+    <Compile Include="Base\ServiceBase.cs" />
     <Compile Include="Base\ServiceError.cs" />
     <Compile Include="Base\ServiceResponse.cs" />
     <Compile Include="Base\ViewRendering.cs" />

@@ -9,13 +9,9 @@ using System.Web;
 
 namespace OnlineMasterG.CommonServices
 {
-    public static class GeneralService
+    public class GeneralService : ServiceBase
     {
-        public static OnlinemasterjiEntities DB { get; private set; }
-        static GeneralService()
-        {
-            DB = new OnlinemasterjiEntities();
-        }
+       
         public static ServiceResponse SaveInstruction(List<GeneralInstruction> instruction, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();

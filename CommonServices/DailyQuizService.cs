@@ -9,13 +9,9 @@ using System.Web;
 
 namespace OnlineMasterG.CommonServices
 {
-    public static class DailyQuizService
+    public class DailyQuizService : ServiceBase
     {
-        public static OnlinemasterjiEntities DB { get; private set; }
-        static DailyQuizService()
-        {
-            DB = new OnlinemasterjiEntities();
-        }
+     
         internal static List<DailyQuizCourse> DailyQuizCourseList(string Lang, bool isActive)
         {
             return DB.DailyQuizCourses.Where(m => m.LanguageCode == Lang && m.Isactive == isActive).ToList();
