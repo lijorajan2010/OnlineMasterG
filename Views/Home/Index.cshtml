@@ -3,82 +3,45 @@
     ViewBag.Title = "Online Master Ji";
     Layout = "~/Views/Shared/PublicLayout.cshtml";
 }
-<!-- Modal -->
-<div class="modal" id="greeting" role="dialog" backdrop="static">
-    <div class="modal-dialog modal-lg">
+<style>
+.mobile_navi a img {
+    background: white;
+    padding: 9px;
+    box-shadow: 4px 0 14px 3px #e6e6e6;
+    border-radius: 15px;
+    max-width: 40px;
+}
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <!--  <div class="modal-header">
-
-               <h4 class="modal-title text-center">Instructions</h4>
-             </div> -->
-            <div class="modal-body" style="padding:0;">
-
-                <div class="container custom_container p0">
-
-                    <div class="service_info">
-
-                        <div class="">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            @if (AppInfo.GetGreetings != null && AppInfo.GetGreetings.Count() > 0)
-                            {
-                                var FirstGreeting = AppInfo.GetGreetings.FirstOrDefault();
-                                var Img = FirstGreeting!=null?FirstGreeting.DataFileId:null;
-                                if (Img != null && Img != 0)
-                                {
-                                    <img src="@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(Img.ToString())})" style="max-width:100%;">
-                                }
-                            }
-
-                        </div>
-
+[class^="ti-"], [class*=" ti-"]{
+	    line-height: 2.5 !important;
+}
+</style>
+ <section class="saas_banner_area_three owl-carousel">
+            <div class="slider_item">
+                <div class="container-fluid p0">
+                    <div class="slidet_content">
+                       <img src="icons/slider.jpg" alt="">
                     </div>
-
-
-
+                   <!--  <div class="image_mockup">
+                        <img class="watch" src="img/new/mockup/Watch.png" alt="">
+                        <img class="laptop" src="img/new/mockup/Laptop.png" alt="">
+                        <img class="phone" src="img/new/mockup/Iphone.png" alt="">
+                    </div> -->
                 </div>
             </div>
-            <!--  <div class="modal-footer">
-               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-             </div> -->
-        </div>
-
-    </div>
-</div>
-<!-- Modal -->
-<script>
-        debugger
-        var IsGreeting = '@AppInfo.GetGreetings.Count()';
-        $(window).on('load', function () {
-            if (IsGreeting != null && IsGreeting != undefined && IsGreeting != "" && IsGreeting != '0') {
-                if (this.parseInt(IsGreeting) > 0) {
-                      $('#greeting').modal('show', 3000);
-                }
-            }
-  });
-</script>
-
-<section class="payment_banner_area">
-    <div class="shape one"></div>
-    <div class="shape two"></div>
-    <div class="container">
-        <div class="payment_banner_content wow fadeInLeft" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInLeft;">
-            <h1 class="f_p f_700 f_size_50 w_color">The simpler, quicker way to learn and get your aim.</h1>
-            <p class="w_color f_p f_size_18">Those who want to learn, they will find a way. And those who don't, they  <br> will find an excuse.</p>
-            <div class="action_btn d-flex align-items-center mt_60">
-                @*<a href="#" class="btn_hover agency_banner_btn">Sign Up Now</a>*@
-                @Html.ActionLink("Sign Up Now", "Signup", "Login", new { }, new { @class = "btn_hover agency_banner_btn" })
-                <!--  <a href="#" class="agency_banner_btn_two">Find Out More<i class="ti-arrow-right"></i></a> -->
-            </div>
-        </div>
-    </div>
-    <div class="animation_img_two wow fadeInRight" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
-        <img src="/img/home9/mac.png" alt="">
-    </div>
-    <img class="svg_intro_bottom" src="/img/home9/shape.png" alt="">
-</section>
-
+            <div class="slider_item slider_item_two">
+               <div class="container-fluid p0">
+                    <div class="slidet_content">
+                       <img src="icons/slider.jpg" alt="">
+                    </div>
+                   <!--  <div class="image_mockup">
+                        <img class="watch" src="img/new/mockup/Watch.png" alt="">
+                        <img class="laptop" src="img/new/mockup/Laptop.png" alt="">
+                        <img class="phone" src="img/new/mockup/Iphone.png" alt="">
+                    </div> -->
+                </div> 
+			  </div>
+        </section>
 
 <section class="service_area sec_pad">
 		
