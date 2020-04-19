@@ -36,7 +36,7 @@ namespace OnlineMasterG.CommonServices
                     dbTest.LanguageCode = test.LanguageCode;
                     dbTest.Description = test.Description;
                     dbTest.TimeInMinutes = test.TimeInMinutes;
-                    dbTest.ExamTypeId = test.ExamTypeId;
+                    //dbTest.ExamTypeId = test.ExamTypeId;
                     dbTest.EditBy = auditlogin;
                     dbTest.Isactive = true;
                     dbTest.EditOn = DateTime.Now;

@@ -35,7 +35,7 @@ namespace OnlineMasterG.DomainLogic
                 Description = model.Description,
                 LanguageCode = model.LanguageCode,
                 TimeInMinutes = model.TimeInMinutes,
-                ExamTypeId = model.ExamTypeId,
+                //ExamTypeId = model.ExamTypeId,
                 CreateBy = auditlogin,
                 CreateOn = DateTime.Now,
                 Isactive = true
@@ -66,9 +66,9 @@ namespace OnlineMasterG.DomainLogic
                         TimeInMinutes=item.TimeInMinutes,
                         LanguageCode =item.LanguageCode,
                         CreateOn = item.CreateOn,
-                        ExamTypeId = item.ExamTypeId,
-                        ExamTypeName = TestService.FetchMockExamType(item.ExamTypeId).MockExamTypeName,
-                        ExamTypeCode = TestService.FetchMockExamType(item.ExamTypeId).MockExamTypeCode,
+                        //ExamTypeId = item.ExamTypeId,
+                        //ExamTypeName = TestService.FetchMockExamType(item.ExamTypeId).MockExamTypeName,
+                        //ExamTypeCode = TestService.FetchMockExamType(item.ExamTypeId).MockExamTypeCode,
 
 
                     });

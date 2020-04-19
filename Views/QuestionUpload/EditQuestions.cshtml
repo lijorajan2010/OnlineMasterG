@@ -117,8 +117,11 @@
                                             <tr style="width:100%;background: #f6f7f9; border-bottom:1pt solid grey ;">
                                                 <td>
                                                     <input type="hidden" name="EditQuestionSet[@qset.Index].QuestionUploadId" value='@QuestionUploadId'>
-                                                    <textarea rows="50" cols="50" name="EditQuestionSet[@qset.Index].Description" form="frmReviewedQuestions" class="form-control">@FirstDirection</textarea>
-                                                    <textarea rows="100" cols="50" name="EditQuestionSet[@qset.Index].Description" form="frmReviewedQuestions" class="form-control">@FirstDescription</textarea>
+                                                    <lable>Direction</lable><br />
+                                                    <textarea rows="50" cols="30" name="EditQuestionSet[@qset.Index].Direction" form="frmReviewedQuestions" class="form-control">@FirstDirection</textarea>
+                                                    <br />
+                                                    <lable>Description</lable><br />
+                                                    <textarea rows="100" cols="70" name="EditQuestionSet[@qset.Index].Description" form="frmReviewedQuestions" class="form-control">@FirstDescription</textarea>
                                                     @*Description for the first question*@
                                                 </td>
                                                 <td>
@@ -130,7 +133,10 @@
                                                                 <td>
                                                                     <table id="Questions">
                                                                         <tr>
-                                                                            <td><strong> Question Number @itemQset.Data.QuestionNumber</strong> </td>
+                                                                            <td><strong> Question Number @itemQset.Data.QuestionNumber</strong> 
+                                                                            <br />
+                                                                            <lable>Question Type : @itemQset.Data.QuestionTypeName </lable>
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>

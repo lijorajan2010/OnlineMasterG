@@ -13,7 +13,7 @@
             <th>Test Name</th>
             <th>Description</th>
             <th>Time (In minutes)</th>
-            <th>Mock Exam Type</th>
+            @*<th>Mock Exam Type</th>*@
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -31,8 +31,8 @@
                     <td>@item.Data.TestName</td>
                     <td>@item.Data.Description</td>
                     <td>@item.Data.TimeInMinutes</td>
-                    <td>@item.Data.ExamTypeName</td>
-                    <td><button class="btn btn-info" onclick='editTest(@Html.Raw(Json.Encode(new { id=item.Data.TestId,courseId= item.Data.CourseId,categoryId= item.Data.CategoryId,sectionId = item.Data.SectionId, testName = item.Data.TestName,description = item.Data.Description, languagecode = item.Data.LanguageCode,timeInMinutes =item.Data.TimeInMinutes , examTypeId = item.Data.ExamTypeId })));'><i class="fa fa-pencil-alt"></i></button></td>
+                    @*<td>@item.Data.ExamTypeName</td>*@
+                    <td><button class="btn btn-info" onclick='editTest(@Html.Raw(Json.Encode(new { id=item.Data.TestId,courseId= item.Data.CourseId,categoryId= item.Data.CategoryId,sectionId = item.Data.SectionId, testName = item.Data.TestName,description = item.Data.Description, languagecode = item.Data.LanguageCode,timeInMinutes =item.Data.TimeInMinutes  })));'><i class="fa fa-pencil-alt"></i></button></td>
                     <td><button class="btn btn-danger" onclick='deleteTest(@Html.Raw(Json.Encode(new { id=item.Data.TestId,testName = item.Data.TestName})))'><i class="fa fa-trash"></i></button></td>
                 </tr>
 

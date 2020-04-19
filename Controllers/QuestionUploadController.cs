@@ -77,6 +77,7 @@ namespace OnlineMasterG.Controllers
         {
             QuestionReviewVM questionReviewVM = new QuestionReviewVM();
             var QuestionUpload = QuestionUploadService.Fetch(id);
+            var QuestionTypes = TestService.MockExamTypeList();
             if (QuestionUpload!=null)
             {
                 questionReviewVM.CourseName = CourseService.Fetch(QuestionUpload.CourseId)?.CourseName;
@@ -134,9 +135,10 @@ namespace OnlineMasterG.Controllers
                             QuestionPoints = questionPointVMs,
                             Solution = item.Solution,
                             QuestionUploadId = item.QuestionUploadId,
-                            CorrectAnswer = CorrectAnswerId!=null ? CorrectAnswerId.ToString() : "1",
+                            CorrectAnswer = CorrectAnswerId != null ? CorrectAnswerId.ToString() : "1",
                             OptionList = OptionList,
-                            Direction = item.Direction
+                            Direction = item.Direction,
+                            QuestionTypeName = QuestionTypes.Where(m => m.MockExamTypeCode == item.QuestionType).FirstOrDefault().MockExamTypeName
                         }); 
                     }
                 }

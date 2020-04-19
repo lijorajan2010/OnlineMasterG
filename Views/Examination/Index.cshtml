@@ -621,11 +621,15 @@
                                                                     </h6>
 
                                                                     <div class="row">
-                                                                        <div class="col-md-6 fix_height overflow_auto SearchParameters collapse" id="SearchParameters">
-                                                                            <p class="text-justify" style="word-wrap: break-word;">
-                                                                                @Q.Data.QuestionsMockTests.Description
-                                                                             </p>
-                                                                        </div>
+                                                                        @if (Q.Data.QuestionsMockTests.QuestionType=="WITHD")
+                                                                        {
+                                                                            <div class="col-md-6 fix_height overflow_auto SearchParameters collapse" id="SearchParameters">
+                                                                                <p class="text-justify" style="word-wrap: break-word;">
+                                                                                    @Q.Data.QuestionsMockTests.Description
+                                                                                </p>
+                                                                            </div>
+                                                                        }
+
 
                                                                         <div class="col-md-6 fix_height overflow_auto">
                                                                             <div>
@@ -664,11 +668,11 @@
 
                                                                                 <br />
                                                                                 @*@if (true)
-                                                                                    {
-                                                                                        <div id="Solution" style="display:none;">
-                                                                                            <textarea type="text" class="form-control"></textarea>
-                                                                                        </div>
-                                                                                    }*@
+                {
+                    <div id="Solution" style="display:none;">
+                        <textarea type="text" class="form-control"></textarea>
+                    </div>
+                }*@
 
 
                                                                             </div>

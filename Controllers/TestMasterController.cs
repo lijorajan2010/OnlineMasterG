@@ -18,7 +18,7 @@ namespace OnlineMasterG.Controllers
         public ActionResult Index()
         {
             ViewBag.CourseList = new SelectList(CourseService.CourseList("en-US", true), "CourseId", "CourseName");
-            ViewBag.ExamType = new SelectList(TestService.MockExamTypeList(), "MockExamTypeId", "MockExamTypeName");
+            //ViewBag.ExamType = new SelectList(TestService.MockExamTypeList(), "MockExamTypeId", "MockExamTypeName");
             return View();
         }
         [HttpGet]

@@ -35,24 +35,25 @@ namespace OnlineMasterG.Controllers
             ViewBag.ProblemsList = ExamService.GetProblemMasters();
             ViewBag.AnswerStatus = ExamLogics.getAnswerStatuses();
 
-            if (model.MockTestAttemptDetails.Any(m=>m.QuestionsMockTests== null))
+            if (model.MockTestAttemptDetails.Count() == 0)
             {
                 return PartialView("Error");
             }
-            string ExamTypeCode = "WITHD";
-            if (TestDetails!=null)
-            {
-                ExamTypeCode = TestDetails.MockExamType.MockExamTypeCode;
-            }
-            if (ExamTypeCode=="WITHOUTD")
-            {
-                return View("Index2", model);
-            }
-            else
-            {
-                return View(model);
-            }
-          
+            //string ExamTypeCode = "WITHD";
+            //if (TestDetails!=null)
+            //{
+            //    ExamTypeCode = TestDetails.MockExamType.MockExamTypeCode;
+            //}
+            //if (ExamTypeCode=="WITHOUTD")
+            //{
+            //    return View("Index2", model);
+            //}
+            //else
+            //{
+            //    return View(model);
+            //}
+            return View(model);
+
         }
         [HttpPost]
         public ActionResult StudentFromAnswerSubmit(MockTestAttemptVM model)
@@ -64,7 +65,7 @@ namespace OnlineMasterG.Controllers
                 {
                     return RedirectToAction("Index", "MockTests");
                 }
-                return RedirectToAction("ReportCard", new { p = CustomEncrypt.Encrypt(AttemptSaved.ReturnId.ToString()) } );
+                return RedirectToAction("ReportCard", new { p = CustomEncrypt.Encrypt(AttemptSaved.ReturnId.ToString()) });
             }
             else
             {
@@ -83,7 +84,7 @@ namespace OnlineMasterG.Controllers
 
             ReportCardVM model = new ReportCardVM();
 
-         
+
             var AttempDetails = ExamService.Fetch(AttemptId);
             var TestDetails = TestService.Fetch(AttempDetails.TestId);
 
@@ -96,7 +97,7 @@ namespace OnlineMasterG.Controllers
 
             model.TotalTestAttempts = ExamService.GetAttemptListByTestId(AttempDetails?.TestId).Count();
             model.Rank = GetRankOftheStudent(AttempDetails);
-            if (model.Rank!=0 && model.TotalTestAttempts.Value!=0)
+            if (model.Rank != 0 && model.TotalTestAttempts.Value != 0)
             {
                 model.Percentage = (model.Rank / model.TotalTestAttempts.Value) * 100;
 
@@ -124,12 +125,12 @@ namespace OnlineMasterG.Controllers
                     decimal? Minutes = AttempDetails.MockTestAttemptDetails.Where(m => m.SubjectId == item).FirstOrDefault().SubjectTimeUsed;
                     double MinutesNotNull = Convert.ToDouble(Minutes.HasValue ? Minutes.Value : 0);
                     TimeSpan spWorkMin = TimeSpan.FromMinutes(MinutesNotNull);
-                    subjectWiseScoreVM.SubjectTimeSpent = string.Format("{0:00} Hours {1:00} Minutes {2:00} Seconds", (int)spWorkMin.TotalHours, spWorkMin.Minutes , spWorkMin.Seconds);
-                    if (subjectWiseScoreVM.YourScore!=0 && subjectWiseScoreVM.OriginalScore.Value!=0)
+                    subjectWiseScoreVM.SubjectTimeSpent = string.Format("{0:00} Hours {1:00} Minutes {2:00} Seconds", (int)spWorkMin.TotalHours, spWorkMin.Minutes, spWorkMin.Seconds);
+                    if (subjectWiseScoreVM.YourScore != 0 && subjectWiseScoreVM.OriginalScore.Value != 0)
                     {
                         subjectWiseScoreVM.Accuracy = (subjectWiseScoreVM.YourScore / subjectWiseScoreVM.OriginalScore.Value) * 100;
                     }
-                   
+
                     subjectWiseScoreVM.TotalCorrectAnswers = AttempDetails.MockTestAttemptDetails.Where(m => m.SubjectId == item && m.IsAnswerCorrect == true).Count();
                     subjectWiseScoreVM.TotalWrongAnswers = (subjectWiseScoreVM.TotalQuestions - AttempDetails.MockTestAttemptDetails.Where(m => m.SubjectId == item && m.IsAnswerCorrect == true).Count());
 
@@ -141,11 +142,11 @@ namespace OnlineMasterG.Controllers
             model.subjectWiseScoreVMs = subjectWiseScoreVMs;
             model.topPerformersVMs = GetTopPerformers(AttempDetails);
             model.TotalOriginalMarks = subjectWiseScoreVMs.Sum(m => m.OriginalScore);
-            if (model.TotalMarksScored!=0 && model.TotalOriginalMarks.Value !=0)
+            if (model.TotalMarksScored != 0 && model.TotalOriginalMarks.Value != 0)
             {
                 model.TotalTestAccuracy = (model.TotalMarksScored / model.TotalOriginalMarks.Value) * 100;
             }
-          
+
 
             return View(model);
         }
@@ -158,18 +159,19 @@ namespace OnlineMasterG.Controllers
                                     .Select((grp, i) => new
                                     {
                                         Login = grp.Login,
-                                        FullName = UserService.Fetch(grp.Login).FirstName+ " "+ UserService.Fetch(grp.Login).LastName,
+                                        FullName = UserService.Fetch(grp.Login).FirstName + " " + UserService.Fetch(grp.Login).LastName,
                                         MarkScored = grp.FinalMarksScoredForRank,
                                         Rank = i + 1
                                     })
                                     .ToList();
-            if (List!=null && List.Count() > 0)
+            if (List != null && List.Count() > 0)
             {
                 foreach (var item in List)
                 {
-                    topPerformersVMs.Add(new TopPerformersVM(){ 
-                    FullName = item.FullName,
-                    MarksScored = item.MarkScored,
+                    topPerformersVMs.Add(new TopPerformersVM()
+                    {
+                        FullName = item.FullName,
+                        MarksScored = item.MarkScored,
                     });
                 }
             }
@@ -180,7 +182,7 @@ namespace OnlineMasterG.Controllers
         private int GetRankOftheStudent(MockTestAttempt attempDetails)
         {
             int rank = 0;
-           // Rank need to be calculated
+            // Rank need to be calculated
             if (attempDetails != null)
             {
                 var AttempstOftheTest = ExamService.GetAttemptListByTestId(attempDetails?.TestId);
@@ -215,11 +217,11 @@ namespace OnlineMasterG.Controllers
             model.Rank = GetRankOftheStudent(AttempDetails);
             model.TotalMarksScored = AttempDetails.MockTestAttemptDetails.Where(m => m.IsAnswerCorrect == true).Sum(m => m.MarksScored);
             model.TotalTestAttempts = ExamService.GetAttemptListByTestId(AttempDetails?.TestId).Count();
-            if (model.Rank!=0 && model.TotalTestAttempts.Value!=0)
+            if (model.Rank != 0 && model.TotalTestAttempts.Value != 0)
             {
                 model.Percentage = (model.Rank / model.TotalTestAttempts.Value) * 100;
             }
-           
+
             List<SubjectWiseScoreVM> subjectWiseScoreVMs = new List<SubjectWiseScoreVM>();
             List<int?> loopCount = AttempDetails.MockTestAttemptDetails.Select(m => m.SubjectId).Distinct().ToList();
             if (loopCount != null && loopCount.Count() > 0)
@@ -242,7 +244,7 @@ namespace OnlineMasterG.Controllers
                     TimeSpan spWorkMin = TimeSpan.FromMinutes(MinutesNotNull);
                     subjectWiseScoreVM.SubjectTimeSpent = string.Format("{0:00} Hours {1:00} Minutes {2:00} Seconds", (int)spWorkMin.TotalHours, spWorkMin.Minutes, spWorkMin.Seconds);
 
-                    if (subjectWiseScoreVM.YourScore!=0 && subjectWiseScoreVM.OriginalScore.Value!=0)
+                    if (subjectWiseScoreVM.YourScore != 0 && subjectWiseScoreVM.OriginalScore.Value != 0)
                     {
                         subjectWiseScoreVM.Accuracy = (subjectWiseScoreVM.YourScore / subjectWiseScoreVM.OriginalScore.Value) * 100;
                     }
@@ -252,7 +254,7 @@ namespace OnlineMasterG.Controllers
             }
 
             model.TotalOriginalMarks = subjectWiseScoreVMs.Sum(m => m.OriginalScore);
-            if (model.TotalMarksScored!=0 && model.TotalOriginalMarks.Value!=0)
+            if (model.TotalMarksScored != 0 && model.TotalOriginalMarks.Value != 0)
             {
                 model.TotalTestAccuracy = (model.TotalMarksScored / model.TotalOriginalMarks.Value) * 100;
 

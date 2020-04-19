@@ -91,18 +91,18 @@
                                         </tr>
                                         <tr>
                                             <th> Time (In minutes)</th>
-                                            <th>Mock Exam Type</th>
-                                            <th>Action</th>
+                                            @*<th>Mock Exam Type</th>*@
+                                            <th colspan="2">Action</th>
                                         </tr>
                                         <tr>
 
                                             <td>
                                                 <input type="number" required id="txtTestTime" name="TimeInMinutes" class="form-control" value="">
                                             </td>
-                                            <td>
+                                            @*<td>
                                                 @Html.DropDownList("ExamType", (SelectList)ViewBag.ExamType, "Please Select", new { @id = "ExamTypeId", @class = "form-control", @required = "required" })
                                                 
-                                            </td>
+                                            </td>*@
                                             <td>
                                                 <button class="btn btn-info" type="button" id="btnSave">Save </button>
                                                 <button class="btn btn-alternate" id="btnClear" type="button">Clear </button>

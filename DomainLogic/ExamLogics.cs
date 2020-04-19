@@ -29,7 +29,7 @@ namespace OnlineMasterG.DomainLogic
             // if list not empty, take first not completed attempt order by create date desc
             if (TestAttepts != null && TestAttepts.Count() > 0)
             {
-                var FirstNotCompletedAttempt = TestAttepts.Where(m => m.IsCompleted == false).OrderByDescending(m => m.CreateDate).FirstOrDefault();
+                var FirstNotCompletedAttempt = TestAttepts.Where(m => m.IsCompleted == false && m.IsPaused==true).OrderByDescending(m => m.CreateDate).FirstOrDefault();
                 if (FirstNotCompletedAttempt != null)
                 {
                     model = SetAttemptVMModel(FirstNotCompletedAttempt, TestId);
@@ -352,6 +352,7 @@ namespace OnlineMasterG.DomainLogic
                             Question.Solution = OriginalQuestion.Solution;
                             Question.QuestionPoints = QuestionPointVMs;
                             Question.QuestionAnswerChoices = questionAnswerChoiceVMs;
+                            Question.QuestionType = OriginalQuestion.QuestionType;
                         }
                       
                         mockTestAttemptDetails.Add(new MockTestAttemptDetailVM()

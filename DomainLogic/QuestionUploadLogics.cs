@@ -140,6 +140,9 @@ namespace OnlineMasterG.DomainLogic
             if (!questionTab.Columns.Contains("Direction"))
                 sr.AddError("Column [Direction] is missing.");
 
+            if (!questionTab.Columns.Contains("Question Type"))
+                sr.AddError("Column [Question Type] is missing.");
+
             //bool anyQuestionsetEmpty = questionTab.Columns.
 
             //if (anyQuestionsetEmpty)
@@ -211,6 +214,13 @@ namespace OnlineMasterG.DomainLogic
                         string AnswerOption5 = item.Data.AnswerOption5;
                         string CorrectAnswer = item.Data.CorrectAnswer;
                         string Solution = item.Data.Solution;
+
+                        string QuestionType = "WITHD";
+                        if (!string.IsNullOrEmpty(item.Data.QuestionType))
+                        {
+                            QuestionType = item.Data.QuestionType.Split('-')[1];
+                        }
+                      
                         bool IscorrectAnswer1 = CorrectAnswer == "AnswerOption1" ? true : false;
                         bool IscorrectAnswer2 = CorrectAnswer == "AnswerOption2" ? true : false;
                         bool IscorrectAnswer3 = CorrectAnswer == "AnswerOption3" ? true : false;
@@ -253,7 +263,9 @@ namespace OnlineMasterG.DomainLogic
                             Solution = Solution,
                             QuestionAnswerChoices = questionAnswerChoices,
                             QuestionPoints = questionPoints,
-                            Direction =Direction
+                            Direction =Direction,
+                            QuestionType = QuestionType
+
                         });
 
                     }

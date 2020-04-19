@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace OnlineMasterG.Models.ViewModels
 {
@@ -56,6 +57,8 @@ namespace OnlineMasterG.Models.ViewModels
         public List<int> OptionList { get; set; }
         public virtual ICollection<QuestionAnswerChoiceVM> QuestionAnswerChoices { get; set; }
         public virtual ICollection<QuestionPointVM> QuestionPoints { get; set; }
+        public string QuestionTypeName { get; set; }
+        public string QuestionType { get; set; }
     }
     public class QuestionAnswerChoiceVM
     {

@@ -77,7 +77,7 @@ function clearFields() {
     $("#txtTestName").val("");
     $("#txtTestDescription").val("");
     $("#CourelistId").val("");
-    $("#ExamTypeId").val("");
+    //$("#ExamTypeId").val("");
     $("#CategorylistId").val("");
     $("#SectionlistId").val("");
     $("#txtTestTime").val("");
@@ -100,7 +100,7 @@ function saveTest() {
         Description: $("#txtTestDescription").val(),
         LanguageCode: $("#LanguageCode").val(),
         TimeInMinutes: $("#txtTestTime").val(),
-        ExamTypeId: $("#ExamTypeId").val()
+        //ExamTypeId: $("#ExamTypeId").val()
         //IsActive: $("#chkIsActive").prop('checked')
     };
 
@@ -125,7 +125,7 @@ function editTest(obj) {
     $("#txtTestDescription").val(obj.description);
     $("#LanguageCode").val(obj.languagecode);
     $("#txtTestTime").val(obj.timeInMinutes);
-    $("#ExamTypeId").val(obj.examTypeId);
+    //$("#ExamTypeId").val(obj.examTypeId);
     //if (obj.isActive == true) {
     //    $('#chkIsActive').click();
     //}
