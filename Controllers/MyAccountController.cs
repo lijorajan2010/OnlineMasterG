@@ -23,7 +23,7 @@ namespace OnlineMasterG.Controllers
             MyDashboardVM model = new MyDashboardVM();
             var Login = HttpContext.User.Identity.Name;
 
-            var MockTestAttempts = ExamService.GetAttemptListByLogin(Login);
+            var MockTestAttempts = ExamService.GetAttemptListByLogin(Login).Where(m => (m.IsPaused == true || m.IsCompleted==true)).ToList();
             if (MockTestAttempts != null && MockTestAttempts.Count() > 0)
             {
                 List<GivenMockTests> givenMockTests = new List<GivenMockTests>();
@@ -38,7 +38,10 @@ namespace OnlineMasterG.Controllers
                     {
                         AttemptId = item.AttemptId,
                         TestName = TestService.Fetch(item.TestId)?.TestName,
-                        TimeUsed = string.Format("{0:00} Hours {1:00} Minutes {2:00} Seconds", (int)spWorkMin.TotalHours, spWorkMin.Minutes, spWorkMin.Seconds)
+                        TimeUsed = string.Format("{0:00} Hours {1:00} Minutes {2:00} Seconds", (int)spWorkMin.TotalHours, spWorkMin.Minutes, spWorkMin.Seconds),
+                        IsPaused = item.IsPaused,
+                        IsCompleted = item.IsCompleted,
+                        TestId = item.TestId
                     });
                 }
                 model.GivenMockTests = givenMockTests;

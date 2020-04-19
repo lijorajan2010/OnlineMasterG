@@ -29,6 +29,7 @@ namespace OnlineMasterG.Models.ViewModels
         public virtual List<SubjectWiseScoreVM> subjectWiseScoreVMs { get; set; }
         public virtual List<TopPerformersVM> topPerformersVMs { get; set; }
         public int TotalCorrectAnswers { get; set; }
+        public int TotalQuestions { get; set; }
         public int TotalWrongAnswers { get; set; }
     }
     public class SubjectWiseScoreVM

@@ -240,8 +240,17 @@
                                                         </div>
                                                         <div class="col-md-5 col-md-5 col-xs-5">
                                                             <div>
-                                                                <a href="@Url.Action("Solution", "Examination", new { p = CustomEncrypt.SafeUrlEncrypt(item.AttemptId.ToString()) })" target="_blank" class="btn_get btn_hover">Solution</a>
-                                                                <a href="@Url.Action("ReportCard", "Examination", new { p = CustomEncrypt.SafeUrlEncrypt(item.AttemptId.ToString()) })" target="_blank" class="btn_hover agency_banner_btn ml_15">Analysis</a>
+                                                                @if (item.IsCompleted)
+                                                                {
+                                                                    <a href="@Url.Action("Solution", "Examination", new { p = CustomEncrypt.SafeUrlEncrypt(item.AttemptId.ToString()) })" target="_blank" class="btn_get btn_hover">Solution</a>
+                                                                    <a href="@Url.Action("ReportCard", "Examination", new { p = CustomEncrypt.SafeUrlEncrypt(item.AttemptId.ToString()) })" target="_blank" class="btn_hover agency_banner_btn ml_15">Analysis</a>
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    @Html.ActionLink(" Resume ", "Index", "Instruction", new { p = CustomEncrypt.SafeUrlEncrypt(item.TestId.ToString()) , s= CustomEncrypt.SafeUrlEncrypt(item.AttemptId.ToString())}, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
+
+                                                                }
                                                             </div>
                                                         </div>
                                                     </div>

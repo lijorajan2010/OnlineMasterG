@@ -514,15 +514,24 @@ namespace OnlineMasterG.DomainLogic
             }
             return model;
         }
-        public static DailyQuizAttemptVM GetDailyQuizAttemptDetails(string Login, int DailyQuizId, string auditlogin)
+        public static DailyQuizAttemptVM GetDailyQuizAttemptDetails(string Login, int DailyQuizId, string auditlogin, int ResumeAttemptId, bool isReAttempt = false)
         {
             DailyQuizAttemptVM model = new DailyQuizAttemptVM();
 
-            var TestAttepts = DailyQuizService.GetDailyQuizAttemptListByLoginAndTestId(Login, DailyQuizId);
+            var TestAttepts = DailyQuizService.GetDailyQuizAttemptListByLoginAndTestId(Login, DailyQuizId).Where(m => (m.IsPaused == true || m.IsCompleted == true)).ToList();
             // if list not empty, take first not completed attempt order by create date desc
             if (TestAttepts != null && TestAttepts.Count() > 0)
             {
-                var FirstNotCompletedAttempt = TestAttepts.Where(m => m.IsCompleted == false).OrderByDescending(m => m.CreateDate).FirstOrDefault();
+                var FirstNotCompletedAttempt = new DailyQuizAttempt();
+                if (ResumeAttemptId != 0)
+                {
+                    FirstNotCompletedAttempt = TestAttepts.Where(m => m.IsCompleted == false && m.IsPaused == true).Where(m => m.AttemptId == ResumeAttemptId).FirstOrDefault();
+                }
+                else
+                {
+                    FirstNotCompletedAttempt = TestAttepts.Where(m => m.IsCompleted == false && m.IsPaused == true).OrderByDescending(m => m.CreateDate).FirstOrDefault();
+                }
+
                 if (FirstNotCompletedAttempt != null)
                 {
                     model = SetAttemptVMModel(FirstNotCompletedAttempt, DailyQuizId);

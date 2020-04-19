@@ -15,14 +15,27 @@ namespace OnlineMasterG.Controllers
     public class InstructionController : BaseController
     {
         // GET: Instruction
-        public ActionResult Index(string p)
+        public ActionResult Index(string p, string r, string s)
         {
             int TestId = 0;
+            bool isReattempt = false;
+            int ResumeAttemptId = 0;
             if (!string.IsNullOrEmpty(p))
             {
                 TestId = int.Parse(CustomEncrypt.SafeUrlDecrypt(p));
             }
+            if (!string.IsNullOrEmpty(r))
+            {
+                isReattempt = Convert.ToBoolean(CustomEncrypt.SafeUrlDecrypt(r));
+            }
+            if (!string.IsNullOrEmpty(s))
+            {
+                ResumeAttemptId = int.Parse(CustomEncrypt.SafeUrlDecrypt(s));
+            }
+
             ViewBag.TestId = TestId;
+            ViewBag.IsReattempt = isReattempt;
+            ViewBag.ResumeAttemptId = ResumeAttemptId;
             return View();
         }
         [HttpPost]
@@ -33,15 +46,27 @@ namespace OnlineMasterG.Controllers
             return PartialView(model);
         }
 
-        public ActionResult DailyQuiz(string p)
+        public ActionResult DailyQuiz(string p, string r, string s)
         {
             int DailyQuizId = 0;
+            bool isReattempt = false;
+            int ResumeAttemptId = 0;
             if (!string.IsNullOrEmpty(p))
             {
                 DailyQuizId = int.Parse(CustomEncrypt.SafeUrlDecrypt(p));
             }
+            if (!string.IsNullOrEmpty(r))
+            {
+                isReattempt = Convert.ToBoolean(CustomEncrypt.SafeUrlDecrypt(r));
+            }
+            if (!string.IsNullOrEmpty(s))
+            {
+                ResumeAttemptId = int.Parse(CustomEncrypt.SafeUrlDecrypt(s));
+            }
             ViewBag.DailyQuizId = DailyQuizId;
-           
+            ViewBag.IsReattempt = isReattempt;
+            ViewBag.ResumeAttemptId = ResumeAttemptId;
+
             var model = DailyQuizService.FetchDailyQuiz(DailyQuizId);
             return View(model);
         }

@@ -10,7 +10,7 @@ namespace OnlineMasterG.CommonServices
 {
     public class ExamService : ServiceBase
     {
-      
+
         public static List<MockTestAttempt> GetAttemptListByLoginAndTestId(string Login, int TestId)
         {
             return DB.MockTestAttempts.Where(m => m.Login == Login && m.TestId == TestId).ToList();
@@ -29,7 +29,7 @@ namespace OnlineMasterG.CommonServices
         }
         public static List<MockTestAttempt> GetAttemptListByTestId(int? TestId)
         {
-            return DB.MockTestAttempts.Where(m =>  m.TestId == (TestId.HasValue? TestId : 0)).ToList();
+            return DB.MockTestAttempts.Where(m => m.TestId == (TestId.HasValue ? TestId : 0) && (m.IsCompleted == true || m.IsCompleted == true)).ToList();
         }
         public static MockTestAttempt Fetch(int attemptId)
         {
@@ -46,7 +46,7 @@ namespace OnlineMasterG.CommonServices
             {
                 var Attempt = ExamService.FetchUpdate(attemptId);
                 if (Attempt != null)
-                {    
+                {
                     Attempt.IsReviewApproved = true;
                     DB.SaveChanges();
                 }
@@ -69,7 +69,7 @@ namespace OnlineMasterG.CommonServices
                 var Attempt = ExamService.FetchUpdate(attemptId);
                 if (Attempt != null)
                 {
-                    
+
                     Attempt.IsReviewApproved = false;
                     DB.Entry(Attempt).State = EntityState.Modified;
                     DB.SaveChanges();
@@ -120,8 +120,8 @@ namespace OnlineMasterG.CommonServices
 
                             foreach (var item in firstTimeAttempt.MockTestAttemptDetails)
                             {
-                               var  DBMockTestAttemptDetails = dbMockTestAttempt.MockTestAttemptDetails.Where(m => m.AttemptDetailId == item.AttemptDetailId).FirstOrDefault();
-                                if (DBMockTestAttemptDetails!=null)
+                                var DBMockTestAttemptDetails = dbMockTestAttempt.MockTestAttemptDetails.Where(m => m.AttemptDetailId == item.AttemptDetailId).FirstOrDefault();
+                                if (DBMockTestAttemptDetails != null)
                                 {
                                     DBMockTestAttemptDetails.AnswerChoiceId = item.AnswerChoiceId;
                                     DBMockTestAttemptDetails.ChoosenAnswerChoiceId = item.ChoosenAnswerChoiceId;
@@ -130,15 +130,15 @@ namespace OnlineMasterG.CommonServices
                                     DBMockTestAttemptDetails.AnswerStatus = item.AnswerStatus;
                                     DBMockTestAttemptDetails.SubjectTimeUsed = item.SubjectTimeUsed;
                                 }
-                             
 
-                                if (DBMockTestAttemptDetails.ProblemsReporteds!=null && DBMockTestAttemptDetails.ProblemsReporteds.Count()>0
-                                    && item.ProblemsReporteds!=null && item.ProblemsReporteds.Count()>0)
+
+                                if (DBMockTestAttemptDetails.ProblemsReporteds != null && DBMockTestAttemptDetails.ProblemsReporteds.Count() > 0
+                                    && item.ProblemsReporteds != null && item.ProblemsReporteds.Count() > 0)
                                 {
                                     foreach (var prob in item.ProblemsReporteds)
                                     {
                                         var DBProb = DBMockTestAttemptDetails.ProblemsReporteds.Where(m => m.ProblemId == prob.ProblemId).FirstOrDefault();
-                                        if (DBProb!=null)
+                                        if (DBProb != null)
                                         {
                                             DBProb.IsReported = prob.IsReported;
                                             DBProb.IssueText = prob.IssueText;
@@ -163,7 +163,7 @@ namespace OnlineMasterG.CommonServices
 
             }
             return sr;
-        
+
         }
         public static List<ProblemMaster> GetProblemMasters()
         {
@@ -174,7 +174,7 @@ namespace OnlineMasterG.CommonServices
         internal static void AddRatingOfTest(int attemptId, int? rating, string Review)
         {
             var Attempt = DB.MockTestAttempts.Where(m => m.AttemptId == attemptId).FirstOrDefault();
-            if (Attempt!=null)
+            if (Attempt != null)
             {
                 Attempt.Rating = rating.HasValue ? rating.Value : 0;
                 Attempt.Review = Review;

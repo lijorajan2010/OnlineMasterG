@@ -21,16 +21,25 @@ namespace OnlineMasterG.DomainLogic
 
         }
 
-        public static MockTestAttemptVM GetMockTestAttemptDetails(string Login, int TestId, string auditlogin)
+        public static MockTestAttemptVM GetMockTestAttemptDetails(string Login, int TestId, string auditlogin, int ResumeAttemptId, bool isReAttempt = false)
         {
             MockTestAttemptVM model = new MockTestAttemptVM();
 
-            var TestAttepts = ExamService.GetAttemptListByLoginAndTestId(Login, TestId);
+            var TestAttepts = ExamService.GetAttemptListByLoginAndTestId(Login, TestId).Where(m => (m.IsPaused == true || m.IsCompleted == true)).ToList();
             // if list not empty, take first not completed attempt order by create date desc
             if (TestAttepts != null && TestAttepts.Count() > 0)
             {
-                var FirstNotCompletedAttempt = TestAttepts.Where(m => m.IsCompleted == false && m.IsPaused==true).OrderByDescending(m => m.CreateDate).FirstOrDefault();
-                if (FirstNotCompletedAttempt != null)
+                var FirstNotCompletedAttempt = new MockTestAttempt();
+                if (ResumeAttemptId != 0)
+                {
+                    FirstNotCompletedAttempt = TestAttepts.Where(m => m.IsCompleted == false && m.IsPaused == true).Where(m => m.AttemptId == ResumeAttemptId).FirstOrDefault();
+                }
+                else
+                {
+                    FirstNotCompletedAttempt = TestAttepts.Where(m => m.IsCompleted == false && m.IsPaused == true).OrderByDescending(m => m.CreateDate).FirstOrDefault();
+                }
+
+                if (FirstNotCompletedAttempt != null && !isReAttempt)
                 {
                     model = SetAttemptVMModel(FirstNotCompletedAttempt, TestId);
                 }
@@ -94,6 +103,11 @@ namespace OnlineMasterG.DomainLogic
                     mockTestAttempt.AttemptId = AttemptId.Value;
                     mockTestAttempt.IsPaused = model.IsPaused;
                     mockTestAttempt.IsCompleted = model.IsCompleted;
+                    if (model.IsCompleted)
+                    {
+                        mockTestAttempt.IsPaused = false;
+                    }
+                 
                     mockTestAttempt.TimeLeftInMinutes = model.TimeLeftInMinutes;
 
                     List<MockTestAttemptDetail> mockTestAttemptDetailsList = new List<MockTestAttemptDetail>();
@@ -354,7 +368,7 @@ namespace OnlineMasterG.DomainLogic
                             Question.QuestionAnswerChoices = questionAnswerChoiceVMs;
                             Question.QuestionType = OriginalQuestion.QuestionType;
                         }
-                      
+
                         mockTestAttemptDetails.Add(new MockTestAttemptDetailVM()
                         {
                             AttemptDetailId = item.AttemptDetailId,
@@ -374,13 +388,13 @@ namespace OnlineMasterG.DomainLogic
                             QuestionsMockTests = Question,
                             IsAnswerCorrect = item.IsAnswerCorrect,
                         });
+                    }
+                    model.MockTestAttemptDetails = mockTestAttemptDetails;
                 }
-                model.MockTestAttemptDetails = mockTestAttemptDetails;
-            }
 
-        }
+            }
 
             return model;
         }
-}
+    }
 }

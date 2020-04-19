@@ -281,10 +281,14 @@
             <div class="LatestUpdate">
                 @if (AppInfo.GetLatestUpdates != null && AppInfo.GetLatestUpdates.Count() > 0)
                 {
-                    foreach (var item in AppInfo.GetLatestUpdates)
+                  
+                <marquee>
+                    @foreach (var item in AppInfo.GetLatestUpdates)
                     {
-                        <marquee> @item.UpdateDescription  &nbsp;&nbsp;&nbsp;</marquee>
+                        <span style="margin-right:10px;"> @item.UpdateDescription </span>
                     }
+                    &nbsp; &nbsp;
+                </marquee>
                 }
 
 
@@ -413,6 +417,7 @@
                         @if (!HttpContext.Current.User.Identity.IsAuthenticated)
                         {
                             @Html.ActionLink("Log in", "Index", "Login", new { }, new { @class = "btn_get btn_hover hidden-sm hidden-xs" })
+                            @Html.ActionLink("Signup", "Signup", "Login", new { }, new { @class = "btn_get btn_hover hidden-sm hidden-xs" })
                         }
 
                         @*<a class="btn_get btn_hover hidden-sm hidden-xs" href="login.html">Log In</a>*@
@@ -935,7 +940,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="~/js/jquery-3.2.1.min.js"></script>
+    @*<script src="~/js/jquery-3.2.1.min.js"></script>*@
     <script src="~/js/propper.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/vendors/wow/wow.min.js"></script>

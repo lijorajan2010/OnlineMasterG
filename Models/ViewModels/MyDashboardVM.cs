@@ -16,8 +16,11 @@ namespace OnlineMasterG.Models.ViewModels
     public class GivenMockTests
     {
         public int AttemptId { get; set; }
+        public int? TestId { get; set; }
         public string TestName { get; set; }
         public string TimeUsed { get; set; }
+        public bool IsPaused { get; set; }
+        public bool IsCompleted { get; set; }
     }
     public class GivenQuizes
     {

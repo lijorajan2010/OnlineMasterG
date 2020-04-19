@@ -33,6 +33,8 @@ namespace OnlineMasterG.Models.ViewModels
         public decimal TotalTestAccuracy { get; set; }
         public int? TotalTestAttempts { get; set; }
         public decimal Percentage { get; set; }
+        public int TotalCorrectAnswers { get; set; }
+        public int TotalQuestions { get; set; }
     }
     public class DailyQuizAttemptVMDetailVM
     {

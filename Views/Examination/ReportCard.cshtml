@@ -299,7 +299,7 @@
                     </div>
                     <div class="row mb_15 border-t">
                         <div class="col-md-12 text-right">
-                            @Html.ActionLink(" Reattempt", "Index", "Instruction", new { p = CustomEncrypt.SafeUrlEncrypt(Model.TestId.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
+                            @Html.ActionLink(" Reattempt", "Index", "Instruction", new { p = CustomEncrypt.SafeUrlEncrypt(Model.TestId.ToString()), r=CustomEncrypt.SafeUrlEncrypt(true.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
                             @Html.ActionLink(" Solution", "Solution", "Examination", new { p = CustomEncrypt.SafeUrlEncrypt(Model.AttemptId.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
 
                         </div>
@@ -458,7 +458,7 @@
 
         </div>
     </section>
-    <div class="modal fade" id="feedback_Modal1" role="dialog" data-keyboard="false" data-backdrop="static" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="feedback_Modal1" role="dialog" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
 
             <!-- Modal content-->

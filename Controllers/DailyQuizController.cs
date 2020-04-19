@@ -22,12 +22,22 @@ namespace OnlineMasterG.Controllers
             return View();
         }
         [ActionAuthorization("PUBLICACTION")]
-        public ActionResult DailyQuiz(string p)
+        public ActionResult DailyQuiz(string p, string r, string s)
         {
             int DailyQuizId = 0;
+            bool isReAttempt = false;
+            int ResumeAttemptId = 0;
             if (!string.IsNullOrEmpty(p))
             {
                 DailyQuizId = int.Parse(CustomEncrypt.SafeUrlDecrypt(p));
+            }
+            if (!string.IsNullOrEmpty(r))
+            {
+                isReAttempt = Convert.ToBoolean(CustomEncrypt.SafeUrlDecrypt(r));
+            }
+            if (!string.IsNullOrEmpty(s))
+            {
+                ResumeAttemptId = int.Parse(CustomEncrypt.SafeUrlDecrypt(s));
             }
             var DailyQuizDetails = DailyQuizService.FetchDailyQuiz(DailyQuizId);
 
@@ -35,7 +45,7 @@ namespace OnlineMasterG.Controllers
             DailyQuizAttemptVM model = new DailyQuizAttemptVM();
             if (!string.IsNullOrEmpty(CurrentLogin) && DailyQuizDetails != null)
             {
-                model = DailyQuizLogics.GetDailyQuizAttemptDetails(CurrentLogin, DailyQuizId, CurrentLogin);
+                model = DailyQuizLogics.GetDailyQuizAttemptDetails(CurrentLogin, DailyQuizId, CurrentLogin, ResumeAttemptId, isReAttempt);
             }
             else
             {
@@ -213,11 +223,7 @@ namespace OnlineMasterG.Controllers
             model.Rank = GetRankOftheStudent(AttempDetails);
             model.TotalMarksScored = AttempDetails.DailyQuizAttemptDetails.Where(m => m.IsAnswerCorrect == true).Sum(m => m.MarksScored);
             model.TotalTestAttempts = DailyQuizService.GetDailyQuizAttemptListByDailyQuizId(AttempDetails?.DailyQuizId).Count();
-            if (model.Rank!=0 && model.TotalTestAttempts.Value!=0)
-            {
-                model.Percentage = (model.Rank / model.TotalTestAttempts.Value) * 100;
-            }
-         
+                  
             List<SubjectWiseScoreVM> subjectWiseScoreVMs = new List<SubjectWiseScoreVM>();
             List<int?> loopCount = AttempDetails.DailyQuizAttemptDetails.Select(m => m.DailyQuizSubjectId).Distinct().ToList();
             if (loopCount != null && loopCount.Count() > 0)
@@ -234,7 +240,7 @@ namespace OnlineMasterG.Controllers
                     subjectWiseScoreVM.NumberNotVisited = AttempDetails.DailyQuizAttemptDetails.Where(m => m.DailyQuizSubjectId == item && m.AnswerStatus == ExamLogics.AnswerStatus.NOTATTEMPTED.ToString()).Count();
                     subjectWiseScoreVM.NumberReview = AttempDetails.DailyQuizAttemptDetails.Where(m => m.DailyQuizSubjectId == item && m.AnswerStatus == ExamLogics.AnswerStatus.MARKED.ToString()).Count();
                     subjectWiseScoreVM.OriginalScore = (1 * subjectWiseScoreVM.TotalQuestions);
-                    subjectWiseScoreVM.YourScore = AttempDetails.DailyQuizAttemptDetails.Where(m => m.IsAnswerCorrect == true && m.DailyQuizSubjectId == item).Sum(m => m.MarksScored);
+                    subjectWiseScoreVM.YourScore = AttempDetails.DailyQuizAttemptDetails.Where(m => m.DailyQuizSubjectId == item).Sum(m => m.MarksScored);
                     decimal? Mnutes = (TestDetails.TimeInMinutes.HasValue ? TestDetails.TimeInMinutes.Value : 0) - AttempDetails.TimeLeftInMinutes;
                     double Mnutesnotnl = Convert.ToDouble(Mnutes.HasValue ? Mnutes.Value : 0);
                     TimeSpan WorkMin = TimeSpan.FromMinutes(Mnutesnotnl);
@@ -251,11 +257,18 @@ namespace OnlineMasterG.Controllers
             }
 
             model.TotalOriginalMarks = subjectWiseScoreVMs.Sum(m => m.OriginalScore);
+            model.TotalCorrectAnswers = subjectWiseScoreVMs.Sum(m => m.TotalCorrectAnswers);
+            model.TotalQuestions = subjectWiseScoreVMs.Sum(m => m.TotalQuestions);
 
-            if (model.TotalMarksScored!=0 && model.TotalOriginalMarks.Value!=0)
+            if (model.TotalCorrectAnswers != 0 && model.TotalQuestions != 0)
             {
-                model.TotalTestAccuracy = (model.TotalMarksScored / model.TotalOriginalMarks.Value) * 100;
+                model.TotalTestAccuracy = (model.TotalCorrectAnswers / model.TotalQuestions) * 100;
             }
+            if (model.TotalMarksScored != 0 && model.TotalOriginalMarks.Value != 0)
+            {
+                model.Percentage = (model.TotalMarksScored / model.TotalOriginalMarks.Value) * 100;
+            }
+
           
             return View(model);
         }
