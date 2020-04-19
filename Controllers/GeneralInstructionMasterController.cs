@@ -17,7 +17,17 @@ namespace OnlineMasterG.Controllers
         // GET: GeneralInstructionMaster
         public ActionResult Index()
         {
-            ViewBag.TestList = new SelectList(TestService.TestList("en-US", true), "TestId", "TestName");
+            var TestList = TestService.TestList("en-US", true);
+            var FinalTestDropdown = TestList.Select(m => new
+            {
+                TestId = m.TestId,
+                TestName = m.TestName + "-" +
+                CourseService.Fetch(m.CourseId).CourseName + " -" +
+                CategoryService.Fetch(m.CategoryId).CategoryName + " -" +
+                SectionService.Fetch(m.SectionId).SectionName
+            });
+
+            ViewBag.TestList = new SelectList(FinalTestDropdown, "TestId", "TestName");
             return View();
         }
         [HttpGet]
