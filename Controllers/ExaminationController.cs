@@ -17,15 +17,36 @@ namespace OnlineMasterG.Controllers
     public class ExaminationController : BaseController
     {
         // GET: Examination
-        public ActionResult Index(int TestId, int ResumeAttemptId, bool isReAttempt =false)
+        public ActionResult Index(string p, string r, string s)
         {
+
+            int TestId = 0;
+            int ResumeAttemptId = 0;
+            bool isReAttempt = false;
+            if (!string.IsNullOrEmpty(p))
+            {
+                TestId = int.Parse(CustomEncrypt.SafeUrlDecrypt(p));
+            }
+            if (!string.IsNullOrEmpty(r))
+            {
+                ResumeAttemptId = int.Parse(CustomEncrypt.SafeUrlDecrypt(r));
+            }
+            if (!string.IsNullOrEmpty(s))
+            {
+                isReAttempt = Convert.ToBoolean(CustomEncrypt.SafeUrlDecrypt(s));
+            }
+        
+            if (TestId == 0)
+            {
+                return PartialView("Error");
+            }
             var TestDetails = TestService.Fetch(TestId);
 
             string CurrentLogin = HttpContext.User.Identity.Name;
             MockTestAttemptVM model = new MockTestAttemptVM();
             if (!string.IsNullOrEmpty(CurrentLogin) && TestDetails != null)
             {
-                model = ExamLogics.GetMockTestAttemptDetails(CurrentLogin, TestId, CurrentLogin, ResumeAttemptId, isReAttempt);
+                model = ExamLogics.GetMockTestAttemptDetails(CurrentLogin, CurrentLogin, TestId, ResumeAttemptId, isReAttempt);
             }
             else
             {

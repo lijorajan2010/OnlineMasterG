@@ -65,7 +65,7 @@ namespace OnlineMasterG.DomainLogic
                         Description=item.Description,
                         TimeInMinutes=item.TimeInMinutes,
                         LanguageCode =item.LanguageCode,
-                        CreateOn = item.CreateOn,
+                        CreateOn = item.CreateOn
                         //ExamTypeId = item.ExamTypeId,
                         //ExamTypeName = TestService.FetchMockExamType(item.ExamTypeId).MockExamTypeName,
                         //ExamTypeCode = TestService.FetchMockExamType(item.ExamTypeId).MockExamTypeCode,

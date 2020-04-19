@@ -21,7 +21,7 @@ namespace OnlineMasterG.DomainLogic
 
         }
 
-        public static MockTestAttemptVM GetMockTestAttemptDetails(string Login, int TestId, string auditlogin, int ResumeAttemptId, bool isReAttempt = false)
+        public static MockTestAttemptVM GetMockTestAttemptDetails(string Login, string auditlogin, int TestId,  int ResumeAttemptId, bool isReAttempt = false)
         {
             MockTestAttemptVM model = new MockTestAttemptVM();
 
@@ -291,13 +291,13 @@ namespace OnlineMasterG.DomainLogic
             if (firstNotCompletedAttempt != null)
             {
                 model.AttemptId = firstNotCompletedAttempt.AttemptId;
-                model.TestId = firstNotCompletedAttempt.TestId;
+                model.TestId = firstNotCompletedAttempt.TestId.Value;
                 model.Login = firstNotCompletedAttempt.Login;
                 model.IsPaused = firstNotCompletedAttempt.IsPaused;
                 model.TimeLeftInMinutes = firstNotCompletedAttempt.TimeLeftInMinutes;
                 model.IsCompleted = firstNotCompletedAttempt.IsCompleted;
                 model.TestName = TestService.Fetch(firstNotCompletedAttempt.TestId)?.TestName;
-                model.TestId = firstNotCompletedAttempt.TestId;
+                model.TestId = firstNotCompletedAttempt.TestId.Value;
 
                 if (firstNotCompletedAttempt.MockTestAttemptDetails != null && firstNotCompletedAttempt.MockTestAttemptDetails.Count() > 0)
                 {

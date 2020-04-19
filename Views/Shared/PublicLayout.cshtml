@@ -281,14 +281,13 @@
             <div class="LatestUpdate">
                 @if (AppInfo.GetLatestUpdates != null && AppInfo.GetLatestUpdates.Count() > 0)
                 {
-                  
-                <marquee>
-                    @foreach (var item in AppInfo.GetLatestUpdates)
-                    {
-                        <span style="margin-right:10px;"> @item.UpdateDescription </span>
-                    }
-                    &nbsp; &nbsp;
-                </marquee>
+                    <marquee>
+                        @foreach (var item in AppInfo.GetLatestUpdates)
+                        {
+                            <span style="margin-right:10px;"> @item.UpdateDescription </span>
+                        }
+                        &nbsp; &nbsp;
+                    </marquee>
                 }
 
 
@@ -344,12 +343,12 @@
                                 </a>
                             </li>
                             <!--  <li class="nav-item">
-                           <a class="nav-link" href="mock-test.html">
-                              CA
-                           </a>
+                       <a class="nav-link" href="mock-test.html">
+                          CA
+                       </a>
 
-                           </li>
-                        -->
+                       </li>
+                    -->
 
 
                             <li class="nav-item dropdown submenu">

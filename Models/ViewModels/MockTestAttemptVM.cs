@@ -13,7 +13,7 @@ namespace OnlineMasterG.Models.ViewModels
         }
         public int AttemptId { get; set; }
         public string Login { get; set; }
-        public Nullable<int> TestId { get; set; }
+        public int TestId { get; set; }
         public bool IsPaused { get; set; }
         public decimal? TimeLeftInMinutes { get; set; }
         public bool IsCompleted { get; set; }

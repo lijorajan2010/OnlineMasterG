@@ -283,16 +283,18 @@
                                     </ul>
                                 </li>
                             </ul>
-                            <form method="post" action="@Url.Action("Index","Examination")">
+                         
                                 <div class="instructionFoot">
                                     <p><label><input type="checkbox" required> I have read and understand the instructions. </label></p>
                                     <input type="hidden" id="hdfTestId" name="TestId" value="@ViewBag.TestId" />
                                     <input type="hidden" id="hdfIsReattempt" name="isReAttempt" value="@ViewBag.IsReattempt" />
                                     <input type="hidden" id="hdfResumeAttemptId" name="ResumeAttemptId" value="@ViewBag.ResumeAttemptId  " />
 
-                                    <input type="submit" class="btn_hover agency_banner_btn" value="I am Ready to Begin" />
+                                    <a href="@Url.Action("Index","Examination",new { p = CustomEncrypt.SafeUrlEncrypt(ViewBag.TestId.ToString()), r =CustomEncrypt.SafeUrlEncrypt(ViewBag.ResumeAttemptId.ToString()), s=CustomEncrypt.SafeUrlEncrypt(ViewBag.IsReattempt.ToString()) })" class="btn_hover agency_banner_btn">I am Ready to Begin</a>
+
+                                  
                                 </div>
-                            </form>
+                           
 
 
 

@@ -779,41 +779,44 @@
                     </div>
 
                     <div id="MarkingDiv" style="display:none">
-                        <form id="frmAnswerForm" method="post" action="@Url.Action("StudentFromAnswerSubmit","Examination")">
-                            @if (Model.MockTestAttemptDetails != null && Model.MockTestAttemptDetails.Count() > 0)
+                        @*<form id="frmAnswerForm" method="post" action="@Url.Action("StudentFromAnswerSubmit","Examination")">*@
+                            @using (Html.BeginForm("StudentFromAnswerSubmit", "Examination", FormMethod.Post, new { id = "frmAnswerForm" }))
                             {
-                                <input type="hidden" id="HfTestId" name="TestId" value='@Model.TestId'>
-                                <input type="hidden" id="hfIsPaused" name="IsPaused" value='@Model.IsPaused'>
-                                <input type="hidden" id="hfIsCompleted" name="IsCompleted" value='@Model.IsCompleted'>
-                                <input type="hidden" id="hfTimeLeftInMinutes" name="TimeLeftInMinutes" value='@Model.TimeLeftInMinutes'>
-
-                                foreach (var item in Model.MockTestAttemptDetails.OrderBy(m => m.AttemptDetailId).Select((x, y) => new { Data = x, Index = y }))
+                                if (Model.MockTestAttemptDetails != null && Model.MockTestAttemptDetails.Count() > 0)
                                 {
-                                    var QuestionNumnber = "Qnumber" + item.Data.SubjectId + "_" + item.Data.QuestionNumber;
-                                    <div id="@QuestionNumnber">
-                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].AttemptId" value='@item.Data.AttemptId'>
-                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].QuestionsMockTestId" value='@item.Data.QuestionsMockTestId'>
-                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].QuestionNumber" value='@item.Data.QuestionNumber'>
-                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].SubjectId" value='@item.Data.SubjectId'>
-                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].SubjectTimeUsed" value='@item.Data.SubjectTimeUsed'>
-                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].ChoosenAnswerChoiceId" value='@item.Data.ChoosenAnswerChoiceId'>
-                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].ChoiceId" value='@item.Data.AnswerChoiceId'>
-                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].AnswerStatus" value='@item.Data.AnswerStatus'>
-                                        <input type="hidden" name="MockTestAttemptDetails[@item.Index].AttemptDetailId" value='@item.Data.AttemptDetailId'>
-                                        @if (item.Data.ProblemsReporteds != null)
-                                        {
-                                            var totalProblems = item.Data.ProblemsReporteds.Count();
-                                            var IssueText = item.Data.ProblemsReporteds.OrderByDescending(m => m.ProblemId).FirstOrDefault().IssueText;
-                                            foreach (var prob in item.Data.ProblemsReporteds.Select((x, y) => new { Data = x, Index = y }))
+                                    <input type="hidden" id="HfTestId" name="TestId" value='@Model.TestId'>
+                                    <input type="hidden" id="hfIsPaused" name="IsPaused" value='@Model.IsPaused'>
+                                    <input type="hidden" id="hfIsCompleted" name="IsCompleted" value='@Model.IsCompleted'>
+                                    <input type="hidden" id="hfTimeLeftInMinutes" name="TimeLeftInMinutes" value='@Model.TimeLeftInMinutes'>
+
+                                    foreach (var item in Model.MockTestAttemptDetails.OrderBy(m => m.AttemptDetailId).Select((x, y) => new { Data = x, Index = y }))
+                                    {
+                                        var QuestionNumnber = "Qnumber" + item.Data.SubjectId + "_" + item.Data.QuestionNumber;
+                                        <div id="@QuestionNumnber">
+                                            <input type="hidden" name="MockTestAttemptDetails[@item.Index].AttemptId" value='@item.Data.AttemptId'>
+                                            <input type="hidden" name="MockTestAttemptDetails[@item.Index].QuestionsMockTestId" value='@item.Data.QuestionsMockTestId'>
+                                            <input type="hidden" name="MockTestAttemptDetails[@item.Index].QuestionNumber" value='@item.Data.QuestionNumber'>
+                                            <input type="hidden" name="MockTestAttemptDetails[@item.Index].SubjectId" value='@item.Data.SubjectId'>
+                                            <input type="hidden" name="MockTestAttemptDetails[@item.Index].SubjectTimeUsed" value='@item.Data.SubjectTimeUsed'>
+                                            <input type="hidden" name="MockTestAttemptDetails[@item.Index].ChoosenAnswerChoiceId" value='@item.Data.ChoosenAnswerChoiceId'>
+                                            <input type="hidden" name="MockTestAttemptDetails[@item.Index].ChoiceId" value='@item.Data.AnswerChoiceId'>
+                                            <input type="hidden" name="MockTestAttemptDetails[@item.Index].AnswerStatus" value='@item.Data.AnswerStatus'>
+                                            <input type="hidden" name="MockTestAttemptDetails[@item.Index].AttemptDetailId" value='@item.Data.AttemptDetailId'>
+                                            @if (item.Data.ProblemsReporteds != null)
                                             {
-                                                <input type="hidden" name="MockTestAttemptDetails[@item.Index].ProblemsReporteds[@prob.Index].ProblemId" data-problemid="@prob.Data.ProblemId" value='@prob.Data.IsReported'>
+                                                var totalProblems = item.Data.ProblemsReporteds.Count();
+                                                var IssueText = item.Data.ProblemsReporteds.OrderByDescending(m => m.ProblemId).FirstOrDefault().IssueText;
+                                                foreach (var prob in item.Data.ProblemsReporteds.Select((x, y) => new { Data = x, Index = y }))
+                                                {
+                                                    <input type="hidden" name="MockTestAttemptDetails[@item.Index].ProblemsReporteds[@prob.Index].ProblemId" data-problemid="@prob.Data.ProblemId" value='@prob.Data.IsReported'>
+                                                }
+                                                <input type="hidden" name="MockTestAttemptDetails[@item.Index].ProblemsReporteds[@totalProblems].IssueText" value='@IssueText'>
                                             }
-                                            <input type="hidden" name="MockTestAttemptDetails[@item.Index].ProblemsReporteds[@totalProblems].IssueText" value='@IssueText'>
-                                        }
-                                    </div>
+                                        </div>
+                                    }
                                 }
                             }
-                        </form>
+                            @*</form>*@
                     </div>
 
 
@@ -1435,7 +1438,7 @@
 
             function openQuestion(evt, className) {
 
-                debugger
+                
                 var i, tabcontent, tablinks;
                 // Clearing All Subjects
                 tabcontent = document.getElementsByClassName("tabcontent");
@@ -1876,7 +1879,7 @@
                 setTimeout(function () {
                     @*$("#frmAnswerForm").ajaxForm({url: '@Url.Action("","")', type: 'post'})*@
                     $("#frmAnswerForm").submit();
-                }, 6);
+                }, 1000);
             }
 
         </script>
