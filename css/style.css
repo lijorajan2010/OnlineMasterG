@@ -1044,6 +1044,7 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
   left: 0;
   z-index: 20;
   top: 0;
+      background: #fff;
 }
 
 .menu_one {
@@ -1795,7 +1796,7 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
 }
 
 .w_menu .nav-item .nav-link {
-  color: #fff;
+  /* color: #fff; */
   cursor:pointer;
 }
 
@@ -1803,9 +1804,9 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
   background: #fff;
 }
 
-.w_menu .nav-item:hover .nav-link, .w_menu .nav-item.active .nav-link {
+/* .w_menu .nav-item:hover .nav-link, .w_menu .nav-item.active .nav-link {
   color: #fff;
-}
+} */
 
 .nav_right_btn .login_btn {
   font: 500 15px "Poppins", sans-serif;
@@ -1837,12 +1838,15 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
 }
 
 .menu_four .btn_get {
-     border-color: #fff;
+       border-color: #fff;
     padding: 0px 0px;
     background: #fff;
     min-width: 80px;
     text-align: center;
     line-height: 2.7;
+    border: 2px solid #ccc5fa;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
 
 .menu_four .btn_get:hover {
@@ -2409,7 +2413,7 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
   color: #051441;
 }
 
-.header_area.navbar_fixed .w_menu .nav-item .nav-link:before {
+.header_area .w_menu .nav-item .nav-link:before {
   background: #051441;
 }
 
@@ -21566,7 +21570,7 @@ a .h_head:hover {
     background: rgba(255, 255, 255, 0.1);
     text-align: center;
     line-height: 2.3;
-    font-size: 37px;
+    font-size: 42px;
     color: #fff;
 	margin-bottom:10px;
 }

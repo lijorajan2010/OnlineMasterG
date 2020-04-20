@@ -862,6 +862,8 @@
     <Content Include="icons\img7.png" />
     <Content Include="icons\img8.png" />
     <Content Include="icons\img9.png" />
+    <Content Include="icons\irda.png" />
+    <Content Include="icons\nab.png" />
     <Content Include="icons\New folder %283%29\ADMIT CARDS.png" />
     <Content Include="icons\New folder %283%29\Admit-Card.png" />
     <Content Include="icons\New folder %283%29\book.png" />
@@ -883,6 +885,9 @@
     <Content Include="icons\New folder %283%29\ssc.png" />
     <Content Include="icons\New folder %283%29\UGC NET.jpg" />
     <Content Include="icons\New folder %283%29\upsc.jpg" />
+    <Content Include="icons\nia.png" />
+    <Content Include="icons\rbi.png" />
+    <Content Include="icons\rrb.png" />
     <Content Include="icons\sbi.png" />
     <Content Include="icons\slider.jpg" />
     <Content Include="img\05_typography_style_01.png" />

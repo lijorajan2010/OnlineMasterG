@@ -68,18 +68,46 @@
             position: relative;
         }
 
-        .mobile_navi a img {
-            background: white;
-            padding: 10px;
-            box-shadow: 4px 0 14px 3px #e6e6e6;
-            border-radius: 15px;
-        }
-
-        .mobile_navi a span {
+      .mobile_navi a img {
+    background: white;
+    padding: 9px;
+    box-shadow: 4px 0 14px 3px #e6e6e6;
+    border-radius: 15px;
+    max-width: 40px;
+}
+  .mobile_navi a span {
             display: block;
             margin-top: 5px;
         }
 
+[class^="ti-"], [class*=" ti-"]{
+	    line-height: 2.5 !important;
+}
+
+
+.service_item img {
+    margin-right: 0;
+}
+.quick_link .col-lg-2{
+    max-width: 9%;
+	padding:5px;
+}
+
+
+.quick_link .col-lg-2 h4{
+        font-size: 14px;
+    line-height: 1.5;
+    margin: 6px 0px;
+}
+
+
+.quick_link .service_item {
+    padding: 15px 2px 0px;
+	 -webkit-box-shadow: 0px 10px 23px 0px rgba(3, 115, 156, 0.1);
+    box-shadow: 0px 10px 23px 0px rgba(3, 115, 156, 0.1);
+}
+
+      
         @@media(max-width:768px) {
             .breadcrumb_area.test_detail {
                 padding: 70px 0px 30px;
@@ -171,6 +199,28 @@
             .rating .star:after {
                 content: '\f005';
             }
+			
+.service_item img {
+    margin-right: 0;
+}
+.quick_link .col-lg-2{
+    max-width: 9%;
+	padding:5px;
+}
+
+
+.quick_link .col-lg-2 h4{
+        font-size: 14px;
+    line-height: 1.5;
+    margin: 6px 0px;
+}
+
+
+.quick_link .service_item {
+    padding: 15px 2px 0px;
+	 -webkit-box-shadow: 0px 10px 23px 0px rgba(3, 115, 156, 0.1);
+    box-shadow: 0px 10px 23px 0px rgba(3, 115, 156, 0.1);
+}
 
         @@media(max-width:768px) {
             .breadcrumb_area.test_detail {
@@ -295,7 +345,7 @@
             <nav class="navbar navbar-expand-lg menu_one menu_four">
                 <div class="container">
 
-                    <a class="navbar-brand sticky_logo" href="@Url.Action("Index","Home")"><img src="img/WhiteLogo.png" alt="logo"><img src="~/img/BlackLogo.png" alt=""></a>
+                    <a class="navbar-brand sticky_logo" href="@Url.Action("Index","Home")"><img src="img/BlackLogo.png" alt="logo"><img src="~/img/BlackLogo.png" alt=""></a>
                     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="menu_toggle">
                             <span class="hamburger">
@@ -416,7 +466,7 @@
                         @if (!HttpContext.Current.User.Identity.IsAuthenticated)
                         {
                             @Html.ActionLink("Log in", "Index", "Login", new { }, new { @class = "btn_get btn_hover hidden-sm hidden-xs" })
-                            @Html.ActionLink("Signup", "Signup", "Login", new { }, new { @class = "btn_get btn_hover hidden-sm hidden-xs" })
+                            @Html.ActionLink("Register", "Signup", "Login", new { }, new { @class = "btn_get btn_hover hidden-sm hidden-xs" })
                         }
 
                         @*<a class="btn_get btn_hover hidden-sm hidden-xs" href="login.html">Log In</a>*@
