@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="~/img/favicon.png" type="image/x-icon">
     <title>Online Masterji</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/css/bootstrap.min.css">
@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="~/vendors/scroll/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="~/css/style.css">
     <link rel="stylesheet" href="~/css/responsive.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <style>
         .mobile_navi .service_item {
             padding: 0;
@@ -68,46 +68,48 @@
             position: relative;
         }
 
-      .mobile_navi a img {
-    background: white;
-    padding: 9px;
-    box-shadow: 4px 0 14px 3px #e6e6e6;
-    border-radius: 15px;
-    max-width: 40px;
-}
-  .mobile_navi a span {
+        .mobile_navi a img {
+            background: white;
+            padding: 9px;
+            box-shadow: 4px 0 14px 3px #e6e6e6;
+            border-radius: 15px;
+            max-width: 40px;
+        }
+
+        .mobile_navi a span {
             display: block;
             margin-top: 5px;
         }
 
-[class^="ti-"], [class*=" ti-"]{
-	    line-height: 2.5 !important;
-}
+        [class^="ti-"], [class*=" ti-"] {
+            line-height: 2.5 !important;
+        }
 
 
-.service_item img {
-    margin-right: 0;
-}
-.quick_link .col-lg-2{
-    max-width: 9%;
-	padding:5px;
-}
+        .service_item img {
+            margin-right: 0;
+        }
+
+        .quick_link .col-lg-2 {
+            max-width: 9%;
+            padding: 5px;
+        }
 
 
-.quick_link .col-lg-2 h4{
-        font-size: 14px;
-    line-height: 1.5;
-    margin: 6px 0px;
-}
+            .quick_link .col-lg-2 h4 {
+                font-size: 14px;
+                line-height: 1.5;
+                margin: 6px 0px;
+            }
 
 
-.quick_link .service_item {
-    padding: 15px 2px 0px;
-	 -webkit-box-shadow: 0px 10px 23px 0px rgba(3, 115, 156, 0.1);
-    box-shadow: 0px 10px 23px 0px rgba(3, 115, 156, 0.1);
-}
+        .quick_link .service_item {
+            padding: 15px 2px 0px;
+            -webkit-box-shadow: 0px 10px 23px 0px rgba(3, 115, 156, 0.1);
+            box-shadow: 0px 10px 23px 0px rgba(3, 115, 156, 0.1);
+        }
 
-      
+
         @@media(max-width:768px) {
             .breadcrumb_area.test_detail {
                 padding: 70px 0px 30px;
@@ -199,28 +201,33 @@
             .rating .star:after {
                 content: '\f005';
             }
-			
-.service_item img {
-    margin-right: 0;
-}
-.quick_link .col-lg-2{
-    max-width: 9%;
-	padding:5px;
-}
+
+        .Starchecked {
+            color: orange;
+        }
+
+        .service_item img {
+            margin-right: 0;
+        }
+
+        .quick_link .col-lg-2 {
+            max-width: 9%;
+            padding: 5px;
+        }
 
 
-.quick_link .col-lg-2 h4{
-        font-size: 14px;
-    line-height: 1.5;
-    margin: 6px 0px;
-}
+            .quick_link .col-lg-2 h4 {
+                font-size: 14px;
+                line-height: 1.5;
+                margin: 6px 0px;
+            }
 
 
-.quick_link .service_item {
-    padding: 15px 2px 0px;
-	 -webkit-box-shadow: 0px 10px 23px 0px rgba(3, 115, 156, 0.1);
-    box-shadow: 0px 10px 23px 0px rgba(3, 115, 156, 0.1);
-}
+        .quick_link .service_item {
+            padding: 15px 2px 0px;
+            -webkit-box-shadow: 0px 10px 23px 0px rgba(3, 115, 156, 0.1);
+            box-shadow: 0px 10px 23px 0px rgba(3, 115, 156, 0.1);
+        }
 
         @@media(max-width:768px) {
             .breadcrumb_area.test_detail {
@@ -345,7 +352,7 @@
             <nav class="navbar navbar-expand-lg menu_one menu_four">
                 <div class="container">
 
-                    <a class="navbar-brand sticky_logo" href="@Url.Action("Index","Home")"><img src="img/BlackLogo.png" alt="logo"><img src="~/img/BlackLogo.png" alt=""></a>
+                    <a class="navbar-brand sticky_logo" href="@Url.Action("Index","Home")"><img src="~/img/BlackLogo.png" alt="logo"><img src="~/img/BlackLogo.png" alt=""></a>
                     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="menu_toggle">
                             <span class="hamburger">
@@ -393,12 +400,12 @@
                                 </a>
                             </li>
                             <!--  <li class="nav-item">
-                       <a class="nav-link" href="mock-test.html">
-                          CA
-                       </a>
+                               <a class="nav-link" href="mock-test.html">
+                                  CA
+                               </a>
 
-                       </li>
-                    -->
+                               </li>
+                            -->
 
 
                             <li class="nav-item dropdown submenu">
@@ -490,9 +497,9 @@
                             <div class="col-lg-4">
                                 <div class="service-content wow fadeInRight" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInRight;">
                                     <!--   <div class="pay_icon">
-                                    <div class="icon_shape"></div>
-                                    <img src="../Content/img/home9/icon7.png" alt="">
-                                </div> -->
+                                        <div class="icon_shape"></div>
+                                        <img src="../Content/img/home9/icon7.png" alt="">
+                                    </div> -->
                                     <div class="popular icon">
                                         <i class="ti-book"></i>
                                         <!-- <img src="../Content/img/home9/icon7.png" alt=""> -->
@@ -506,8 +513,8 @@
                                     <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
 
                                         <!--  <div class="icon">
-                                        <img src="../Content/img/home9/icon4.png" alt="">
-                                    </div> -->
+                                            <img src="../Content/img/home9/icon4.png" alt="">
+                                        </div> -->
                                         <a href="@Url.Action("Index","MockTests")">
                                             <div class="media-body">
                                                 <h3 class="f_size_20 f_p w_color f_600">SBI</h3>
@@ -517,8 +524,8 @@
                                     </div>
                                     <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
                                         <!-- <div class="icon">
-                                        <img src="../Content/img/home9/icon7.png" alt="">
-                                    </div> -->
+                                            <img src="../Content/img/home9/icon7.png" alt="">
+                                        </div> -->
                                         <a href="@Url.Action("Index","MockTests")">
                                             <div class="media-body">
                                                 <h3 class="f_size_20 f_p w_color f_600">SSC</h3>
@@ -528,8 +535,8 @@
                                     </div>
                                     <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
                                         <!-- <div class="icon">
-                                        <img src="../Content/img/home9/icon5.png" alt="">
-                                    </div> -->
+                                            <img src="../Content/img/home9/icon5.png" alt="">
+                                        </div> -->
                                         <a href="@Url.Action("Index","MockTests")">
                                             <div class="media-body">
                                                 <h3 class="f_size_20 f_p w_color f_600">IBPS</h3>
@@ -537,10 +544,10 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+                                    <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp; ">
                                         <!--  <div class="icon">
-                                        <img src="../Content/img/home9/icon8.png" alt="">
-                                    </div> -->
+                                            <img src="../Content/img/home9/icon8.png" alt="">
+                                        </div> -->
                                         <a href="@Url.Action("Index","MockTests")">
                                             <div class="media-body">
                                                 <h3 class="f_size_20 f_p w_color f_600">Railways</h3>
@@ -550,8 +557,8 @@
                                     </div>
                                     <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
                                         <!--   <div class="icon">
-                                        <img src="../Content/img/home9/icon6.png" alt="">
-                                    </div> -->
+                                            <img src="../Content/img/home9/icon6.png" alt="">
+                                        </div> -->
                                         <a href="@Url.Action("Index","MockTests")">
                                             <div class="media-body">
                                                 <h3 class="f_size_20 f_p w_color f_600">UPSSSC</h3>
@@ -561,8 +568,8 @@
                                     </div>
                                     <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
                                         <!--  <div class="icon">
-                                        <img src="../Content/img/home9/icon6.png" alt="">
-                                    </div> -->
+                                            <img src="../Content/img/home9/icon6.png" alt="">
+                                        </div> -->
                                         <a href="@Url.Action("Index","MockTests")">
                                             <div class="media-body">
                                                 <h3 class="f_size_20 f_p w_color f_600">LIC</h3>
@@ -572,8 +579,8 @@
                                     </div>
                                     <div class="col-md-6 media payment_service_item wow fadeInUp" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
                                         <!-- <div class="icon">
-                                        <img src="../Content/img/home9/icon6.png" alt="">
-                                    </div> -->
+                                            <img src="../Content/img/home9/icon6.png" alt="">
+                                        </div> -->
                                         <a href="@Url.Action("Index","MockTests")">
                                             <div class="media-body">
                                                 <h3 class="f_size_20 f_p w_color f_600">CA</h3>
@@ -595,9 +602,9 @@
                             <div class="col-lg-6">
                                 <div class="payment_features_content pr_70 wow fadeInLeft" data-wow-delay="0.2s" style="visibility: hidden; animation-delay: 0.2s; animation-name: none;">
                                     <!--  <div class="icon">
-                                    <img class="img_shape" src="../Content/img/home9/icon_shape.png" alt="">
-                                    <img class="icon_img" src="../Content/img/home9/icon2.png" alt="">
-                                </div> -->
+                                        <img class="img_shape" src="../Content/img/home9/icon_shape.png" alt="">
+                                        <img class="icon_img" src="../Content/img/home9/icon2.png" alt="">
+                                    </div> -->
                                     <h2>Quick &amp; Easy Process</h2>
                                     <p>There is no long process to follow. Just click and go. Here you can find diffrent courses, their syllabus, PDfs, Quiz contest and much more all in one portal. So hurry us sign up and explore. </p>
 
@@ -613,29 +620,29 @@
                                         <p>All you need is an certified email account. If you<br> don't have an account, you can create one quickly.</p>
                                     </div>
                                     <!--  <div class="clients_item one wow fadeInLeft" data-wow-delay="0.2s">
-                                    <img src="../Content/img/home9/logo1.png" alt="">
-                                </div>
-                                <div class="clients_item two wow fadeInLeft" data-wow-delay="0.3s">
-                                    <img src="../Content/img/home9/logo2.png" alt="">
-                                </div>
-                                <div class="clients_item three wow fadeInLeft" data-wow-delay="0.4s">
-                                    <img src="../Content/img/home9/logo3.png" alt="">
-                                </div>
-                                <div class="clients_item four wow fadeInLeft" data-wow-delay="0.5s">
-                                    <img src="../Content/img/home9/logo4.png" alt="">
-                                </div>
-                                <div class="clients_item five wow fadeInLeft" data-wow-delay="0.6s">
-                                    <img src="../Content/img/home9/logo5.png" alt="">
-                                </div>
-                                <div class="clients_item six wow fadeInLeft" data-wow-delay="0.7s">
-                                    <img src="../Content/img/home9/logo6.png" alt="">
-                                </div>
-                                <div class="clients_item seven wow fadeInLeft" data-wow-delay="0.8s">
-                                    <img src="../Content/img/home9/logo7.png" alt="">
-                                </div>
-                                <div class="clients_item eight wow fadeInLeft" data-wow-delay="0.8s">
-                                    <img src="../Content/img/home9/logo8.png" alt="">
-                                </div> -->
+                                        <img src="../Content/img/home9/logo1.png" alt="">
+                                    </div>
+                                    <div class="clients_item two wow fadeInLeft" data-wow-delay="0.3s">
+                                        <img src="../Content/img/home9/logo2.png" alt="">
+                                    </div>
+                                    <div class="clients_item three wow fadeInLeft" data-wow-delay="0.4s">
+                                        <img src="../Content/img/home9/logo3.png" alt="">
+                                    </div>
+                                    <div class="clients_item four wow fadeInLeft" data-wow-delay="0.5s">
+                                        <img src="../Content/img/home9/logo4.png" alt="">
+                                    </div>
+                                    <div class="clients_item five wow fadeInLeft" data-wow-delay="0.6s">
+                                        <img src="../Content/img/home9/logo5.png" alt="">
+                                    </div>
+                                    <div class="clients_item six wow fadeInLeft" data-wow-delay="0.7s">
+                                        <img src="../Content/img/home9/logo6.png" alt="">
+                                    </div>
+                                    <div class="clients_item seven wow fadeInLeft" data-wow-delay="0.8s">
+                                        <img src="../Content/img/home9/logo7.png" alt="">
+                                    </div>
+                                    <div class="clients_item eight wow fadeInLeft" data-wow-delay="0.8s">
+                                        <img src="../Content/img/home9/logo8.png" alt="">
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -671,47 +678,56 @@
                                                             }
                                                             else
                                                             {
-                                                                <img src="img/home6/feedback_img_two.png" alt="">
+                                                                <img src="~/img/home6/feedback_img_two.png" alt="">
                                                             }
 
                                                         </div>
                                                         <div class="media-body">
                                                             <h5 class="t_color f_size_15 f_p f_500" style="margin: 0;">@item.FirstName  @item.LastName</h5>
                                                             <div class="rating">
-
-
                                                                 @if (item.Rating == 1)
                                                                 {
-                                                                    <span class="star"> </span>
+                                                                    <span class="fa fa-star Starchecked"> </span>
+                                                                    <span class="fa fa-star "> </span>
+                                                                    <span class="fa fa-star "> </span>
+                                                                    <span class="fa fa-star "> </span>
+                                                                    <span class="fa fa-star "> </span>
                                                                 }
                                                                 else if (item.Rating == 2)
                                                                 {
-                                                                    <span class="star"> </span>
-                                                                    <span class="star"> </span>
+                                                                    <span class="fa fa-star Starchecked"> </span>
+                                                                    <span class="fa fa-star Starchecked"> </span>
+                                                                    <span class="fa fa-star "> </span>
+                                                                    <span class="fa fa-star "> </span>
+                                                                    <span class="fa fa-star "> </span>
                                                                 }
                                                                 else if (item.Rating == 3)
                                                                 {
-                                                                    <span class="star"> </span>
-                                                                    <span class="star"> </span>
-                                                                    <span class="star"> </span>
+                                                                    <span class="fa fa-star Starchecked"> </span>
+                                                                    <span class="fa fa-star Starchecked"> </span>
+                                                                    <span class="fa fa-star Starchecked"> </span>
+                                                                    <span class="fa fa-star "> </span>
+                                                                    <span class="fa fa-star "> </span>
                                                                 }
                                                                 else if (item.Rating == 4)
                                                                 {
-                                                                    <span class="star"> </span>
-                                                                    <span class="star"> </span>
-                                                                    <span class="star"> </span>
-                                                                    <span class="star"> </span>
+                                                                    <span class="fa fa-star Starchecked"> </span>
+                                                                    <span class="fa fa-star Starchecked"> </span>
+                                                                    <span class="fa fa-star Starchecked"> </span>
+                                                                    <span class="fa fa-star Starchecked"> </span>
+                                                                    <span class="fa fa-star "> </span>
                                                                 }
                                                                 else if (item.Rating == 5)
                                                                 {
-                                                                    <span class="star"> </span>
-                                                                    <span class="star"> </span>
-                                                                    <span class="star"> </span>
-                                                                    <span class="star"> </span>
-                                                                    <span class="star"> </span>
+                                                                    <span class="fa fa-star Starchecked"> </span>
+                                                                    <span class="fa fa-star Starchecked"> </span>
+                                                                    <span class="fa fa-star Starchecked"> </span>
+                                                                    <span class="fa fa-star Starchecked"> </span>
+                                                                    <span class="fa fa-star Starchecked"> </span>
                                                                 }
 
                                                             </div>
+
                                                         </div>
                                                     </div>
 
@@ -744,25 +760,25 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","MockTests")" class="f_700">
-                        <img src="icons/img.png">
+                        <img src="~/icons/img.png">
                         <span>SBI</span>
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","MockTests")" class="f_700">
-                        <img src="icons/img1.png">
+                        <img src="~/icons/img1.png">
                         <span>SSC</span>
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","MockTests")" class="f_700">
-                        <img src="icons/img2.png">
+                        <img src="~/icons/img2.png">
                         <span>IBPS</span>
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","MockTests")" class="f_700">
-                        <img src="icons/img3.png">
+                        <img src="~/icons/img3.png">
                         <span>LIC</span>
                     </a>
                 </div>
@@ -772,25 +788,25 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","MockTests")" class="f_700">
-                        <img src="icons/img5.png">
+                        <img src="~/icons/img5.png">
                         <span>Railway</span>
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","MockTests")" class="f_700">
-                        <img src="icons/img6.png">
+                        <img src="~/icons/img6.png">
                         <span>UGC-NET</span>
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","MockTests")" class="f_700">
-                        <img src="icons/img7.png">
+                        <img src="~/icons/img7.png">
                         <span>CA</span>
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","MockTests")" class="f_700">
-                        <img src="icons/img8.png">
+                        <img src="~/icons/img8.png">
                         <span>Police</span>
                     </a>
                 </div>
@@ -804,25 +820,25 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","DailyQuiz")" class="f_700">
-                        <img src="icons/img9.png">
+                        <img src="~/icons/img9.png">
                         <span>Maths</span>
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","DailyQuiz")" class="f_700">
-                        <img src="icons/img10.png">
+                        <img src="~/icons/img10.png">
                         <span>Reasoning</span>
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","DailyQuiz")" class="f_700">
-                        <img src="icons/img11.png">
+                        <img src="~/icons/img11.png">
                         <span>Awareness</span>
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","DailyQuiz")" class="f_700">
-                        <img src="icons/img12.png">
+                        <img src="~/icons/img12.png">
                         <span>English</span>
                     </a>
                 </div>
@@ -836,25 +852,25 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","ExamUpdates")" class="f_700">
-                        <img src="icons/img13.png">
+                        <img src="~/icons/img13.png">
                         <span>Admit Cards</span>
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","ExamUpdates")" class="f_700">
-                        <img src="icons/img14.png">
+                        <img src="~/icons/img14.png">
                         <span>Results</span>
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","ExamUpdates")" class="f_700">
-                        <img src="icons/img15.png">
+                        <img src="~/icons/img15.png">
                         <span>Notifications</span>
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","ExamUpdates")" class="f_700">
-                        <img src="icons/img16.png">
+                        <img src="~/icons/img16.png">
                         <span>Others</span>
                     </a>
                 </div>
@@ -868,25 +884,25 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","CurrentAffairs")" class="f_700">
-                        <img src="icons/img17.png">
+                        <img src="~/icons/img17.png">
                         <span>Weekly</span>
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","CurrentAffairs")" class="f_700">
-                        <img src="icons/img17.png">
+                        <img src="~/icons/img17.png">
                         <span>Monthly</span>
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","CurrentAffairs")" class="f_700">
-                        <img src="icons/img17.png">
+                        <img src="~/icons/img17.png">
                         <span>Static</span>
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","CurrentAffairs")" class="f_700">
-                        <img src="icons/img16.png">
+                        <img src="~/icons/img16.png">
                         <span>Others</span>
                     </a>
                 </div>
@@ -900,13 +916,13 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","Schools")" class="f_700">
-                        <img src="icons/img18.png">
+                        <img src="~/icons/img18.png">
                         <span>School</span>
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-3 mb-30 text-center">
                     <a href="@Url.Action("Index","Colleges")" class="f_700">
-                        <img src="icons/img19.png">
+                        <img src="~/icons/img19.png">
                         <span>College</span>
                     </a>
                 </div>

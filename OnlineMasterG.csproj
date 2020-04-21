@@ -268,6 +268,7 @@
     <Compile Include="Controllers\DailyQuizUploadController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DataFileController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ExaminationController.cs" />
     <Compile Include="Controllers\ExamUpdateLinksController.cs" />
     <Compile Include="Controllers\ExamUpdatesController.cs" />
@@ -1910,11 +1911,11 @@
     <Content Include="Views\Shared\Public2Layout.cshtml" />
     <Content Include="Views\Dashboard\getTestimonailasList.cshtml" />
     <Content Include="Views\Examination\Index2.cshtml" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\DataFile\" />
     <Folder Include="Views\UploadMaster\" />
   </ItemGroup>
   <ItemGroup>

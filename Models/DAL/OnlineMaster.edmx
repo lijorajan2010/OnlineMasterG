@@ -396,7 +396,7 @@
             <PropertyRef Name="QuestionAnswerChoiceId" />
           </Key>
           <Property Name="QuestionAnswerChoiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="QuestionAnswer" Type="varchar(max)" Nullable="false" />
+          <Property Name="QuestionAnswer" Type="varchar(max)" />
           <Property Name="IsCorrect" Type="bit" Nullable="false" />
           <Property Name="QuestionsMockTestId" Type="int" />
           <Property Name="ChoiceId" Type="int" Nullable="false" />
@@ -435,7 +435,7 @@
             <PropertyRef Name="QuestionPointId" />
           </Key>
           <Property Name="QuestionPointId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="QPoint" Type="varchar(max)" Nullable="false" />
+          <Property Name="QPoint" Type="varchar(max)" />
           <Property Name="QuestionsMockTestId" Type="int" />
         </EntityType>
         <EntityType Name="QuestionsMockTest">
@@ -443,7 +443,7 @@
             <PropertyRef Name="QuestionsMockTestId" />
           </Key>
           <Property Name="QuestionsMockTestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Question" Type="varchar(max)" Nullable="false" />
+          <Property Name="Question" Type="varchar(max)" />
           <Property Name="Description" Type="varchar(max)" />
           <Property Name="LanguageCode" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Isactive" Type="bit" Nullable="false" />
@@ -453,7 +453,7 @@
           <Property Name="QuestionImageFileId" Type="int" />
           <Property Name="QuestionNumber" Type="int" Nullable="false" />
           <Property Name="QuestionSet" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Solution" Type="varchar" MaxLength="100" />
+          <Property Name="Solution" Type="varchar(max)" />
           <Property Name="Direction" Type="varchar(max)" />
           <Property Name="QuestionType" Type="varchar" MaxLength="10" />
         </EntityType>
@@ -2408,7 +2408,7 @@
             <PropertyRef Name="QuestionAnswerChoiceId" />
           </Key>
           <Property Name="QuestionAnswerChoiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="QuestionAnswer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="QuestionAnswer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IsCorrect" Type="Boolean" Nullable="false" />
           <Property Name="QuestionsMockTestId" Type="Int32" />
           <Property Name="ChoiceId" Type="Int32" Nullable="false" />
@@ -2449,7 +2449,7 @@
             <PropertyRef Name="QuestionPointId" />
           </Key>
           <Property Name="QuestionPointId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="QPoint" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="QPoint" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="QuestionsMockTestId" Type="Int32" />
           <NavigationProperty Name="QuestionsMockTest" Relationship="OnlinemasterjiModel.FK__QuestionP__Quest__5224328E" FromRole="QuestionPoint" ToRole="QuestionsMockTest" />
         </EntityType>
@@ -2458,7 +2458,7 @@
             <PropertyRef Name="QuestionsMockTestId" />
           </Key>
           <Property Name="QuestionsMockTestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Question" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Isactive" Type="Boolean" Nullable="false" />
@@ -2468,7 +2468,7 @@
           <Property Name="QuestionImageFileId" Type="Int32" />
           <Property Name="QuestionNumber" Type="Int32" Nullable="false" />
           <Property Name="QuestionSet" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Solution" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Solution" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DataFile" Relationship="OnlinemasterjiModel.FK__Questions__Quest__43D61337" FromRole="QuestionsMockTest" ToRole="DataFile" />
           <NavigationProperty Name="MockTestAttemptDetails" Relationship="OnlinemasterjiModel.FK__MockTestA__Quest__3BFFE745" FromRole="QuestionsMockTest" ToRole="MockTestAttemptDetail" />
           <NavigationProperty Name="QuestionAnswerChoices" Relationship="OnlinemasterjiModel.FK__QuestionA__Quest__4F47C5E3" FromRole="QuestionsMockTest" ToRole="QuestionAnswerChoice" />
