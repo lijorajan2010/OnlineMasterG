@@ -434,7 +434,7 @@
 
             function completed() {
                 // Do whatever you need to do when the timer runs out...
-                LastAndFinalSubmitFrom();
+                LastAndFinalSubmitFrom(@Html.Raw(Json.Encode(new {ispaused ="true" })));
             }
         }
     </script>
@@ -615,13 +615,13 @@
                                                                         <span class="f_500">
                                                                             @Q.Data.QuestionsMockTests.Direction
                                                                             @*<span class="hidden-xs hidden-sm">
-                                                                               
-                                                                            </span>*@
+
+                                                                                </span>*@
                                                                         </span>
                                                                     </h6>
 
                                                                     <div class="row">
-                                                                        @if (Q.Data.QuestionsMockTests.QuestionType=="WITHD")
+                                                                        @if (Q.Data.QuestionsMockTests.QuestionType == "WITHD")
                                                                         {
                                                                             <div class="col-md-6 fix_height overflow_auto SearchParameters collapse" id="SearchParameters">
                                                                                 <p class="text-justify" style="word-wrap: break-word;">
@@ -668,11 +668,11 @@
 
                                                                                 <br />
                                                                                 @*@if (true)
-                {
-                    <div id="Solution" style="display:none;">
-                        <textarea type="text" class="form-control"></textarea>
-                    </div>
-                }*@
+                                                                                    {
+                                                                                        <div id="Solution" style="display:none;">
+                                                                                            <textarea type="text" class="form-control"></textarea>
+                                                                                        </div>
+                                                                                    }*@
 
 
                                                                             </div>
@@ -1082,7 +1082,7 @@
                                             </div>
 
                                             <div class="col-md-6 col-xs-6 text-center">
-                                                <a href="" class="btn_hover agency_banner_btn m-0" onclick="LastAndFinalSubmitFrom();">Submit</a>
+                                                <a href="" class="btn_hover agency_banner_btn m-0" onclick='LastAndFinalSubmitFrom(@Html.Raw(Json.Encode(new { ispaused ="true" }));'>Submit</a>
                                             </div>
                                         </div>
 
@@ -1203,7 +1203,7 @@
                                             </div>
 
                                             <div class="col-md-6 col-6 text-right">
-                                                <a class="btn_hover agency_banner_btn m-0" onclick="LastAndFinalSubmitFrom();">Tests</a>
+                                                <a class="btn_hover agency_banner_btn m-0" onclick='LastAndFinalSubmitFrom(@Html.Raw(Json.Encode(new { ispaused = "true" })));'>Tests</a>
                                             </div>
                                         </div>
 
@@ -1438,7 +1438,7 @@
 
             function openQuestion(evt, className) {
 
-                
+
                 var i, tabcontent, tablinks;
                 // Clearing All Subjects
                 tabcontent = document.getElementsByClassName("tabcontent");
@@ -1857,9 +1857,11 @@
             }
             function fnPause() {
                 $("#hfIsPaused").val(true);
+                $("#hfIsCompleted").val(false);
             }
             function fnComplete() {
                 $("#hfIsCompleted").val(true);
+                $("#hfIsPaused").val(false);
             }
             function fnSetTimeLeft() {
 
@@ -1873,8 +1875,15 @@
                 $("#hfTimeLeftInMinutes").val(Inminutes);
 
             }
-            function LastAndFinalSubmitFrom() {
-                fnComplete();
+            function LastAndFinalSubmitFrom(obj) {
+    
+                if (obj.ispaused === 'true') {
+                    fnPause
+                }
+                else {
+                      fnComplete();
+                }
+
                 fnSetTimeLeft();
                 setTimeout(function () {
                     @*$("#frmAnswerForm").ajaxForm({url: '@Url.Action("","")', type: 'post'})*@

@@ -275,7 +275,7 @@
                         <div class="col-md-3">
                             <div class="border_r">
                                 <h6>Your Score</h6>
-                                <h5>@Model.TotalMarksScored.ToString("0.00")/@(Model.TotalOriginalMarks.HasValue ? Model.TotalOriginalMarks.Value.ToString("0.00"):"")</h5>
+                                <h5>@Model.TotalMarksScored.ToString("0.00")/@(Model.TotalOriginalMarks.HasValue ? Model.TotalOriginalMarks.Value.ToString("0.00") : "")</h5>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -299,7 +299,7 @@
                     </div>
                     <div class="row mb_15 border-t">
                         <div class="col-md-12 text-right">
-                            @Html.ActionLink(" Reattempt", "Index", "Instruction", new { p = CustomEncrypt.SafeUrlEncrypt(Model.TestId.ToString()), r=CustomEncrypt.SafeUrlEncrypt(true.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
+                            @Html.ActionLink(" Reattempt", "Index", "Instruction", new { p = CustomEncrypt.SafeUrlEncrypt(Model.TestId.ToString()), r = CustomEncrypt.SafeUrlEncrypt(Model.AttemptId.ToString()), s = CustomEncrypt.SafeUrlEncrypt(true.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
                             @Html.ActionLink(" Solution", "Solution", "Examination", new { p = CustomEncrypt.SafeUrlEncrypt(Model.AttemptId.ToString()) }, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
 
                         </div>
@@ -482,7 +482,7 @@
                                     </div>
 
                                 </form>
-                                
+
                             </div>
 
                         </div>
@@ -496,7 +496,7 @@
                         </div>
 
                         <div class="col-md-6 col-xs-6 text-right">
-                            <a href="#" class="btn_hover agency_banner_btn m-0" data-toggle="modal" onclick="fnSubmitReview();" >Submit</a>
+                            <a href="#" class="btn_hover agency_banner_btn m-0" data-toggle="modal" onclick="fnSubmitReview();">Submit</a>
                         </div>
                     </div>
                 </div>
@@ -549,15 +549,15 @@
             else {
                 $("#txtReview").focus();
             }
-            
 
-            
         };
 
-        //$('input[type=radio][name=Rating]').change(function () {
-        //    var RatingGiven = $(this).val();
-           
-        //});
+        $('input[type=radio][name=Rating]').change(function () {
+            var RatingGiven = $(this).val();
+            $.post('/Examination/AddRating', { AttemptId: $("#hdfAttemptId").val(), Rating: RatingGiven }, function () {
+
+            });
+        });
 
         function fnViewAll() {
 

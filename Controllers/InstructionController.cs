@@ -26,12 +26,12 @@ namespace OnlineMasterG.Controllers
             }
             if (!string.IsNullOrEmpty(r))
             {
-                ResumeAttemptId = int.Parse(CustomEncrypt.SafeUrlDecrypt(s));
+                ResumeAttemptId = int.Parse(CustomEncrypt.SafeUrlDecrypt(r));
                
             }
             if (!string.IsNullOrEmpty(s))
             {
-                isReattempt = Convert.ToBoolean(CustomEncrypt.SafeUrlDecrypt(r));
+                isReattempt = Convert.ToBoolean(CustomEncrypt.SafeUrlDecrypt(s));
             }
 
             ViewBag.TestId = TestId;

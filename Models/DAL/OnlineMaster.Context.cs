@@ -18,6 +18,10 @@ namespace OnlineMasterG.Models.DAL
         public OnlinemasterjiEntities()
             : base("name=OnlinemasterjiEntities")
         {
+            var objectContext = (this as IObjectContextAdapter).ObjectContext;
+
+            // Sets the command timeout for all the commands
+            objectContext.CommandTimeout = 120;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

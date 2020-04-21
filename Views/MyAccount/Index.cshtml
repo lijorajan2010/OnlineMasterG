@@ -248,7 +248,7 @@
                                                                 }
                                                                 else
                                                                 {
-                                                                    @Html.ActionLink(" Resume ", "Index", "Instruction", new { p = CustomEncrypt.SafeUrlEncrypt(item.TestId.ToString()) , s= CustomEncrypt.SafeUrlEncrypt(item.AttemptId.ToString())}, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
+                                                                    @Html.ActionLink(" Resume ", "Index", "Instruction", new { p = CustomEncrypt.SafeUrlEncrypt(item.TestId.ToString()) , r= CustomEncrypt.SafeUrlEncrypt(item.AttemptId.ToString()), s= CustomEncrypt.SafeUrlEncrypt(false.ToString())}, new { @class = "btn_hover agency_banner_btn", @target = "_blank" })
 
                                                                 }
                                                             </div>
