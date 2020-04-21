@@ -438,7 +438,52 @@
             }
         }
     </script>
+    <script>
 
+        var elem = document.documentElement;
+        function openFullscreen() {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) { /* Firefox */
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                elem.msRequestFullscreen();
+            }
+                $(".full_screen_btn").hide();
+                $(".close_full_screen").show();
+        }
+
+        function closeFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+               $(".full_screen_btn").show();
+                $(".close_full_screen").hide();
+        }
+
+
+
+        function issues() {
+            if ($(".issue").prop("checked") == true) {
+                $("#issuebox").show();
+            }
+            if ($(".issue").prop("checked") == false) {
+                $("#issuebox").val("");
+                $("#issuebox").hide();
+            }
+        }
+
+
+
+    </script>
 
 </head>
 @*oncontextmenu="return false"*@
@@ -467,8 +512,8 @@
                         <!-- <h1 class="f_p f_700 f_size_30 w_color l_height50">SSC CGL</h1> -->
                     </div>
                     <div class="col-md-2 hidden-xs text-center">
-                        <a class="btn_hover agency_banner_btn full_screen_btn" href="javascript:void();" onclick="openFullscreen();" style="">Full Screen</a>
-                        <a class="btn_hover agency_banner_btn close_full_screen" href="javascript:void();" id="exitId" onclick="closeFullscreen();" style="display: none;">Exit Full Screen</a>
+                        <a class="btn_hover agency_banner_btn full_screen_btn" onclick="openFullscreen();" style="">Full Screen</a>
+                        <a class="btn_hover agency_banner_btn close_full_screen" id="exitId" onclick="closeFullscreen();" style="display: none;">Exit Full Screen</a>
                     </div>
 
 
@@ -551,10 +596,10 @@
                                     <div class="dropdown">
 
                                         @*<button class="btn btn-primary dropdown-toggle hidden-md hidden-lg" type="button" data-toggle="dropdown" id="navText" style="float: left;border-radius: 0;width: 50%;">
-                                                Reasoning Ability
-                                                <span class="caret"></span>
-                                            </button>
-                                            <button class="btn btn-info hidden-md hidden-lg" id="question" style="border-radius: 0;width: 50%;background: #007bff;border: 1px solid #007bff;border-left: 1px solid #fff;">Questions</button>*@
+                                            Reasoning Ability
+                                            <span class="caret"></span>
+                                        </button>
+                                        <button class="btn btn-info hidden-md hidden-lg" id="question" style="border-radius: 0;width: 50%;background: #007bff;border: 1px solid #007bff;border-left: 1px solid #fff;">Questions</button>*@
 
                                         <div class="mb_15 hidden-md hidden-lg"> </div>
 
@@ -616,7 +661,7 @@
                                                                             @Q.Data.QuestionsMockTests.Direction
                                                                             @*<span class="hidden-xs hidden-sm">
 
-                                                                                </span>*@
+                                                                            </span>*@
                                                                         </span>
                                                                     </h6>
 
@@ -668,11 +713,11 @@
 
                                                                                 <br />
                                                                                 @*@if (true)
-                                                                                    {
-                                                                                        <div id="Solution" style="display:none;">
-                                                                                            <textarea type="text" class="form-control"></textarea>
-                                                                                        </div>
-                                                                                    }*@
+                                                                                {
+                                                                                    <div id="Solution" style="display:none;">
+                                                                                        <textarea type="text" class="form-control"></textarea>
+                                                                                    </div>
+                                                                                }*@
 
 
                                                                             </div>
@@ -840,7 +885,7 @@
                         </div>
                     </div>
                     <!--
-                    <button type = "button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+                <button type = "button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
                     <!-- Modal -->
                     <div class="modal fade" id="instructionModal" role="dialog" backdrop="static">
                         <div class="modal-dialog modal-lg">
@@ -849,8 +894,8 @@
                             <div class="modal-content">
                                 <!--  <div class="modal-header">
 
-                                  <h4 class="modal-title text-center">Instructions</h4>
-                                </div> -->
+                              <h4 class="modal-title text-center">Instructions</h4>
+                            </div> -->
                                 <div class="modal-body">
 
                                     <div class="container custom_container p0">
@@ -920,8 +965,8 @@
                                     </div>
                                 </div>
                                 <!--  <div class="modal-footer">
-                                  <button type = "button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div> -->
+                              <button type = "button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div> -->
                             </div>
 
                         </div>
@@ -934,8 +979,8 @@
                             <div class="modal-content">
                                 <!--  <div class="modal-header">
 
-                                  <h4 class="modal-title text-center">Instructions</h4>
-                                </div> -->
+                              <h4 class="modal-title text-center">Instructions</h4>
+                            </div> -->
                                 <div class="modal-body">
 
                                     <div class="container custom_container p0">
@@ -1019,8 +1064,8 @@
                             <div class="modal-content">
                                 <!--  <div class="modal-header">
 
-                                  <h4 class="modal-title text-center">Instructions</h4>
-                                </div> -->
+                              <h4 class="modal-title text-center">Instructions</h4>
+                            </div> -->
                                 <div class="modal-body responsive_modal">
 
                                     <div class="container custom_container p0 m_p0">
@@ -1028,13 +1073,13 @@
                                         <div class="service_info">
                                             <div class="row instructionHead mb_15">
                                                 @*<div class="col-md-12 sec_title text-center">
-                                                        <h2 class="f_p f_size_20 f_500 t_color2 mb-10">Remaining Time : <span class="answered">00:00:15</span> </h2>
-                                                    </div>*@
+                                                    <h2 class="f_p f_size_20 f_500 t_color2 mb-10">Remaining Time : <span class="answered">00:00:15</span> </h2>
+                                                </div>*@
                                                 <!--
-                                                                        <div class="col-md-3 language text-right">
-                                                                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                            </div>
-                                                -->
+                                                                    <div class="col-md-3 language text-right">
+                                                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                        </div>
+                                            -->
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="table-responsive">
@@ -1057,12 +1102,12 @@
                                                     <!--                            <h4 class="f_400 f_size_15 l_height28 t_color2 mb-0">Report Question</h4>-->
                                                     <!-- 	<ul class="row question_list list-unstyled page-numbers shop_page_number text-left ml-0 pt_20 pl_15">
 
-                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers answered" href="#">05 </a> <span>Answered </span></li>
-                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers not_answered" href="#">08 </a>Not Answered</li>
-                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers not_visited" href="#">15   </a>Not Visited</li>
-                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers marked_review" href="#"> 05</a>Marked for Review</li>
+                                                    <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers answered" href="#">05 </a> <span>Answered </span></li>
+                                                    <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers not_answered" href="#">08 </a>Not Answered</li>
+                                                    <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers not_visited" href="#">15   </a>Not Visited</li>
+                                                    <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers marked_review" href="#"> 05</a>Marked for Review</li>
 
-                                                    </ul> -->
+                                                </ul> -->
                                                     <!--  <img class="float-right" src="img/home2/undraw.png" alt=""> -->
                                                 </div>
 
@@ -1105,8 +1150,8 @@
                             <div class="modal-content">
                                 <!--  <div class="modal-header">
 
-                                  <h4 class="modal-title text-center">Instructions</h4>
-                                </div> -->
+                              <h4 class="modal-title text-center">Instructions</h4>
+                            </div> -->
                                 <div class="modal-body">
 
                                     <div class="container custom_container p0">
@@ -1117,10 +1162,10 @@
                                                     <h2 class="f_p f_size_20 f_500 t_color2 mb-10">Are you sure you want to pause the test? </h2>
                                                 </div>
                                                 <!--
-                                                                        <div class="col-md-3 language text-right">
-                                                                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                            </div>
-                                                -->
+                                                                    <div class="col-md-3 language text-right">
+                                                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                        </div>
+                                            -->
                                             </div>
 
                                         </div>
@@ -1150,21 +1195,21 @@
                             <div class="modal-content">
                                 <!--  <div class="modal-header">
 
-                                  <h4 class="modal-title text-center">Instructions</h4>
-                                </div> -->
+                              <h4 class="modal-title text-center">Instructions</h4>
+                            </div> -->
                                 <div class="modal-body">
 
                                     <div class="container custom_container m_p0">
 
                                         <div class="service_info">
                                             <!--
-                                                                <div class="row instructionHead mb_15">
-                                                                    <div class="col-md-12 sec_title text-center">
-                                                                        <h2 class="f_p f_size_20 f_500 t_color2 mb-10">Remaining Time : <span class="answered">00:00:15</span> </h2>
-                                                                    </div>
-
+                                                            <div class="row instructionHead mb_15">
+                                                                <div class="col-md-12 sec_title text-center">
+                                                                    <h2 class="f_p f_size_20 f_500 t_color2 mb-10">Remaining Time : <span class="answered">00:00:15</span> </h2>
                                                                 </div>
-                                            -->
+
+                                                            </div>
+                                        -->
                                             <div class="col-lg-12 m_p0">
                                                 <div class="">
                                                     <!-- <div class="icon s_icon_one"><i class="ti-check"></i></div> -->
@@ -1258,59 +1303,7 @@
 
         </script>
 
-        <script>
-            $(document).on('keydown', function (event) {
-                if (event.key == "Escape") {
-                    $(".full_screen_btn").show();
-                    $(".close_full_screen").hide();
-                }
-            });
 
-            function issues() {
-                if ($(".issue").prop("checked") == true) {
-                    $("#issuebox").show();
-                }
-                if ($(".issue").prop("checked") == false) {
-                    $("#issuebox").val("");
-                    $("#issuebox").hide();
-                }
-            }
-
-
-            var elem = document.documentElement;
-            function openFullscreen() {
-
-                if (elem.RequestFullScreen) {
-                    elem.RequestFullScreen();
-                } else if (elem.mozRequestFullScreen) { /* Firefox */
-                    elem.mozRequestFullScreen();
-                } else if (elem.webkitRequestFullScreen) { /* Chrome, Safari & Opera */
-                    elem.webkitRequestFullScreen();
-                } else if (elem.msRequestFullScreen) { /* IE/Edge */
-                    elem.msRequestFullscreen();
-                }
-                $(".full_screen_btn").hide();
-                $(".close_full_screen").show();
-            }
-
-            function closeFullscreen() {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
-                }
-                $(".full_screen_btn").show();
-                $(".close_full_screen").hide();
-            }
-
-            //$("#pause_close").click(function(){
-            //		$("#pauseModal1").modal("hide");
-            //});
-        </script>
 
         <script type="text/javascript">
             var Clock = {
@@ -1876,9 +1869,9 @@
 
             }
             function LastAndFinalSubmitFrom(obj) {
-    
+
                 if (obj.ispaused === 'true') {
-                    fnPause
+                    fnPause();
                 }
                 else {
                       fnComplete();
@@ -1891,7 +1884,19 @@
                 }, 1000);
             }
 
+            
+        $(document).keyup(function (e) {
+            // esc
+            if (e.keyCode === 27) {
+                $(".full_screen_btn").show();
+                $(".close_full_screen").hide();
+            }
+
+        });
+
+
         </script>
+        
     </div>
 
 </body>
