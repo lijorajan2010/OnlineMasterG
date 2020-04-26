@@ -1,70 +1,244 @@
 ﻿@model OnlineMasterG.Models.Shared.SessionExpiredModel
 @{
-	Layout = null;
+    Layout = null;
 }
-<style>
-	@@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:300,500');
+@*<style>
+        @@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:300,500');
 
-html, body {
-    width: 100%;
-    height: 100%;
-}
+    html, body {
+        width: 100%;
+        height: 100%;
+    }
 
-body {
-    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/257418/andy-holmes-698828-unsplash.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    min-width: 100vw;
-    font-family: "Roboto Mono", "Liberation Mono", Consolas, monospace;
-    color: rgba(255,255,255,.87);
-}
+    body {
+        background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/257418/andy-holmes-698828-unsplash.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        min-width: 100vw;
+        font-family: "Roboto Mono", "Liberation Mono", Consolas, monospace;
+        color: rgba(255,255,255,.87);
+    }
 
-.mx-auto {
-    margin-left: auto;
-    margin-right: auto;
-}
+    .mx-auto {
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-.container,
-.container > .row,
-.container > .row > div {
-    height: 100%;
-}
+    .container,
+    .container > .row,
+    .container > .row > div {
+        height: 100%;
+    }
 
-#countUp {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    
-    .number {
-        font-size: 4rem;
-        font-weight: 500;
-        
-       .text {
-            margin: 0 0 1rem;
+    #countUp {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        .number {
+            font-size: 4rem;
+            font-weight: 500;
+
+           .text {
+                margin: 0 0 1rem;
+            }
+        }
+
+        .text {
+            font-weight: 300;
+            text-align: center;
         }
     }
+    </style>
+    <div class="container">
+        <div class="row">
+            <div class="xs-12 md-6 mx-auto">
+                <div id="countUp">
+                    <h2 class="number" data-count="404"></h2>
+                    <h2 class="text">Redirecting ...</h2>
+                    <h2 class="text">To</h2>
+                    <h2 class="text">Login page</h2>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="~/img/favicon.png" type="image/x-icon">
+    <title>Online Master Ji</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/vendors/bootstrap-selector/css/bootstrap-select.min.css">
+    <!--icon font css-->
+    <link rel="stylesheet" href="~/vendors/themify-icon/themify-icons.css">
+    <link rel="stylesheet" href="~/vendors/flaticon/flaticon.css">
+    <link rel="stylesheet" href="~/vendors/animation/animate.css">
+    <link rel="stylesheet" href="~/vendors/owl-carousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/vendors/magnify-pop/magnific-popup.css">
+    <link rel="stylesheet" href="~/vendors/nice-select/nice-select.css">
+    <link rel="stylesheet" href="~/vendors/elagent/style.css">
+    <link rel="stylesheet" href="~/vendors/scroll/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <style>
+        section.service_area.sec_pad.s_service_section.breadcrumb_area.typography_breacrumb {
+            padding: 40px 0px 75px;
+        }
+
+        @@media (max-width: 1550px) {
+            .service_item {
+                padding: 10px 30px;
+            }
+        }
+
+        .pay_btn.pay_btn_two {
+            margin-left: 0;
+        }
+
+        .navbar-brand {
+            margin-left: 0;
+        }
+
+        section.service_area.sec_pad.s_service_section.breadcrumb_area.typography_breacrumb {
+            padding: 16px 0px 75px;
+        }
+
+        p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .instructionHead {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .instructionFoot {
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        ul {
+            list-style-type: decimal;
+        }
+
+            ul ul {
+                list-style-type: circle;
+            }
+
+        table {
+            font-size: 13px;
+            padding: 5px;
+            text-align: center;
+        }
+
+        td, th {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false" onkeydown="return false" onmousedown="return false">
+    @*<body>*@
+    <div id="preloader">
+        <div id="ctn-preloader" class="ctn-preloader">
+            <div class="animation-preloader">
+                <div class="spinner"></div>
+                <div class="txt-loading">
+                    <span data-text-preloader="O" class="letters-loading">
+                        O
+                    </span>
+                    <span data-text-preloader="N" class="letters-loading">
+                        N
+                    </span>
+                    <span data-text-preloader="L" class="letters-loading">
+                        L
+                    </span>
+                    <span data-text-preloader="I" class="letters-loading">
+                        I
+                    </span>
+                    <span data-text-preloader="N" class="letters-loading">
+                        N
+                    </span>
+                    <span data-text-preloader="E" class="letters-loading">
+                        E
+                    </span>
+                    <span data-text-preloader="M" class="letters-loading">
+                        M
+                    </span>
+                    <span data-text-preloader="A" class="letters-loading">
+                        A
+                    </span>
+                    <span data-text-preloader="S" class="letters-loading">
+                        S
+                    </span>
+                    <span data-text-preloader="T" class="letters-loading">
+                        T
+                    </span>
+                    <span data-text-preloader="E" class="letters-loading">
+                        E
+                    </span>
+                    <span data-text-preloader="R" class="letters-loading">
+                        R
+                    </span>
+                    <span data-text-preloader="J" class="letters-loading">
+                        J
+                    </span>
+                    <span data-text-preloader="I" class="letters-loading">
+                        I
+                    </span>
+                </div>
+                <p class="text-center">Loading</p>
+            </div>
+            <div class="loader">
+                <div class="row">
+                    <div class="col-3 loader-section section-left">
+                        <div class="bg"></div>
+                    </div>
+                    <div class="col-3 loader-section section-left">
+                        <div class="bg"></div>
+                    </div>
+                    <div class="col-3 loader-section section-right">
+                        <div class="bg"></div>
+                    </div>
+                    <div class="col-3 loader-section section-right">
+                        <div class="bg"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     
-    .text {
-        font-weight: 300;
-        text-align: center;
-    }
-}
-</style>
-<div class="container">
-	<div class="row">
-		<div class="xs-12 md-6 mx-auto">
-			<div id="countUp">
-				<h2 class="number" data-count="404"></h2>
-				<h2 class="text">Redirecting ...</h2>
-				<h2 class="text">To</h2>
-				<h2 class="text">Login page</h2>
-			</div>
-		</div>
-	</div>
-</div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/js/propper.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/vendors/wow/wow.min.js"></script>
+    <script src="~/vendors/sckroller/jquery.parallax-scroll.js"></script>
+    <script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="~/vendors/isotope/isotope-min.js"></script>
+    <script src="~/vendors/magnify-pop/jquery.magnific-popup.min.js"></script>
+    <script src="~/vendors/bootstrap-selector/js/bootstrap-select.min.js"></script>
+    <script src="~/vendors/nice-select/jquery.nice-select.min.js"></script>
+    <script src="~/vendors/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/js/plugins.js"></script>
+    <script src="~/js/main.js"></script>
+ 
+</body>
+</html>
+
+
 <script type="text/javascript">
-    setTimeout(function () { window.location.href = "@Model.LoginPage" }, 2000);;
+    setTimeout(function () { window.location.href = "@Model.LoginPage" }, 100);;
 </script>

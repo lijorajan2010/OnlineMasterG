@@ -36,6 +36,7 @@ namespace OnlineMasterG.Models.DAL
         public string Solution { get; set; }
         public string Direction { get; set; }
         public string QuestionType { get; set; }
+        public Nullable<int> QuestionDescriptionImageFileId { get; set; }
     
         public virtual DataFile DataFile { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

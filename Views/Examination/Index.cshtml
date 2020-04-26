@@ -27,6 +27,26 @@
     <link rel="stylesheet" href="~/vendors/scroll/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="~/css/style.css">
     <link rel="stylesheet" href="~/css/responsive.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/js/propper.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/vendors/wow/wow.min.js"></script>
+    <script src="~/vendors/sckroller/jquery.parallax-scroll.js"></script>
+    <script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="~/vendors/isotope/isotope-min.js"></script>
+    <script src="~/vendors/magnify-pop/jquery.magnific-popup.min.js"></script>
+    <script src="~/vendors/bootstrap-selector/js/bootstrap-select.min.js"></script>
+    <script src="~/vendors/nice-select/jquery.nice-select.min.js"></script>
+    <script src="~/vendors/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/js/plugins.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <style>
         section.service_area.sec_pad.s_service_section.breadcrumb_area.typography_breacrumb {
             padding: 40px 0px 75px;
@@ -434,42 +454,28 @@
 
             function completed() {
                 // Do whatever you need to do when the timer runs out...
-                LastAndFinalSubmitFrom(@Html.Raw(Json.Encode(new {ispaused ="true" })));
+                LastAndFinalSubmitFrom(@Html.Raw(Json.Encode(new {ispaused ="false" })));
             }
         }
     </script>
     <script>
 
-        var elem = document.documentElement;
-        function openFullscreen() {
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.mozRequestFullScreen) { /* Firefox */
-                elem.mozRequestFullScreen();
-            } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { /* IE/Edge */
-                elem.msRequestFullscreen();
-            }
+
+        function toggleFullscreen() {
+            let elem = document.documentElement;
+            if (!document.fullscreenElement) {
+                elem.requestFullscreen().catch(err => {
+                    alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+                });
                 $(".full_screen_btn").hide();
                 $(".close_full_screen").show();
-        }
 
-        function closeFullscreen() {
-            if (document.exitFullscreen) {
+            } else {
                 document.exitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) {
-                document.msExitFullscreen();
-            }
-               $(".full_screen_btn").show();
+                $(".full_screen_btn").show();
                 $(".close_full_screen").hide();
+            }
         }
-
-
 
         function issues() {
             if ($(".issue").prop("checked") == true) {
@@ -496,7 +502,7 @@
             <nav class="navbar navbar-expand-lg menu_one menu_four">
                 <div class="container-fluid">
 
-                    <a class="navbar-brand col-md-2 hidden-xs" href="@Url.Action("Index","Home")"><img src="~/img/WhiteLogo.png" alt="logo"></a>
+                    <a class="navbar-brand col-md-2 hidden-xs"><img src="~/img/WhiteLogo.png" alt="logo"></a>
 
                     <div class="col-md-2 breadcrumb_content hidden-xs">
                         <span class="w_color f_600">@Model.TestName</span>
@@ -512,8 +518,8 @@
                         <!-- <h1 class="f_p f_700 f_size_30 w_color l_height50">SSC CGL</h1> -->
                     </div>
                     <div class="col-md-2 hidden-xs text-center">
-                        <a class="btn_hover agency_banner_btn full_screen_btn" onclick="openFullscreen();" style="">Full Screen</a>
-                        <a class="btn_hover agency_banner_btn close_full_screen" id="exitId" onclick="closeFullscreen();" style="display: none;">Exit Full Screen</a>
+                        <a class="btn_hover agency_banner_btn full_screen_btn" onclick="toggleFullscreen();" style="">Full Screen</a>
+                        <a class="btn_hover agency_banner_btn close_full_screen" id="exitId" onclick="toggleFullscreen();" style="display: none;">Exit Full Screen</a>
                     </div>
 
 
@@ -824,8 +830,8 @@
                     </div>
 
                     <div id="MarkingDiv" style="display:none">
-                        @*@using (Html.BeginForm("StudentFromAnswerSubmit", "Examination", FormMethod.Post, new { id = "frmAnswerForm" }))*@
-                        @using (Ajax.BeginForm("StudentFromAnswerSubmit", "Examination", new AjaxOptions { HttpMethod = "POST" }, new { id = "frmAnswerForm" }))
+                        @*@using (Ajax.BeginForm("StudentFromAnswerSubmit", "Examination", new AjaxOptions { HttpMethod = "POST" }, new { id = "frmAnswerForm" }))*@
+                        @using (Html.BeginForm("submitanswers", "examination", FormMethod.Post, new { id = "frmAnswerForm" }))
                         {
                             if (Model.MockTestAttemptDetails != null && Model.MockTestAttemptDetails.Count() > 0)
                             {
@@ -859,6 +865,7 @@
                                         }
                                     </div>
                                 }
+                                <button type="submit" formmethod="post" formaction="@Url.Action("submitanswers","Examination")" id="btnSubmit"></button>
                             }
                         }
 
@@ -1127,7 +1134,7 @@
                                             </div>
 
                                             <div class="col-md-6 col-xs-6 text-center">
-                                                <a href="" class="btn_hover agency_banner_btn m-0" onclick='LastAndFinalSubmitFrom(@Html.Raw(Json.Encode(new { ispaused ="true" }));'>Submit</a>
+                                                <a href="" class="btn_hover agency_banner_btn m-0" onclick='LastAndFinalSubmitFrom(@Html.Raw(Json.Encode(new { ispaused ="false" })));'>Submit</a>
                                             </div>
                                         </div>
 
@@ -1268,22 +1275,6 @@
 
 
 
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="~/js/jquery-3.2.1.min.js"></script>
-        <script src="~/js/propper.js"></script>
-        <script src="~/js/bootstrap.min.js"></script>
-        <script src="~/vendors/wow/wow.min.js"></script>
-        <script src="~/vendors/sckroller/jquery.parallax-scroll.js"></script>
-        <script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
-        <script src="~/vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
-        <script src="~/vendors/isotope/isotope-min.js"></script>
-        <script src="~/vendors/magnify-pop/jquery.magnific-popup.min.js"></script>
-        <script src="~/vendors/bootstrap-selector/js/bootstrap-select.min.js"></script>
-        <script src="~/vendors/nice-select/jquery.nice-select.min.js"></script>
-        <script src="~/vendors/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script src="~/js/plugins.js"></script>
-        <script src="~/js/main.js"></script>
         <script>
 
             $(".nav-item").click(function () {
@@ -1332,6 +1323,19 @@
             };
 
             Clock.start();
+
+            $(document).bind('fullscreenchange webkitfullscreenchange mozfullscreenchange msfullscreenchange', function (e) {
+                var fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullscreenElement || document.msFullscreenElement;
+                if (!fullscreenElement) {
+                    $(".full_screen_btn").show();
+                    $(".close_full_screen").hide();
+                }
+                else {
+                    $(".full_screen_btn").hide();
+                    $(".close_full_screen").show();
+                }
+            });
+
 
             $(document).ready(function () {
 
@@ -1574,7 +1578,17 @@
                     });
 
                 });
-
+                // If its a final questional, toast a message this is final
+                if (isFinal == 'True') {
+                    //$.toastr({
+                    //    heading: 'Information',
+                    //    text: 'You reaches to last question',
+                    //    icon: 'info',
+                    //    loader: true,        // Change it to false to disable loader
+                    //    loaderBg: '#9EC600'  // To change the background
+                    //});
+                    toastr.success('You reaches to last question ');
+                }
             };
 
             function fnClearRadioButtons() {
@@ -1868,36 +1882,34 @@
                 $("#hfTimeLeftInMinutes").val(Inminutes);
 
             }
-            function LastAndFinalSubmitFrom(obj) {
-
-                if (obj.ispaused === 'true') {
-                    fnPause();
-                }
-                else {
-                      fnComplete();
-                }
-
-                fnSetTimeLeft();
-                setTimeout(function () {
-                    @*$("#frmAnswerForm").ajaxForm({url: '@Url.Action("","")', type: 'post'})*@
-                    $("#frmAnswerForm").submit();
-                }, 1000);
-            }
-
-            
-        $(document).keyup(function (e) {
-            // esc
-            if (e.keyCode === 27) {
-                $(".full_screen_btn").show();
-                $(".close_full_screen").hide();
-            }
-
-        });
-
 
         </script>
-        
-    </div>
 
+    </div>
+    <script type="text/javascript">
+        function LastAndFinalSubmitFrom(obj) {
+
+            if (obj.ispaused === 'true') {
+                fnPause();
+            }
+            else {
+                fnComplete();
+            }
+
+            fnSetTimeLeft();
+
+            setTimeout(function () {
+
+                $("#btnSubmit").click();
+                //var form = $("#frmAnswerForm");
+                //var url = form.attr("action");
+                //var formData = form.serialize();
+                //$.post(url, formData, function (data) {
+                 
+                //});
+               
+            }, 1000);
+        }
+    </script>
 </body>
 </html>

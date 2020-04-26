@@ -2,9 +2,26 @@
 @{
 	Layout = null;
 }
+
+@{
+	ViewBag.Title = "Online Master Ji";
+	Layout = "~/Views/Shared/PublicLayout.cshtml";
+}
+<section class="error_two_area">
+	<div class="container flex">
+		<div class="error_content_two text-center">
+			<img src="~/img/new/error.png" alt="">
+			<h2>@Model.Message</h2>
+			<br>
+
+		</div>
+	</div>
+</section>
+
+
 <p>
-	@Model.Message
+	
 </p>
 <p>
-	@Model.ControllerName/@Model.ActionName
+	@*@Model.ControllerName/@Model.ActionName*@
 </p>

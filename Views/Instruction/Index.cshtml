@@ -84,8 +84,8 @@
         }
     </style>
 </head>
-<body oncontextmenu="return false" onkeydown="return false" onmousedown="return false" >
-@*<body>*@
+<body oncontextmenu="return false" onkeydown="return false" onmousedown="return false">
+    @*<body>*@
     <div id="preloader">
         <div id="ctn-preloader" class="ctn-preloader">
             <div class="animation-preloader">
@@ -174,7 +174,7 @@
                             var ActiveUser = AppInfo.ActiveUser;
                             var ImgId = ActiveUser != null && ActiveUser.LogoDataFileId != null ? ActiveUser.LogoDataFileId.Value.ToString() : "0";
                         }
-                        <img class="student_img" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(ImgId)})' alt="" width="50">
+                        <img class="student_img" src='@Url.Action("View", "DataFile", new { p = CustomEncrypt.Encrypt(ImgId) })' alt="" width="50">
                         <span>@ActiveUser.Email</span>
                     </div>
                 </div>
@@ -283,18 +283,23 @@
                                     </ul>
                                 </li>
                             </ul>
-                         
-                                <div class="instructionFoot">
+
+                            <div class="instructionFoot">
+                                <input type="hidden" id="hdfTestId" name="TestId" value="@ViewBag.TestId" />
+                                <input type="hidden" id="hdfIsReattempt" name="isReAttempt" value="@ViewBag.IsReattempt" />
+                                <input type="hidden" id="hdfResumeAttemptId" name="ResumeAttemptId" value="@ViewBag.ResumeAttemptId" />
+                                <form method="post" action="@Url.Action("Index", "Examination", new { p = CustomEncrypt.SafeUrlEncrypt(ViewBag.TestId.ToString()), r = CustomEncrypt.SafeUrlEncrypt(ViewBag.ResumeAttemptId.ToString()), s = CustomEncrypt.SafeUrlEncrypt(ViewBag.IsReattempt.ToString()) })">
                                     <p><label><input type="checkbox" required> I have read and understand the instructions. </label></p>
-                                    <input type="hidden" id="hdfTestId" name="TestId" value="@ViewBag.TestId" />
-                                    <input type="hidden" id="hdfIsReattempt" name="isReAttempt" value="@ViewBag.IsReattempt" />
-                                    <input type="hidden" id="hdfResumeAttemptId" name="ResumeAttemptId" value="@ViewBag.ResumeAttemptId  " />
+                                    <input type="hidden" name="p" value="@CustomEncrypt.SafeUrlEncrypt(ViewBag.TestId.ToString())" />
+                                    <input type="hidden" name="r" value="@CustomEncrypt.SafeUrlEncrypt(ViewBag.ResumeAttemptId.ToString())" />
+                                    <input type="hidden" name="s" value="@CustomEncrypt.SafeUrlEncrypt(ViewBag.IsReattempt.ToString())" />
+                                    <input type="hidden" name="isInstr" value=true />
+                                    <input type="submit" class="btn_hover agency_banner_btn" value="I am Ready to Begin" />
+                                    @*<a href="@Url.Action("Index","Examination",new { p = CustomEncrypt.SafeUrlEncrypt(ViewBag.TestId.ToString()), r =CustomEncrypt.SafeUrlEncrypt(ViewBag.ResumeAttemptId.ToString()), s=CustomEncrypt.SafeUrlEncrypt(ViewBag.IsReattempt.ToString()) })" class="btn_hover agency_banner_btn">I am Ready to Begin</a>*@
+                                </form>
 
-                                    <a href="@Url.Action("Index","Examination",new { p = CustomEncrypt.SafeUrlEncrypt(ViewBag.TestId.ToString()), r =CustomEncrypt.SafeUrlEncrypt(ViewBag.ResumeAttemptId.ToString()), s=CustomEncrypt.SafeUrlEncrypt(ViewBag.IsReattempt.ToString()) })" class="btn_hover agency_banner_btn">I am Ready to Begin</a>
+                            </div>
 
-                                  
-                                </div>
-                           
 
 
 

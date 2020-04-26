@@ -456,6 +456,7 @@
           <Property Name="Solution" Type="varchar(max)" />
           <Property Name="Direction" Type="varchar(max)" />
           <Property Name="QuestionType" Type="varchar" MaxLength="10" />
+          <Property Name="QuestionDescriptionImageFileId" Type="int" />
         </EntityType>
         <EntityType Name="QuestionUpload">
           <Key>
@@ -2476,6 +2477,7 @@
           <NavigationProperty Name="QuestionUpload" Relationship="OnlinemasterjiModel.FK__Questions__Quest__42E1EEFE" FromRole="QuestionsMockTest" ToRole="QuestionUpload" />
           <Property Name="Direction" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="QuestionType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="QuestionDescriptionImageFileId" Type="Int32" />
         </EntityType>
         <EntityType Name="QuestionUpload">
           <Key>
@@ -4030,6 +4032,7 @@
           <EntitySetMapping Name="QuestionsMockTests">
             <EntityTypeMapping TypeName="OnlinemasterjiModel.QuestionsMockTest">
               <MappingFragment StoreEntitySet="QuestionsMockTest">
+                <ScalarProperty Name="QuestionDescriptionImageFileId" ColumnName="QuestionDescriptionImageFileId" />
                 <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
                 <ScalarProperty Name="Direction" ColumnName="Direction" />
                 <ScalarProperty Name="Solution" ColumnName="Solution" />

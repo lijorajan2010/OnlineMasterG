@@ -22,8 +22,9 @@ namespace OnlineMasterG.Models.DAL
 
             // Sets the command timeout for all the commands
             objectContext.CommandTimeout = 120;
+
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

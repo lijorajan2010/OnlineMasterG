@@ -17,7 +17,8 @@ namespace OnlineMasterG.Controllers
     public class ExaminationController : BaseController
     {
         // GET: Examination
-        public ActionResult Index(string p, string r, string s)
+        [HttpPost]
+        public ActionResult Index(string p, string r, string s, bool isInstr =false)
         {
 
             int TestId = 0;
@@ -35,7 +36,7 @@ namespace OnlineMasterG.Controllers
             {
                 isReAttempt = Convert.ToBoolean(CustomEncrypt.SafeUrlDecrypt(s));
             }
-        
+
             if (TestId == 0)
             {
                 return PartialView("Error");
@@ -60,12 +61,12 @@ namespace OnlineMasterG.Controllers
             {
                 return PartialView("Error");
             }
-            
+
             return View(model);
 
         }
         [HttpPost]
-        public ActionResult StudentFromAnswerSubmit(MockTestAttemptVM model)
+        public ActionResult submitanswers(MockTestAttemptVM model)
         {
             var AttemptSaved = ExamLogics.SaveExamAttempts(model, HttpContext.User.Identity.Name);
             if (AttemptSaved.Status)
@@ -148,7 +149,7 @@ namespace OnlineMasterG.Controllers
             model.TotalOriginalMarks = subjectWiseScoreVMs.Sum(m => m.OriginalScore);
             model.TotalCorrectAnswers = subjectWiseScoreVMs.Sum(m => m.TotalCorrectAnswers);
             model.TotalQuestions = subjectWiseScoreVMs.Sum(m => m.TotalQuestions);
-            
+
             if (model.TotalCorrectAnswers != 0 && model.TotalQuestions != 0)
             {
                 model.TotalTestAccuracy = (model.TotalCorrectAnswers / model.TotalQuestions) * 100;
