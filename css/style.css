@@ -7744,6 +7744,7 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
   background: url("../img/home9/shape_two.png") no-repeat scroll center 0;
   background-size: cover;
       margin-top: -90px;
+	      background-color: #f2f3f3;
 }
 
 .payment_service_area .image_shape {
@@ -9971,11 +9972,11 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
 }
 
 .feedback_area_two {
-  background-image: -moz-linear-gradient(30deg, #5f51fb 0%, #8ca7ff 100%);
+  /* background-image: -moz-linear-gradient(30deg, #5f51fb 0%, #8ca7ff 100%);
   background-image: -webkit-linear-gradient(30deg, #5f51fb 0%, #8ca7ff 100%);
-  background-image: -ms-linear-gradient(30deg, #5f51fb 0%, #8ca7ff 100%);
+  background-image: -ms-linear-gradient(30deg, #5f51fb 0%, #8ca7ff 100%); */
   height: auto;
-  //height: 550px;
+      background: #f2f3f3;
   position: relative;
   z-index: 1;
 }
@@ -9986,7 +9987,7 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
   height: 100%;
   top: 0;
   left: 0;
-  background: url("../img/new/feedback_shap.png") no-repeat scroll center 0;
+  /* background: url("../img/new/feedback_shap.png") no-repeat scroll center 0; */
   position: absolute;
   z-index: -1;
 }
@@ -10001,7 +10002,7 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
 }
 
 .feedback_area_two .sec_title p {
-  color: #cfd0fa;
+  color: #000;
   font-style: italic;
 }
 
@@ -10028,19 +10029,20 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
 }
 
 .feedback_slider_two .owl-nav i {
-  width: 50px;
-  height: 50px;
-  text-align: center;
-  border: 1px solid #fff;
-  display: inline-block;
-  color: #fff;
-  line-height: 50px;
-  font-size: 12px;
-  border-radius: 50%;
-  margin-left: 10px;
-  -webkit-transition: all 0.3s linear;
-  -o-transition: all 0.3s linear;
-  transition: all 0.3s linear;
+      width: 50px;
+    height: 50px;
+    text-align: center;
+    /* border: 1px solid #000; */
+    display: inline-block;
+    color: #000;
+    line-height: 50px;
+    font-size: 12px;
+    border-radius: 50%;
+    margin-left: 10px;
+    -webkit-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+    background: #ddd;
 }
 
 .feedback_slider_two .owl-nav i:hover {
@@ -10050,9 +10052,10 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
 
 .feedback_slider_two .feedback_item {
   background: #fff;
-  -webkit-box-shadow: 0px 20px 60px 0px rgba(0, 11, 40, 0.1);
-  box-shadow: 0px 20px 60px 0px rgba(0, 11, 40, 0.1);
-  border: 0px;
+ /*  -webkit-box-shadow: 0px 20px 60px 0px rgba(0, 11, 40, 0.1);
+  box-shadow: 0px 20px 60px 0px rgba(0, 11, 40, 0.1); */
+      box-shadow: none;
+       border: solid 1px #dddd;
   margin: 0 20px;
 }
 
@@ -20707,7 +20710,7 @@ a .h_head:hover {
   line-height: 45px;
   color: #858da8;
   display: inline-block;
-  background: #ebeef5;
+  background: #fff;
   text-align: center;
   -webkit-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
