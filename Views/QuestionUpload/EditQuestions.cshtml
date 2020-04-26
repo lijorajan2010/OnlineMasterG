@@ -104,9 +104,11 @@
                                             string FirstDescription = string.Empty;
                                             string FirstDirection = string.Empty;
                                             int? QuestionUploadId;
+                                            int? QuestionDescriptionImageFileId;
                                             FirstDescription = qset.Data.QsetG.FirstOrDefault().Description;
                                             FirstDirection = qset.Data.QsetG.FirstOrDefault().Direction;
                                             QuestionUploadId = qset.Data.QsetG.FirstOrDefault().QuestionUploadId;
+                                            QuestionDescriptionImageFileId = qset.Data.QsetG.FirstOrDefault().QuestionDescriptionImageFileId;
                                             @*Grouping Question set Loop*@
                                             <tr style="width:100%;background:  #f6f7f5; border-bottom:1pt solid grey ;">
                                                 <td colspan="2"><h4>QUESTION SET @QuestionSetNumber</h4>  </td>
@@ -118,8 +120,29 @@
                                                 <td>
                                                     <input type="hidden" name="EditQuestionSet[@qset.Index].QuestionUploadId" value='@QuestionUploadId'>
                                                     <lable>Direction</lable><br />
-                                                    <textarea rows="50" cols="30" name="EditQuestionSet[@qset.Index].Direction" form="frmReviewedQuestions" class="form-control">@FirstDirection</textarea>
+                                                    <textarea rows="30" cols="30" name="EditQuestionSet[@qset.Index].Direction" form="frmReviewedQuestions" class="form-control">@FirstDirection</textarea>
                                                     <br />
+                                                    <hr />
+                                                    <label>
+                                                        Upload Image for Description
+                                                    </label>
+                                                    <a class="details" href="javascript:;" onclick="fnCurrentHrefDescription(this);">click to upload image</a>
+                                                    @{
+                                                        var ImghdfDesc = "Imghdf" + "Decs"+ QuestionSetNumber;
+                                                        var imgpreviewDesc = "imgpreview" + "Decs"+ QuestionSetNumber;
+                                                    }
+                                                    <input type="hidden" id="@ImghdfDesc" name="EditQuestionSet[@qset.Index].QuestionDescriptionImageFileId" value='@QuestionDescriptionImageFileId'>
+                                                    @if (QuestionDescriptionImageFileId.HasValue)
+                                                    {
+                                                        <img id="@imgpreviewDesc" class="imgpreview" style='height: 150px;max-width: 400px;' src='@Url.Action("View", "DataFile" , new {p=CustomEncrypt.Encrypt(QuestionDescriptionImageFileId.Value.ToString())})' />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img id="@imgpreviewDesc" class="imgpreview" style='height: 150px;max-width: 400px;' src='' />
+                                                    }
+                                                    <br />
+                                                    <hr />
+
                                                     <lable>Description</lable><br />
                                                     <textarea rows="100" cols="70" name="EditQuestionSet[@qset.Index].Description" form="frmReviewedQuestions" class="form-control">@FirstDescription</textarea>
                                                     @*Description for the first question*@
@@ -390,19 +413,74 @@
     </div>
 </div>
 
+<div class="modal" id="divUploadDataFileDialogDescription" style="z-index:3000">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h3>Upload File</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Please browse and pick you image, and then click "Upload File". File format accepted are png/jpeg<br />
+                <br />
+                @using (Ajax.BeginForm("UploadImage", "DataFile", new { }, new AjaxOptions { HttpMethod = "POST" }, new { id = "frmUploadDataFileDescription", enctype = "multipart/form-data" }))
+                {
+
+                    <table style="width:100%">
+                        <tr style="width:100%">
+                            <td>
+                                <input type="file" name="postedFile" id="postedFileDesc" required accept="image/png, image/jpeg"><br />
+                            </td>
+                            <td>
+
+                                <input id="btnUploadFileDescription" type="button" value="Upload File" class="btn btn-info">
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="loadingDesc" style="display:none">
+                        <button class="btn btn-primary" type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Uploading file... Please wait...
+                        </button>
+                    </div>
+                }
+                <br />
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button id="btnUploadDataFileDescriptionCancel" data-dismiss="modal" class="btn btn-dark">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
 
 
 <script type="text/javascript">
     var ImgUploadQuestionFieldId = null;
+    var ImgUploadQuestionDescriptionFieldId = null;
     var ImgPreviewDiv = null;
+    var ImgPreviewDescriptionDiv = null;
    
     function fnCurrentHref(obj) {
         ImgUploadQuestionFieldId = $(obj).next().attr('id');
         ImgPreviewDiv = $(obj).next().next().attr('id')
         $("#divUploadDataFileDialog").appendTo("body").modal("show");
     }
-
+    function fnCurrentHrefDescription(obj) {
+        debugger
+        ImgUploadQuestionDescriptionFieldId = $(obj).next().attr('id');
+        ImgPreviewDescriptionDiv = $(obj).next().next().attr('id')
+        $("#divUploadDataFileDialogDescription").appendTo("body").modal("show");
+    }
+    
     $("#btnUploadFile").click(function () {
 
         $.submitForm(
@@ -428,6 +506,35 @@
         );
 
         $("#frmUploadDataFile").submit();
+
+    });
+
+
+      $("#btnUploadFileDescription").click(function () {
+
+        $.submitForm(
+            $("#frmUploadDataFileDescription"),
+            function (data) {
+                $("#" + ImgUploadQuestionDescriptionFieldId).val(data.DataFileId);
+                $("#" + ImgPreviewDescriptionDiv).attr("src", data.Preview);
+                $("#divUploadDataFileDialogDescription").appendTo("body").modal("hide");
+
+                // reset everything
+                $("#loadingDesc").hide();
+                $("#btnUploadFileDescription").removeAttr('disabled');
+                $("#postedFileDesc").val('');
+
+                ImgUploadQuestionDescriptionFieldId = null;
+                ImgPreviewDescriptionDiv = null;
+            }
+            , function () { }
+            , function () {
+            }
+            , $("#loadingDesc")
+            , $("#btnUploadFileDescription")
+        );
+
+        $("#frmUploadDataFileDescription").submit();
 
     });
 

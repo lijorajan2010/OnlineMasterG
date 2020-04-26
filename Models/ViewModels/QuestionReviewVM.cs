@@ -48,6 +48,7 @@ namespace OnlineMasterG.Models.ViewModels
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> QuestionUploadId { get; set; }
         public Nullable<int> QuestionImageFileId { get; set; }
+        public Nullable<int> QuestionDescriptionImageFileId { get; set; }
         public int QuestionNumber { get; set; }
         public string QuestionSet { get; set; }
         public string Direction { get; set; }

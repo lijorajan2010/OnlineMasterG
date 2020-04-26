@@ -17,6 +17,7 @@ namespace OnlineMasterG.Models.ViewModels
     public class QuestionSet
     {
         public int QuestionUploadId { get; set; }
+        public int? QuestionDescriptionImageFileId { get; set; }
         public string Description { get; set; }
         public string Direction { get; set; }
         public virtual List<QuestionsMockTestReview> EditQuestions { get; set; }
@@ -31,10 +32,14 @@ namespace OnlineMasterG.Models.ViewModels
         public int QuestionsMockTestId { get; set; }
         public string Question { get; set; }
         public Nullable<int> QuestionImageFileId { get; set; }
+        public Nullable<int> QuestionDescriptionImageFileId { get; set; }
         public int QuestionNumber { get; set; }
         public string QuestionSet { get; set; }
         public string Solution { get; set; }
         public string CorrectAnswer { get; set; }
+        public string Description { get; set; }
+        public string Direction { get; set; }
+        public int QuestionUploadId { get; set; }
         public virtual List<QuestionPointReviewEdit> EditQuestionPoints { get; set; }
         public virtual List<QuestionAnswerChoiceReviewEdit> EditAnswerChoice { get; set; }
         public QuestionsMockTestReview()

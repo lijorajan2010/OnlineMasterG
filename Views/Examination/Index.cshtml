@@ -674,11 +674,26 @@
                                                                     <div class="row">
                                                                         @if (Q.Data.QuestionsMockTests.QuestionType == "WITHD")
                                                                         {
-                                                                            <div class="col-md-6 fix_height overflow_auto SearchParameters collapse" id="SearchParameters">
-                                                                                <p class="text-justify" style="word-wrap: break-word;">
-                                                                                    @Q.Data.QuestionsMockTests.Description
-                                                                                </p>
-                                                                            </div>
+                                                                        <div class="col-md-6 fix_height overflow_auto SearchParameters collapse" id="SearchParameters">
+                                                                            <p class="text-justify" style="word-wrap: break-word;">
+                                                                                @Q.Data.QuestionsMockTests.Description
+                                                                            </p>
+                                                                            @if (Q.Data.QuestionsMockTests.QuestionDescriptionImageFileId.HasValue)
+                                                                            {
+                                                                            <p> <img class="" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(Q.Data.QuestionsMockTests.QuestionDescriptionImageFileId.ToString())})' alt="" width="500"></p>
+                                                                            }
+                                                                        </div>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            if (Q.Data.QuestionsMockTests.QuestionDescriptionImageFileId.HasValue)
+                                                                            {
+                                                                                <div class="col-md-6 fix_height overflow_auto SearchParameters collapse" id="SearchParameters">
+                                                                           
+                                                                                    <p> <img class="" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(Q.Data.QuestionsMockTests.QuestionDescriptionImageFileId.ToString())})' alt="" width="500"></p>
+
+                                                                                </div>
+                                                                            }
                                                                         }
 
 
@@ -697,7 +712,7 @@
                                                                                 }
                                                                                 @if (Q.Data.QuestionsMockTests.QuestionImageFileId != null)
                                                                                 {
-                                                                                    <p> <img class="" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(Q.Data.QuestionsMockTests.QuestionImageFileId.ToString())})' alt="" width="300"></p>
+                                                                                    <p> <img class="" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(Q.Data.QuestionsMockTests.QuestionImageFileId.ToString())})' alt="" width="500"></p>
                                                                                 }
                                                                                 <ul class="list-unstyled payment_list">
                                                                                     @if (Q.Data.QuestionsMockTests != null && Q.Data.QuestionsMockTests.QuestionAnswerChoices != null && Q.Data.QuestionsMockTests.QuestionAnswerChoices.Count() > 0)
@@ -719,11 +734,11 @@
 
                                                                                 <br />
                                                                                 @*@if (true)
-                                                                                {
-                                                                                    <div id="Solution" style="display:none;">
-                                                                                        <textarea type="text" class="form-control"></textarea>
-                                                                                    </div>
-                                                                                }*@
+                {
+                    <div id="Solution" style="display:none;">
+                        <textarea type="text" class="form-control"></textarea>
+                    </div>
+                }*@
 
 
                                                                             </div>
@@ -776,7 +791,7 @@
                                             if (Model.MockTestAttemptDetails != null && Model.MockTestAttemptDetails.Count() > 0)
                                             {
                                                 var QuestionBasedOnTestAndSubjects = Model.MockTestAttemptDetails.Where(m => m.SubjectId == item.Data.SubjectId).ToList();
-                                                var FinalQuestionAttemptDetailId = QuestionBasedOnTestAndSubjects.OrderByDescending(m => m.AttemptDetailId).FirstOrDefault().AttemptDetailId;
+                                                var FinalQuestionAttemptDetailId = QuestionBasedOnTestAndSubjects.Count()>0 ? QuestionBasedOnTestAndSubjects.OrderByDescending(m => m.AttemptDetailId).FirstOrDefault().AttemptDetailId:0;
 
                                                 foreach (var Q in QuestionBasedOnTestAndSubjects.OrderBy(m => m.QuestionNumber).Select((x, y) => new { Data = x, Index = y }))
                                                 {
@@ -1587,7 +1602,7 @@
                     //    loader: true,        // Change it to false to disable loader
                     //    loaderBg: '#9EC600'  // To change the background
                     //});
-                    toastr.success('You reaches to last question ');
+                    toastr.success('You reaches to last question of the current subject ');
                 }
             };
 

@@ -367,6 +367,7 @@ namespace OnlineMasterG.DomainLogic
                             Question.QuestionPoints = QuestionPointVMs;
                             Question.QuestionAnswerChoices = questionAnswerChoiceVMs;
                             Question.QuestionType = OriginalQuestion.QuestionType;
+                            Question.QuestionDescriptionImageFileId = OriginalQuestion.QuestionDescriptionImageFileId;
                         }
 
                         mockTestAttemptDetails.Add(new MockTestAttemptDetailVM()

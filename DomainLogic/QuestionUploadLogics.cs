@@ -348,6 +348,8 @@ namespace OnlineMasterG.DomainLogic
                 string Description = string.Empty;
                 string Direction = string.Empty;
                 int QuestionUploadId = 0;
+                int? QuestionDescriptionImageFileId = null;
+             
                 if (model.EditQuestionSet != null && model.EditQuestionSet.Count() > 0)
                 {
                     List<QuestionsMockTestReview> SingleList = new List<QuestionsMockTestReview>();
@@ -356,6 +358,16 @@ namespace OnlineMasterG.DomainLogic
                         Description = Qset.Description;
                         Direction = Qset.Direction;
                         QuestionUploadId = Qset.QuestionUploadId;
+                        QuestionDescriptionImageFileId = Qset.QuestionDescriptionImageFileId;
+
+                        Qset.EditQuestions.ForEach(x => 
+                        { 
+                            x.Description = Description;  
+                            x.Direction = Direction;
+                            x.QuestionUploadId = QuestionUploadId;
+                            x.QuestionDescriptionImageFileId = QuestionDescriptionImageFileId;
+                        });
+
                         SingleList.AddRange(Qset.EditQuestions);
                     }
                     // Now we have single list of questions now prepare DB Model.
@@ -372,8 +384,9 @@ namespace OnlineMasterG.DomainLogic
                                 ExistingMockTest.Question = item.Question;
                                 ExistingMockTest.QuestionImageFileId = item.QuestionImageFileId;
                                 ExistingMockTest.Solution = item.Solution;
-                                ExistingMockTest.Description = Description;
-                                ExistingMockTest.Direction = Direction;
+                                ExistingMockTest.Description = item.Description;
+                                ExistingMockTest.Direction = item.Direction;
+                                ExistingMockTest.QuestionDescriptionImageFileId = item.QuestionDescriptionImageFileId;
 
                                 // New List
                                 List<QuestionAnswerChoice> NewquestionAnswerChoices = new List<QuestionAnswerChoice>();
