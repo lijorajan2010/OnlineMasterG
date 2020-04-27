@@ -653,6 +653,7 @@
                                                             var QuestionBasedOnTestAndSubjects = Model.MockTestAttemptDetails.Where(m => m.SubjectId == item.Data.SubjectId).ToList();
                                                             foreach (var Q in QuestionBasedOnTestAndSubjects.OrderBy(m => m.QuestionNumber).Select((x, y) => new { Data = x, Index = y }))
                                                             {
+                                                               
                                                                 var classActive = string.Empty;
                                                                 var QuestionDiv = divSubjectId + "QuestionDiv" + Q.Index;
 
@@ -724,7 +725,19 @@
                                                                                             <li>
                                                                                                 <label class="containerCheck">
                                                                                                     @QA.QuestionAnswer
-                                                                                                    <input type="radio" data-questionanswerchoiceid="@QA.QuestionAnswerChoiceId" data-choiceid="@QA.ChoiceId" name="@RadioButtonName">
+
+                                                                                                    @{
+                                                                                                        bool isAlreadyChecked = Q.Data.ChoosenAnswerChoiceId == QA.QuestionAnswerChoiceId ? true : false;
+                                                                                                    }
+                                                                                                    @if (isAlreadyChecked)
+                                                                                                    {
+                                                                                                        <input type="radio" checked data-questionanswerchoiceid="@QA.QuestionAnswerChoiceId" data-choiceid="@QA.ChoiceId" name="@RadioButtonName">
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        <input type="radio" data-questionanswerchoiceid="@QA.QuestionAnswerChoiceId" data-choiceid="@QA.ChoiceId" name="@RadioButtonName">
+                                                                                                    }
+
                                                                                                     <span class="checkmark"></span>
                                                                                                 </label>
                                                                                             </li>
