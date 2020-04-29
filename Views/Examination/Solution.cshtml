@@ -1073,6 +1073,7 @@
                             <a href="#" class="btn_hover agency_banner_btn answered hidden-xs" onclick="fnPrevious(this)"> Prev</a>
                         </div>
                         <div class="col-md-6 col-7 text-right">
+                            @Html.ActionLink("Go back to Performance","ReportCard","Examination",new { p = CustomEncrypt.Encrypt(Model.AttemptId.ToString()) },new { @class="btn_hover agency_banner_btn"})
                             <a href="#" class="btn_hover agency_banner_btn answered" onclick="fnNextAndSave(this)"> Next</a>
                         </div>
                     </div>
