@@ -404,7 +404,7 @@
         .MarkedImportant {
             background-color: #8a63c0 !important;
             border: #8a63c0 !important;
-            color: #fff;
+             color: #fff;
         }
 
         .NotAnsweredImportant {
@@ -416,7 +416,7 @@
         .AnsweredImportant {
             background-color: #64b31a !important;
             border: #64b31a !important;
-            color: #fff;
+           color: #fff;
         }
 
         .CurrentSelected {
@@ -602,10 +602,10 @@
                                     <div class="dropdown">
 
                                         @*<button class="btn btn-primary dropdown-toggle hidden-md hidden-lg" type="button" data-toggle="dropdown" id="navText" style="float: left;border-radius: 0;width: 50%;">
-                                            Reasoning Ability
-                                            <span class="caret"></span>
-                                        </button>
-                                        <button class="btn btn-info hidden-md hidden-lg" id="question" style="border-radius: 0;width: 50%;background: #007bff;border: 1px solid #007bff;border-left: 1px solid #fff;">Questions</button>*@
+                                                Reasoning Ability
+                                                <span class="caret"></span>
+                                            </button>
+                                            <button class="btn btn-info hidden-md hidden-lg" id="question" style="border-radius: 0;width: 50%;background: #007bff;border: 1px solid #007bff;border-left: 1px solid #fff;">Questions</button>*@
 
                                         <div class="mb_15 hidden-md hidden-lg"> </div>
 
@@ -653,7 +653,7 @@
                                                             var QuestionBasedOnTestAndSubjects = Model.MockTestAttemptDetails.Where(m => m.SubjectId == item.Data.SubjectId).ToList();
                                                             foreach (var Q in QuestionBasedOnTestAndSubjects.OrderBy(m => m.QuestionNumber).Select((x, y) => new { Data = x, Index = y }))
                                                             {
-                                                               
+
                                                                 var classActive = string.Empty;
                                                                 var QuestionDiv = divSubjectId + "QuestionDiv" + Q.Index;
 
@@ -668,29 +668,29 @@
                                                                             @Q.Data.QuestionsMockTests.Direction
                                                                             @*<span class="hidden-xs hidden-sm">
 
-                                                                            </span>*@
+                                                                                </span>*@
                                                                         </span>
                                                                     </h6>
 
                                                                     <div class="row">
                                                                         @if (Q.Data.QuestionsMockTests.QuestionType == "WITHD")
                                                                         {
-                                                                        <div class="col-md-6 fix_height overflow_auto SearchParameters collapse" id="SearchParameters">
-                                                                            <p class="text-justify" style="word-wrap: break-word;">
-                                                                                @Q.Data.QuestionsMockTests.Description
-                                                                            </p>
-                                                                            @if (Q.Data.QuestionsMockTests.QuestionDescriptionImageFileId.HasValue)
-                                                                            {
-                                                                            <p> <img class="" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(Q.Data.QuestionsMockTests.QuestionDescriptionImageFileId.ToString())})' alt="" width="500"></p>
-                                                                            }
-                                                                        </div>
+                                                                            <div class="col-md-6 fix_height overflow_auto SearchParameters collapse" id="SearchParameters">
+                                                                                <p class="text-justify" style="word-wrap: break-word;">
+                                                                                    @Q.Data.QuestionsMockTests.Description
+                                                                                </p>
+                                                                                @if (Q.Data.QuestionsMockTests.QuestionDescriptionImageFileId.HasValue)
+                                                                                {
+                                                                                    <p> <img class="" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(Q.Data.QuestionsMockTests.QuestionDescriptionImageFileId.ToString())})' alt="" width="500"></p>
+                                                                                }
+                                                                            </div>
                                                                         }
                                                                         else
                                                                         {
                                                                             if (Q.Data.QuestionsMockTests.QuestionDescriptionImageFileId.HasValue)
                                                                             {
                                                                                 <div class="col-md-6 fix_height overflow_auto SearchParameters collapse" id="SearchParameters">
-                                                                           
+
                                                                                     <p> <img class="" src='@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(Q.Data.QuestionsMockTests.QuestionDescriptionImageFileId.ToString())})' alt="" width="500"></p>
 
                                                                                 </div>
@@ -747,11 +747,11 @@
 
                                                                                 <br />
                                                                                 @*@if (true)
-                {
-                    <div id="Solution" style="display:none;">
-                        <textarea type="text" class="form-control"></textarea>
-                    </div>
-                }*@
+                                                                                    {
+                                                                                        <div id="Solution" style="display:none;">
+                                                                                            <textarea type="text" class="form-control"></textarea>
+                                                                                        </div>
+                                                                                    }*@
 
 
                                                                             </div>
@@ -804,7 +804,7 @@
                                             if (Model.MockTestAttemptDetails != null && Model.MockTestAttemptDetails.Count() > 0)
                                             {
                                                 var QuestionBasedOnTestAndSubjects = Model.MockTestAttemptDetails.Where(m => m.SubjectId == item.Data.SubjectId).ToList();
-                                                var FinalQuestionAttemptDetailId = QuestionBasedOnTestAndSubjects.Count()>0 ? QuestionBasedOnTestAndSubjects.OrderByDescending(m => m.AttemptDetailId).FirstOrDefault().AttemptDetailId:0;
+                                                var FinalQuestionAttemptDetailId = QuestionBasedOnTestAndSubjects.Count() > 0 ? QuestionBasedOnTestAndSubjects.OrderByDescending(m => m.AttemptDetailId).FirstOrDefault().AttemptDetailId : 0;
 
                                                 foreach (var Q in QuestionBasedOnTestAndSubjects.OrderBy(m => m.QuestionNumber).Select((x, y) => new { Data = x, Index = y }))
                                                 {
@@ -815,25 +815,67 @@
                                                     var QuestionNumnber = "Qnumber" + item.Data.SubjectId + "_" + Q.Data.QuestionsMockTests.QuestionNumber;
 
                                                     var IsLastQ = Q.Data.AttemptDetailId == FinalQuestionAttemptDetailId ? true : false;
-
-                                                    if (Q.Index == 0)
+                                                    var PauseClass = string.Empty;
+                                                    if (Model.IsPaused)
                                                     {
-                                                        classnot_answered = "not_visited";
+                                                        if (Q.Data.AnswerStatus == "NOTATTEMPTED")
+                                                        {
+                                                            PauseClass = "not_visited";
+                                                        }
+                                                        else if (Q.Data.AnswerStatus == "NOTANSWERED")
+                                                        {
+                                                              PauseClass = "NotAnsweredImportant";
+                                                        }
+                                                        else if (Q.Data.AnswerStatus == "ANSWERED")
+                                                        {
+                                                            PauseClass = "AnsweredImportant";
+                                                        }
+                                                        else if (Q.Data.AnswerStatus == "MARKED")
+                                                        {
+                                                            PauseClass = "MarkedImportant";
+                                                        }
+                                                     
+                                                        if (Q.Index == 0)
+                                                        {
+                                                            //classnot_answered = "not_visited";
 
-                                                        <li>
-                                                            <button id="@QBtn" data-questionnumber="@QuestionNumnber" data-subjectid="@item.Data.SubjectId" data-finalq="@IsLastQ" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered @QuestionNumnber" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuestionsMockTests.QuestionNumber">@Q.Data.QuestionsMockTests.QuestionNumber</button>
+                                                            <li>
+                                                            <button style="color:white" id = "@QBtn" data-questionnumber = "@QuestionNumnber" data-subjectid = "@item.Data.SubjectId" data-finalq = "@IsLastQ" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @PauseClass @QuestionNumnber" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuestionsMockTests.QuestionNumber">@Q.Data.QuestionsMockTests.QuestionNumber</button>
                                                             <input type="hidden" id="QDiv" value="@QuestionDiv" />
-                                                            @*<input type="hidden" id="QAnswerStatus" value="NOTATTEMPTED" />*@
-                                                        </li>
+
+                                                            </li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li>
+                                                                <button style="color:white" id="@QBtn" data-questionnumber="@QuestionNumnber" data-subjectid="@item.Data.SubjectId" data-finalq="@IsLastQ" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @PauseClass @QuestionNumnber" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuestionsMockTests.QuestionNumber">@Q.Data.QuestionsMockTests.QuestionNumber</button>
+                                                                <input type="hidden" id="QDiv" value="@QuestionDiv" />
+
+                                                            </li>
+
+                                                        }
                                                     }
                                                     else
                                                     {
-                                                        <li>
-                                                            <button id="@QBtn" data-questionnumber="@QuestionNumnber" data-subjectid="@item.Data.SubjectId" data-finalq="@IsLastQ" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered @QuestionNumnber" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuestionsMockTests.QuestionNumber">@Q.Data.QuestionsMockTests.QuestionNumber</button>
-                                                            <input type="hidden" id="QDiv" value="@QuestionDiv" />
-                                                            @*<input type="hidden" id="QAnswerStatus" value="NOTATTEMPTED" />*@
-                                                        </li>
+                                                        if (Q.Index == 0)
+                                                        {
+                                                            classnot_answered = "not_visited";
 
+                                                            <li>
+                                                                <button style="color:white" id="@QBtn" data-questionnumber="@QuestionNumnber" data-subjectid="@item.Data.SubjectId" data-finalq="@IsLastQ" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered @QuestionNumnber" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuestionsMockTests.QuestionNumber">@Q.Data.QuestionsMockTests.QuestionNumber</button>
+                                                                <input type="hidden" id="QDiv" value="@QuestionDiv" />
+
+                                                            </li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li>
+                                                                <button style="color:white" id="@QBtn" data-questionnumber="@QuestionNumnber" data-subjectid="@item.Data.SubjectId" data-finalq="@IsLastQ" class="tablinksQuestions page-numbers @classIsFirst @QuestionDiv  @classnot_answered @QuestionNumnber" onclick="openQuestion(event, '@QuestionDiv')" title="Question @Q.Data.QuestionsMockTests.QuestionNumber">@Q.Data.QuestionsMockTests.QuestionNumber</button>
+                                                                <input type="hidden" id="QDiv" value="@QuestionDiv" />
+
+                                                            </li>
+
+                                                        }
                                                     }
 
                                                 }
@@ -920,7 +962,7 @@
                         </div>
                     </div>
                     <!--
-                <button type = "button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+                    <button type = "button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
                     <!-- Modal -->
                     <div class="modal fade" id="instructionModal" role="dialog" backdrop="static">
                         <div class="modal-dialog modal-lg">
@@ -929,8 +971,8 @@
                             <div class="modal-content">
                                 <!--  <div class="modal-header">
 
-                              <h4 class="modal-title text-center">Instructions</h4>
-                            </div> -->
+                                  <h4 class="modal-title text-center">Instructions</h4>
+                                </div> -->
                                 <div class="modal-body">
 
                                     <div class="container custom_container p0">
@@ -1000,8 +1042,8 @@
                                     </div>
                                 </div>
                                 <!--  <div class="modal-footer">
-                              <button type = "button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div> -->
+                                  <button type = "button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div> -->
                             </div>
 
                         </div>
@@ -1014,8 +1056,8 @@
                             <div class="modal-content">
                                 <!--  <div class="modal-header">
 
-                              <h4 class="modal-title text-center">Instructions</h4>
-                            </div> -->
+                                  <h4 class="modal-title text-center">Instructions</h4>
+                                </div> -->
                                 <div class="modal-body">
 
                                     <div class="container custom_container p0">
@@ -1099,8 +1141,8 @@
                             <div class="modal-content">
                                 <!--  <div class="modal-header">
 
-                              <h4 class="modal-title text-center">Instructions</h4>
-                            </div> -->
+                                  <h4 class="modal-title text-center">Instructions</h4>
+                                </div> -->
                                 <div class="modal-body responsive_modal">
 
                                     <div class="container custom_container p0 m_p0">
@@ -1108,13 +1150,13 @@
                                         <div class="service_info">
                                             <div class="row instructionHead mb_15">
                                                 @*<div class="col-md-12 sec_title text-center">
-                                                    <h2 class="f_p f_size_20 f_500 t_color2 mb-10">Remaining Time : <span class="answered">00:00:15</span> </h2>
-                                                </div>*@
+                                                        <h2 class="f_p f_size_20 f_500 t_color2 mb-10">Remaining Time : <span class="answered">00:00:15</span> </h2>
+                                                    </div>*@
                                                 <!--
-                                                                    <div class="col-md-3 language text-right">
-                                                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                        </div>
-                                            -->
+                                                                        <div class="col-md-3 language text-right">
+                                                                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                            </div>
+                                                -->
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="table-responsive">
@@ -1137,12 +1179,12 @@
                                                     <!--                            <h4 class="f_400 f_size_15 l_height28 t_color2 mb-0">Report Question</h4>-->
                                                     <!-- 	<ul class="row question_list list-unstyled page-numbers shop_page_number text-left ml-0 pt_20 pl_15">
 
-                                                    <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers answered" href="#">05 </a> <span>Answered </span></li>
-                                                    <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers not_answered" href="#">08 </a>Not Answered</li>
-                                                    <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers not_visited" href="#">15   </a>Not Visited</li>
-                                                    <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers marked_review" href="#"> 05</a>Marked for Review</li>
+                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers answered" href="#">05 </a> <span>Answered </span></li>
+                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers not_answered" href="#">08 </a>Not Answered</li>
+                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers not_visited" href="#">15   </a>Not Visited</li>
+                                                        <li class="col-md-6 mb_20 col-xs-6"><a class="page-numbers marked_review" href="#"> 05</a>Marked for Review</li>
 
-                                                </ul> -->
+                                                    </ul> -->
                                                     <!--  <img class="float-right" src="img/home2/undraw.png" alt=""> -->
                                                 </div>
 
@@ -1185,8 +1227,8 @@
                             <div class="modal-content">
                                 <!--  <div class="modal-header">
 
-                              <h4 class="modal-title text-center">Instructions</h4>
-                            </div> -->
+                                  <h4 class="modal-title text-center">Instructions</h4>
+                                </div> -->
                                 <div class="modal-body">
 
                                     <div class="container custom_container p0">
@@ -1197,10 +1239,10 @@
                                                     <h2 class="f_p f_size_20 f_500 t_color2 mb-10">Are you sure you want to pause the test? </h2>
                                                 </div>
                                                 <!--
-                                                                    <div class="col-md-3 language text-right">
-                                                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                        </div>
-                                            -->
+                                                                        <div class="col-md-3 language text-right">
+                                                                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                            </div>
+                                                -->
                                             </div>
 
                                         </div>
@@ -1230,21 +1272,21 @@
                             <div class="modal-content">
                                 <!--  <div class="modal-header">
 
-                              <h4 class="modal-title text-center">Instructions</h4>
-                            </div> -->
+                                  <h4 class="modal-title text-center">Instructions</h4>
+                                </div> -->
                                 <div class="modal-body">
 
                                     <div class="container custom_container m_p0">
 
                                         <div class="service_info">
                                             <!--
-                                                            <div class="row instructionHead mb_15">
-                                                                <div class="col-md-12 sec_title text-center">
-                                                                    <h2 class="f_p f_size_20 f_500 t_color2 mb-10">Remaining Time : <span class="answered">00:00:15</span> </h2>
-                                                                </div>
+                                                                <div class="row instructionHead mb_15">
+                                                                    <div class="col-md-12 sec_title text-center">
+                                                                        <h2 class="f_p f_size_20 f_500 t_color2 mb-10">Remaining Time : <span class="answered">00:00:15</span> </h2>
+                                                                    </div>
 
-                                                            </div>
-                                        -->
+                                                                </div>
+                                            -->
                                             <div class="col-lg-12 m_p0">
                                                 <div class="">
                                                     <!-- <div class="icon s_icon_one"><i class="ti-check"></i></div> -->
@@ -1933,9 +1975,9 @@
                 //var url = form.attr("action");
                 //var formData = form.serialize();
                 //$.post(url, formData, function (data) {
-                 
+
                 //});
-               
+
             }, 1000);
         }
     </script>
