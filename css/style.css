@@ -1863,7 +1863,7 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
 }
 
 .menu_four .menu_toggle .hamburger span, .menu_four .menu_toggle .hamburger-cross span {
-  background: #fff;
+  background: #6754e2;
 }
 
 .menu_five {
@@ -7743,7 +7743,7 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
   z-index: 2;
   background: url("../img/home9/shape_two.png") no-repeat scroll center 0;
   background-size: cover;
-      margin-top: -90px;
+     /* margin-top: -90px;*/
 	      background-color: #f2f3f3;
 }
 
@@ -21559,7 +21559,7 @@ a .h_head:hover {
 /*# sourceMappingURL=style.css.map */
 .LatestUpdate{
 	    background: #565fffd6;
-    padding: 7px 0px 0;
+    padding: 5px 0;
     color: #ffffff;
     background-image: -webkit-linear-gradient(0deg, #663cff 80%, #21d4fd 100%);
 }
@@ -21828,6 +21828,17 @@ div#accordion {
     line-height: 1.42857143;
     font-size: 14px;
 }
+
+i.ti-book {
+    line-height: 2.2 !important;
+}
+.question_list{
+height: calc(75vh - 78px);
+    overflow: auto;
+}
+img.student_img {
+    padding: 0px;
+	max-width: 24px;}
 	@media(max-width:768px){
 		.breadcrumb_area.test_detail {
     padding: 70px 0px 30px ;
