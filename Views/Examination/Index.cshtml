@@ -31,7 +31,15 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.blockUI.js"></script>
+
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    @*<script src="~/Scripts/jquery.form.min.js"></script>*@
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/js/propper.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/vendors/wow/wow.min.js"></script>
@@ -45,7 +53,6 @@
     <script src="~/vendors/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="~/js/plugins.js"></script>
     <script src="~/js/main.js"></script>
-    <script src="~/Scripts/jquery.form.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <style>
         section.service_area.sec_pad.s_service_section.breadcrumb_area.typography_breacrumb {
@@ -404,7 +411,7 @@
         .MarkedImportant {
             background-color: #8a63c0 !important;
             border: #8a63c0 !important;
-             color: #fff;
+            color: #fff;
         }
 
         .NotAnsweredImportant {
@@ -416,7 +423,7 @@
         .AnsweredImportant {
             background-color: #64b31a !important;
             border: #64b31a !important;
-           color: #fff;
+            color: #fff;
         }
 
         .CurrentSelected {
@@ -954,10 +961,10 @@
                         </div>
                         <div class="col-md-6 col-7 text-right">
 
-                            <a href="#" class="btn_hover agency_banner_btn answered hidden-xs" onclick="fnPrevious(this)"> Prev</a>
-                            <a href="#" class="btn_hover agency_banner_btn answered" onclick="fnNextAndSave(this)">Save &amp; Next</a>
-                            <a href="#" class="btn_hover agency_banner_btn report hidden-xs" data-toggle="modal" data-target="#pauseModal1" onclick="fnSaveAndPauseForm();">Pause</a>
-                            <a href="#" class="btn_hover agency_banner_btn answered" data-toggle="modal" data-target="#finishModal" onclick="fnSaveAndSubmitForm();">Finish</a>
+                            <a  class="btn_hover agency_banner_btn answered hidden-xs" onclick="fnPrevious(this)"> Prev</a>
+                            <a  class="btn_hover agency_banner_btn answered" onclick="fnNextAndSave(this)">Save &amp; Next</a>
+                            <a  class="btn_hover agency_banner_btn report hidden-xs" data-toggle="modal" data-target="#pauseModal1" onclick="fnSaveAndPauseForm();">Pause</a>
+                            <a  class="btn_hover agency_banner_btn answered" data-toggle="modal" data-target="#finishModal" onclick="fnSaveAndSubmitForm();">Finish</a>
 
                         </div>
                     </div>
@@ -1204,7 +1211,7 @@
                                             </div>
 
                                             <div class="col-md-6 col-xs-6 text-center">
-                                                <a href="" class="btn_hover agency_banner_btn m-0" onclick='LastAndFinalSubmitFrom(@Html.Raw(Json.Encode(new { ispaused ="false" })));'>Submit</a>
+                                                <a  class="btn_hover agency_banner_btn m-0" onclick='LastAndFinalSubmitFrom(@Html.Raw(Json.Encode(new { ispaused ="false" })));'>Submit</a>
                                             </div>
                                         </div>
 
