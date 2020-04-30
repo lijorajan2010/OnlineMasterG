@@ -715,7 +715,11 @@
                                                                                 {
                                                                                     foreach (var QP in Q.Data.QuestionsMockTests.QuestionPoints.Select((x, y) => new { Data = x, Index = y }))
                                                                                     {
-                                                                                        <p>(@(QP.Index + 1)) @QP.Data.QPoint .</p>
+                                                                                        if (!string.IsNullOrEmpty(QP.Data.QPoint))
+                                                                                        {
+                                                                                            <p>(@(QP.Index + 1)) @QP.Data.QPoint .</p>
+                                                                                        }
+
                                                                                     }
                                                                                 }
                                                                                 @if (Q.Data.QuestionsMockTests.QuestionImageFileId != null)
@@ -754,11 +758,11 @@
 
                                                                                 <br />
                                                                                 @*@if (true)
-                                                                                    {
-                                                                                        <div id="Solution" style="display:none;">
-                                                                                            <textarea type="text" class="form-control"></textarea>
-                                                                                        </div>
-                                                                                    }*@
+        {
+            <div id="Solution" style="display:none;">
+                <textarea type="text" class="form-control"></textarea>
+            </div>
+        }*@
 
 
                                                                             </div>
