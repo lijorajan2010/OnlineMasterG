@@ -38,6 +38,14 @@ namespace OnlineMasterG.CommonServices
                 .Where(x => x.Login.Equals(login, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
+        public static List<User> FetchStudentUserList()
+        {
+            return DB
+                .Users
+                 .AsNoTracking()
+                .Where(x => x.UserTypeCode == UserTypes.STUDENT.ToString())
+                .ToList();
+        }
         public static int? GetUserCompanyLogoDataFileId(string login, int? businessUnitId = null)
         {
             // Use login

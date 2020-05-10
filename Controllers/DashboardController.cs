@@ -26,6 +26,23 @@ namespace OnlineMasterG.Controllers
 
             return PartialView(_getTestimonials);
         }
+        public PartialViewResult getRegisteredStudentsList()
+        {
+            List<LoginVM> _getStudentList = new List<LoginVM>();
+            _getStudentList = GeneralService.RegisteredStudentList().Distinct().ToList();
+
+            return PartialView(_getStudentList);
+        }
+
+        public PartialViewResult getReportedQuestionsList()
+        {
+            List<LoginVM> _getReportedQuestionsList = new List<LoginVM>();
+            _getReportedQuestionsList = GeneralService.RegisteredStudentList().Distinct().ToList();
+
+            return PartialView(_getReportedQuestionsList);
+        }
+        
+
 
         [HttpPost]
         public JsonResult ApproveReview(int AttemptId)

@@ -1912,6 +1912,8 @@
     <Content Include="Views\Dashboard\getTestimonailasList.cshtml" />
     <Content Include="Views\Examination\Index2.cshtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
+    <Content Include="Views\Dashboard\getRegisteredStudentsList.cshtml" />
+    <Content Include="Views\Dashboard\getReportedQuestionsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

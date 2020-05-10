@@ -11,7 +11,7 @@ namespace OnlineMasterG.CommonServices
 {
     public class GeneralService : ServiceBase
     {
-       
+
         public static ServiceResponse SaveInstruction(List<GeneralInstruction> instruction, string auditlogin)
         {
             ServiceResponse sr = new ServiceResponse();
@@ -31,9 +31,9 @@ namespace OnlineMasterG.CommonServices
             return sr;
         }
 
-        
-       
-        
+
+
+
         internal static List<TestimonialsVM> TestimonialsVMList()
         {
             List<TestimonialsVM> list = new List<TestimonialsVM>();
@@ -55,6 +55,29 @@ namespace OnlineMasterG.CommonServices
                         IsApproved = item.IsReviewApproved,
                         AttemptId = item.AttemptId,
                         TestName = TestService.Fetch(item.TestId)?.TestName
+                    });
+                }
+            }
+
+            return list;
+        }
+
+        internal static List<LoginVM> RegisteredStudentList()
+        {
+            List<LoginVM> list = new List<LoginVM>();
+
+            var StudentsRegistered = UserService.FetchStudentUserList();
+
+            if (StudentsRegistered != null && StudentsRegistered.Count() > 0)
+            {
+                foreach (var item in StudentsRegistered)
+                {
+                    list.Add(new LoginVM()
+                    {
+                        FirstName = item.FirstName,
+                        LastName = item.LastName,
+                        LogoImgDataFileId = item.LogoDataFileId,
+                        Email = item.Login
                     });
                 }
             }
@@ -97,7 +120,7 @@ namespace OnlineMasterG.CommonServices
                  .Where(m => m.LanguageCode == Lang && m.Isactive == IsActive)
                  .ToList();
         }
-        
+
         internal static List<LatestUpdate> LatestAllUpdatesList(string Lang)
         {
             return DB.LatestUpdates

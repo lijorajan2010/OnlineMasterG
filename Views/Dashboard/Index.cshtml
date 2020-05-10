@@ -8,6 +8,8 @@
 <script>
     var URL = {
         TESTIMONAILASLIST: '@Url.Action("getTestimonailasList", "Dashboard")',
+        REGISTEREDSTUDENETSLIST: '@Url.Action("getRegisteredStudentsList", "Dashboard")',
+        REPORTEDQUESTIONSLIST: '@Url.Action("getReportedQuestionsList", "Dashboard")',
         APPROVEREVIEW: '@Url.Action("ApproveReview", "Dashboard")',
         DENYREVIEW: '@Url.Action("DenyReview", "Dashboard")',
     };
@@ -46,12 +48,51 @@
                 </div>
             </div>
         </div>
+        <br />
+        <br />
+
+        <div class="card mb-3">
+            <div class="card-header-tab card-header">
+                <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>Total Registered Students </div>
+
+            </div>
+            <div class="card mb-3">
+                <hr />
+
+                <div class="card-body table-responsive">
+                    <div id="tblRegisteredStudentsList">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <br />
+
+        <div class="card mb-3">
+            <div class="card-header-tab card-header">
+                <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>Reported Questions</div>
+
+            </div>
+            <div class="card mb-3">
+                <hr />
+
+                <div class="card-body table-responsive">
+                    <div id="tblReportedQuestionsList">
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
     $(document).ready(function () {
         setupReviewList();
+        setupRegisteredStudentsList();
+        setupReportedQuestionsList();
     });
 
     function fnApproval(obj) {
@@ -87,6 +128,14 @@
     function setupReviewList() {
         $.getDataTableList(URL.TESTIMONAILASLIST, $("#tblReviewsList"));
     }
+    function setupRegisteredStudentsList() {
+        $.getDataTableList(URL.REGISTEREDSTUDENETSLIST, $("#tblRegisteredStudentsList"));
+    }
+    function setupReportedQuestionsList() {
+        $.getDataTableList(URL.REPORTEDQUESTIONSLIST, $("#tblReportedQuestionsList"));
+    }
+
+    
 
 
 </script>

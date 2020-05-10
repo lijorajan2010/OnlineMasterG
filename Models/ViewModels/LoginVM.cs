@@ -15,8 +15,10 @@ namespace OnlineMasterG.Models.ViewModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string ReturnUrl { get; set; }
+        public string Email { get; set; }
         public bool IsRememberMe { get; set; }
         public int ImgDataFileId { get; set; }
+        public int? LogoImgDataFileId { get; set; }
         public HttpPostedFileBase postedFile { get; set; }
     }
 }
