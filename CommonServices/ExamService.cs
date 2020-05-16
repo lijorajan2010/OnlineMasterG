@@ -187,10 +187,8 @@ namespace OnlineMasterG.CommonServices
             var Attempt = DB.MockTestAttempts.ToList();
             if (Attempt != null)
             {
-                Attempt.Rating = rating.HasValue ? rating.Value : 0;
-                Attempt.Review = Review;
             }
-            DB.SaveChanges();
+          
         }
     }
 }

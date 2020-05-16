@@ -1137,7 +1137,7 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
 }
 
 .menu > .nav-item.submenu .dropdown-menu .nav-item .nav-link {
-  padding: 0px 40px;
+  padding: 0 20px 0;
   white-space: nowrap;
   font: 400 14px/34px "Poppins", sans-serif;
   color: #051441;
@@ -21841,6 +21841,6 @@ img.student_img {
 	max-width: 24px;}
 	@media(max-width:768px){
 		.breadcrumb_area.test_detail {
-    padding: 70px 0px 30px ;
+    padding: 15px 0px 30px !important;
 }
 	}

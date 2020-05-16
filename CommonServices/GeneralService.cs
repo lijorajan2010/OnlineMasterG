@@ -97,10 +97,7 @@ namespace OnlineMasterG.CommonServices
                 {
                     list.Add(new ReportedQuestionsVM()
                     {
-                        FirstName = item.FirstName,
-                        LastName = item.LastName,
-                        LogoImgDataFileId = item.LogoDataFileId,
-                        Email = item.Login
+                       
                     });
                 }
             }

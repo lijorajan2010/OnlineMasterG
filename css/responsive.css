@@ -1,3 +1,6 @@
+div.accordion .service_item h4 {
+    font-size: 15px;
+}
 @media (min-width:769px){
 	.hidden-md, .hidden-lg{
 		display:none;
@@ -2267,7 +2270,7 @@
     }
     .software_service_tab .nav-item{
         display: inline-block;
-        margin-bottom: 20px;
+        margin-bottom: 3px;
     }
     .software_service_tab_content{
         margin-top: 60px;
@@ -2791,21 +2794,22 @@
     }
 	.navbar-brand{margin-left: 0;}
 	.navbar-expand-lg .navbar-nav {margin-left: 21px !important;padding:0;}
-	.course_section .s_service_section{margin-top: 0px;}
-	.course_section .software_service_tab li:first-child{display:block;}
-	.course_section .software_service_tab li:first-child a h5{font-size:15px;}
-	.course_section .software_service_tab li a{font:400 13px "Poppins", sans-serif !important}
-	.course_section .software_service_tab .nav-item .nav-link{border-left-width: 2px;padding: 6px 3px 4px 8px;}
-	.course_section .test_details .agency_banner_btn, .test_details .btn_get{min-width: auto;font-size: 12px;margin: 0 !important;padding: 8px 10px;}
-	.course_section #accordion .agency_banner_btn{min-width: auto;}
-	.course_section .sec_title{margin-top:10px;}
-	.course_section #accordion .OpenCloseBtn.ti-plus:before{font-size:12px;}
-	.course_section #accordion, .course_section button.btn.btn-link{text-align:center !important;}
-	.course_section #accordion h4,.course_section #accordion p{font-size:12px;line-height: normal;}
+	.test_details .s_service_section{margin-top: 0px;}
+	.test_details .software_service_tab li:first-child{display:block;}
+	.test_details .software_service_tab li:first-child a h5{font-size:15px;}
+	.test_details .software_service_tab li a{font:400 13px "Poppins", sans-serif !important}
+	.test_details .software_service_tab .nav-item .nav-link{border-left-width: 2px;padding: 6px 3px 4px 8px;font-size: 13px;}
+	.test_details .test_details .agency_banner_btn, .test_details .btn_get{min-width: auto;font-size: 12px;margin: 0 !important;padding: 5px;}
+	.test_details #accordion .agency_banner_btn{min-width: auto;}
+	.test_details .sec_title{margin-top:10px;}
+	.test_details #accordion .OpenCloseBtn.ti-plus:before{font-size:12px;}
+	.test_details #accordion, .course_section button.btn.btn-link{text-align:center !important;}
+	.test_details #accordion h4,.course_section #accordion p{font-size:12px;line-height: normal;}
+.test_details br{display:none;}
 	/* .course_section .payment_service_area{padding-bottom:0;} */
 /* 	.course_section .footer_nine_top{padding-top:0;}
  */	.software_service_tab .nav-item .nav-link:before{border-width: 6px 0 6px 6px;}
- .payment_service_area{padding-top: 30px;padding-bottom: 0;background-color: #4b76fe;margin-top: 0;}
+ .payment_service_area{padding-top: 30px !important;padding-bottom: 0 !important;background-color: #4b76fe;margin-top: 0;}
  .footer_nine_top {padding-bottom: 100px; padding: 20px 0 0 !important;}
 	.m_p0{padding:0 !important;}
 .col-xs-6{width:50%;}
@@ -2816,7 +2820,16 @@
 .login-form .extra{margin:0;}
 .service_item img{margin-right:0;}
 .test_details .service_item{padding:0;}
-
+.nav-tabs .nav-link{padding: 6px;font-size: 13px;}
+.test_details .agency_banner_btn, .test_details .btn_get {
+	padding: 6px 8px}
+	.payment_service_item {
+    margin-bottom: 30px;
+}
+	.container.custom_container.p0.hidden-lg.hidden-md.mobile_navi {
+    margin-top: 65px;
+}
+	
 }
  
 @media (max-width:650px){
