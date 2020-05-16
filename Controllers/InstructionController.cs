@@ -33,7 +33,13 @@ namespace OnlineMasterG.Controllers
             {
                 isReattempt = Convert.ToBoolean(CustomEncrypt.SafeUrlDecrypt(s));
             }
-
+            string TestName = string.Empty;
+            if (TestId!=0)
+            {
+                var TestDetails = TestService.Fetch(TestId);
+                TestName = TestDetails.TestName;
+            }
+            ViewBag.TestName = TestName;
             ViewBag.TestId = TestId;
             ViewBag.IsReattempt = isReattempt;
             ViewBag.ResumeAttemptId = ResumeAttemptId;

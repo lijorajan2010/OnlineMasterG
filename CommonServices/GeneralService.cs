@@ -84,6 +84,29 @@ namespace OnlineMasterG.CommonServices
 
             return list;
         }
+
+        internal static List<ReportedQuestionsVM> ReportedQuestionsList()
+        {
+            List<ReportedQuestionsVM> list = new List<ReportedQuestionsVM>();
+
+            var StudentsReported = UserService.FetchStudentUserList();
+
+            if (StudentsReported != null && StudentsReported.Count() > 0)
+            {
+                foreach (var item in StudentsReported)
+                {
+                    list.Add(new ReportedQuestionsVM()
+                    {
+                        FirstName = item.FirstName,
+                        LastName = item.LastName,
+                        LogoImgDataFileId = item.LogoDataFileId,
+                        Email = item.Login
+                    });
+                }
+            }
+
+            return list;
+        }
         internal static List<TestimonialsVM> TestimonialsVMApprovedList()
         {
             List<TestimonialsVM> list = new List<TestimonialsVM>();

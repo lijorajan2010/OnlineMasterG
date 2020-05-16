@@ -181,5 +181,16 @@ namespace OnlineMasterG.CommonServices
             }
             DB.SaveChanges();
         }
+
+        internal static void GetReportedQuestions(int attemptId, int? rating, string Review)
+        {
+            var Attempt = DB.MockTestAttempts.ToList();
+            if (Attempt != null)
+            {
+                Attempt.Rating = rating.HasValue ? rating.Value : 0;
+                Attempt.Review = Review;
+            }
+            DB.SaveChanges();
+        }
     }
 }

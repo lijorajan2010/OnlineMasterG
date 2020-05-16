@@ -1,1 +1,50 @@
 ﻿
+@model List<OnlineMasterG.Models.ViewModels.LoginVM>
+
+@using OnlineMasterG.CommonFramework
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#tblStudentList").DataTable();
+    });
+</script>
+
+<table id="tblStudentList" class="dataTables_wrapper dt-bootstrap4 no-footer">
+    <thead>
+        <tr>
+            <th style="width:30px;">Sl No.</th>
+            <th>Student Name</th>
+            <th>Email</th>
+            <th>Photo</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model.Select((x, y) => new { Data = x, Index = y }))
+            {
+                <tr>
+                    <td>@(item.Index + 1)</td>
+                    <td>@item.Data.FirstName  @item.Data.LastName</td>
+                    <td>@item.Data.Email </td>
+                    <td>
+                        @if (item.Data.LogoImgDataFileId.HasValue)
+                        {
+                            <img width="42" class="rounded-circle" src="@Url.Action("View", "DataFile", new {p=CustomEncrypt.Encrypt(item.Data.LogoImgDataFileId.Value.ToString())})" alt="">
+                        }
+                        else
+                        {
+                            <img width="42" class="rounded-circle" src="~/assets/images/avatars/AvatarImage.png" alt="">
+                        }
+                    </td>
+
+                </tr>
+
+            }
+
+        }
+    </tbody>
+</table>
+

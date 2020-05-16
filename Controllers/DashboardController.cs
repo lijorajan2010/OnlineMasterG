@@ -34,13 +34,13 @@ namespace OnlineMasterG.Controllers
             return PartialView(_getStudentList);
         }
 
-        public PartialViewResult getReportedQuestionsList()
-        {
-            List<LoginVM> _getReportedQuestionsList = new List<LoginVM>();
-            _getReportedQuestionsList = GeneralService.RegisteredStudentList().Distinct().ToList();
+        //public PartialViewResult getReportedQuestionsList()
+        //{
+        //    List<ReportedQuestionsVM> _getReportedQuestionsList = new List<ReportedQuestionsVM>();
+        //    _getReportedQuestionsList = GeneralService.ReportedQuestionsList().Distinct().ToList();
 
-            return PartialView(_getReportedQuestionsList);
-        }
+        //    return PartialView(_getReportedQuestionsList);
+        //}
         
 
 

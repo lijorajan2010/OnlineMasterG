@@ -478,6 +478,7 @@
     <Compile Include="Models\ViewModels\QuestionUploadVM.cs" />
     <Compile Include="Models\ViewModels\PaperVM.cs" />
     <Compile Include="Models\ViewModels\ReportCardVM.cs" />
+    <Compile Include="Models\ViewModels\ReportedQuestionsVM.cs" />
     <Compile Include="Models\ViewModels\SubjectVM.cs" />
     <Compile Include="Models\ViewModels\TestimonialsVM.cs" />
     <Compile Include="Models\ViewModels\TestVM.cs" />

@@ -21,10 +21,9 @@ namespace OnlineMasterG.Controllers
             var FinalTestDropdown = TestList.Select(m => new
             {
                 TestId = m.TestId,
-                TestName = m.TestName + "-" +
-                CourseService.Fetch(m.CourseId).CourseName + " -" +
+                TestName = CourseService.Fetch(m.CourseId).CourseName + " -" +
                 CategoryService.Fetch(m.CategoryId).CategoryName + " -" +
-                SectionService.Fetch(m.SectionId).SectionName
+                SectionService.Fetch(m.SectionId).SectionName + "-" + m.TestName 
             });
 
             ViewBag.TestList = new SelectList(FinalTestDropdown, "TestId", "TestName");
