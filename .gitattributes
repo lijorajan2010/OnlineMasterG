@@ -7,3 +7,4 @@ Content/* linguist-vendored
 *.cshtml linguist-detectable=false  
 *.xml linguist-detectable=false 
 *.asm linguist-detectable=false 
+*.css linguist-detectable=false 
