@@ -1,4 +1,5 @@
 Views/* linguist-vendored
+Content/* linguist-vendored
 *.csharp linguist-detectable=true  
 *.java linguist-detectable=false  
 *.js linguist-detectable=false  
